@@ -96,6 +96,10 @@ targets:
         mode: lint-only
         verilator_options:
           - "-Wall"
+      veriblelint:
+        ruleset: default
+        rules:
+          - "-parameter-name-style"
 
   syn:
     <<: *default_target
@@ -106,3 +110,14 @@ targets:
     parameters:
       - SYNTHESIS=true
     toplevel: top_earlgrey
+
+  format:
+    <<: *default_target
+    default_tool: veribleformat
+    filesets:
+      - files_rtl_generic
+    toplevel: top_earlgrey
+    tools:
+      veribleformat:
+        verible_format_args:
+          - "--inplace"
