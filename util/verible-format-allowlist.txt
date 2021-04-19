@@ -53,7 +53,6 @@ hw/ip/rv_dm/dv/tests/rv_dm_test_pkg.sv
 hw/ip/rv_dm/dv/tests/rv_dm_base_test.sv
 hw/ip/rv_dm/dv/tb.sv
 hw/ip/rv_dm/dv/test/riscv_jtag_sba_test.sv
-hw/ip/rv_dm/dv/jtag_if.sv
 hw/ip/rv_dm/dv/seq/rjtag_dmi_sequence.sv
 hw/ip/rv_dm/dv/seq/rjtag_seq_item.sv
 hw/ip/rv_dm/dv/env/rv_dm_if.sv
