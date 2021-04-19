@@ -7,7 +7,9 @@
 
 `include "prim_assert.sv"
 
-module pwrmgr_slow_fsm import pwrmgr_pkg::*; (
+module pwrmgr_slow_fsm
+  import pwrmgr_pkg::*;
+(
   input clk_i,
   input rst_ni,
 
@@ -31,7 +33,7 @@ module pwrmgr_slow_fsm import pwrmgr_pkg::*; (
   input usb_clk_en_active_i,
 
   // AST interface
-  input pwr_ast_rsp_t ast_i,
+  input  pwr_ast_rsp_t ast_i,
   output pwr_ast_req_t ast_o
 );
 
@@ -68,9 +70,9 @@ module pwrmgr_slow_fsm import pwrmgr_pkg::*; (
 
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin
-      state_q        <= SlowPwrStateReset;
-      cause_q        <= Por;
-      cause_toggle_q <= 1'b0;
+      state_q           <= SlowPwrStateReset;
+      cause_q           <= Por;
+      cause_toggle_q    <= 1'b0;
       // pwrmgr resets assuming main power domain is already ready
       pd_nq          <= 1'b1;
       pwr_clamp_q    <= 1'b0;
@@ -106,10 +108,10 @@ module pwrmgr_slow_fsm import pwrmgr_pkg::*; (
     io_clk_en_d    = io_clk_en_q;
     usb_clk_en_d   = usb_clk_en_q;
 
-    req_pwrup_d    = req_pwrup_q;
-    ack_pwrdn_d    = ack_pwrdn_q;
+    req_pwrup_d       = req_pwrup_q;
+    ack_pwrdn_d       = ack_pwrdn_q;
 
-    unique case(state_q)
+    unique case (state_q)
 
       SlowPwrStateReset: begin
         state_d = SlowPwrStateMainPowerOn;
@@ -142,8 +144,8 @@ module pwrmgr_slow_fsm import pwrmgr_pkg::*; (
 
       SlowPwrStateClocksOn: begin
         core_clk_en_d = 1'b1;
-        io_clk_en_d = 1'b1;
-        usb_clk_en_d = usb_clk_en_active_i;
+        io_clk_en_d   = 1'b1;
+        usb_clk_en_d  = usb_clk_en_active_i;
 
         if (all_clks_valid) begin
           state_d = SlowPwrStateReqPwrUp;
@@ -182,8 +184,8 @@ module pwrmgr_slow_fsm import pwrmgr_pkg::*; (
 
       SlowPwrStateClocksOff: begin
         core_clk_en_d = core_clk_en_i;
-        io_clk_en_d = io_clk_en_i;
-        usb_clk_en_d = usb_clk_en_lp_i;
+        io_clk_en_d   = io_clk_en_i;
+        usb_clk_en_d  = usb_clk_en_lp_i;
 
         if (all_clks_invalid) begin
           // if main power is turned off, assert early clamp ahead
@@ -217,8 +219,8 @@ module pwrmgr_slow_fsm import pwrmgr_pkg::*; (
       end
 
 
-    endcase // unique case (state_q)
-  end // always_comb
+    endcase  // unique case (state_q)
+  end  // always_comb
 
 
   assign pwrup_cause_o = cause_q;

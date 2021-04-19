@@ -103,3 +103,8 @@ hw/dv/sv/alert_esc_agent/seq_lib/alert_receiver_alert_rsp_seq.sv
 hw/dv/sv/alert_esc_agent/seq_lib/alert_sender_ping_rsp_seq.sv
 hw/dv/sv/alert_esc_agent/seq_lib/esc_receiver_esc_rsp_seq.sv
 hw/dv/sv/alert_esc_agent/alert_esc_seq_item.sv
+hw/ip/pwrmgr/rtl/pwrmgr_cdc.sv
+hw/ip/pwrmgr/rtl/pwrmgr_wake_info.sv
+hw/ip/pwrmgr/rtl/pwrmgr_cdc_pulse.sv
+hw/ip/pwrmgr/rtl/pwrmgr_slow_fsm.sv
+hw/ip/pwrmgr/rtl/pwrmgr_fsm.sv
