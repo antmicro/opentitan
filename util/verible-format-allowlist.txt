@@ -141,3 +141,14 @@ hw/ip/keymgr/dv/env/seq_lib/keymgr_sw_invalid_input_vseq.sv
 hw/ip/keymgr/dv/env/seq_lib/keymgr_cmd_invalid_vseq.sv
 hw/ip/keymgr/dv/env/keymgr_env_cov.sv
 hw/ip/keymgr/dv/env/keymgr_env_cfg.sv
+hw/ip/csrng/rtl/csrng.sv
+hw/ip/csrng/rtl/csrng_pkg.sv
+hw/ip/csrng/dv/tests/csrng_base_test.sv
+hw/ip/csrng/dv/tests/csrng_test_pkg.sv
+hw/ip/csrng/dv/env/csrng_env_pkg.sv
+hw/ip/csrng/dv/env/csrng_virtual_sequencer.sv
+hw/ip/csrng/dv/env/seq_lib/csrng_smoke_vseq.sv
+hw/ip/csrng/dv/env/seq_lib/csrng_vseq_list.sv
+hw/ip/csrng/dv/env/seq_lib/csrng_base_vseq.sv
+hw/ip/csrng/dv/env/seq_lib/csrng_common_vseq.sv
+hw/ip/csrng/dv/env/csrng_env_cov.sv

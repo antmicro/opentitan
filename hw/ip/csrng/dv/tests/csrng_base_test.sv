@@ -3,9 +3,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 class csrng_base_test extends cip_base_test #(
-    .CFG_T(csrng_env_cfg),
-    .ENV_T(csrng_env)
-  );
+  .CFG_T(csrng_env_cfg),
+  .ENV_T(csrng_env)
+);
 
   `uvm_component_utils(csrng_base_test)
   `uvm_component_new
