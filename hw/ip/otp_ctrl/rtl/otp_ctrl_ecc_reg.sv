@@ -14,12 +14,12 @@ module otp_ctrl_ecc_reg #(
   parameter  int Depth = 128,
   localparam int Aw    = prim_util_pkg::vbits(Depth) // derived parameter
 ) (
-  input  logic                        clk_i,
-  input  logic                        rst_ni,
+  input logic clk_i,
+  input logic rst_ni,
 
-  input  logic                        wren_i,
-  input  logic [Aw-1:0]               addr_i,
-  input  logic [Width-1:0]            wdata_i,
+  input logic             wren_i,
+  input logic [   Aw-1:0] addr_i,
+  input logic [Width-1:0] wdata_i,
 
   // Concurrent output of the register state.
   output logic [Depth-1:0][Width-1:0] data_o,
@@ -89,9 +89,9 @@ module otp_ctrl_ecc_reg #(
     end
   end
 
-  `ASSERT_KNOWN(EccKnown_A,     ecc_q)
-  `ASSERT_KNOWN(DataKnown_A,    data_q)
+  `ASSERT_KNOWN(EccKnown_A, ecc_q)
+  `ASSERT_KNOWN(DataKnown_A, data_q)
   `ASSERT_KNOWN(DataOutKnown_A, data_o)
-  `ASSERT_KNOWN(EccErrKnown_A,  ecc_err_o)
+  `ASSERT_KNOWN(EccErrKnown_A, ecc_err_o)
 
 endmodule : otp_ctrl_ecc_reg
