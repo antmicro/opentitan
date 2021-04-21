@@ -169,10 +169,10 @@ module pwrmgr_fsm
   prim_flop_2sync #(
     .Width(1)
   ) u_slow_sync_lc_done (
-    .clk_i(clk_slow_i),
+    .clk_i (clk_slow_i),
     .rst_ni(rst_slow_ni),
-    .d_i(lc_done_i),
-    .q_o(slow_lc_done)
+    .d_i   (lc_done_i),
+    .q_o   (slow_lc_done)
   );
 
   prim_flop_2sync #(

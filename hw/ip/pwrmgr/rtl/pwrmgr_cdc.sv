@@ -80,19 +80,19 @@ module pwrmgr_cdc
   prim_flop_2sync #(
     .Width(1)
   ) i_req_pwrdn_sync (
-    .clk_i(clk_slow_i),
+    .clk_i (clk_slow_i),
     .rst_ni(rst_slow_ni),
-    .d_i(req_pwrdn_i),
-    .q_o(slow_req_pwrdn_o)
+    .d_i   (req_pwrdn_i),
+    .q_o   (slow_req_pwrdn_o)
   );
 
   prim_flop_2sync #(
     .Width(1)
   ) i_ack_pwrup_sync (
-    .clk_i(clk_slow_i),
+    .clk_i (clk_slow_i),
     .rst_ni(rst_slow_ni),
-    .d_i(ack_pwrup_i),
-    .q_o(slow_ack_pwrup_o)
+    .d_i   (ack_pwrup_i),
+    .q_o   (slow_ack_pwrup_o)
   );
 
   prim_pulse_sync i_slow_cdc_sync (

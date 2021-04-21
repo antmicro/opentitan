@@ -73,7 +73,7 @@ module otp_ctrl_ecc_reg #(
       // and not on error correction.
       .data_o(),
       .syndrome_o(),
-      .err_o(err[k])
+      .err_o     (err[k])
     );
   end
 
