@@ -116,8 +116,8 @@ package otp_ctrl_part_pkg;
   ////////////////////////
 
   localparam part_info_t PartInfo[NumPart] = '{
-  // CREATOR_SW_CFG
-  '{
+      // CREATOR_SW_CFG
+      '{
       variant:    Unbuffered,
       offset:     11'd0,
       size:       768,
@@ -127,8 +127,8 @@ package otp_ctrl_part_pkg;
       write_lock: 1'b1,
       read_lock:  1'b0
     },
-  // OWNER_SW_CFG
-  '{
+      // OWNER_SW_CFG
+      '{
       variant:    Unbuffered,
       offset:     11'd768,
       size:       768,
@@ -138,8 +138,8 @@ package otp_ctrl_part_pkg;
       write_lock: 1'b1,
       read_lock:  1'b0
     },
-  // HW_CFG
-  '{
+      // HW_CFG
+      '{
       variant:    Buffered,
       offset:     11'd1536,
       size:       240,
@@ -149,8 +149,8 @@ package otp_ctrl_part_pkg;
       write_lock: 1'b1,
       read_lock:  1'b0
     },
-  // SECRET0
-  '{
+      // SECRET0
+      '{
       variant:    Buffered,
       offset:     11'd1776,
       size:       40,
@@ -160,8 +160,8 @@ package otp_ctrl_part_pkg;
       write_lock: 1'b1,
       read_lock:  1'b1
     },
-  // SECRET1
-  '{
+      // SECRET1
+      '{
       variant:    Buffered,
       offset:     11'd1816,
       size:       88,
@@ -171,8 +171,8 @@ package otp_ctrl_part_pkg;
       write_lock: 1'b1,
       read_lock:  1'b1
     },
-  // SECRET2
-  '{
+      // SECRET2
+      '{
       variant:    Buffered,
       offset:     11'd1904,
       size:       88,
@@ -182,8 +182,8 @@ package otp_ctrl_part_pkg;
       write_lock: 1'b1,
       read_lock:  1'b1
     },
-  // LIFE_CYCLE
-  '{
+      // LIFE_CYCLE
+      '{
       variant:    LifeCycle,
       offset:     11'd1992,
       size:       56,
