@@ -70,46 +70,46 @@ module pwrmgr_slow_fsm
 
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin
-      state_q           <= SlowPwrStateReset;
-      cause_q           <= Por;
-      cause_toggle_q    <= 1'b0;
+      state_q         <= SlowPwrStateReset;
+      cause_q         <= Por;
+      cause_toggle_q  <= 1'b0;
       // pwrmgr resets assuming main power domain is already ready
-      pd_nq          <= 1'b1;
-      pwr_clamp_q    <= 1'b0;
+      pd_nq           <= 1'b1;
+      pwr_clamp_q     <= 1'b0;
       pwr_clamp_env_q <= 1'b0;
-      core_clk_en_q  <= 1'b0;
-      io_clk_en_q    <= 1'b0;
-      usb_clk_en_q   <= 1'b0;
-      req_pwrup_q    <= 1'b0;
-      ack_pwrdn_q    <= 1'b0;
+      core_clk_en_q   <= 1'b0;
+      io_clk_en_q     <= 1'b0;
+      usb_clk_en_q    <= 1'b0;
+      req_pwrup_q     <= 1'b0;
+      ack_pwrdn_q     <= 1'b0;
     end else begin
-      state_q        <= state_d;
-      cause_q        <= cause_d;
-      cause_toggle_q <= cause_toggle_d;
-      pd_nq          <= pd_nd;
-      pwr_clamp_q    <= pwr_clamp_d;
+      state_q         <= state_d;
+      cause_q         <= cause_d;
+      cause_toggle_q  <= cause_toggle_d;
+      pd_nq           <= pd_nd;
+      pwr_clamp_q     <= pwr_clamp_d;
       pwr_clamp_env_q <= pwr_clamp_env_d;
-      core_clk_en_q  <= core_clk_en_d;
-      io_clk_en_q    <= io_clk_en_d;
-      usb_clk_en_q   <= usb_clk_en_d;
-      req_pwrup_q    <= req_pwrup_d;
-      ack_pwrdn_q    <= ack_pwrdn_d;
+      core_clk_en_q   <= core_clk_en_d;
+      io_clk_en_q     <= io_clk_en_d;
+      usb_clk_en_q    <= usb_clk_en_d;
+      req_pwrup_q     <= req_pwrup_d;
+      ack_pwrdn_q     <= ack_pwrdn_d;
     end
   end
 
   always_comb begin
-    state_d        = state_q;
-    cause_d        = cause_q;
-    pd_nd          = pd_nq;
-    cause_toggle_d = cause_toggle_q;
-    pwr_clamp_d    = pwr_clamp_q;
+    state_d         = state_q;
+    cause_d         = cause_q;
+    pd_nd           = pd_nq;
+    cause_toggle_d  = cause_toggle_q;
+    pwr_clamp_d     = pwr_clamp_q;
     pwr_clamp_env_d = pwr_clamp_env_q;
-    core_clk_en_d  = core_clk_en_q;
-    io_clk_en_d    = io_clk_en_q;
-    usb_clk_en_d   = usb_clk_en_q;
+    core_clk_en_d   = core_clk_en_q;
+    io_clk_en_d     = io_clk_en_q;
+    usb_clk_en_d    = usb_clk_en_q;
 
-    req_pwrup_d       = req_pwrup_q;
-    ack_pwrdn_d       = ack_pwrdn_q;
+    req_pwrup_d     = req_pwrup_q;
+    ack_pwrdn_d     = ack_pwrdn_q;
 
     unique case (state_q)
 

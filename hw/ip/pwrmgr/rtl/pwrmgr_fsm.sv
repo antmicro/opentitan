@@ -248,7 +248,7 @@ module pwrmgr_fsm
 
       FastPwrStateStrap: begin
         strap_o = ~strap_sampled;
-        state_d =  FastPwrStateAckPwrUp;
+        state_d = FastPwrStateAckPwrUp;
       end
 
       FastPwrStateAckPwrUp: begin

@@ -53,8 +53,8 @@ module pwrmgr_cdc
   output logic cdc_sync_done_o,
 
   // peripheral inputs, mixed domains
-  input pwr_peri_t peri_i,
-  input pwr_flash_t flash_i,
+  input  pwr_peri_t  peri_i,
+  input  pwr_flash_t flash_i,
   output pwr_flash_t flash_o,
 
   // otp interface

@@ -36,15 +36,15 @@ module alert_handler_ping_timer
 ) (
   input                          clk_i,
   input                          rst_ni,
-  input                          entropy_i,          // from TRNG
-  input                          en_i,               // enable ping testing
-  input        [NAlerts-1:0]     alert_ping_en_i,    // determines which alerts to ping
-  input        [PING_CNT_DW-1:0] ping_timeout_cyc_i, // timeout in cycles
-  input        [PING_CNT_DW-1:0] wait_cyc_mask_i,    // wait cycles mask
-  output logic [NAlerts-1:0]     alert_ping_req_o,   // request to alert receivers
-  output logic [N_ESC_SEV-1:0]   esc_ping_req_o,     // enable to esc senders
-  input        [NAlerts-1:0]     alert_ping_ok_i,    // response from alert receivers
-  input        [N_ESC_SEV-1:0]   esc_ping_ok_i,      // response from esc senders
+  input                          entropy_i,  // from TRNG
+  input                          en_i,  // enable ping testing
+  input        [    NAlerts-1:0] alert_ping_en_i,  // determines which alerts to ping
+  input        [PING_CNT_DW-1:0] ping_timeout_cyc_i,  // timeout in cycles
+  input        [PING_CNT_DW-1:0] wait_cyc_mask_i,  // wait cycles mask
+  output logic [    NAlerts-1:0] alert_ping_req_o,  // request to alert receivers
+  output logic [  N_ESC_SEV-1:0] esc_ping_req_o,  // enable to esc senders
+  input        [    NAlerts-1:0] alert_ping_ok_i,  // response from alert receivers
+  input        [  N_ESC_SEV-1:0] esc_ping_ok_i,  // response from esc senders
   output logic                   alert_ping_fail_o,  // any of the alert receivers failed
   output logic                   esc_ping_fail_o  // any of the esc senders failed
 );
@@ -94,9 +94,9 @@ module alert_handler_ping_timer
 
   logic [2**IdDw-1:0] enable_mask;
   always_comb begin : p_enable_mask
-    enable_mask                        = '0;         // tie off unused
-    enable_mask[NAlerts-1:0]           = alert_ping_en_i; // alerts
-    enable_mask[NModsToPing-1:NAlerts] = '1;         // escalation senders
+    enable_mask                        = '0;  // tie off unused
+    enable_mask[NAlerts-1:0]           = alert_ping_en_i;  // alerts
+    enable_mask[NModsToPing-1:NAlerts] = '1;  // escalation senders
   end
 
   logic id_vld;
@@ -131,23 +131,23 @@ module alert_handler_ping_timer
   logic spurious_alert_ping, spurious_esc_ping;
 
   // generate ping enable vector
-  assign ping_sel            = NModsToPing'(ping_en) << id_to_ping;
-  assign alert_ping_req_o    = ping_sel[NAlerts-1:0];
-  assign esc_ping_req_o      = ping_sel[NModsToPing-1:NAlerts];
+  assign ping_sel         = NModsToPing'(ping_en) << id_to_ping;
+  assign alert_ping_req_o = ping_sel[NAlerts-1:0];
+  assign esc_ping_req_o   = ping_sel[NModsToPing-1:NAlerts];
 
   // mask out response
-  assign ping_ok             = |({esc_ping_ok_i, alert_ping_ok_i} & ping_sel);
-  assign spurious_ping       = ({esc_ping_ok_i, alert_ping_ok_i} & ~ping_sel);
+  assign ping_ok          = |({esc_ping_ok_i, alert_ping_ok_i} & ping_sel);
+  assign spurious_ping    = ({esc_ping_ok_i, alert_ping_ok_i} & ~ping_sel);
   // under normal operation, these signals should never be asserted.
   // we place hand instantiated buffers here such that these signals are not
   // optimized away during synthesis (these buffers will receive a keep or size_only
   // attribute in our Vivado and DC synthesis flows).
   prim_buf u_prim_buf_spurious_alert_ping (
-    .in_i(|spurious_ping[NAlerts-1:0]),
+    .in_i (|spurious_ping[NAlerts-1:0]),
     .out_o(spurious_alert_ping)
   );
   prim_buf u_prim_buf_spurious_esc_ping (
-    .in_i(|spurious_ping[NModsToPing-1:NAlerts]),
+    .in_i (|spurious_ping[NModsToPing-1:NAlerts]),
     .out_o(spurious_esc_ping)
   );
 

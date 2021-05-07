@@ -10,11 +10,11 @@ class csrng_base_test extends cip_base_test #(
   `uvm_component_utils(csrng_base_test)
   `uvm_component_new
 
-   virtual function void build_phase(uvm_phase phase);
-     super.build_phase(phase);
+  virtual function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
 
-     configure_env();
-   endfunction
+    configure_env();
+  endfunction
 
   // the base class dv_base_test creates the following instances:
   // csrng_env_cfg: cfg
