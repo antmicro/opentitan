@@ -245,3 +245,15 @@ hw/ip/uart/dv/env/seq_lib/uart_smoke_vseq.sv
 hw/ip/uart/dv/env/uart_env_cov.sv
 hw/ip/uart/dv/env/uart_virtual_sequencer.sv
 hw/ip/uart/dv/tb/tb.sv
+hw/ip/rv_timer/rtl/rv_timer.sv
+hw/ip/rv_timer/rtl/timer_core.sv
+hw/ip/rv_timer/dv/tests/rv_timer_test_pkg.sv
+hw/ip/rv_timer/dv/tests/rv_timer_base_test.sv
+hw/ip/rv_timer/dv/env/rv_timer_env_pkg.sv
+hw/ip/rv_timer/dv/env/rv_timer_env_cfg.sv
+hw/ip/rv_timer/dv/env/rv_timer_env.sv
+hw/ip/rv_timer/dv/env/seq_lib/rv_timer_random_reset_vseq.sv
+hw/ip/rv_timer/dv/env/seq_lib/rv_timer_vseq_list.sv
+hw/ip/rv_timer/dv/env/seq_lib/rv_timer_disabled_vseq.sv
+hw/ip/rv_timer/dv/env/seq_lib/rv_timer_common_vseq.sv
+hw/ip/rv_timer/dv/tb/tb.sv
