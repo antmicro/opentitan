@@ -21,7 +21,7 @@ module csrng
   input  tlul_pkg::tl_h2d_t tl_i,
   output tlul_pkg::tl_d2h_t tl_o,
 
-   // OTP Interface
+  // OTP Interface
   input otp_ctrl_part_pkg::otp_hw_cfg_t otp_hw_cfg_i,
 
   // Lifecycle broadcast inputs

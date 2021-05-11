@@ -68,10 +68,10 @@ module otp_ctrl_ecc_reg #(
   logic [Depth-1:0][1:0] err;
   for (genvar k = 0; k < Depth; k++) begin : gen_ecc_dec
     prim_secded_72_64_dec u_prim_secded_72_64_dec (
-      .data_i({ecc_q[k], data_q[k]}),
+      .data_i    ({ecc_q[k], data_q[k]}),
       // We only rely on the error detection mechanism,
       // and not on error correction.
-      .data_o(),
+      .data_o    (),
       .syndrome_o(),
       .err_o     (err[k])
     );
