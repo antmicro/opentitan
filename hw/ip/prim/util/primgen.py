@@ -17,8 +17,6 @@ sys.path.append(_VERIBLE_VERILOG_SYNTAX_PY_DIR)
 import re
 import shutil
 
-from distutils.version import StrictVersion
-
 import yaml
 from mako.template import Template
 
@@ -148,15 +146,6 @@ def _parse_module_header_verible(generic_impl_filepath, module_name):
 
     ports = header.find({"tag": "kPortDeclarationList"})
 
-    try:
-        # Get Verible version for eventual debugging
-        tool_requirements = check_tool_requirements.read_tool_requirements()
-        verible_req = tool_requirements['verible']
-        verible_version = verible_req.get_version()
-        parser_info = f'Verible {verible_version}'
-    except:
-        parser_info = f'Verible'
-
     return {
         'module_header': header.text,
         'package_import_declaration': '\n'.join([i.text for i in imports]),
@@ -164,7 +153,7 @@ def _parse_module_header_verible(generic_impl_filepath, module_name):
             parameters_list.text if parameters_list else '',
         'ports': ports.text if ports else '',
         'parameters': parameters,
-        'parser': parser_info
+        'parser': f'Verible {parser.version}'
     }
 
 

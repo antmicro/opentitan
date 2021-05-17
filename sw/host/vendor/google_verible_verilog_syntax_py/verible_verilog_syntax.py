@@ -17,7 +17,7 @@ import collections
 import json
 import re
 import subprocess
-from typing import Any, Callable, Dict, Iterable, List, Optional, Union
+from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Union
 
 import anytree
 import dataclasses
@@ -374,8 +374,48 @@ class VeribleVerilogSyntax:
     executable: path to ``verible-verilog-syntax`` binary.
   """
 
+  _VERSION_RE = re.compile(r"^v([0-9]+)\.([0-9]+)-([0-9]+)-g[0-9a-fA-F]+$",
+      re.MULTILINE)
+  _MIN_VERSION = "v0.0-925-gc1a388a"
+
   def __init__(self, executable: str = "verible-verilog-syntax"):
+    proc = subprocess.run([executable, "--version"], capture_output=True,
+        check=True, encoding="utf-8")
+
+    ver_match = self._VERSION_RE.match(proc.stdout)
+    if not ver_match:
+      output_msg = f"`{executable} --version` output:\n" + "\n".join(
+          ["  " + line for line in proc.stdout.splitlines()])
+      if proc.stderr:
+        output_msg += "\nstderr:\n" + "\n".join(
+          ["  " + line for line in proc.stderr.splitlines()])
+      raise RuntimeError("Failed to read verible-verilog-syntax version. "
+          + output_msg)
+
+    min_ver_match = self._VERSION_RE.match(self._MIN_VERSION)
+    assert min_ver_match
+
+    if not self._check_version(ver_match.groups(), min_ver_match.groups()):
+      raise RuntimeError("verible-verilog-syntax version is too low: "
+          + f"{ver_match.group()}. "
+          + f"Minimum required version: {self._MIN_VERSION}.")
+
+    self._version = ver_match.group()
     self.executable = executable
+
+  @property
+  def version(self):
+    return self._version
+
+  @staticmethod
+  def _check_version(ver: Sequence[str], min_ver: Sequence[str]) -> bool:
+    assert len(ver) == len(min_ver)
+    for n, min_n in zip(ver, min_ver):
+      n = int(n, base=10)
+      min_n = int(min_n, base=10)
+      if n > min_n: return True
+      elif n < min_n: return False
+    return True
 
   @staticmethod
   def _transform_tree(tree, data: SyntaxData, skip_null: bool) -> RootNode:
