@@ -110,8 +110,9 @@ class pwm_base_vseq extends cip_base_vseq #(
     cfg.clk_rst_core_vif.wait_clks(runtime);
     foreach (pwm_regs.pwm_en[i]) begin
       if (pwm_regs.pwm_en[i]) begin
-        `uvm_info(`gfn, $sformatf(
-                  "\n  base_vseq: generate %0d pulse in channel %0d", cfg.num_pulses, i), UVM_DEBUG)
+        `uvm_info(
+            `gfn, $sformatf("\n  base_vseq: generate %0d pulse in channel %0d", cfg.num_pulses, i),
+            UVM_DEBUG)
       end
     end
     // disable channels and clear phase counter
@@ -128,9 +129,8 @@ class pwm_base_vseq extends cip_base_vseq #(
 
   virtual task program_pwm_cfg_regs();
     // derived params
-    `uvm_info(`gfn, $sformatf(
-              "\n  base_vseq: clk_div %0d and dc_resn %0d ", pwm_regs.clk_div, pwm_regs.dc_resn),
-              UVM_DEBUG)
+    `uvm_info(`gfn, $sformatf("\n  base_vseq: clk_div %0d and dc_resn %0d ", pwm_regs.clk_div,
+                              pwm_regs.dc_resn), UVM_DEBUG)
     pwm_regs.beat_cycle  = pwm_regs.clk_div + 1;
     pwm_regs.pulse_cycle = 2 ** (pwm_regs.dc_resn + 1);
     ral.cfg.clk_div.set(pwm_regs.clk_div);
@@ -144,8 +144,9 @@ class pwm_base_vseq extends cip_base_vseq #(
     csr_update(ral.cfg);
     csr_spinwait(.ptr(ral.cfg.cntr_en), .exp_data(pwm_regs.cntr_en));
     cfg.m_pwm_monitor_cfg.cntr_en = pwm_regs.cntr_en;
-    `uvm_info(`gfn, $sformatf(
-              "\n  base_vseq: phase counters %s", pwm_regs.cntr_en ? "enable" : "clear"), UVM_DEBUG)
+    `uvm_info(
+        `gfn, $sformatf("\n  base_vseq: phase counters %s", pwm_regs.cntr_en ? "enable" : "clear"),
+        UVM_DEBUG)
   endtask : program_pwm_cnt_regs
 
   virtual task program_pwm_enb_regs(pwm_status_e status = Enable);

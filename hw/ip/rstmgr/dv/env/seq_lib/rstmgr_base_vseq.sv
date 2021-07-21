@@ -130,14 +130,11 @@ class rstmgr_base_vseq extends cip_base_vseq #(
   endtask
 
   virtual task apply_reset(string kind = "HARD");
-    `DV_CHECK_LT(freq_mhz_to_ps(AON_FREQ_MHZ) * RESET_CLK_PERIODS, DELAY_FOR_RESETS_CONCURRENTLY_PS,
-                 $sformatf(
-                 "apply_resets_concurrently delay (%0d) must exceed slowest reset (%0d)",
-                 DELAY_FOR_RESETS_CONCURRENTLY_PS,
-                 freq_mhz_to_ps(
-                     AON_FREQ_MHZ
-                 ) * RESET_CLK_PERIODS
-                 ))
+    `DV_CHECK_LT(
+        freq_mhz_to_ps(AON_FREQ_MHZ) * RESET_CLK_PERIODS, DELAY_FOR_RESETS_CONCURRENTLY_PS,
+        $sformatf(
+            "apply_resets_concurrently delay (%0d) must exceed slowest reset (%0d)",
+            DELAY_FOR_RESETS_CONCURRENTLY_PS, freq_mhz_to_ps(AON_FREQ_MHZ) * RESET_CLK_PERIODS))
     fork
       super.apply_reset(kind);
       if (kind == "HARD") begin

@@ -126,8 +126,8 @@ class pwrmgr_scoreboard extends cip_base_scoreboard #(
     if (data_phase_read) begin
       `uvm_info(`gfn, $sformatf("Reading 0x%x from %s", item.d_data, csr.get_full_name()), UVM_LOW)
       if (do_read_check) begin
-        `DV_CHECK_EQ(csr.get_mirrored_value(), item.d_data, $sformatf(
-                     "reg name: %0s", csr.get_full_name()))
+        `DV_CHECK_EQ(
+            csr.get_mirrored_value(), item.d_data, $sformatf("reg name: %0s", csr.get_full_name()))
       end
       void'(csr.predict(.value(item.d_data), .kind(UVM_PREDICT_READ)));
     end
