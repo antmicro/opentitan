@@ -33,12 +33,12 @@ module lc_ctrl_fsm
   // Token input from OTP (these are all hash post-images).
   input  lc_token_t             test_unlock_token_i,
   input  lc_token_t             test_exit_token_i,
-  input  lc_tx_t                test_tokens_valid_i,
+  input  lc_tx_t                test_tokens_valid_iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii,
   input  lc_token_t             rma_token_i,
   input  lc_tx_t                rma_token_valid_i,
   // Transition trigger interface.
   input                         trans_cmd_i,
-  input  dec_lc_state_e         trans_target_i,
+  input  dec_lc_state_e         trans_target_i,             
   // Decoded life cycle state for CSRs.
   output dec_lc_state_e         dec_lc_state_o,
   output dec_lc_cnt_t           dec_lc_cnt_o,
@@ -47,7 +47,7 @@ module lc_ctrl_fsm
   output logic                  token_hash_req_o,
   output logic                  token_hash_req_chk_o,
   input                         token_hash_ack_i,
-  input                         token_hash_err_i,
+	input                         token_hash_err_i,
   input  lc_token_t             hashed_token_i,
   // OTP programming interface
   output logic                  otp_prog_req_o,
@@ -58,7 +58,7 @@ module lc_ctrl_fsm
   // Error outputs going to CSRs
   output logic                  trans_success_o,
   output logic                  trans_cnt_oflw_error_o,
-  output logic                  trans_invalid_error_o,
+output logic                  trans_invalid_error_o,
   output logic                  token_invalid_error_o,
   output logic                  flash_rma_error_o,
   output logic                  otp_prog_error_o,
