@@ -2,8 +2,8 @@ CAPI=2:
 # Copyright lowRISC contributors.
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
-name: "lowrisc:systems:top_earlgrey:0.1"
-description: "Technology-independent Earl Grey toplevel"
+name: "lowrisc:systems:top_custom_gf12:0.1"
+description: "Technology-independent Custom toplevel"
 filesets:
   files_rtl_generic:
     depend:
@@ -17,6 +17,8 @@ filesets:
       - lowrisc:ip:rv_timer
       - lowrisc:ip:tlul
       - lowrisc:ip:spi_host
+      - lowrisc:ip:i2c
+      - lowrisc:ip:otbn
       - lowrisc:prim:ram_1p_scr
       - lowrisc:prim:flash
       - lowrisc:ip:flash_ctrl
@@ -39,7 +41,7 @@ filesets:
       - "fileset_partner  ? (partner:systems:ast_pkg)"
       - "!fileset_partner ? (lowrisc:systems:ast_pkg)"
     files:
-      - rtl/autogen/top_earlgrey_rnd_cnst_pkg.sv
+      - rtl/autogen/top_custom_gf12_rnd_cnst_pkg.sv
       - rtl/autogen/top_custom_gf12.sv
     file_type: systemVerilogSource
 

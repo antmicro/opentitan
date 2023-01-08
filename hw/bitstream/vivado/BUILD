@@ -29,7 +29,7 @@ _FPGA_CW310_OTP_RMA_PATH = "{}/$(location {})".format(_PREFIX, _FPGA_CW310_OTP_R
 # matched by bazel wildcards like "//...".  In order to build the bitstream,
 # you need to ask for it directly or by dependency via another rule, such as
 # a functest.
-fusesoc_build(
+fusesoc_build (
     name = "fpga_cw310",
     testonly = True,
     srcs = [
@@ -49,6 +49,30 @@ fusesoc_build(
         "otp_mmi": ["synth-vivado/otp.mmi"],
     },
     systems = ["lowrisc:systems:chip_earlgrey_cw310"],
+    tags = ["manual"],
+    target = "synth",
+)
+
+fusesoc_build (
+    name = "fpga_arty_35t",
+    testonly = True,
+    srcs = [
+        "//hw:all_files",
+        _FPGA_CW310_TESTROM,
+        _FPGA_CW310_OTP_RMA,
+    ],
+    cores = ["//:cores"],
+    data = ["//hw/ip/otbn:all_files"],
+    flags = [
+        "--BootRomInitFile=" + _FPGA_CW310_TESTROM_PATH,
+        "--OtpCtrlMemInitFile=" + _FPGA_CW310_OTP_RMA_PATH,
+    ],
+    output_groups = {
+        "bitstream": ["synth-vivado/lowrisc_systems_chip_custom_gf12_arty_35t_0.1.bit"],
+        "rom_mmi": ["synth-vivado/rom.mmi"],
+        "otp_mmi": ["synth-vivado/otp.mmi"],
+    },
+    systems = ["lowrisc:systems:chip_custom_gf12_arty_a35"],
     tags = ["manual"],
     target = "synth",
 )
