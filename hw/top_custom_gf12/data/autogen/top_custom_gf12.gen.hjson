@@ -5,12 +5,12 @@
 // ------------------- W A R N I N G: A U T O - G E N E R A T E D   C O D E !! -------------------//
 // PLEASE DO NOT HAND-EDIT THIS FILE. IT HAS BEEN AUTO-GENERATED WITH THE FOLLOWING COMMAND:
 //
-// util/topgen.py -t hw/top_earlgrey/data/top_earlgrey.hjson \
-//                -o hw/top_earlgrey/ \
+// util/topgen.py -t hw/top_custom_gf12/data/top_custom_gf12.hjson \
+//                -o hw/top_custom_gf12/ \
 //                --hjson-only \
 //                --rnd_cnst_seed 4881560218908238235
 {
-  name: earlgrey
+  name: custom_gf12
   type: top
   rnd_cnst_seed: 4881560218908238235
   datawidth: "32"
@@ -87,8 +87,8 @@
         clocks:
         {
           clk_main_i: main
-          clk_io_i: io
           clk_usb_i: usb
+          clk_io_i: io
           clk_aon_i: aon
         }
       }
@@ -114,9 +114,6 @@
         unique: yes
         clocks:
         {
-          clk_main_aes: main
-          clk_main_hmac: main
-          clk_main_kmac: main
           clk_main_otbn: main
         }
       }
@@ -154,10 +151,9 @@
         clocks:
         {
           clk_io_div4_peri: io_div4
-          clk_io_div2_peri: io_div2
           clk_io_peri: io
-          clk_usb_peri: usb
           clk_aon_peri: aon
+          clk_usb_peri: usb
         }
       }
       {
@@ -405,20 +401,6 @@
         clock: io_div4
       }
       {
-        name: spi_device
-        gen: true
-        type: top
-        domains:
-        [
-          "0"
-        ]
-        shadowed: false
-        sw: true
-        path: rstmgr_aon_resets.rst_spi_device_n
-        parent: lc_src
-        clock: io_div4
-      }
-      {
         name: spi_host0
         gen: true
         type: top
@@ -431,20 +413,6 @@
         path: rstmgr_aon_resets.rst_spi_host0_n
         parent: lc_src
         clock: io
-      }
-      {
-        name: spi_host1
-        gen: true
-        type: top
-        domains:
-        [
-          "0"
-        ]
-        shadowed: false
-        sw: true
-        path: rstmgr_aon_resets.rst_spi_host1_n
-        parent: lc_src
-        clock: io_div2
       }
       {
         name: usb
@@ -464,10 +432,7 @@
         name: usb_aon
         gen: true
         type: top
-        domains:
-        [
-          "0"
-        ]
+        domains: []
         shadowed: false
         sw: true
         path: rstmgr_aon_resets.rst_usb_aon_n
@@ -485,34 +450,6 @@
         shadowed: false
         sw: true
         path: rstmgr_aon_resets.rst_i2c0_n
-        parent: lc_src
-        clock: io_div4
-      }
-      {
-        name: i2c1
-        gen: true
-        type: top
-        domains:
-        [
-          "0"
-        ]
-        shadowed: false
-        sw: true
-        path: rstmgr_aon_resets.rst_i2c1_n
-        parent: lc_src
-        clock: io_div4
-      }
-      {
-        name: i2c2
-        gen: true
-        type: top
-        domains:
-        [
-          "0"
-        ]
-        shadowed: false
-        sw: true
-        path: rstmgr_aon_resets.rst_i2c2_n
         parent: lc_src
         clock: io_div4
       }
@@ -566,147 +503,6 @@
       base_addrs:
       {
         null: 0x40000000
-      }
-    }
-    {
-      name: uart1
-      type: uart
-      clock_srcs:
-      {
-        clk_i: io_div4
-      }
-      clock_group: peri
-      reset_connections:
-      {
-        rst_ni:
-        {
-          name: lc_io_div4
-          domain: "0"
-        }
-      }
-      clock_connections:
-      {
-        clk_i: clkmgr_aon_clocks.clk_io_div4_peri
-      }
-      domain:
-      [
-        "0"
-      ]
-      param_decl: {}
-      param_list: []
-      inter_signal_list:
-      [
-        {
-          name: tl
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: uart1
-          default: ""
-          end_idx: -1
-          top_signame: uart1_tl
-          index: -1
-        }
-      ]
-      base_addrs:
-      {
-        null: 0x40010000
-      }
-    }
-    {
-      name: uart2
-      type: uart
-      clock_srcs:
-      {
-        clk_i: io_div4
-      }
-      clock_group: peri
-      reset_connections:
-      {
-        rst_ni:
-        {
-          name: lc_io_div4
-          domain: "0"
-        }
-      }
-      clock_connections:
-      {
-        clk_i: clkmgr_aon_clocks.clk_io_div4_peri
-      }
-      domain:
-      [
-        "0"
-      ]
-      param_decl: {}
-      param_list: []
-      inter_signal_list:
-      [
-        {
-          name: tl
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: uart2
-          default: ""
-          end_idx: -1
-          top_signame: uart2_tl
-          index: -1
-        }
-      ]
-      base_addrs:
-      {
-        null: 0x40020000
-      }
-    }
-    {
-      name: uart3
-      type: uart
-      clock_srcs:
-      {
-        clk_i: io_div4
-      }
-      clock_group: peri
-      reset_connections:
-      {
-        rst_ni:
-        {
-          name: lc_io_div4
-          domain: "0"
-        }
-      }
-      clock_connections:
-      {
-        clk_i: clkmgr_aon_clocks.clk_io_div4_peri
-      }
-      domain:
-      [
-        "0"
-      ]
-      param_decl: {}
-      param_list: []
-      inter_signal_list:
-      [
-        {
-          name: tl
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: uart3
-          default: ""
-          end_idx: -1
-          top_signame: uart3_tl
-          index: -1
-        }
-      ]
-      base_addrs:
-      {
-        null: 0x40030000
       }
     }
     {
@@ -771,103 +567,6 @@
       }
     }
     {
-      name: spi_device
-      type: spi_device
-      clock_srcs:
-      {
-        clk_i: io_div4
-        scan_clk_i: io_div2
-      }
-      clock_group: peri
-      reset_connections:
-      {
-        rst_ni:
-        {
-          name: spi_device
-          domain: "0"
-        }
-      }
-      clock_connections:
-      {
-        clk_i: clkmgr_aon_clocks.clk_io_div4_peri
-        scan_clk_i: clkmgr_aon_clocks.clk_io_div2_peri
-      }
-      domain:
-      [
-        "0"
-      ]
-      param_decl: {}
-      param_list: []
-      inter_signal_list:
-      [
-        {
-          name: ram_cfg
-          struct: ram_2p_cfg
-          package: prim_ram_2p_pkg
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: spi_device
-          default: ""
-          top_signame: ast_ram_2p_cfg
-          index: -1
-        }
-        {
-          name: passthrough
-          struct: passthrough
-          package: spi_device_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: spi_device
-          default: ""
-          end_idx: -1
-          top_signame: spi_device_passthrough
-          index: -1
-        }
-        {
-          name: mbist_en
-          struct: logic
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: spi_device
-          index: -1
-        }
-        {
-          name: sck_monitor
-          struct: logic
-          type: uni
-          act: req
-          width: 1
-          inst_name: spi_device
-          default: ""
-          package: ""
-          external: true
-          top_signame: sck_monitor
-          conn_type: false
-          index: -1
-        }
-        {
-          name: tl
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: spi_device
-          default: ""
-          end_idx: -1
-          top_signame: spi_device_tl
-          index: -1
-        }
-      ]
-      base_addrs:
-      {
-        null: 0x40050000
-      }
-    }
-    {
       name: i2c0
       type: i2c
       clock_srcs:
@@ -912,100 +611,6 @@
       base_addrs:
       {
         null: 0x40080000
-      }
-    }
-    {
-      name: i2c1
-      type: i2c
-      clock_srcs:
-      {
-        clk_i: io_div4
-      }
-      clock_group: peri
-      reset_connections:
-      {
-        rst_ni:
-        {
-          name: i2c1
-          domain: "0"
-        }
-      }
-      clock_connections:
-      {
-        clk_i: clkmgr_aon_clocks.clk_io_div4_peri
-      }
-      domain:
-      [
-        "0"
-      ]
-      param_decl: {}
-      param_list: []
-      inter_signal_list:
-      [
-        {
-          name: tl
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: i2c1
-          default: ""
-          end_idx: -1
-          top_signame: i2c1_tl
-          index: -1
-        }
-      ]
-      base_addrs:
-      {
-        null: 0x40090000
-      }
-    }
-    {
-      name: i2c2
-      type: i2c
-      clock_srcs:
-      {
-        clk_i: io_div4
-      }
-      clock_group: peri
-      reset_connections:
-      {
-        rst_ni:
-        {
-          name: i2c2
-          domain: "0"
-        }
-      }
-      clock_connections:
-      {
-        clk_i: clkmgr_aon_clocks.clk_io_div4_peri
-      }
-      domain:
-      [
-        "0"
-      ]
-      param_decl: {}
-      param_list: []
-      inter_signal_list:
-      [
-        {
-          name: tl
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: i2c2
-          default: ""
-          end_idx: -1
-          top_signame: i2c2_tl
-          index: -1
-        }
-      ]
-      base_addrs:
-      {
-        null: 0x400A0000
       }
     }
     {
@@ -1238,7 +843,7 @@
           inst_name: otp_ctrl
           default: ""
           top_signame: edn0_edn
-          index: 1
+          index: 0
         }
         {
           name: pwr_otp
@@ -1393,9 +998,6 @@
           width: 1
           default: "'0"
           inst_name: otp_ctrl
-          end_idx: -1
-          top_type: broadcast
-          top_signame: otp_ctrl_otp_keymgr_key
           index: -1
         }
         {
@@ -1735,8 +1337,7 @@
           width: 1
           default: "'0"
           inst_name: lc_ctrl
-          top_signame: kmac_app
-          index: 1
+          index: -1
         }
         {
           name: lc_dft_en
@@ -1803,9 +1404,6 @@
           width: 1
           default: lc_ctrl_pkg::Off
           inst_name: lc_ctrl
-          end_idx: -1
-          top_type: broadcast
-          top_signame: lc_ctrl_lc_keymgr_en
           index: -1
         }
         {
@@ -1981,9 +1579,6 @@
           width: 1
           default: "'0"
           inst_name: lc_ctrl
-          end_idx: -1
-          top_type: broadcast
-          top_signame: lc_ctrl_lc_keymgr_div
           index: -1
         }
         {
@@ -2123,7 +1718,7 @@
           inst_name: alert_handler
           default: ""
           top_signame: edn0_edn
-          index: 4
+          index: 2
         }
         {
           name: esc_rx
@@ -2208,8 +1803,6 @@
           act: rsp
           width: 1
           inst_name: spi_host0
-          default: ""
-          top_signame: spi_device_passthrough
           index: -1
         }
         {
@@ -2229,352 +1822,6 @@
       base_addrs:
       {
         null: 0x40300000
-      }
-    }
-    {
-      name: spi_host1
-      type: spi_host
-      clock_srcs:
-      {
-        clk_i: io_div2
-      }
-      clock_group: peri
-      reset_connections:
-      {
-        rst_ni:
-        {
-          name: spi_host1
-          domain: "0"
-        }
-      }
-      clock_connections:
-      {
-        clk_i: clkmgr_aon_clocks.clk_io_div2_peri
-      }
-      domain:
-      [
-        "0"
-      ]
-      param_decl: {}
-      param_list: []
-      inter_signal_list:
-      [
-        {
-          name: passthrough
-          struct: passthrough
-          package: spi_device_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: spi_host1
-          index: -1
-        }
-        {
-          name: tl
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: spi_host1
-          default: ""
-          end_idx: -1
-          top_signame: spi_host1_tl
-          index: -1
-        }
-      ]
-      base_addrs:
-      {
-        null: 0x40310000
-      }
-    }
-    {
-      name: usbdev
-      type: usbdev
-      clock_srcs:
-      {
-        clk_i: usb
-        clk_aon_i: aon
-      }
-      clock_group: peri
-      reset_connections:
-      {
-        rst_ni:
-        {
-          name: usb
-          domain: "0"
-        }
-        rst_aon_ni:
-        {
-          name: usb_aon
-          domain: "0"
-        }
-      }
-      param_decl:
-      {
-        RcvrWakeTimeUs: "100"
-      }
-      clock_connections:
-      {
-        clk_i: clkmgr_aon_clocks.clk_usb_peri
-        clk_aon_i: clkmgr_aon_clocks.clk_aon_peri
-      }
-      domain:
-      [
-        "0"
-      ]
-      memory: {}
-      param_list:
-      [
-        {
-          name: Stub
-          desc: Stub out the core of entropy_src logic
-          type: bit
-          default: "0"
-          expose: "true"
-          name_top: UsbdevStub
-        }
-        {
-          name: RcvrWakeTimeUs
-          desc: Maximum number of microseconds for the differential receiver to become operational
-          type: int
-          default: "100"
-          expose: "true"
-          name_top: UsbdevRcvrWakeTimeUs
-        }
-      ]
-      inter_signal_list:
-      [
-        {
-          name: usb_rx_d
-          desc: USB RX data from an external differential receiver, if available
-          struct: logic
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: usbdev
-          default: ""
-          package: ""
-          external: true
-          top_signame: usbdev_usb_rx_d
-          conn_type: false
-          index: -1
-        }
-        {
-          name: usb_tx_d
-          desc: USB transmit data value (not used if usb_tx_se0 is set)
-          struct: logic
-          type: uni
-          act: req
-          width: 1
-          inst_name: usbdev
-          default: ""
-          package: ""
-          external: true
-          top_signame: usbdev_usb_tx_d
-          conn_type: false
-          index: -1
-        }
-        {
-          name: usb_tx_se0
-          desc: Force transmission of a USB single-ended zero (i.e. both D+ and D- are low) regardless of usb_tx_d
-          struct: logic
-          type: uni
-          act: req
-          width: 1
-          inst_name: usbdev
-          default: ""
-          package: ""
-          external: true
-          top_signame: usbdev_usb_tx_se0
-          conn_type: false
-          index: -1
-        }
-        {
-          name: usb_tx_use_d_se0
-          desc: Use the usb_tx_d and usb_tx_se0 TX interface, instead of usb_dp_o and usb_dn_o
-          struct: logic
-          type: uni
-          act: req
-          width: 1
-          inst_name: usbdev
-          default: ""
-          package: ""
-          external: true
-          top_signame: usbdev_usb_tx_use_d_se0
-          conn_type: false
-          index: -1
-        }
-        {
-          name: usb_dp_pullup
-          desc: USB D+ pullup control
-          struct: logic
-          type: uni
-          act: req
-          width: 1
-          inst_name: usbdev
-          default: ""
-          package: ""
-          end_idx: -1
-          top_type: broadcast
-          top_signame: usbdev_usb_dp_pullup
-          index: -1
-        }
-        {
-          name: usb_dn_pullup
-          desc: USB D- pullup control
-          struct: logic
-          type: uni
-          act: req
-          width: 1
-          inst_name: usbdev
-          default: ""
-          package: ""
-          end_idx: -1
-          top_type: broadcast
-          top_signame: usbdev_usb_dn_pullup
-          index: -1
-        }
-        {
-          name: usb_rx_enable
-          desc: USB differential receiver enable
-          struct: logic
-          type: uni
-          act: req
-          width: 1
-          inst_name: usbdev
-          default: ""
-          package: ""
-          external: true
-          top_signame: usbdev_usb_rx_enable
-          conn_type: false
-          index: -1
-        }
-        {
-          name: usb_ref_val
-          struct: logic
-          type: uni
-          act: req
-          width: 1
-          inst_name: usbdev
-          default: ""
-          package: ""
-          external: true
-          top_signame: usbdev_usb_ref_val
-          conn_type: false
-          index: -1
-        }
-        {
-          name: usb_ref_pulse
-          struct: logic
-          type: uni
-          act: req
-          width: 1
-          inst_name: usbdev
-          default: ""
-          package: ""
-          external: true
-          top_signame: usbdev_usb_ref_pulse
-          conn_type: false
-          index: -1
-        }
-        {
-          name: usb_aon_suspend_req
-          struct: logic
-          type: uni
-          act: req
-          width: 1
-          inst_name: usbdev
-          default: ""
-          package: ""
-          end_idx: -1
-          top_type: broadcast
-          top_signame: usbdev_usb_aon_suspend_req
-          index: -1
-        }
-        {
-          name: usb_aon_wake_ack
-          struct: logic
-          type: uni
-          act: req
-          width: 1
-          inst_name: usbdev
-          default: ""
-          package: ""
-          end_idx: -1
-          top_type: broadcast
-          top_signame: usbdev_usb_aon_wake_ack
-          index: -1
-        }
-        {
-          name: usb_aon_bus_reset
-          struct: logic
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: usbdev
-          default: ""
-          package: ""
-          end_idx: -1
-          top_type: broadcast
-          top_signame: usbdev_usb_aon_bus_reset
-          index: -1
-        }
-        {
-          name: usb_aon_sense_lost
-          struct: logic
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: usbdev
-          default: ""
-          package: ""
-          end_idx: -1
-          top_type: broadcast
-          top_signame: usbdev_usb_aon_sense_lost
-          index: -1
-        }
-        {
-          name: usb_aon_wake_detect_active
-          struct: logic
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: usbdev
-          default: ""
-          package: ""
-          top_signame: pinmux_aon_usbdev_wake_detect_active
-          index: -1
-        }
-        {
-          name: ram_cfg
-          struct: ram_2p_cfg
-          package: prim_ram_2p_pkg
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: usbdev
-          default: ""
-          top_signame: ast_ram_2p_cfg
-          index: -1
-        }
-        {
-          name: tl
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: usbdev
-          default: ""
-          end_idx: -1
-          top_signame: usbdev_tl
-          index: -1
-        }
-      ]
-      base_addrs:
-      {
-        null: 0x40320000
       }
     }
     {
@@ -2758,7 +2005,7 @@
           struct: logic
           type: uni
           act: rcv
-          width: 6
+          width: 5
           inst_name: pwrmgr_aon
           default: ""
           package: ""
@@ -3111,15 +2358,15 @@
           group: ast
           clock: main
         }
-        clk_io_i:
-        {
-          group: ast
-          clock: io
-        }
         clk_usb_i:
         {
           group: ast
           clock: usb
+        }
+        clk_io_i:
+        {
+          group: ast
+          clock: io
         }
         clk_aon_i:
         {
@@ -3205,8 +2452,8 @@
       {
         clk_i: clkmgr_aon_clocks.clk_io_div4_powerup
         clk_main_i: clk_main_i
-        clk_io_i: clk_io_i
         clk_usb_i: clk_usb_i
+        clk_io_i: clk_io_i
         clk_aon_i: clk_aon_i
       }
       param_decl: {}
@@ -3389,11 +2636,11 @@
           package: prim_mubi_pkg
           type: uni
           act: rcv
-          width: 4
+          width: 1
           inst_name: clkmgr_aon
           default: ""
           end_idx: -1
-          top_type: one-to-N
+          top_type: broadcast
           top_signame: clkmgr_aon_idle
           index: -1
         }
@@ -3507,140 +2754,6 @@
       base_addrs:
       {
         null: 0x40430000
-      }
-    }
-    {
-      name: adc_ctrl_aon
-      type: adc_ctrl
-      clock_srcs:
-      {
-        clk_i: io_div4
-        clk_aon_i: aon
-      }
-      clock_group: peri
-      reset_connections:
-      {
-        rst_ni:
-        {
-          name: lc_io_div4
-          domain: Aon
-        }
-        rst_aon_ni:
-        {
-          name: lc_aon
-          domain: Aon
-        }
-      }
-      domain:
-      [
-        Aon
-      ]
-      clock_connections:
-      {
-        clk_i: clkmgr_aon_clocks.clk_io_div4_peri
-        clk_aon_i: clkmgr_aon_clocks.clk_aon_peri
-      }
-      param_decl: {}
-      param_list: []
-      inter_signal_list:
-      [
-        {
-          name: adc
-          struct: adc_ast
-          package: ast_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: adc_ctrl_aon
-          default: ""
-          external: true
-          top_signame: adc
-          conn_type: false
-          index: -1
-        }
-        {
-          name: wkup_req
-          struct: logic
-          type: uni
-          act: req
-          width: 1
-          inst_name: adc_ctrl_aon
-          default: ""
-          package: ""
-          top_signame: pwrmgr_aon_wakeups
-          index: 1
-        }
-        {
-          name: tl
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: adc_ctrl_aon
-          default: ""
-          end_idx: -1
-          top_signame: adc_ctrl_aon_tl
-          index: -1
-        }
-      ]
-      base_addrs:
-      {
-        null: 0x40440000
-      }
-    }
-    {
-      name: pwm_aon
-      type: pwm
-      clock_srcs:
-      {
-        clk_i: io_div4
-        clk_core_i: aon
-      }
-      clock_group: peri
-      reset_connections:
-      {
-        rst_ni:
-        {
-          name: lc_io_div4
-          domain: Aon
-        }
-        rst_core_ni:
-        {
-          name: lc_aon
-          domain: Aon
-        }
-      }
-      domain:
-      [
-        Aon
-      ]
-      clock_connections:
-      {
-        clk_i: clkmgr_aon_clocks.clk_io_div4_peri
-        clk_core_i: clkmgr_aon_clocks.clk_aon_peri
-      }
-      param_decl: {}
-      param_list: []
-      inter_signal_list:
-      [
-        {
-          name: tl
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: pwm_aon
-          default: ""
-          end_idx: -1
-          top_signame: pwm_aon_tl
-          index: -1
-        }
-      ]
-      base_addrs:
-      {
-        null: 0x40450000
       }
     }
     {
@@ -3885,7 +2998,7 @@
           inst_name: pinmux_aon
           package: ""
           top_signame: pwrmgr_aon_wakeups
-          index: 2
+          index: 1
         }
         {
           name: usbdev_dppullup_en
@@ -3895,9 +3008,6 @@
           act: rcv
           width: 1
           inst_name: pinmux_aon
-          default: ""
-          package: ""
-          top_signame: usbdev_usb_dp_pullup
           index: -1
         }
         {
@@ -3908,9 +3018,6 @@
           act: rcv
           width: 1
           inst_name: pinmux_aon
-          default: ""
-          package: ""
-          top_signame: usbdev_usb_dn_pullup
           index: -1
         }
         {
@@ -3922,10 +3029,6 @@
           width: 1
           default: 1'b0
           inst_name: pinmux_aon
-          package: ""
-          external: true
-          top_signame: usb_dp_pullup_en
-          conn_type: false
           index: -1
         }
         {
@@ -3937,10 +3040,6 @@
           width: 1
           default: 1'b0
           inst_name: pinmux_aon
-          package: ""
-          external: true
-          top_signame: usb_dn_pullup_en
-          conn_type: false
           index: -1
         }
         {
@@ -3954,7 +3053,7 @@
           inst_name: pinmux_aon
           package: ""
           top_signame: pwrmgr_aon_wakeups
-          index: 3
+          index: 2
         }
         {
           name: usbdev_suspend_req
@@ -3964,9 +3063,6 @@
           act: rcv
           width: 1
           inst_name: pinmux_aon
-          default: ""
-          package: ""
-          top_signame: usbdev_usb_aon_suspend_req
           index: -1
         }
         {
@@ -3977,9 +3073,6 @@
           act: rcv
           width: 1
           inst_name: pinmux_aon
-          default: ""
-          package: ""
-          top_signame: usbdev_usb_aon_wake_ack
           index: -1
         }
         {
@@ -3991,8 +3084,6 @@
           width: 1
           default: 1'b0
           inst_name: pinmux_aon
-          package: ""
-          top_signame: usbdev_usb_aon_bus_reset
           index: -1
         }
         {
@@ -4004,8 +3095,6 @@
           width: 1
           default: 1'b0
           inst_name: pinmux_aon
-          package: ""
-          top_signame: usbdev_usb_aon_sense_lost
           index: -1
         }
         {
@@ -4017,10 +3106,6 @@
           width: 1
           default: 1'b0
           inst_name: pinmux_aon
-          package: ""
-          end_idx: -1
-          top_type: broadcast
-          top_signame: pinmux_aon_usbdev_wake_detect_active
           index: -1
         }
         {
@@ -4101,7 +3186,7 @@
           inst_name: aon_timer_aon
           package: ""
           top_signame: pwrmgr_aon_wakeups
-          index: 4
+          index: 3
         }
         {
           name: aon_timer_rst_req
@@ -4365,7 +3450,7 @@
           default: ""
           package: ""
           top_signame: pwrmgr_aon_wakeups
-          index: 5
+          index: 4
         }
         {
           name: tl
@@ -4954,10 +4039,6 @@
           act: req
           width: 1
           inst_name: flash_ctrl
-          default: ""
-          end_idx: -1
-          top_type: broadcast
-          top_signame: flash_ctrl_keymgr
           index: -1
         }
         {
@@ -5308,515 +4389,6 @@
       }
     }
     {
-      name: aes
-      type: aes
-      clock_srcs:
-      {
-        clk_i: main
-        clk_edn_i: main
-      }
-      clock_group: trans
-      reset_connections:
-      {
-        rst_ni:
-        {
-          name: lc
-          domain: "0"
-        }
-        rst_edn_ni:
-        {
-          name: lc
-          domain: "0"
-        }
-      }
-      param_decl:
-      {
-        SecMasking: "1"
-        SecSBoxImpl: aes_pkg::SBoxImplDom
-      }
-      clock_connections:
-      {
-        clk_i: clkmgr_aon_clocks.clk_main_aes
-        clk_edn_i: clkmgr_aon_clocks.clk_main_aes
-      }
-      domain:
-      [
-        "0"
-      ]
-      memory: {}
-      param_list:
-      [
-        {
-          name: AES192Enable
-          desc: Disable (0) or enable (1) support for 192-bit key lengths (AES-192).
-          type: bit
-          default: 1'b1
-          expose: "false"
-          name_top: AesAES192Enable
-        }
-        {
-          name: SecMasking
-          desc:
-            '''
-            Disable (0) or enable (1) first-order masking of the AES cipher core.
-            Masking requires the use of a masked S-Box, see SecSBoxImpl parameter.
-            '''
-          type: bit
-          default: "1"
-          expose: "true"
-          name_top: SecAesMasking
-        }
-        {
-          name: SecSBoxImpl
-          desc: Selection of the S-Box implementation. See aes_pkg.sv.
-          type: aes_pkg::sbox_impl_e
-          default: aes_pkg::SBoxImplDom
-          expose: "true"
-          name_top: SecAesSBoxImpl
-        }
-        {
-          name: SecStartTriggerDelay
-          desc:
-            '''
-            Manual start trigger delay, useful for SCA measurements.
-            A value of e.g. 40 allows the processor to go into sleep before AES starts operation.
-            '''
-          type: int unsigned
-          default: "0"
-          expose: "true"
-          name_top: SecAesStartTriggerDelay
-        }
-        {
-          name: SecAllowForcingMasks
-          desc:
-            '''
-            Forbid (0) or allow (1) forcing the masking PRNG output to a constant value via FORCE_MASKS bit in the Auxiliary Control Register.
-            Useful for SCA measurements.
-            Meaningful only if masking is enabled.
-            '''
-          type: bit
-          default: 1'b0
-          expose: "true"
-          name_top: SecAesAllowForcingMasks
-        }
-        {
-          name: SecSkipPRNGReseeding
-          desc:
-            '''
-            Perform (0) or skip (1) PRNG reseeding requests, useful for SCA measurements only.
-            The current SCA setup doesn't provide sufficient resources to implement the infrastructure required for PRNG reseeding (CSRNG, EDN).
-            To enable SCA resistance evaluations, we need to skip reseeding requests on the SCA platform.
-            '''
-          type: bit
-          default: 1'b0
-          expose: "true"
-          name_top: SecAesSkipPRNGReseeding
-        }
-        {
-          name: RndCnstClearingLfsrSeed
-          desc: Default seed of the PRNG used for register clearing.
-          type: aes_pkg::clearing_lfsr_seed_t
-          randcount: 64
-          randtype: data
-          name_top: RndCnstAesClearingLfsrSeed
-          default: 0x83d6d00b39ff9e2a
-          randwidth: 64
-        }
-        {
-          name: RndCnstClearingLfsrPerm
-          desc: Permutation applied to the LFSR of the PRNG used for clearing.
-          type: aes_pkg::clearing_lfsr_perm_t
-          randcount: 64
-          randtype: perm
-          name_top: RndCnstAesClearingLfsrPerm
-          default: 0xb0d5e71606d63da435ed8b832dc97ce69bc87e4c22a9ee0ade8fa3074c9244954200ec5d336846e99ff34ebf44507b66
-          randwidth: 384
-        }
-        {
-          name: RndCnstClearingSharePerm
-          desc: Permutation applied to the clearing PRNG output for clearing the second share of registers.
-          type: aes_pkg::clearing_lfsr_perm_t
-          randcount: 64
-          randtype: perm
-          name_top: RndCnstAesClearingSharePerm
-          default: 0xe7b4f2237d969c253d7253d11de43e54524aa9803f3695e1aece19cda8ba91dd1f1b5bc36ee9bc2d2a300608ed13138c
-          randwidth: 384
-        }
-        {
-          name: RndCnstMaskingLfsrSeed
-          desc: Default seed of the PRNG used for masking.
-          type: aes_pkg::masking_lfsr_seed_t
-          randcount: 160
-          randtype: data
-          name_top: RndCnstAesMaskingLfsrSeed
-          default: 0xc89a3209a1642741192e3979e50f4b7302bf908c
-          randwidth: 160
-        }
-        {
-          name: RndCnstMaskingLfsrPerm
-          desc: Permutation applied to the concatenated LFSRs of the PRNG used for masking.
-          type: aes_pkg::masking_lfsr_perm_t
-          randcount: 160
-          randtype: perm
-          name_top: RndCnstAesMaskingLfsrPerm
-          default: 0x4383494791069f29850f2e962b3a3411209d609a9e05861a8f8b529b125a267a807b2c3f624c2388829278217038946469074a424b5572463589255f7e224f323010610c369c7c4853276f40583b500873132439846e0b3c1854288e6d76149795561c1b742d6b7509793e660e2f5d1d67150d1f6c685e027751171604994e7f71370145574193194d908a1e6a3d315b9863338d00030a8c445c2a65597d8187
-          randwidth: 1280
-        }
-      ]
-      inter_signal_list:
-      [
-        {
-          name: idle
-          struct: mubi4
-          package: prim_mubi_pkg
-          type: uni
-          act: req
-          width: 1
-          inst_name: aes
-          default: ""
-          top_signame: clkmgr_aon_idle
-          index: 0
-        }
-        {
-          name: lc_escalate_en
-          struct: lc_tx
-          package: lc_ctrl_pkg
-          type: uni
-          act: rcv
-          width: 1
-          default: lc_ctrl_pkg::Off
-          inst_name: aes
-          top_signame: lc_ctrl_lc_escalate_en
-          index: -1
-        }
-        {
-          name: edn
-          struct: edn
-          package: edn_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: aes
-          default: ""
-          top_signame: edn0_edn
-          index: 5
-        }
-        {
-          name: keymgr_key
-          struct: hw_key_req
-          package: keymgr_pkg
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: aes
-          default: ""
-          top_signame: keymgr_aes_key
-          index: -1
-        }
-        {
-          name: tl
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: aes
-          default: ""
-          end_idx: -1
-          top_signame: aes_tl
-          index: -1
-        }
-      ]
-      base_addrs:
-      {
-        null: 0x41100000
-      }
-    }
-    {
-      name: hmac
-      type: hmac
-      clock_srcs:
-      {
-        clk_i: main
-      }
-      clock_group: trans
-      reset_connections:
-      {
-        rst_ni:
-        {
-          name: lc
-          domain: "0"
-        }
-      }
-      clock_connections:
-      {
-        clk_i: clkmgr_aon_clocks.clk_main_hmac
-      }
-      domain:
-      [
-        "0"
-      ]
-      param_decl: {}
-      param_list: []
-      inter_signal_list:
-      [
-        {
-          name: idle
-          struct: mubi4
-          package: prim_mubi_pkg
-          type: uni
-          act: req
-          width: 1
-          inst_name: hmac
-          default: ""
-          top_signame: clkmgr_aon_idle
-          index: 1
-        }
-        {
-          name: tl
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: hmac
-          default: ""
-          end_idx: -1
-          top_signame: hmac_tl
-          index: -1
-        }
-      ]
-      base_addrs:
-      {
-        null: 0x41110000
-      }
-    }
-    {
-      name: kmac
-      type: kmac
-      param_decl:
-      {
-        EnMasking: "1"
-      }
-      clock_srcs:
-      {
-        clk_i: main
-        clk_edn_i: main
-      }
-      clock_group: trans
-      reset_connections:
-      {
-        rst_ni:
-        {
-          name: lc
-          domain: "0"
-        }
-        rst_edn_ni:
-        {
-          name: lc
-          domain: "0"
-        }
-      }
-      clock_connections:
-      {
-        clk_i: clkmgr_aon_clocks.clk_main_kmac
-        clk_edn_i: clkmgr_aon_clocks.clk_main_kmac
-      }
-      domain:
-      [
-        "0"
-      ]
-      memory: {}
-      param_list:
-      [
-        {
-          name: EnMasking
-          desc: Disable(0) or enable(1) first-order masking of Keccak round.
-          type: bit
-          default: "1"
-          expose: "true"
-          name_top: KmacEnMasking
-        }
-        {
-          name: SwKeyMasked
-          desc:
-            '''
-            Disable(0) or enable(1) software key masking in case masking is disabled (EnMasking == 0).
-            If masking is enabled, this parameter has no effect.
-            Mainly useful for software interface compatibility between the masked and unmasked design.
-            Mostly relevant for SCA measurements.
-            '''
-          type: bit
-          default: "0"
-          expose: "true"
-          name_top: KmacSwKeyMasked
-        }
-        {
-          name: SecCmdDelay
-          desc:
-            '''
-            Command delay, useful for SCA measurements only.
-            A value of e.g. 40 allows the processor to go into sleep before KMAC starts operation.
-            If a value greater than 0 is chosen, software can pass two commands in series.
-            The second command is buffered internally and will be presented to the hardware SecCmdDelay number of cycles after the first one.
-            '''
-          type: int
-          default: "0"
-          expose: "true"
-          name_top: SecKmacCmdDelay
-        }
-        {
-          name: SecIdleAcceptSwMsg
-          desc:
-            '''
-            If enabled (1), software writes to the message FIFO before having received a START command are not ignored.
-            Disabled (0) by default.
-            Useful for SCA measurements only.
-            '''
-          type: bit
-          default: "0"
-          expose: "true"
-          name_top: SecKmacIdleAcceptSwMsg
-        }
-        {
-          name: RndCnstLfsrSeed
-          desc: Compile-time random data for LFSR default seed
-          type: kmac_pkg::lfsr_seed_t
-          randcount: 800
-          randtype: data
-          name_top: RndCnstKmacLfsrSeed
-          default: 0x4857ffe38745ae400e4aee8385f157b88ab8ed1fce7408f7be58b7d21102be301eb1a8d04814ac33b45de425069e5959df06d42254a25afae52a5963310fb843b64ef41e69029587c377a10c9ab33f80f21fad7205be139eaa9fbe945120695530d16a94
-          randwidth: 800
-        }
-        {
-          name: RndCnstLfsrPerm
-          desc: Compile-time random permutation for LFSR output
-          type: kmac_pkg::lfsr_perm_t
-          randcount: 800
-          randtype: perm
-          name_top: RndCnstKmacLfsrPerm
-          default: 0x9d0807bd69bceb5bb8319ed233c15c986e6b558b89073142f46f0fea958fbeebf575eb0fdde1c0549766c78ca3094a51e689af5fc6fecd7189cb6d9baea7f3162e7b012772b8895f3b9c4aa7a87426fe7fce4b630f32cd4080b47849a3ed7a035984fb0241e6e6a6a976d97a65543805391e68c56696b5874c6d1449625ce20855cab846a439d3114356ca143cc2e1767559cf752d6b558af071556e2033eae3ba2f70171e7821a706dd38a3e5f0cf812c20e5c5274e163a56c459a8ecd68eb1d212ea090c3582458719f6488e1444634a6d820ef00cd36420b6527c0518464ef08be557b4fc002d92ca26966c4a6e9f55ea6c7c76c4e071b9e5aa0011a4e6631485b408165cb6b0fd8b05fb5e8c4311b99288735fba81dfb1d6e859653a83d6847eb899916d867c1a71012269ada5dc2618ecc1310dbb40e498aa21d1fa9e391dde72b43b6dec3374d588e2da289f451211f1c457ef61097ba60829440a4ea5460b0abe867b2ab32865b67a180c10a978a0514c8bd492904da7457fa42b9901724b41d3420a2323c328a63a14251e34759ba7e8eea14f2289c7394e307e961729194836abe632c2ffbca27a4ea4676bc4c2d60559154b016d47a692862297d49d80c6d96b063d14928324ba604f1c6a1e4cc332f03cb1939765a213c1904e3f524442b974ad9296e6e96b8dc2ded49aeeb53428a51bb1b6de5be7d8c9d86be7ea866a804a47a404988ed4bae00b111c3588a0acbc267144f038ae42925639e06809ebe634dbb21065aa67182283da6f032ef59a58968ac1fdf41ca06738c7ac5151d1da1213c86c418c4f90a9e265490a48ec4b1f751205ad2b07e037a8ec0bc570724f8ab2c54665042e1d4941710da3138e953891c647505b001bc4b53d4ca3cc0bb17eb4c9b4a9e65d8c6334584c894c5e00b7eaa8e13492ddd998065b14a47a760bee4845ea400d97a1517d6fd155a8a2df988a9d01e2170ecf8dce73d42229e9743dc2b71855c59c490b5185f1c4101505c0a38c1519376c69c849162c6336ce192246b7327250c71bf1a0c4b0646ad0c50b68d95a2e5086f4c224c0f259640f9833388106e8121449579181ec5774135ab4a82f64d56e4492aceac8990607883707791f68395954deeaee7a261b40e92b5e5f2218d71961f7213f40c380af1890f04134bb95dd494c8897eb7c38f46c2136a81ab24bf4ee300c936920dfa0e73c228d9de0c8a71c11cb8470a940895b94ff042d20d1759e4216f93d6ac9e08d895e0eb45cbeab96885dcf1b11d542f919b1620da54425c7f4294801ea54cc009d72cf05a885aaaf0ba109793e9a6d88d190094164c8a85e3780b93a0f2ad040b646501388412f1f5588258a99660808567570cbe0117f9d223d61360d13127018a35a008b
-          randwidth: 8000
-        }
-        {
-          name: RndCnstLfsrFwdPerm
-          desc: Compile-time random permutation for forwarding LFSR state
-          type: kmac_pkg::lfsr_fwd_perm_t
-          randcount: 32
-          randtype: perm
-          name_top: RndCnstKmacLfsrFwdPerm
-          default: 0xa3c7206c896aa2887d8771bdcb96da5f433166b8
-          randwidth: 160
-        }
-        {
-          name: RndCnstMsgPerm
-          desc: Compile-time random permutation for LFSR Message output
-          type: kmac_pkg::msg_perm_t
-          randcount: 64
-          randtype: perm
-          name_top: RndCnstKmacMsgPerm
-          default: 0x1e9c6a2737c3eb9e00204f0dd94d0c28f175b2682b610964bbe73f8d9546bdb051ed29de857cbd5a888e0b74ed68bc1d
-          randwidth: 384
-        }
-      ]
-      inter_signal_list:
-      [
-        {
-          name: keymgr_key
-          struct: hw_key_req
-          package: keymgr_pkg
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: kmac
-          default: ""
-          top_signame: keymgr_kmac_key
-          index: -1
-        }
-        {
-          name: app
-          struct: app
-          package: kmac_pkg
-          type: req_rsp
-          act: rsp
-          width: 3
-          inst_name: kmac
-          default: ""
-          end_idx: -1
-          top_type: one-to-N
-          top_signame: kmac_app
-          index: -1
-        }
-        {
-          name: entropy
-          struct: edn
-          package: edn_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: kmac
-          default: ""
-          top_signame: edn0_edn
-          index: 3
-        }
-        {
-          name: idle
-          struct: mubi4
-          package: prim_mubi_pkg
-          type: uni
-          act: req
-          width: 1
-          inst_name: kmac
-          default: ""
-          top_signame: clkmgr_aon_idle
-          index: 2
-        }
-        {
-          name: en_masking
-          struct: logic
-          type: uni
-          act: req
-          width: 1
-          inst_name: kmac
-          default: ""
-          package: ""
-          end_idx: -1
-          top_type: broadcast
-          top_signame: kmac_en_masking
-          index: -1
-        }
-        {
-          name: lc_escalate_en
-          struct: lc_tx
-          package: lc_ctrl_pkg
-          type: uni
-          act: rcv
-          width: 1
-          default: lc_ctrl_pkg::Off
-          inst_name: kmac
-          top_signame: lc_ctrl_lc_escalate_en
-          index: -1
-        }
-        {
-          name: tl
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: kmac
-          default: ""
-          end_idx: -1
-          top_signame: kmac_tl
-          index: -1
-        }
-      ]
-      base_addrs:
-      {
-        null: 0x41120000
-      }
-    }
-    {
       name: otbn
       type: otbn
       clock_srcs:
@@ -5893,7 +4465,7 @@
           randcount: 256
           randtype: data
           name_top: RndCnstOtbnUrndPrngSeed
-          default: 0x9c2b2e5ce6567e44e86fc9fa5b79f6090b08f77c203b16ae27047899fa42c837
+          default: 0x12abaabb52b479431c17fad4b660c0b04c740768e1c6a7db83d6d00b39ff9e2a
           randwidth: 256
         }
         {
@@ -5903,7 +4475,7 @@
           randcount: 128
           randtype: data
           name_top: RndCnstOtbnOtbnKey
-          default: 0x4b993b2bd311b6c32bbcf17bb4cb2d5a
+          default: 0x4d855c63ae26bf2af4357ca31dbc14cd
           randwidth: 128
         }
         {
@@ -5913,7 +4485,7 @@
           randcount: 64
           randtype: data
           name_top: RndCnstOtbnOtbnNonce
-          default: 0xa453cd7abdf5ba4e
+          default: 0x9bc6e394cfe6daf6
           randwidth: 64
         }
       ]
@@ -5953,7 +4525,7 @@
           inst_name: otbn
           default: ""
           top_signame: edn0_edn
-          index: 6
+          index: 3
         }
         {
           name: idle
@@ -5965,7 +4537,7 @@
           inst_name: otbn
           default: ""
           top_signame: clkmgr_aon_idle
-          index: 3
+          index: -1
         }
         {
           name: ram_cfg
@@ -6025,8 +4597,6 @@
           act: rcv
           width: 1
           inst_name: otbn
-          default: ""
-          top_signame: keymgr_otbn_key
           index: -1
         }
         {
@@ -6046,647 +4616,6 @@
       base_addrs:
       {
         null: 0x41130000
-      }
-    }
-    {
-      name: keymgr
-      type: keymgr
-      clock_srcs:
-      {
-        clk_i: main
-        clk_edn_i: main
-      }
-      clock_group: secure
-      reset_connections:
-      {
-        rst_ni:
-        {
-          name: lc
-          domain: "0"
-        }
-        rst_edn_ni:
-        {
-          name: lc
-          domain: "0"
-        }
-      }
-      clock_connections:
-      {
-        clk_i: clkmgr_aon_clocks.clk_main_secure
-        clk_edn_i: clkmgr_aon_clocks.clk_main_secure
-      }
-      domain:
-      [
-        "0"
-      ]
-      param_decl: {}
-      memory: {}
-      param_list:
-      [
-        {
-          name: KmacEnMasking
-          desc: Flag indicating with kmac masking is enabled
-          type: bit
-          default: "1"
-          expose: "true"
-          name_top: KeymgrKmacEnMasking
-        }
-        {
-          name: RndCnstLfsrSeed
-          desc: Compile-time random bits for initial LFSR seed
-          type: keymgr_pkg::lfsr_seed_t
-          randcount: 64
-          randtype: data
-          name_top: RndCnstKeymgrLfsrSeed
-          default: 0xbaebbe70437da6bf
-          randwidth: 64
-        }
-        {
-          name: RndCnstLfsrPerm
-          desc: Compile-time random permutation for LFSR output
-          type: keymgr_pkg::lfsr_perm_t
-          randcount: 64
-          randtype: perm
-          name_top: RndCnstKeymgrLfsrPerm
-          default: 0x590d1bfd3f0f5cb53eafadce1312b5925148c83bbdd9c18cef34828c1567a2679d62f029b62aa06b8449b307d93611f9
-          randwidth: 384
-        }
-        {
-          name: RndCnstRandPerm
-          desc: Compile-time random permutation for entropy used in share overriding
-          type: keymgr_pkg::rand_perm_t
-          randcount: 32
-          randtype: perm
-          name_top: RndCnstKeymgrRandPerm
-          default: 0x2eb63e41caaac2499bb168287b6199fcafe7a448
-          randwidth: 160
-        }
-        {
-          name: RndCnstRevisionSeed
-          desc: Compile-time random bits for revision seed
-          type: keymgr_pkg::seed_t
-          randcount: 256
-          randtype: data
-          name_top: RndCnstKeymgrRevisionSeed
-          default: 0xd6349a2266c33522317db4910816e9f35a99f403273cdff3ad3389c1708a2a7a
-          randwidth: 256
-        }
-        {
-          name: RndCnstCreatorIdentitySeed
-          desc: Compile-time random bits for creator identity seed
-          type: keymgr_pkg::seed_t
-          randcount: 256
-          randtype: data
-          name_top: RndCnstKeymgrCreatorIdentitySeed
-          default: 0x22b6f355a2cb8f24f7e8bb0a0439b0cd362939bb2e0d30a49d0522e9a5b96197
-          randwidth: 256
-        }
-        {
-          name: RndCnstOwnerIntIdentitySeed
-          desc: Compile-time random bits for owner intermediate identity seed
-          type: keymgr_pkg::seed_t
-          randcount: 256
-          randtype: data
-          name_top: RndCnstKeymgrOwnerIntIdentitySeed
-          default: 0xaeac01e3203beb21b48e13b127fa42a14ceb82b6610a5457bbf1caf507098f70
-          randwidth: 256
-        }
-        {
-          name: RndCnstOwnerIdentitySeed
-          desc: Compile-time random bits for owner identity seed
-          type: keymgr_pkg::seed_t
-          randcount: 256
-          randtype: data
-          name_top: RndCnstKeymgrOwnerIdentitySeed
-          default: 0xdb8ec31e0c00998fe5d2429b122499f398d73409c6ce2e8c4cc7ab13c648d6f3
-          randwidth: 256
-        }
-        {
-          name: RndCnstSoftOutputSeed
-          desc: Compile-time random bits for software generation seed
-          type: keymgr_pkg::seed_t
-          randcount: 256
-          randtype: data
-          name_top: RndCnstKeymgrSoftOutputSeed
-          default: 0x8ff6992325552fd110de6f185a80f3ae276db2416fc002d04b77c626e56477e3
-          randwidth: 256
-        }
-        {
-          name: RndCnstHardOutputSeed
-          desc: Compile-time random bits for hardware generation seed
-          type: keymgr_pkg::seed_t
-          randcount: 256
-          randtype: data
-          name_top: RndCnstKeymgrHardOutputSeed
-          default: 0x716eb94c28f496819267fc8761be9c1ab36495fd7c0cb3abff6a4fc7f10263b0
-          randwidth: 256
-        }
-        {
-          name: RndCnstAesSeed
-          desc: Compile-time random bits for generation seed when aes destination selected
-          type: keymgr_pkg::seed_t
-          randcount: 256
-          randtype: data
-          name_top: RndCnstKeymgrAesSeed
-          default: 0xae6862f2f5d3781cdc459fe1c6ac6343a98f8f32e989297c02610693700d68b4
-          randwidth: 256
-        }
-        {
-          name: RndCnstKmacSeed
-          desc: Compile-time random bits for generation seed when kmac destination selected
-          type: keymgr_pkg::seed_t
-          randcount: 256
-          randtype: data
-          name_top: RndCnstKeymgrKmacSeed
-          default: 0x72492f963eac99515e95f75b2f747ab4fd7b64834768d0b0cd8a5828bbf2cd4b
-          randwidth: 256
-        }
-        {
-          name: RndCnstOtbnSeed
-          desc: Compile-time random bits for generation seed when otbn destination selected
-          type: keymgr_pkg::seed_t
-          randcount: 256
-          randtype: data
-          name_top: RndCnstKeymgrOtbnSeed
-          default: 0x85eeb801011d8ad4c0195d90ae1582ad51e12eb525c2e74de16a934681a42f3c
-          randwidth: 256
-        }
-        {
-          name: RndCnstCdi
-          desc: Compile-time random bits for generation seed when no CDI is selected
-          type: keymgr_pkg::seed_t
-          randcount: 256
-          randtype: data
-          name_top: RndCnstKeymgrCdi
-          default: 0x8fc01cbc67c9ea62add8ef450563c45144edf3c3312b7eb88e6b5c614553e6a2
-          randwidth: 256
-        }
-        {
-          name: RndCnstNoneSeed
-          desc: Compile-time random bits for generation seed when no destination selected
-          type: keymgr_pkg::seed_t
-          randcount: 256
-          randtype: data
-          name_top: RndCnstKeymgrNoneSeed
-          default: 0x11b0d83a2ce3940f256b3db0eb494ee8937d08c08c974099f25b81790baf3122
-          randwidth: 256
-        }
-      ]
-      inter_signal_list:
-      [
-        {
-          name: edn
-          struct: edn
-          package: edn_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: keymgr
-          default: ""
-          top_signame: edn0_edn
-          index: 0
-        }
-        {
-          name: aes_key
-          struct: hw_key_req
-          package: keymgr_pkg
-          type: uni
-          act: req
-          width: 1
-          inst_name: keymgr
-          default: ""
-          end_idx: -1
-          top_type: broadcast
-          top_signame: keymgr_aes_key
-          index: -1
-        }
-        {
-          name: kmac_key
-          struct: hw_key_req
-          package: keymgr_pkg
-          type: uni
-          act: req
-          width: 1
-          inst_name: keymgr
-          default: ""
-          end_idx: -1
-          top_type: broadcast
-          top_signame: keymgr_kmac_key
-          index: -1
-        }
-        {
-          name: otbn_key
-          struct: otbn_key_req
-          package: keymgr_pkg
-          type: uni
-          act: req
-          width: 1
-          inst_name: keymgr
-          default: ""
-          end_idx: -1
-          top_type: broadcast
-          top_signame: keymgr_otbn_key
-          index: -1
-        }
-        {
-          name: kmac_data
-          struct: app
-          package: kmac_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: keymgr
-          default: ""
-          top_signame: kmac_app
-          index: 0
-        }
-        {
-          name: otp_key
-          struct: otp_keymgr_key
-          package: otp_ctrl_pkg
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: keymgr
-          default: ""
-          top_signame: otp_ctrl_otp_keymgr_key
-          index: -1
-        }
-        {
-          name: otp_device_id
-          struct: otp_device_id
-          package: otp_ctrl_pkg
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: keymgr
-          default: ""
-          top_signame: keymgr_otp_device_id
-          index: -1
-        }
-        {
-          name: flash
-          struct: keymgr_flash
-          package: flash_ctrl_pkg
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: keymgr
-          default: ""
-          top_signame: flash_ctrl_keymgr
-          index: -1
-        }
-        {
-          name: lc_keymgr_en
-          struct: lc_tx
-          package: lc_ctrl_pkg
-          type: uni
-          act: rcv
-          width: 1
-          default: lc_ctrl_pkg::On
-          inst_name: keymgr
-          top_signame: lc_ctrl_lc_keymgr_en
-          index: -1
-        }
-        {
-          name: lc_keymgr_div
-          struct: lc_keymgr_div
-          package: lc_ctrl_pkg
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: keymgr
-          default: ""
-          top_signame: lc_ctrl_lc_keymgr_div
-          index: -1
-        }
-        {
-          name: rom_digest
-          struct: keymgr_data
-          package: rom_ctrl_pkg
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: keymgr
-          default: ""
-          top_signame: rom_ctrl_keymgr_data
-          index: -1
-        }
-        {
-          name: kmac_en_masking
-          struct: logic
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: keymgr
-          default: ""
-          package: ""
-          top_signame: kmac_en_masking
-          index: -1
-        }
-        {
-          name: tl
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: keymgr
-          default: ""
-          end_idx: -1
-          top_signame: keymgr_tl
-          index: -1
-        }
-      ]
-      base_addrs:
-      {
-        null: 0x41140000
-      }
-    }
-    {
-      name: csrng
-      type: csrng
-      clock_srcs:
-      {
-        clk_i: main
-      }
-      clock_group: secure
-      reset_connections:
-      {
-        rst_ni:
-        {
-          name: lc
-          domain: "0"
-        }
-      }
-      clock_connections:
-      {
-        clk_i: clkmgr_aon_clocks.clk_main_secure
-      }
-      domain:
-      [
-        "0"
-      ]
-      param_decl: {}
-      memory: {}
-      param_list:
-      [
-        {
-          name: RndCnstCsKeymgrDivNonProduction
-          desc: Compile-time random bits for csrng state group diversification value
-          type: csrng_pkg::cs_keymgr_div_t
-          randcount: 384
-          randtype: data
-          name_top: RndCnstCsrngCsKeymgrDivNonProduction
-          default: 0x2141384fafbf21ab369d0abf6e68b959301e3403f5347613c1c980f2b67a249592b3504aeea248439f4703d603124e32
-          randwidth: 384
-        }
-        {
-          name: RndCnstCsKeymgrDivProduction
-          desc: Compile-time random bits for csrng state group diversification value
-          type: csrng_pkg::cs_keymgr_div_t
-          randcount: 384
-          randtype: data
-          name_top: RndCnstCsrngCsKeymgrDivProduction
-          default: 0x52add7d74665fcd3e7ff977dd899341f621a0fa74e5c2ce9ef80bcce0d147ee3ffa4cb6f1be8eece2ea06860734991cf
-          randwidth: 384
-        }
-        {
-          name: SBoxImpl
-          desc: Selection of the S-Box implementation. See aes_pkg.sv.
-          type: aes_pkg::sbox_impl_e
-          default: aes_pkg::SBoxImplCanright
-          expose: "true"
-          name_top: CsrngSBoxImpl
-        }
-      ]
-      inter_signal_list:
-      [
-        {
-          name: csrng_cmd
-          struct: csrng
-          package: csrng_pkg
-          type: req_rsp
-          act: rsp
-          width: 2
-          inst_name: csrng
-          default: ""
-          end_idx: -1
-          top_type: one-to-N
-          top_signame: csrng_csrng_cmd
-          index: -1
-        }
-        {
-          name: entropy_src_hw_if
-          struct: entropy_src_hw_if
-          package: entropy_src_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: csrng
-          default: ""
-          end_idx: -1
-          top_signame: csrng_entropy_src_hw_if
-          index: -1
-        }
-        {
-          name: cs_aes_halt
-          struct: cs_aes_halt
-          package: entropy_src_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: csrng
-          default: ""
-          end_idx: -1
-          top_signame: csrng_cs_aes_halt
-          index: -1
-        }
-        {
-          name: otp_en_csrng_sw_app_read
-          struct: mubi8
-          package: prim_mubi_pkg
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: csrng
-          default: ""
-          top_signame: csrng_otp_en_csrng_sw_app_read
-          index: -1
-        }
-        {
-          name: lc_hw_debug_en
-          struct: lc_tx
-          package: lc_ctrl_pkg
-          type: uni
-          act: rcv
-          width: 1
-          default: lc_ctrl_pkg::Off
-          inst_name: csrng
-          top_signame: lc_ctrl_lc_hw_debug_en
-          index: -1
-        }
-        {
-          name: tl
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: csrng
-          default: ""
-          end_idx: -1
-          top_signame: csrng_tl
-          index: -1
-        }
-      ]
-      base_addrs:
-      {
-        null: 0x41150000
-      }
-    }
-    {
-      name: entropy_src
-      type: entropy_src
-      clock_srcs:
-      {
-        clk_i: main
-      }
-      clock_group: secure
-      reset_connections:
-      {
-        rst_ni:
-        {
-          name: lc
-          domain: "0"
-        }
-      }
-      clock_connections:
-      {
-        clk_i: clkmgr_aon_clocks.clk_main_secure
-      }
-      domain:
-      [
-        "0"
-      ]
-      param_decl: {}
-      memory: {}
-      param_list:
-      [
-        {
-          name: Stub
-          desc: Stub out the core of entropy_src logic
-          type: bit
-          default: "0"
-          expose: "true"
-          name_top: EntropySrcStub
-        }
-      ]
-      inter_signal_list:
-      [
-        {
-          name: entropy_src_hw_if
-          struct: entropy_src_hw_if
-          package: entropy_src_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: entropy_src
-          default: ""
-          top_signame: csrng_entropy_src_hw_if
-          index: -1
-        }
-        {
-          name: cs_aes_halt
-          struct: cs_aes_halt
-          package: entropy_src_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: entropy_src
-          default: ""
-          top_signame: csrng_cs_aes_halt
-          index: -1
-        }
-        {
-          name: entropy_src_rng
-          struct: entropy_src_rng
-          package: entropy_src_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: entropy_src
-          default: ""
-          external: true
-          top_signame: es_rng
-          conn_type: false
-          index: -1
-        }
-        {
-          name: entropy_src_xht
-          struct: entropy_src_xht
-          package: entropy_src_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: entropy_src
-          index: -1
-        }
-        {
-          name: otp_en_entropy_src_fw_read
-          struct: mubi8
-          package: prim_mubi_pkg
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: entropy_src
-          default: ""
-          top_signame: entropy_src_otp_en_entropy_src_fw_read
-          index: -1
-        }
-        {
-          name: otp_en_entropy_src_fw_over
-          struct: mubi8
-          package: prim_mubi_pkg
-          type: uni
-          act: rcv
-          width: 1
-          inst_name: entropy_src
-          default: ""
-          top_signame: entropy_src_otp_en_entropy_src_fw_over
-          index: -1
-        }
-        {
-          name: rng_fips
-          struct: logic
-          type: uni
-          act: req
-          width: 1
-          inst_name: entropy_src
-          default: ""
-          package: ""
-          external: true
-          top_signame: es_rng_fips
-          conn_type: false
-          index: -1
-        }
-        {
-          name: tl
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: rsp
-          width: 1
-          inst_name: entropy_src
-          default: ""
-          end_idx: -1
-          top_signame: entropy_src_tl
-          index: -1
-        }
-      ]
-      base_addrs:
-      {
-        null: 0x41160000
       }
     }
     {
@@ -6726,9 +4655,7 @@
           act: req
           width: 1
           inst_name: edn0
-          default: ""
-          top_signame: csrng_csrng_cmd
-          index: 0
+          index: -1
         }
         {
           name: edn
@@ -6747,8 +4674,8 @@
           width: 8
           default: "'0"
           inst_name: edn0
-          end_idx: -1
-          top_type: one-to-N
+          end_idx: 5
+          top_type: partial-one-to-N
           top_signame: edn0_edn
           index: -1
         }
@@ -6808,9 +4735,7 @@
           act: req
           width: 1
           inst_name: edn1
-          default: ""
-          top_signame: csrng_csrng_cmd
-          index: 1
+          index: -1
         }
         {
           name: edn
@@ -6914,7 +4839,7 @@
           randcount: 128
           randtype: data
           name_top: RndCnstSramCtrlMainSramKey
-          default: 0x3f1eb7982ac2c0c2054167d74e4d1edd
+          default: 0xcdc49e541b6d449b1ea2aa8067692ddf
           randwidth: 128
         }
         {
@@ -6924,7 +4849,7 @@
           randcount: 128
           randtype: data
           name_top: RndCnstSramCtrlMainSramNonce
-          default: 0x21ad35efe85d23c884c5845d25cf9ae4
+          default: 0x3296f7d19b8ee495869f7b22d3d6a14b
           randwidth: 128
         }
         {
@@ -6934,7 +4859,7 @@
           randcount: 32
           randtype: data
           name_top: RndCnstSramCtrlMainLfsrSeed
-          default: 0x741d5e1b
+          default: 0xc19123d4
           randwidth: 32
         }
         {
@@ -6944,7 +4869,7 @@
           randcount: 32
           randtype: perm
           name_top: RndCnstSramCtrlMainLfsrPerm
-          default: 0x6e0131bb7c1648b616c8f6bef542f2a7627aa4c1
+          default: 0x74965c3db137b4cb0b77ff070a26a822b2101e7d
           randwidth: 160
         }
         {
@@ -7115,7 +5040,7 @@
           randcount: 64
           randtype: data
           name_top: RndCnstRomCtrlScrNonce
-          default: 0x979e60d582e0392
+          default: 0x3eb81f5ca8584e45
           randwidth: 64
         }
         {
@@ -7125,7 +5050,7 @@
           randcount: 128
           randtype: data
           name_top: RndCnstRomCtrlScrKey
-          default: 0x222273a89b8e0ee991f6b23fc6261d9
+          default: 0x8757ea53eefda37d5ce24ceb4f56cb38
           randwidth: 128
         }
         {
@@ -7179,10 +5104,6 @@
           act: req
           width: 1
           inst_name: rom_ctrl
-          default: ""
-          end_idx: -1
-          top_type: broadcast
-          top_signame: rom_ctrl_keymgr_data
           index: -1
         }
         {
@@ -7193,9 +5114,7 @@
           act: req
           width: 1
           inst_name: rom_ctrl
-          default: ""
-          top_signame: kmac_app
-          index: 2
+          index: -1
         }
         {
           name: regs_tl
@@ -7312,7 +5231,7 @@
           randcount: 32
           randtype: data
           name_top: RndCnstRvCoreIbexLfsrSeed
-          default: 0x46caafef
+          default: 0x8e9d0c59
           randwidth: 32
         }
         {
@@ -7322,7 +5241,7 @@
           randcount: 32
           randtype: perm
           name_top: RndCnstRvCoreIbexLfsrPerm
-          default: 0xe02a2ca19a88cc493b7682da9287e7c2bdd9ddf4
+          default: 0xfe4aebf5b502b6b0b1fae6212892c748868a4fc6
           randwidth: 160
         }
         {
@@ -7332,7 +5251,7 @@
           randcount: 128
           randtype: data
           name_top: RndCnstRvCoreIbexIbexKeyDefault
-          default: 0xfa23da15e7d42e08e9ac008c70e0b630
+          default: 0x4ba9dcdff0245e84d6f5f03ecaef7217
           randwidth: 128
         }
         {
@@ -7342,7 +5261,7 @@
           randcount: 64
           randtype: data
           name_top: RndCnstRvCoreIbexIbexNonceDefault
-          default: 0xbf098f0f567f6710
+          default: 0x1bed7db0d6e49c54
           randwidth: 64
         }
         {
@@ -7707,7 +5626,7 @@
           inst_name: rv_core_ibex
           default: ""
           top_signame: edn0_edn
-          index: 7
+          index: 4
         }
         {
           name: icache_otp_key
@@ -7796,7 +5715,7 @@
           width: 1
           default: ""
           top_signame: edn0_edn
-          index: 2
+          index: 1
           external: true
           conn_type: true
         }
@@ -7839,12 +5758,10 @@
           inst_name: ast
           width: 1
           default: ""
-          end_idx: -1
-          top_type: broadcast
-          top_signame: ast_ram_2p_cfg
-          index: -1
           external: true
-          conn_type: true
+          top_signame: ram_2p_cfg
+          conn_type: false
+          index: -1
         }
         {
           struct: rom_cfg
@@ -7897,11 +5814,6 @@
         sram_ctrl_ret_aon.cfg
         rv_core_ibex.ram_cfg
       ]
-      ast.ram_2p_cfg:
-      [
-        spi_device.ram_cfg
-        usbdev.ram_cfg
-      ]
       ast.rom_cfg:
       [
         rom_ctrl.rom_cfg
@@ -7927,23 +5839,6 @@
       aon_timer_aon.nmi_wdog_timer_bark:
       [
         rv_core_ibex.nmi_wdog
-      ]
-      csrng.csrng_cmd:
-      [
-        edn0.csrng_cmd
-        edn1.csrng_cmd
-      ]
-      csrng.entropy_src_hw_if:
-      [
-        entropy_src.entropy_src_hw_if
-      ]
-      csrng.cs_aes_halt:
-      [
-        entropy_src.cs_aes_halt
-      ]
-      flash_ctrl.keymgr:
-      [
-        keymgr.flash
       ]
       flash_ctrl.otp:
       [
@@ -7996,10 +5891,6 @@
       [
         pwrmgr_aon.rom_ctrl
       ]
-      rom_ctrl.keymgr_data:
-      [
-        keymgr.rom_digest
-      ]
       lc_ctrl.lc_flash_rma_req:
       [
         flash_ctrl.rma_req
@@ -8012,42 +5903,11 @@
       [
         lc_ctrl.lc_flash_rma_ack
       ]
-      usbdev.usb_dp_pullup:
-      [
-        pinmux_aon.usbdev_dppullup_en
-      ]
-      usbdev.usb_dn_pullup:
-      [
-        pinmux_aon.usbdev_dnpullup_en
-      ]
-      usbdev.usb_aon_suspend_req:
-      [
-        pinmux_aon.usbdev_suspend_req
-      ]
-      usbdev.usb_aon_wake_ack:
-      [
-        pinmux_aon.usbdev_wake_ack
-      ]
-      usbdev.usb_aon_bus_reset:
-      [
-        pinmux_aon.usbdev_bus_reset
-      ]
-      usbdev.usb_aon_sense_lost:
-      [
-        pinmux_aon.usbdev_sense_lost
-      ]
-      pinmux_aon.usbdev_wake_detect_active:
-      [
-        usbdev.usb_aon_wake_detect_active
-      ]
       edn0.edn:
       [
-        keymgr.edn
         otp_ctrl.edn
         ast.edn
-        kmac.entropy
         alert_handler.edn
-        aes.edn
         otbn.edn_urnd
         rv_core_ibex.edn
       ]
@@ -8059,37 +5919,8 @@
       [
         otbn.otbn_otp_key
       ]
-      otp_ctrl.otp_keymgr_key:
-      [
-        keymgr.otp_key
-      ]
-      keymgr.aes_key:
-      [
-        aes.keymgr_key
-      ]
-      keymgr.kmac_key:
-      [
-        kmac.keymgr_key
-      ]
-      keymgr.otbn_key:
-      [
-        otbn.keymgr_key
-      ]
-      kmac.app:
-      [
-        keymgr.kmac_data
-        lc_ctrl.kmac_data
-        rom_ctrl.kmac_data
-      ]
-      kmac.en_masking:
-      [
-        keymgr.kmac_en_masking
-      ]
       clkmgr_aon.idle:
       [
-        aes.idle
-        hmac.idle
-        kmac.idle
         otbn.idle
       ]
       pinmux_aon.lc_jtag:
@@ -8116,10 +5947,6 @@
       [
         otp_ctrl.lc_otp_vendor_test
       ]
-      lc_ctrl.lc_keymgr_div:
-      [
-        keymgr.lc_keymgr_div
-      ]
       lc_ctrl.lc_dft_en:
       [
         otp_ctrl.lc_dft_en
@@ -8135,7 +5962,6 @@
       [
         sram_ctrl_main.lc_hw_debug_en
         pinmux_aon.lc_hw_debug_en
-        csrng.lc_hw_debug_en
         rv_dm.lc_hw_debug_en
         clkmgr_aon.lc_hw_debug_en
         pwrmgr_aon.lc_hw_debug_en
@@ -8144,14 +5970,8 @@
       [
         rv_core_ibex.lc_cpu_en
       ]
-      lc_ctrl.lc_keymgr_en:
-      [
-        keymgr.lc_keymgr_en
-      ]
       lc_ctrl.lc_escalate_en:
       [
-        aes.lc_escalate_en
-        kmac.lc_escalate_en
         otbn.lc_escalate_en
         otp_ctrl.lc_escalate_en
         sram_ctrl_main.lc_escalate_en
@@ -8215,10 +6035,6 @@
       [
         pwrmgr_aon.pwr_cpu
       ]
-      spi_device.passthrough:
-      [
-        spi_host0.passthrough
-      ]
       rv_dm.ndmreset_req:
       [
         pwrmgr_aon.ndmreset_req
@@ -8230,7 +6046,6 @@
       pwrmgr_aon.wakeups:
       [
         sysrst_ctrl_aon.wkup_req
-        adc_ctrl_aon.wkup_req
         pinmux_aon.pin_wkup_req
         pinmux_aon.usb_wkup_req
         aon_timer_aon.wkup_req
@@ -8277,14 +6092,6 @@
       [
         main.tl_spi_host0
       ]
-      spi_host1.tl:
-      [
-        main.tl_spi_host1
-      ]
-      usbdev.tl:
-      [
-        main.tl_usbdev
-      ]
       flash_ctrl.core_tl:
       [
         main.tl_flash_ctrl__core
@@ -8296,26 +6103,6 @@
       flash_ctrl.mem_tl:
       [
         main.tl_flash_ctrl__mem
-      ]
-      hmac.tl:
-      [
-        main.tl_hmac
-      ]
-      kmac.tl:
-      [
-        main.tl_kmac
-      ]
-      aes.tl:
-      [
-        main.tl_aes
-      ]
-      entropy_src.tl:
-      [
-        main.tl_entropy_src
-      ]
-      csrng.tl:
-      [
-        main.tl_csrng
       ]
       edn0.tl:
       [
@@ -8333,10 +6120,6 @@
       [
         main.tl_otbn
       ]
-      keymgr.tl:
-      [
-        main.tl_keymgr
-      ]
       rv_core_ibex.cfg_tl_d:
       [
         main.tl_rv_core_ibex__cfg
@@ -8353,45 +6136,17 @@
       [
         peri.tl_uart0
       ]
-      uart1.tl:
-      [
-        peri.tl_uart1
-      ]
-      uart2.tl:
-      [
-        peri.tl_uart2
-      ]
-      uart3.tl:
-      [
-        peri.tl_uart3
-      ]
       i2c0.tl:
       [
         peri.tl_i2c0
-      ]
-      i2c1.tl:
-      [
-        peri.tl_i2c1
-      ]
-      i2c2.tl:
-      [
-        peri.tl_i2c2
       ]
       pattgen.tl:
       [
         peri.tl_pattgen
       ]
-      pwm_aon.tl:
-      [
-        peri.tl_pwm_aon
-      ]
       gpio.tl:
       [
         peri.tl_gpio
-      ]
-      spi_device.tl:
-      [
-        peri.tl_spi_device
       ]
       rv_timer.tl:
       [
@@ -8449,10 +6204,6 @@
       [
         peri.tl_sysrst_ctrl_aon
       ]
-      adc_ctrl_aon.tl:
-      [
-        peri.tl_adc_ctrl_aon
-      ]
     }
     top:
     [
@@ -8465,17 +6216,12 @@
       rv_core_ibex.boot_addr
       pinmux_aon.dft_jtag
       otp_ctrl.otp_hw_cfg
-      csrng.otp_en_csrng_sw_app_read
-      entropy_src.otp_en_entropy_src_fw_read
-      entropy_src.otp_en_entropy_src_fw_over
       lc_ctrl.otp_device_id
       lc_ctrl.otp_manuf_state
-      keymgr.otp_device_id
       sram_ctrl_main.otp_en_sram_ifetch
     ]
     external:
     {
-      adc_ctrl_aon.adc: adc
       ast.edn: ""
       ast.lc_dft_en: ""
       ast.obs_ctrl: obs_ctrl
@@ -8496,13 +6242,9 @@
       flash_ctrl.flash_test_mode_a: flash_test_mode_a
       flash_ctrl.flash_test_voltage_h: flash_test_voltage_h
       flash_ctrl.fla_obs: flash_obs
-      entropy_src.entropy_src_rng: es_rng
-      entropy_src.rng_fips: es_rng_fips
       peri.tl_ast: ast_tl
       pinmux_aon.dft_strap_test: dft_strap_test
       pinmux_aon.dft_hold_tap_sel: dft_hold_tap_sel
-      pinmux_aon.usb_dppullup_en: usb_dp_pullup_en
-      pinmux_aon.usb_dnpullup_en: usb_dn_pullup_en
       pwrmgr_aon.pwr_ast: pwrmgr_ast
       otp_ctrl.otp_ast_pwr_seq: ""
       otp_ctrl.otp_ast_pwr_seq_h: ""
@@ -8514,14 +6256,6 @@
       sensor_ctrl.ast_status: sensor_ctrl_ast_status
       sensor_ctrl.ast2pinmux: ast2pinmux
       sensor_ctrl.ast_init_done: ast_init_done
-      spi_device.sck_monitor: sck_monitor
-      usbdev.usb_rx_d: ""
-      usbdev.usb_tx_d: ""
-      usbdev.usb_tx_se0: ""
-      usbdev.usb_tx_use_d_se0: ""
-      usbdev.usb_rx_enable: ""
-      usbdev.usb_ref_val: ""
-      usbdev.usb_ref_pulse: ""
     }
   }
   xbar:
@@ -8596,21 +6330,13 @@
           sram_ctrl_main.ram
           peri
           spi_host0
-          spi_host1
-          usbdev
           flash_ctrl.core
           flash_ctrl.prim
           flash_ctrl.mem
-          aes
-          entropy_src
-          csrng
           edn0
           edn1
-          hmac
           rv_plic
           otbn
-          keymgr
-          kmac
           sram_ctrl_main.regs
           rv_core_ibex.cfg
         ]
@@ -8623,21 +6349,13 @@
           sram_ctrl_main.ram
           peri
           spi_host0
-          spi_host1
-          usbdev
           flash_ctrl.core
           flash_ctrl.prim
           flash_ctrl.mem
-          aes
-          entropy_src
-          csrng
           edn0
           edn1
-          hmac
           rv_plic
           otbn
-          keymgr
-          kmac
           sram_ctrl_main.regs
           rv_core_ibex.cfg
         ]
@@ -8798,44 +6516,6 @@
           pipeline: true
         }
         {
-          name: spi_host1
-          type: device
-          clock: clk_spi_host1_i
-          reset: rst_spi_host1_ni
-          req_fifo_pass: false
-          rsp_fifo_pass: false
-          inst_type: spi_host
-          addr_range:
-          [
-            {
-              base_addr: 0x40310000
-              size_byte: 0x40
-            }
-          ]
-          xbar: false
-          stub: false
-          pipeline: true
-        }
-        {
-          name: usbdev
-          type: device
-          clock: clk_usb_i
-          reset: rst_usb_ni
-          req_fifo_pass: false
-          rsp_fifo_pass: false
-          inst_type: usbdev
-          addr_range:
-          [
-            {
-              base_addr: 0x40320000
-              size_byte: 0x1000
-            }
-          ]
-          xbar: false
-          stub: false
-          pipeline: true
-        }
-        {
           name: flash_ctrl.core
           type: device
           clock: clk_main_i
@@ -8886,101 +6566,6 @@
             {
               base_addr: 0x20000000
               size_byte: 0x100000
-            }
-          ]
-          xbar: false
-          stub: false
-          pipeline: true
-        }
-        {
-          name: hmac
-          type: device
-          clock: clk_main_i
-          reset: rst_main_ni
-          req_fifo_pass: false
-          rsp_fifo_pass: false
-          inst_type: hmac
-          addr_range:
-          [
-            {
-              base_addr: 0x41110000
-              size_byte: 0x1000
-            }
-          ]
-          xbar: false
-          stub: false
-          pipeline: true
-        }
-        {
-          name: kmac
-          type: device
-          clock: clk_main_i
-          reset: rst_main_ni
-          req_fifo_pass: false
-          rsp_fifo_pass: false
-          inst_type: kmac
-          addr_range:
-          [
-            {
-              base_addr: 0x41120000
-              size_byte: 0x1000
-            }
-          ]
-          xbar: false
-          stub: false
-          pipeline: true
-        }
-        {
-          name: aes
-          type: device
-          clock: clk_main_i
-          reset: rst_main_ni
-          req_fifo_pass: false
-          rsp_fifo_pass: false
-          inst_type: aes
-          addr_range:
-          [
-            {
-              base_addr: 0x41100000
-              size_byte: 0x100
-            }
-          ]
-          xbar: false
-          stub: false
-          pipeline: true
-        }
-        {
-          name: entropy_src
-          type: device
-          clock: clk_main_i
-          reset: rst_main_ni
-          req_fifo_pass: false
-          rsp_fifo_pass: false
-          inst_type: entropy_src
-          addr_range:
-          [
-            {
-              base_addr: 0x41160000
-              size_byte: 0x100
-            }
-          ]
-          xbar: false
-          stub: false
-          pipeline: true
-        }
-        {
-          name: csrng
-          type: device
-          clock: clk_main_i
-          reset: rst_main_ni
-          req_fifo_pass: false
-          rsp_fifo_pass: false
-          inst_type: csrng
-          addr_range:
-          [
-            {
-              base_addr: 0x41150000
-              size_byte: 0x80
             }
           ]
           xbar: false
@@ -9057,25 +6642,6 @@
             {
               base_addr: 0x41130000
               size_byte: 0x10000
-            }
-          ]
-          xbar: false
-          stub: false
-          pipeline: true
-        }
-        {
-          name: keymgr
-          type: device
-          clock: clk_main_i
-          reset: rst_main_ni
-          req_fifo_pass: false
-          rsp_fifo_pass: false
-          inst_type: keymgr
-          addr_range:
-          [
-            {
-              base_addr: 0x41140000
-              size_byte: 0x100
             }
           ]
           xbar: false
@@ -9256,30 +6822,6 @@
           index: -1
         }
         {
-          name: tl_spi_host1
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: main
-          default: ""
-          top_signame: spi_host1_tl
-          index: -1
-        }
-        {
-          name: tl_usbdev
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: main
-          default: ""
-          top_signame: usbdev_tl
-          index: -1
-        }
-        {
           name: tl_flash_ctrl__core
           struct: tl
           package: tlul_pkg
@@ -9313,66 +6855,6 @@
           inst_name: main
           default: ""
           top_signame: flash_ctrl_mem_tl
-          index: -1
-        }
-        {
-          name: tl_hmac
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: main
-          default: ""
-          top_signame: hmac_tl
-          index: -1
-        }
-        {
-          name: tl_kmac
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: main
-          default: ""
-          top_signame: kmac_tl
-          index: -1
-        }
-        {
-          name: tl_aes
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: main
-          default: ""
-          top_signame: aes_tl
-          index: -1
-        }
-        {
-          name: tl_entropy_src
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: main
-          default: ""
-          top_signame: entropy_src_tl
-          index: -1
-        }
-        {
-          name: tl_csrng
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: main
-          default: ""
-          top_signame: csrng_tl
           index: -1
         }
         {
@@ -9421,18 +6903,6 @@
           inst_name: main
           default: ""
           top_signame: otbn_tl
-          index: -1
-        }
-        {
-          name: tl_keymgr
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: main
-          default: ""
-          top_signame: keymgr_tl
           index: -1
         }
         {
@@ -9502,15 +6972,9 @@
         main:
         [
           uart0
-          uart1
-          uart2
-          uart3
           i2c0
-          i2c1
-          i2c2
           pattgen
           gpio
-          spi_device
           rv_timer
           pwrmgr_aon
           rstmgr_aon
@@ -9525,9 +6989,7 @@
           sram_ctrl_ret_aon.ram
           sram_ctrl_ret_aon.regs
           aon_timer_aon
-          adc_ctrl_aon
           sysrst_ctrl_aon
-          pwm_aon
         ]
       }
       nodes:
@@ -9563,60 +7025,6 @@
           req_fifo_pass: true
         }
         {
-          name: uart1
-          type: device
-          clock: clk_peri_i
-          reset: rst_peri_ni
-          pipeline: false
-          inst_type: uart
-          addr_range:
-          [
-            {
-              base_addr: 0x40010000
-              size_byte: 0x40
-            }
-          ]
-          xbar: false
-          stub: false
-          req_fifo_pass: true
-        }
-        {
-          name: uart2
-          type: device
-          clock: clk_peri_i
-          reset: rst_peri_ni
-          pipeline: false
-          inst_type: uart
-          addr_range:
-          [
-            {
-              base_addr: 0x40020000
-              size_byte: 0x40
-            }
-          ]
-          xbar: false
-          stub: false
-          req_fifo_pass: true
-        }
-        {
-          name: uart3
-          type: device
-          clock: clk_peri_i
-          reset: rst_peri_ni
-          pipeline: false
-          inst_type: uart
-          addr_range:
-          [
-            {
-              base_addr: 0x40030000
-              size_byte: 0x40
-            }
-          ]
-          xbar: false
-          stub: false
-          req_fifo_pass: true
-        }
-        {
           name: i2c0
           type: device
           clock: clk_peri_i
@@ -9627,42 +7035,6 @@
           [
             {
               base_addr: 0x40080000
-              size_byte: 0x80
-            }
-          ]
-          xbar: false
-          stub: false
-          req_fifo_pass: true
-        }
-        {
-          name: i2c1
-          type: device
-          clock: clk_peri_i
-          reset: rst_peri_ni
-          pipeline: false
-          inst_type: i2c
-          addr_range:
-          [
-            {
-              base_addr: 0x40090000
-              size_byte: 0x80
-            }
-          ]
-          xbar: false
-          stub: false
-          req_fifo_pass: true
-        }
-        {
-          name: i2c2
-          type: device
-          clock: clk_peri_i
-          reset: rst_peri_ni
-          pipeline: false
-          inst_type: i2c
-          addr_range:
-          [
-            {
-              base_addr: 0x400a0000
               size_byte: 0x80
             }
           ]
@@ -9689,24 +7061,6 @@
           req_fifo_pass: true
         }
         {
-          name: pwm_aon
-          type: device
-          clock: clk_peri_i
-          reset: rst_peri_ni
-          pipeline: false
-          inst_type: pwm
-          addr_range:
-          [
-            {
-              base_addr: 0x40450000
-              size_byte: 0x80
-            }
-          ]
-          xbar: false
-          stub: false
-          req_fifo_pass: true
-        }
-        {
           name: gpio
           type: device
           clock: clk_peri_i
@@ -9718,24 +7072,6 @@
             {
               base_addr: 0x40040000
               size_byte: 0x40
-            }
-          ]
-          xbar: false
-          stub: false
-          req_fifo_pass: true
-        }
-        {
-          name: spi_device
-          type: device
-          clock: clk_peri_i
-          reset: rst_peri_ni
-          pipeline: false
-          inst_type: spi_device
-          addr_range:
-          [
-            {
-              base_addr: 0x40050000
-              size_byte: 0x2000
             }
           ]
           xbar: false
@@ -9825,7 +7161,7 @@
           [
             {
               base_addr: 0x40460000
-              size_byte: 0x1000
+              size_byte: 0x800
             }
           ]
           xbar: false
@@ -9995,24 +7331,6 @@
           req_fifo_pass: true
         }
         {
-          name: adc_ctrl_aon
-          type: device
-          clock: clk_peri_i
-          reset: rst_peri_ni
-          pipeline: false
-          inst_type: adc_ctrl
-          addr_range:
-          [
-            {
-              base_addr: 0x40440000
-              size_byte: 0x80
-            }
-          ]
-          xbar: false
-          stub: false
-          req_fifo_pass: true
-        }
-        {
           name: ast
           type: device
           clock: clk_peri_i
@@ -10060,42 +7378,6 @@
           index: -1
         }
         {
-          name: tl_uart1
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: peri
-          default: ""
-          top_signame: uart1_tl
-          index: -1
-        }
-        {
-          name: tl_uart2
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: peri
-          default: ""
-          top_signame: uart2_tl
-          index: -1
-        }
-        {
-          name: tl_uart3
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: peri
-          default: ""
-          top_signame: uart3_tl
-          index: -1
-        }
-        {
           name: tl_i2c0
           struct: tl
           package: tlul_pkg
@@ -10105,30 +7387,6 @@
           inst_name: peri
           default: ""
           top_signame: i2c0_tl
-          index: -1
-        }
-        {
-          name: tl_i2c1
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: peri
-          default: ""
-          top_signame: i2c1_tl
-          index: -1
-        }
-        {
-          name: tl_i2c2
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: peri
-          default: ""
-          top_signame: i2c2_tl
           index: -1
         }
         {
@@ -10144,18 +7402,6 @@
           index: -1
         }
         {
-          name: tl_pwm_aon
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: peri
-          default: ""
-          top_signame: pwm_aon_tl
-          index: -1
-        }
-        {
           name: tl_gpio
           struct: tl
           package: tlul_pkg
@@ -10165,18 +7411,6 @@
           inst_name: peri
           default: ""
           top_signame: gpio_tl
-          index: -1
-        }
-        {
-          name: tl_spi_device
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: peri
-          default: ""
-          top_signame: spi_device_tl
           index: -1
         }
         {
@@ -10348,18 +7582,6 @@
           index: -1
         }
         {
-          name: tl_adc_ctrl_aon
-          struct: tl
-          package: tlul_pkg
-          type: req_rsp
-          act: req
-          width: 1
-          inst_name: peri
-          default: ""
-          top_signame: adc_ctrl_aon_tl
-          index: -1
-        }
-        {
           name: tl_ast
           struct: tl
           package: tlul_pkg
@@ -10506,54 +7728,6 @@
         connection: direct
         desc: SPI host chip select
         idx: 14
-      }
-      {
-        name: SPI_DEV_D0
-        type: BidirStd
-        bank: VIOA
-        connection: direct
-        desc: SPI device data
-        idx: 15
-      }
-      {
-        name: SPI_DEV_D1
-        type: BidirStd
-        bank: VIOA
-        connection: direct
-        desc: SPI device data
-        idx: 16
-      }
-      {
-        name: SPI_DEV_D2
-        type: BidirStd
-        bank: VIOA
-        connection: direct
-        desc: SPI device data
-        idx: 17
-      }
-      {
-        name: SPI_DEV_D3
-        type: BidirStd
-        bank: VIOA
-        connection: direct
-        desc: SPI device data
-        idx: 18
-      }
-      {
-        name: SPI_DEV_CLK
-        type: InputStd
-        bank: VIOA
-        connection: direct
-        desc: SPI device clock
-        idx: 19
-      }
-      {
-        name: SPI_DEV_CS_L
-        type: InputStd
-        bank: VIOA
-        connection: direct
-        desc: SPI device chip select
-        idx: 20
       }
       {
         name: IOA0
@@ -10905,7 +8079,7 @@
         bank: VCC
         connection: direct
         desc: Dedicated sysrst_ctrl output (ec_rst_l)
-        idx: 21
+        idx: 15
       }
       {
         name: IOR9
@@ -10913,7 +8087,7 @@
         bank: VCC
         connection: direct
         desc: Dedicated sysrst_ctrl output (flash_wp_l))
-        idx: 22
+        idx: 16
       }
       {
         name: IOR10
@@ -10953,22 +8127,6 @@
   {
     signals:
     [
-      {
-        instance: usbdev
-        port: usb_dp
-        connection: manual
-        pad: ""
-        desc: ""
-        attr: BidirStd
-      }
-      {
-        instance: usbdev
-        port: usb_dn
-        connection: manual
-        pad: ""
-        desc: ""
-        attr: BidirStd
-      }
       {
         instance: spi_host0
         port: sck
@@ -11018,54 +8176,6 @@
         attr: BidirStd
       }
       {
-        instance: spi_device
-        port: sck
-        connection: direct
-        pad: SPI_DEV_CLK
-        desc: ""
-        attr: InputStd
-      }
-      {
-        instance: spi_device
-        port: csb
-        connection: direct
-        pad: SPI_DEV_CS_L
-        desc: ""
-        attr: InputStd
-      }
-      {
-        instance: spi_device
-        port: sd[0]
-        connection: direct
-        pad: SPI_DEV_D0
-        desc: ""
-        attr: BidirStd
-      }
-      {
-        instance: spi_device
-        port: sd[1]
-        connection: direct
-        pad: SPI_DEV_D1
-        desc: ""
-        attr: BidirStd
-      }
-      {
-        instance: spi_device
-        port: sd[2]
-        connection: direct
-        pad: SPI_DEV_D2
-        desc: ""
-        attr: BidirStd
-      }
-      {
-        instance: spi_device
-        port: sd[3]
-        connection: direct
-        pad: SPI_DEV_D3
-        desc: ""
-        attr: BidirStd
-      }
-      {
         instance: gpio
         port: ""
         connection: muxed
@@ -11082,30 +8192,6 @@
         attr: ""
       }
       {
-        instance: uart1
-        port: ""
-        connection: muxed
-        pad: ""
-        desc: ""
-        attr: ""
-      }
-      {
-        instance: uart2
-        port: ""
-        connection: muxed
-        pad: ""
-        desc: ""
-        attr: ""
-      }
-      {
-        instance: uart3
-        port: ""
-        connection: muxed
-        pad: ""
-        desc: ""
-        attr: ""
-      }
-      {
         instance: i2c0
         port: ""
         connection: muxed
@@ -11114,39 +8200,7 @@
         attr: ""
       }
       {
-        instance: i2c1
-        port: ""
-        connection: muxed
-        pad: ""
-        desc: ""
-        attr: ""
-      }
-      {
-        instance: i2c2
-        port: ""
-        connection: muxed
-        pad: ""
-        desc: ""
-        attr: ""
-      }
-      {
         instance: pattgen
-        port: ""
-        connection: muxed
-        pad: ""
-        desc: ""
-        attr: ""
-      }
-      {
-        instance: spi_device
-        port: tpm_csb
-        connection: muxed
-        pad: ""
-        desc: ""
-        attr: ""
-      }
-      {
-        instance: spi_host1
         port: ""
         connection: muxed
         pad: ""
@@ -11163,14 +8217,6 @@
       }
       {
         instance: sensor_ctrl
-        port: ""
-        connection: muxed
-        pad: ""
-        desc: ""
-        attr: ""
-      }
-      {
-        instance: pwm_aon
         port: ""
         connection: muxed
         pad: ""
@@ -11297,41 +8343,11 @@
         desc: ""
         attr: ""
       }
-      {
-        instance: usbdev
-        port: sense
-        connection: muxed
-        pad: ""
-        desc: ""
-        attr: ""
-      }
     ]
     num_wkup_detect: 8
     wkup_cnt_width: 8
     ios:
     [
-      {
-        name: usbdev_usb_dp
-        width: 1
-        type: inout
-        idx: -1
-        pad: ""
-        attr: BidirStd
-        connection: manual
-        desc: ""
-        glob_idx: 0
-      }
-      {
-        name: usbdev_usb_dn
-        width: 1
-        type: inout
-        idx: -1
-        pad: ""
-        attr: BidirStd
-        connection: manual
-        desc: ""
-        glob_idx: 1
-      }
       {
         name: spi_host0_sd
         width: 4
@@ -11341,7 +8357,7 @@
         attr: BidirStd
         connection: direct
         desc: ""
-        glob_idx: 2
+        glob_idx: 0
       }
       {
         name: spi_host0_sd
@@ -11352,7 +8368,7 @@
         attr: BidirStd
         connection: direct
         desc: ""
-        glob_idx: 3
+        glob_idx: 1
       }
       {
         name: spi_host0_sd
@@ -11363,7 +8379,7 @@
         attr: BidirStd
         connection: direct
         desc: ""
-        glob_idx: 4
+        glob_idx: 2
       }
       {
         name: spi_host0_sd
@@ -11374,51 +8390,7 @@
         attr: BidirStd
         connection: direct
         desc: ""
-        glob_idx: 5
-      }
-      {
-        name: spi_device_sd
-        width: 4
-        type: inout
-        idx: 0
-        pad: SPI_DEV_D0
-        attr: BidirStd
-        connection: direct
-        desc: ""
-        glob_idx: 6
-      }
-      {
-        name: spi_device_sd
-        width: 4
-        type: inout
-        idx: 1
-        pad: SPI_DEV_D1
-        attr: BidirStd
-        connection: direct
-        desc: ""
-        glob_idx: 7
-      }
-      {
-        name: spi_device_sd
-        width: 4
-        type: inout
-        idx: 2
-        pad: SPI_DEV_D2
-        attr: BidirStd
-        connection: direct
-        desc: ""
-        glob_idx: 8
-      }
-      {
-        name: spi_device_sd
-        width: 4
-        type: inout
-        idx: 3
-        pad: SPI_DEV_D3
-        attr: BidirStd
-        connection: direct
-        desc: ""
-        glob_idx: 9
+        glob_idx: 3
       }
       {
         name: gpio_gpio
@@ -11795,94 +8767,6 @@
         glob_idx: 33
       }
       {
-        name: i2c1_sda
-        width: 1
-        type: inout
-        idx: -1
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 34
-      }
-      {
-        name: i2c1_scl
-        width: 1
-        type: inout
-        idx: -1
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 35
-      }
-      {
-        name: i2c2_sda
-        width: 1
-        type: inout
-        idx: -1
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 36
-      }
-      {
-        name: i2c2_scl
-        width: 1
-        type: inout
-        idx: -1
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 37
-      }
-      {
-        name: spi_host1_sd
-        width: 4
-        type: inout
-        idx: 0
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 38
-      }
-      {
-        name: spi_host1_sd
-        width: 4
-        type: inout
-        idx: 1
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 39
-      }
-      {
-        name: spi_host1_sd
-        width: 4
-        type: inout
-        idx: 2
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 40
-      }
-      {
-        name: spi_host1_sd
-        width: 4
-        type: inout
-        idx: 3
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 41
-      }
-      {
         name: sysrst_ctrl_aon_ec_rst_l
         width: 1
         type: inout
@@ -11891,7 +8775,7 @@
         attr: BidirOd
         connection: direct
         desc: ""
-        glob_idx: 10
+        glob_idx: 4
       }
       {
         name: sysrst_ctrl_aon_flash_wp_l
@@ -11902,29 +8786,7 @@
         attr: BidirOd
         connection: direct
         desc: ""
-        glob_idx: 11
-      }
-      {
-        name: spi_device_sck
-        width: 1
-        type: input
-        idx: -1
-        pad: SPI_DEV_CLK
-        attr: InputStd
-        connection: direct
-        desc: ""
-        glob_idx: 12
-      }
-      {
-        name: spi_device_csb
-        width: 1
-        type: input
-        idx: -1
-        pad: SPI_DEV_CS_L
-        attr: InputStd
-        connection: direct
-        desc: ""
-        glob_idx: 13
+        glob_idx: 5
       }
       {
         name: uart0_rx
@@ -11935,51 +8797,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 42
-      }
-      {
-        name: uart1_rx
-        width: 1
-        type: input
-        idx: -1
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 43
-      }
-      {
-        name: uart2_rx
-        width: 1
-        type: input
-        idx: -1
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 44
-      }
-      {
-        name: uart3_rx
-        width: 1
-        type: input
-        idx: -1
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 45
-      }
-      {
-        name: spi_device_tpm_csb
-        width: 1
-        type: input
-        idx: -1
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 46
+        glob_idx: 34
       }
       {
         name: flash_ctrl_tck
@@ -11990,7 +8808,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 47
+        glob_idx: 35
       }
       {
         name: flash_ctrl_tms
@@ -12001,7 +8819,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 48
+        glob_idx: 36
       }
       {
         name: flash_ctrl_tdi
@@ -12012,7 +8830,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 49
+        glob_idx: 37
       }
       {
         name: sysrst_ctrl_aon_ac_present
@@ -12023,7 +8841,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 50
+        glob_idx: 38
       }
       {
         name: sysrst_ctrl_aon_key0_in
@@ -12034,7 +8852,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 51
+        glob_idx: 39
       }
       {
         name: sysrst_ctrl_aon_key1_in
@@ -12045,7 +8863,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 52
+        glob_idx: 40
       }
       {
         name: sysrst_ctrl_aon_key2_in
@@ -12056,7 +8874,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 53
+        glob_idx: 41
       }
       {
         name: sysrst_ctrl_aon_pwrb_in
@@ -12067,7 +8885,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 54
+        glob_idx: 42
       }
       {
         name: sysrst_ctrl_aon_lid_open
@@ -12078,18 +8896,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 55
-      }
-      {
-        name: usbdev_sense
-        width: 1
-        type: input
-        idx: -1
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 56
+        glob_idx: 43
       }
       {
         name: spi_host0_sck
@@ -12100,7 +8907,7 @@
         attr: BidirStd
         connection: direct
         desc: ""
-        glob_idx: 14
+        glob_idx: 6
       }
       {
         name: spi_host0_csb
@@ -12111,7 +8918,7 @@
         attr: BidirStd
         connection: direct
         desc: ""
-        glob_idx: 15
+        glob_idx: 7
       }
       {
         name: uart0_tx
@@ -12122,40 +8929,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 42
-      }
-      {
-        name: uart1_tx
-        width: 1
-        type: output
-        idx: -1
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 43
-      }
-      {
-        name: uart2_tx
-        width: 1
-        type: output
-        idx: -1
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 44
-      }
-      {
-        name: uart3_tx
-        width: 1
-        type: output
-        idx: -1
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 45
+        glob_idx: 34
       }
       {
         name: pattgen_pda0_tx
@@ -12166,7 +8940,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 46
+        glob_idx: 35
       }
       {
         name: pattgen_pcl0_tx
@@ -12177,7 +8951,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 47
+        glob_idx: 36
       }
       {
         name: pattgen_pda1_tx
@@ -12188,7 +8962,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 48
+        glob_idx: 37
       }
       {
         name: pattgen_pcl1_tx
@@ -12199,29 +8973,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 49
-      }
-      {
-        name: spi_host1_sck
-        width: 1
-        type: output
-        idx: -1
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 50
-      }
-      {
-        name: spi_host1_csb
-        width: 1
-        type: output
-        idx: -1
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 51
+        glob_idx: 38
       }
       {
         name: flash_ctrl_tdo
@@ -12232,7 +8984,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 52
+        glob_idx: 39
       }
       {
         name: sensor_ctrl_ast_debug_out
@@ -12243,7 +8995,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 53
+        glob_idx: 40
       }
       {
         name: sensor_ctrl_ast_debug_out
@@ -12254,7 +9006,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 54
+        glob_idx: 41
       }
       {
         name: sensor_ctrl_ast_debug_out
@@ -12265,7 +9017,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 55
+        glob_idx: 42
       }
       {
         name: sensor_ctrl_ast_debug_out
@@ -12276,7 +9028,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 56
+        glob_idx: 43
       }
       {
         name: sensor_ctrl_ast_debug_out
@@ -12287,7 +9039,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 57
+        glob_idx: 44
       }
       {
         name: sensor_ctrl_ast_debug_out
@@ -12298,7 +9050,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 58
+        glob_idx: 45
       }
       {
         name: sensor_ctrl_ast_debug_out
@@ -12309,7 +9061,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 59
+        glob_idx: 46
       }
       {
         name: sensor_ctrl_ast_debug_out
@@ -12320,7 +9072,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 60
+        glob_idx: 47
       }
       {
         name: sensor_ctrl_ast_debug_out
@@ -12331,73 +9083,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 61
-      }
-      {
-        name: pwm_aon_pwm
-        width: 6
-        type: output
-        idx: 0
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 62
-      }
-      {
-        name: pwm_aon_pwm
-        width: 6
-        type: output
-        idx: 1
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 63
-      }
-      {
-        name: pwm_aon_pwm
-        width: 6
-        type: output
-        idx: 2
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 64
-      }
-      {
-        name: pwm_aon_pwm
-        width: 6
-        type: output
-        idx: 3
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 65
-      }
-      {
-        name: pwm_aon_pwm
-        width: 6
-        type: output
-        idx: 4
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 66
-      }
-      {
-        name: pwm_aon_pwm
-        width: 6
-        type: output
-        idx: 5
-        pad: ""
-        attr: ""
-        connection: muxed
-        desc: ""
-        glob_idx: 67
+        glob_idx: 48
       }
       {
         name: otp_ctrl_test
@@ -12408,7 +9094,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 68
+        glob_idx: 49
       }
       {
         name: sysrst_ctrl_aon_bat_disable
@@ -12419,7 +9105,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 69
+        glob_idx: 50
       }
       {
         name: sysrst_ctrl_aon_key0_out
@@ -12430,7 +9116,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 70
+        glob_idx: 51
       }
       {
         name: sysrst_ctrl_aon_key1_out
@@ -12441,7 +9127,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 71
+        glob_idx: 52
       }
       {
         name: sysrst_ctrl_aon_key2_out
@@ -12452,7 +9138,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 72
+        glob_idx: 53
       }
       {
         name: sysrst_ctrl_aon_pwrb_out
@@ -12463,7 +9149,7 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 73
+        glob_idx: 54
       }
       {
         name: sysrst_ctrl_aon_z3_wakeup
@@ -12474,23 +9160,23 @@
         attr: ""
         connection: muxed
         desc: ""
-        glob_idx: 74
+        glob_idx: 55
       }
     ]
     io_counts:
     {
       dedicated:
       {
-        inouts: 12
-        inputs: 2
+        inouts: 6
+        inputs: 0
         outputs: 2
-        pads: 23
+        pads: 17
       }
       muxed:
       {
-        inouts: 42
-        inputs: 15
-        outputs: 33
+        inouts: 34
+        inputs: 10
+        outputs: 22
         pads: 47
       }
     }
@@ -12764,11 +9450,6 @@
       module: sysrst_ctrl_aon
     }
     {
-      name: wkup_req
-      width: "1"
-      module: adc_ctrl_aon
-    }
-    {
       name: pin_wkup_req
       width: "1"
       module: pinmux_aon
@@ -12831,33 +9512,19 @@
   interrupt_module:
   [
     uart0
-    uart1
-    uart2
-    uart3
     gpio
-    spi_device
     i2c0
-    i2c1
-    i2c2
     pattgen
     rv_timer
     otp_ctrl
     alert_handler
     spi_host0
-    spi_host1
-    usbdev
     pwrmgr_aon
     sysrst_ctrl_aon
-    adc_ctrl_aon
     aon_timer_aon
     sensor_ctrl
     flash_ctrl
-    hmac
-    kmac
     otbn
-    keymgr
-    csrng
-    entropy_src
     edn0
     edn1
   ]
@@ -12912,226 +9579,10 @@
       module_name: uart0
     }
     {
-      name: uart1_tx_watermark
-      width: 1
-      type: interrupt
-      module_name: uart1
-    }
-    {
-      name: uart1_rx_watermark
-      width: 1
-      type: interrupt
-      module_name: uart1
-    }
-    {
-      name: uart1_tx_empty
-      width: 1
-      type: interrupt
-      module_name: uart1
-    }
-    {
-      name: uart1_rx_overflow
-      width: 1
-      type: interrupt
-      module_name: uart1
-    }
-    {
-      name: uart1_rx_frame_err
-      width: 1
-      type: interrupt
-      module_name: uart1
-    }
-    {
-      name: uart1_rx_break_err
-      width: 1
-      type: interrupt
-      module_name: uart1
-    }
-    {
-      name: uart1_rx_timeout
-      width: 1
-      type: interrupt
-      module_name: uart1
-    }
-    {
-      name: uart1_rx_parity_err
-      width: 1
-      type: interrupt
-      module_name: uart1
-    }
-    {
-      name: uart2_tx_watermark
-      width: 1
-      type: interrupt
-      module_name: uart2
-    }
-    {
-      name: uart2_rx_watermark
-      width: 1
-      type: interrupt
-      module_name: uart2
-    }
-    {
-      name: uart2_tx_empty
-      width: 1
-      type: interrupt
-      module_name: uart2
-    }
-    {
-      name: uart2_rx_overflow
-      width: 1
-      type: interrupt
-      module_name: uart2
-    }
-    {
-      name: uart2_rx_frame_err
-      width: 1
-      type: interrupt
-      module_name: uart2
-    }
-    {
-      name: uart2_rx_break_err
-      width: 1
-      type: interrupt
-      module_name: uart2
-    }
-    {
-      name: uart2_rx_timeout
-      width: 1
-      type: interrupt
-      module_name: uart2
-    }
-    {
-      name: uart2_rx_parity_err
-      width: 1
-      type: interrupt
-      module_name: uart2
-    }
-    {
-      name: uart3_tx_watermark
-      width: 1
-      type: interrupt
-      module_name: uart3
-    }
-    {
-      name: uart3_rx_watermark
-      width: 1
-      type: interrupt
-      module_name: uart3
-    }
-    {
-      name: uart3_tx_empty
-      width: 1
-      type: interrupt
-      module_name: uart3
-    }
-    {
-      name: uart3_rx_overflow
-      width: 1
-      type: interrupt
-      module_name: uart3
-    }
-    {
-      name: uart3_rx_frame_err
-      width: 1
-      type: interrupt
-      module_name: uart3
-    }
-    {
-      name: uart3_rx_break_err
-      width: 1
-      type: interrupt
-      module_name: uart3
-    }
-    {
-      name: uart3_rx_timeout
-      width: 1
-      type: interrupt
-      module_name: uart3
-    }
-    {
-      name: uart3_rx_parity_err
-      width: 1
-      type: interrupt
-      module_name: uart3
-    }
-    {
       name: gpio_gpio
       width: 32
       type: interrupt
       module_name: gpio
-    }
-    {
-      name: spi_device_generic_rx_full
-      width: 1
-      type: interrupt
-      module_name: spi_device
-    }
-    {
-      name: spi_device_generic_rx_watermark
-      width: 1
-      type: interrupt
-      module_name: spi_device
-    }
-    {
-      name: spi_device_generic_tx_watermark
-      width: 1
-      type: interrupt
-      module_name: spi_device
-    }
-    {
-      name: spi_device_generic_rx_error
-      width: 1
-      type: interrupt
-      module_name: spi_device
-    }
-    {
-      name: spi_device_generic_rx_overflow
-      width: 1
-      type: interrupt
-      module_name: spi_device
-    }
-    {
-      name: spi_device_generic_tx_underflow
-      width: 1
-      type: interrupt
-      module_name: spi_device
-    }
-    {
-      name: spi_device_upload_cmdfifo_not_empty
-      width: 1
-      type: interrupt
-      module_name: spi_device
-    }
-    {
-      name: spi_device_upload_payload_not_empty
-      width: 1
-      type: interrupt
-      module_name: spi_device
-    }
-    {
-      name: spi_device_upload_payload_overflow
-      width: 1
-      type: interrupt
-      module_name: spi_device
-    }
-    {
-      name: spi_device_readbuf_watermark
-      width: 1
-      type: interrupt
-      module_name: spi_device
-    }
-    {
-      name: spi_device_readbuf_flip
-      width: 1
-      type: interrupt
-      module_name: spi_device
-    }
-    {
-      name: spi_device_tpm_header_not_empty
-      width: 1
-      type: interrupt
-      module_name: spi_device
     }
     {
       name: i2c0_fmt_watermark
@@ -13224,186 +9675,6 @@
       module_name: i2c0
     }
     {
-      name: i2c1_fmt_watermark
-      width: 1
-      type: interrupt
-      module_name: i2c1
-    }
-    {
-      name: i2c1_rx_watermark
-      width: 1
-      type: interrupt
-      module_name: i2c1
-    }
-    {
-      name: i2c1_fmt_overflow
-      width: 1
-      type: interrupt
-      module_name: i2c1
-    }
-    {
-      name: i2c1_rx_overflow
-      width: 1
-      type: interrupt
-      module_name: i2c1
-    }
-    {
-      name: i2c1_nak
-      width: 1
-      type: interrupt
-      module_name: i2c1
-    }
-    {
-      name: i2c1_scl_interference
-      width: 1
-      type: interrupt
-      module_name: i2c1
-    }
-    {
-      name: i2c1_sda_interference
-      width: 1
-      type: interrupt
-      module_name: i2c1
-    }
-    {
-      name: i2c1_stretch_timeout
-      width: 1
-      type: interrupt
-      module_name: i2c1
-    }
-    {
-      name: i2c1_sda_unstable
-      width: 1
-      type: interrupt
-      module_name: i2c1
-    }
-    {
-      name: i2c1_cmd_complete
-      width: 1
-      type: interrupt
-      module_name: i2c1
-    }
-    {
-      name: i2c1_tx_stretch
-      width: 1
-      type: interrupt
-      module_name: i2c1
-    }
-    {
-      name: i2c1_tx_overflow
-      width: 1
-      type: interrupt
-      module_name: i2c1
-    }
-    {
-      name: i2c1_acq_full
-      width: 1
-      type: interrupt
-      module_name: i2c1
-    }
-    {
-      name: i2c1_unexp_stop
-      width: 1
-      type: interrupt
-      module_name: i2c1
-    }
-    {
-      name: i2c1_host_timeout
-      width: 1
-      type: interrupt
-      module_name: i2c1
-    }
-    {
-      name: i2c2_fmt_watermark
-      width: 1
-      type: interrupt
-      module_name: i2c2
-    }
-    {
-      name: i2c2_rx_watermark
-      width: 1
-      type: interrupt
-      module_name: i2c2
-    }
-    {
-      name: i2c2_fmt_overflow
-      width: 1
-      type: interrupt
-      module_name: i2c2
-    }
-    {
-      name: i2c2_rx_overflow
-      width: 1
-      type: interrupt
-      module_name: i2c2
-    }
-    {
-      name: i2c2_nak
-      width: 1
-      type: interrupt
-      module_name: i2c2
-    }
-    {
-      name: i2c2_scl_interference
-      width: 1
-      type: interrupt
-      module_name: i2c2
-    }
-    {
-      name: i2c2_sda_interference
-      width: 1
-      type: interrupt
-      module_name: i2c2
-    }
-    {
-      name: i2c2_stretch_timeout
-      width: 1
-      type: interrupt
-      module_name: i2c2
-    }
-    {
-      name: i2c2_sda_unstable
-      width: 1
-      type: interrupt
-      module_name: i2c2
-    }
-    {
-      name: i2c2_cmd_complete
-      width: 1
-      type: interrupt
-      module_name: i2c2
-    }
-    {
-      name: i2c2_tx_stretch
-      width: 1
-      type: interrupt
-      module_name: i2c2
-    }
-    {
-      name: i2c2_tx_overflow
-      width: 1
-      type: interrupt
-      module_name: i2c2
-    }
-    {
-      name: i2c2_acq_full
-      width: 1
-      type: interrupt
-      module_name: i2c2
-    }
-    {
-      name: i2c2_unexp_stop
-      width: 1
-      type: interrupt
-      module_name: i2c2
-    }
-    {
-      name: i2c2_host_timeout
-      width: 1
-      type: interrupt
-      module_name: i2c2
-    }
-    {
       name: pattgen_done_ch0
       width: 1
       type: interrupt
@@ -13470,120 +9741,6 @@
       module_name: spi_host0
     }
     {
-      name: spi_host1_error
-      width: 1
-      type: interrupt
-      module_name: spi_host1
-    }
-    {
-      name: spi_host1_spi_event
-      width: 1
-      type: interrupt
-      module_name: spi_host1
-    }
-    {
-      name: usbdev_pkt_received
-      width: 1
-      type: interrupt
-      module_name: usbdev
-    }
-    {
-      name: usbdev_pkt_sent
-      width: 1
-      type: interrupt
-      module_name: usbdev
-    }
-    {
-      name: usbdev_disconnected
-      width: 1
-      type: interrupt
-      module_name: usbdev
-    }
-    {
-      name: usbdev_host_lost
-      width: 1
-      type: interrupt
-      module_name: usbdev
-    }
-    {
-      name: usbdev_link_reset
-      width: 1
-      type: interrupt
-      module_name: usbdev
-    }
-    {
-      name: usbdev_link_suspend
-      width: 1
-      type: interrupt
-      module_name: usbdev
-    }
-    {
-      name: usbdev_link_resume
-      width: 1
-      type: interrupt
-      module_name: usbdev
-    }
-    {
-      name: usbdev_av_empty
-      width: 1
-      type: interrupt
-      module_name: usbdev
-    }
-    {
-      name: usbdev_rx_full
-      width: 1
-      type: interrupt
-      module_name: usbdev
-    }
-    {
-      name: usbdev_av_overflow
-      width: 1
-      type: interrupt
-      module_name: usbdev
-    }
-    {
-      name: usbdev_link_in_err
-      width: 1
-      type: interrupt
-      module_name: usbdev
-    }
-    {
-      name: usbdev_rx_crc_err
-      width: 1
-      type: interrupt
-      module_name: usbdev
-    }
-    {
-      name: usbdev_rx_pid_err
-      width: 1
-      type: interrupt
-      module_name: usbdev
-    }
-    {
-      name: usbdev_rx_bitstuff_err
-      width: 1
-      type: interrupt
-      module_name: usbdev
-    }
-    {
-      name: usbdev_frame
-      width: 1
-      type: interrupt
-      module_name: usbdev
-    }
-    {
-      name: usbdev_powered
-      width: 1
-      type: interrupt
-      module_name: usbdev
-    }
-    {
-      name: usbdev_link_out_err
-      width: 1
-      type: interrupt
-      module_name: usbdev
-    }
-    {
       name: pwrmgr_aon_wakeup
       width: 1
       type: interrupt
@@ -13594,12 +9751,6 @@
       width: 1
       type: interrupt
       module_name: sysrst_ctrl_aon
-    }
-    {
-      name: adc_ctrl_aon_match_done
-      width: 1
-      type: interrupt
-      module_name: adc_ctrl_aon
     }
     {
       name: aon_timer_aon_wkup_timer_expired
@@ -13662,100 +9813,10 @@
       module_name: flash_ctrl
     }
     {
-      name: hmac_hmac_done
-      width: 1
-      type: interrupt
-      module_name: hmac
-    }
-    {
-      name: hmac_fifo_empty
-      width: 1
-      type: interrupt
-      module_name: hmac
-    }
-    {
-      name: hmac_hmac_err
-      width: 1
-      type: interrupt
-      module_name: hmac
-    }
-    {
-      name: kmac_kmac_done
-      width: 1
-      type: interrupt
-      module_name: kmac
-    }
-    {
-      name: kmac_fifo_empty
-      width: 1
-      type: interrupt
-      module_name: kmac
-    }
-    {
-      name: kmac_kmac_err
-      width: 1
-      type: interrupt
-      module_name: kmac
-    }
-    {
       name: otbn_done
       width: 1
       type: interrupt
       module_name: otbn
-    }
-    {
-      name: keymgr_op_done
-      width: 1
-      type: interrupt
-      module_name: keymgr
-    }
-    {
-      name: csrng_cs_cmd_req_done
-      width: 1
-      type: interrupt
-      module_name: csrng
-    }
-    {
-      name: csrng_cs_entropy_req
-      width: 1
-      type: interrupt
-      module_name: csrng
-    }
-    {
-      name: csrng_cs_hw_inst_exc
-      width: 1
-      type: interrupt
-      module_name: csrng
-    }
-    {
-      name: csrng_cs_fatal_err
-      width: 1
-      type: interrupt
-      module_name: csrng
-    }
-    {
-      name: entropy_src_es_entropy_valid
-      width: 1
-      type: interrupt
-      module_name: entropy_src
-    }
-    {
-      name: entropy_src_es_health_test_failed
-      width: 1
-      type: interrupt
-      module_name: entropy_src
-    }
-    {
-      name: entropy_src_es_observe_fifo_ready
-      width: 1
-      type: interrupt
-      module_name: entropy_src
-    }
-    {
-      name: entropy_src_es_fatal_err
-      width: 1
-      type: interrupt
-      module_name: entropy_src
     }
     {
       name: edn0_edn_cmd_req_done
@@ -13785,27 +9846,17 @@
   alert_module:
   [
     uart0
-    uart1
-    uart2
-    uart3
     gpio
-    spi_device
     i2c0
-    i2c1
-    i2c2
     pattgen
     rv_timer
     otp_ctrl
     lc_ctrl
     spi_host0
-    spi_host1
-    usbdev
     pwrmgr_aon
     rstmgr_aon
     clkmgr_aon
     sysrst_ctrl_aon
-    adc_ctrl_aon
-    pwm_aon
     pinmux_aon
     aon_timer_aon
     sensor_ctrl
@@ -13813,13 +9864,7 @@
     flash_ctrl
     rv_dm
     rv_plic
-    aes
-    hmac
-    kmac
     otbn
-    keymgr
-    csrng
-    entropy_src
     edn0
     edn1
     sram_ctrl_main
@@ -13838,33 +9883,6 @@
       lpg_idx: 0
     }
     {
-      name: uart1_fatal_fault
-      width: 1
-      type: alert
-      async: "1"
-      module_name: uart1
-      lpg_name: peri_lc_io_div4_0
-      lpg_idx: 0
-    }
-    {
-      name: uart2_fatal_fault
-      width: 1
-      type: alert
-      async: "1"
-      module_name: uart2
-      lpg_name: peri_lc_io_div4_0
-      lpg_idx: 0
-    }
-    {
-      name: uart3_fatal_fault
-      width: 1
-      type: alert
-      async: "1"
-      module_name: uart3
-      lpg_name: peri_lc_io_div4_0
-      lpg_idx: 0
-    }
-    {
       name: gpio_fatal_fault
       width: 1
       type: alert
@@ -13874,40 +9892,13 @@
       lpg_idx: 0
     }
     {
-      name: spi_device_fatal_fault
-      width: 1
-      type: alert
-      async: "1"
-      module_name: spi_device
-      lpg_name: peri_spi_device_0
-      lpg_idx: 1
-    }
-    {
       name: i2c0_fatal_fault
       width: 1
       type: alert
       async: "1"
       module_name: i2c0
       lpg_name: peri_i2c0_0
-      lpg_idx: 2
-    }
-    {
-      name: i2c1_fatal_fault
-      width: 1
-      type: alert
-      async: "1"
-      module_name: i2c1
-      lpg_name: peri_i2c1_0
-      lpg_idx: 3
-    }
-    {
-      name: i2c2_fatal_fault
-      width: 1
-      type: alert
-      async: "1"
-      module_name: i2c2
-      lpg_name: peri_i2c2_0
-      lpg_idx: 4
+      lpg_idx: 1
     }
     {
       name: pattgen_fatal_fault
@@ -13925,7 +9916,7 @@
       async: "1"
       module_name: rv_timer
       lpg_name: timers_lc_io_div4_0
-      lpg_idx: 5
+      lpg_idx: 2
     }
     {
       name: otp_ctrl_fatal_macro_error
@@ -13934,7 +9925,7 @@
       async: "1"
       module_name: otp_ctrl
       lpg_name: secure_lc_io_div4_0
-      lpg_idx: 6
+      lpg_idx: 3
     }
     {
       name: otp_ctrl_fatal_check_error
@@ -13943,7 +9934,7 @@
       async: "1"
       module_name: otp_ctrl
       lpg_name: secure_lc_io_div4_0
-      lpg_idx: 6
+      lpg_idx: 3
     }
     {
       name: otp_ctrl_fatal_bus_integ_error
@@ -13952,7 +9943,7 @@
       async: "1"
       module_name: otp_ctrl
       lpg_name: secure_lc_io_div4_0
-      lpg_idx: 6
+      lpg_idx: 3
     }
     {
       name: otp_ctrl_fatal_prim_otp_alert
@@ -13961,7 +9952,7 @@
       async: "1"
       module_name: otp_ctrl
       lpg_name: secure_lc_io_div4_0
-      lpg_idx: 6
+      lpg_idx: 3
     }
     {
       name: otp_ctrl_recov_prim_otp_alert
@@ -13970,7 +9961,7 @@
       async: "1"
       module_name: otp_ctrl
       lpg_name: secure_lc_io_div4_0
-      lpg_idx: 6
+      lpg_idx: 3
     }
     {
       name: lc_ctrl_fatal_prog_error
@@ -13979,7 +9970,7 @@
       async: "1"
       module_name: lc_ctrl
       lpg_name: secure_lc_io_div4_0
-      lpg_idx: 6
+      lpg_idx: 3
     }
     {
       name: lc_ctrl_fatal_state_error
@@ -13988,7 +9979,7 @@
       async: "1"
       module_name: lc_ctrl
       lpg_name: secure_lc_io_div4_0
-      lpg_idx: 6
+      lpg_idx: 3
     }
     {
       name: lc_ctrl_fatal_bus_integ_error
@@ -13997,7 +9988,7 @@
       async: "1"
       module_name: lc_ctrl
       lpg_name: secure_lc_io_div4_0
-      lpg_idx: 6
+      lpg_idx: 3
     }
     {
       name: spi_host0_fatal_fault
@@ -14006,25 +9997,7 @@
       async: "1"
       module_name: spi_host0
       lpg_name: peri_spi_host0_0
-      lpg_idx: 7
-    }
-    {
-      name: spi_host1_fatal_fault
-      width: 1
-      type: alert
-      async: "1"
-      module_name: spi_host1
-      lpg_name: peri_spi_host1_0
-      lpg_idx: 8
-    }
-    {
-      name: usbdev_fatal_fault
-      width: 1
-      type: alert
-      async: "1"
-      module_name: usbdev
-      lpg_name: peri_usb_0
-      lpg_idx: 9
+      lpg_idx: 4
     }
     {
       name: pwrmgr_aon_fatal_fault
@@ -14033,7 +10006,7 @@
       async: "1"
       module_name: pwrmgr_aon
       lpg_name: powerup_por_io_div4_Aon
-      lpg_idx: 10
+      lpg_idx: 5
     }
     {
       name: rstmgr_aon_fatal_fault
@@ -14042,7 +10015,7 @@
       async: "1"
       module_name: rstmgr_aon
       lpg_name: powerup_lc_io_div4_Aon
-      lpg_idx: 11
+      lpg_idx: 6
     }
     {
       name: rstmgr_aon_fatal_cnsty_fault
@@ -14051,7 +10024,7 @@
       async: "1"
       module_name: rstmgr_aon
       lpg_name: powerup_lc_io_div4_Aon
-      lpg_idx: 11
+      lpg_idx: 6
     }
     {
       name: clkmgr_aon_recov_fault
@@ -14060,7 +10033,7 @@
       async: "1"
       module_name: clkmgr_aon
       lpg_name: powerup_lc_io_div4_Aon
-      lpg_idx: 11
+      lpg_idx: 6
     }
     {
       name: clkmgr_aon_fatal_fault
@@ -14069,7 +10042,7 @@
       async: "1"
       module_name: clkmgr_aon
       lpg_name: powerup_lc_io_div4_Aon
-      lpg_idx: 11
+      lpg_idx: 6
     }
     {
       name: sysrst_ctrl_aon_fatal_fault
@@ -14078,25 +10051,7 @@
       async: "1"
       module_name: sysrst_ctrl_aon
       lpg_name: secure_lc_io_div4_Aon
-      lpg_idx: 12
-    }
-    {
-      name: adc_ctrl_aon_fatal_fault
-      width: 1
-      type: alert
-      async: "1"
-      module_name: adc_ctrl_aon
-      lpg_name: peri_lc_io_div4_Aon
-      lpg_idx: 13
-    }
-    {
-      name: pwm_aon_fatal_fault
-      width: 1
-      type: alert
-      async: "1"
-      module_name: pwm_aon
-      lpg_name: peri_lc_io_div4_Aon
-      lpg_idx: 13
+      lpg_idx: 7
     }
     {
       name: pinmux_aon_fatal_fault
@@ -14105,7 +10060,7 @@
       async: "1"
       module_name: pinmux_aon
       lpg_name: powerup_lc_io_div4_Aon
-      lpg_idx: 11
+      lpg_idx: 6
     }
     {
       name: aon_timer_aon_fatal_fault
@@ -14114,7 +10069,7 @@
       async: "1"
       module_name: aon_timer_aon
       lpg_name: timers_lc_io_div4_Aon
-      lpg_idx: 14
+      lpg_idx: 8
     }
     {
       name: sensor_ctrl_recov_alert
@@ -14123,7 +10078,7 @@
       async: "1"
       module_name: sensor_ctrl
       lpg_name: secure_lc_io_div4_Aon
-      lpg_idx: 12
+      lpg_idx: 7
     }
     {
       name: sensor_ctrl_fatal_alert
@@ -14132,7 +10087,7 @@
       async: "1"
       module_name: sensor_ctrl
       lpg_name: secure_lc_io_div4_Aon
-      lpg_idx: 12
+      lpg_idx: 7
     }
     {
       name: sram_ctrl_ret_aon_fatal_error
@@ -14141,7 +10096,7 @@
       async: "1"
       module_name: sram_ctrl_ret_aon
       lpg_name: infra_lc_io_div4_Aon
-      lpg_idx: 16
+      lpg_idx: 10
     }
     {
       name: flash_ctrl_recov_err
@@ -14150,7 +10105,7 @@
       async: "1"
       module_name: flash_ctrl
       lpg_name: infra_lc_0
-      lpg_idx: 17
+      lpg_idx: 11
     }
     {
       name: flash_ctrl_fatal_std_err
@@ -14159,7 +10114,7 @@
       async: "1"
       module_name: flash_ctrl
       lpg_name: infra_lc_0
-      lpg_idx: 17
+      lpg_idx: 11
     }
     {
       name: flash_ctrl_fatal_err
@@ -14168,7 +10123,7 @@
       async: "1"
       module_name: flash_ctrl
       lpg_name: infra_lc_0
-      lpg_idx: 17
+      lpg_idx: 11
     }
     {
       name: flash_ctrl_fatal_prim_flash_alert
@@ -14177,7 +10132,7 @@
       async: "1"
       module_name: flash_ctrl
       lpg_name: infra_lc_0
-      lpg_idx: 17
+      lpg_idx: 11
     }
     {
       name: flash_ctrl_recov_prim_flash_alert
@@ -14186,7 +10141,7 @@
       async: "1"
       module_name: flash_ctrl
       lpg_name: infra_lc_0
-      lpg_idx: 17
+      lpg_idx: 11
     }
     {
       name: rv_dm_fatal_fault
@@ -14195,7 +10150,7 @@
       async: "1"
       module_name: rv_dm
       lpg_name: infra_sys_0
-      lpg_idx: 18
+      lpg_idx: 12
     }
     {
       name: rv_plic_fatal_fault
@@ -14204,52 +10159,7 @@
       async: "1"
       module_name: rv_plic
       lpg_name: secure_lc_0
-      lpg_idx: 19
-    }
-    {
-      name: aes_recov_ctrl_update_err
-      width: 1
-      type: alert
-      async: "1"
-      module_name: aes
-      lpg_name: aes_trans_lc_0
-      lpg_idx: 20
-    }
-    {
-      name: aes_fatal_fault
-      width: 1
-      type: alert
-      async: "1"
-      module_name: aes
-      lpg_name: aes_trans_lc_0
-      lpg_idx: 20
-    }
-    {
-      name: hmac_fatal_fault
-      width: 1
-      type: alert
-      async: "1"
-      module_name: hmac
-      lpg_name: hmac_trans_lc_0
-      lpg_idx: 21
-    }
-    {
-      name: kmac_recov_operation_err
-      width: 1
-      type: alert
-      async: "1"
-      module_name: kmac
-      lpg_name: kmac_trans_lc_0
-      lpg_idx: 22
-    }
-    {
-      name: kmac_fatal_fault_err
-      width: 1
-      type: alert
-      async: "1"
-      module_name: kmac
-      lpg_name: kmac_trans_lc_0
-      lpg_idx: 22
+      lpg_idx: 13
     }
     {
       name: otbn_fatal
@@ -14258,7 +10168,7 @@
       async: "1"
       module_name: otbn
       lpg_name: otbn_trans_lc_0
-      lpg_idx: 23
+      lpg_idx: 14
     }
     {
       name: otbn_recov
@@ -14267,61 +10177,7 @@
       async: "1"
       module_name: otbn
       lpg_name: otbn_trans_lc_0
-      lpg_idx: 23
-    }
-    {
-      name: keymgr_recov_operation_err
-      width: 1
-      type: alert
-      async: "1"
-      module_name: keymgr
-      lpg_name: secure_lc_0
-      lpg_idx: 19
-    }
-    {
-      name: keymgr_fatal_fault_err
-      width: 1
-      type: alert
-      async: "1"
-      module_name: keymgr
-      lpg_name: secure_lc_0
-      lpg_idx: 19
-    }
-    {
-      name: csrng_recov_alert
-      width: 1
-      type: alert
-      async: "1"
-      module_name: csrng
-      lpg_name: secure_lc_0
-      lpg_idx: 19
-    }
-    {
-      name: csrng_fatal_alert
-      width: 1
-      type: alert
-      async: "1"
-      module_name: csrng
-      lpg_name: secure_lc_0
-      lpg_idx: 19
-    }
-    {
-      name: entropy_src_recov_alert
-      width: 1
-      type: alert
-      async: "1"
-      module_name: entropy_src
-      lpg_name: secure_lc_0
-      lpg_idx: 19
-    }
-    {
-      name: entropy_src_fatal_alert
-      width: 1
-      type: alert
-      async: "1"
-      module_name: entropy_src
-      lpg_name: secure_lc_0
-      lpg_idx: 19
+      lpg_idx: 14
     }
     {
       name: edn0_recov_alert
@@ -14330,7 +10186,7 @@
       async: "1"
       module_name: edn0
       lpg_name: secure_lc_0
-      lpg_idx: 19
+      lpg_idx: 13
     }
     {
       name: edn0_fatal_alert
@@ -14339,7 +10195,7 @@
       async: "1"
       module_name: edn0
       lpg_name: secure_lc_0
-      lpg_idx: 19
+      lpg_idx: 13
     }
     {
       name: edn1_recov_alert
@@ -14348,7 +10204,7 @@
       async: "1"
       module_name: edn1
       lpg_name: secure_lc_0
-      lpg_idx: 19
+      lpg_idx: 13
     }
     {
       name: edn1_fatal_alert
@@ -14357,7 +10213,7 @@
       async: "1"
       module_name: edn1
       lpg_name: secure_lc_0
-      lpg_idx: 19
+      lpg_idx: 13
     }
     {
       name: sram_ctrl_main_fatal_error
@@ -14366,7 +10222,7 @@
       async: "1"
       module_name: sram_ctrl_main
       lpg_name: infra_lc_0
-      lpg_idx: 17
+      lpg_idx: 11
     }
     {
       name: rom_ctrl_fatal
@@ -14375,7 +10231,7 @@
       async: "1"
       module_name: rom_ctrl
       lpg_name: infra_lc_0
-      lpg_idx: 17
+      lpg_idx: 11
     }
     {
       name: rv_core_ibex_fatal_sw_err
@@ -14384,7 +10240,7 @@
       async: "1"
       module_name: rv_core_ibex
       lpg_name: infra_lc_0
-      lpg_idx: 17
+      lpg_idx: 11
     }
     {
       name: rv_core_ibex_recov_sw_err
@@ -14393,7 +10249,7 @@
       async: "1"
       module_name: rv_core_ibex
       lpg_name: infra_lc_0
-      lpg_idx: 17
+      lpg_idx: 11
     }
     {
       name: rv_core_ibex_fatal_hw_err
@@ -14402,7 +10258,7 @@
       async: "1"
       module_name: rv_core_ibex
       lpg_name: infra_lc_0
-      lpg_idx: 17
+      lpg_idx: 11
     }
     {
       name: rv_core_ibex_recov_hw_err
@@ -14411,7 +10267,7 @@
       async: "1"
       module_name: rv_core_ibex
       lpg_name: infra_lc_0
-      lpg_idx: 17
+      lpg_idx: 11
     }
   ]
   exported_rsts: {}
@@ -14428,40 +10284,15 @@
         clocks:
         {
           clk_io_div4_peri: io_div4
-          clk_io_div2_peri: io_div2
           clk_io_peri: io
-          clk_usb_peri: usb
           clk_aon_peri: aon
+          clk_usb_peri: usb
         }
       }
       clock_connection: clkmgr_aon_clocks.clk_io_div4_peri
       reset_connection:
       {
         name: lc_io_div4
-        domain: "0"
-      }
-    }
-    {
-      name: peri_spi_device_0
-      clock_group:
-      {
-        name: peri
-        src: top
-        sw_cg: yes
-        unique: no
-        clocks:
-        {
-          clk_io_div4_peri: io_div4
-          clk_io_div2_peri: io_div2
-          clk_io_peri: io
-          clk_usb_peri: usb
-          clk_aon_peri: aon
-        }
-      }
-      clock_connection: clkmgr_aon_clocks.clk_io_div4_peri
-      reset_connection:
-      {
-        name: spi_device
         domain: "0"
       }
     }
@@ -14476,64 +10307,15 @@
         clocks:
         {
           clk_io_div4_peri: io_div4
-          clk_io_div2_peri: io_div2
           clk_io_peri: io
-          clk_usb_peri: usb
           clk_aon_peri: aon
+          clk_usb_peri: usb
         }
       }
       clock_connection: clkmgr_aon_clocks.clk_io_div4_peri
       reset_connection:
       {
         name: i2c0
-        domain: "0"
-      }
-    }
-    {
-      name: peri_i2c1_0
-      clock_group:
-      {
-        name: peri
-        src: top
-        sw_cg: yes
-        unique: no
-        clocks:
-        {
-          clk_io_div4_peri: io_div4
-          clk_io_div2_peri: io_div2
-          clk_io_peri: io
-          clk_usb_peri: usb
-          clk_aon_peri: aon
-        }
-      }
-      clock_connection: clkmgr_aon_clocks.clk_io_div4_peri
-      reset_connection:
-      {
-        name: i2c1
-        domain: "0"
-      }
-    }
-    {
-      name: peri_i2c2_0
-      clock_group:
-      {
-        name: peri
-        src: top
-        sw_cg: yes
-        unique: no
-        clocks:
-        {
-          clk_io_div4_peri: io_div4
-          clk_io_div2_peri: io_div2
-          clk_io_peri: io
-          clk_usb_peri: usb
-          clk_aon_peri: aon
-        }
-      }
-      clock_connection: clkmgr_aon_clocks.clk_io_div4_peri
-      reset_connection:
-      {
-        name: i2c2
         domain: "0"
       }
     }
@@ -14591,64 +10373,15 @@
         clocks:
         {
           clk_io_div4_peri: io_div4
-          clk_io_div2_peri: io_div2
           clk_io_peri: io
-          clk_usb_peri: usb
           clk_aon_peri: aon
+          clk_usb_peri: usb
         }
       }
       clock_connection: clkmgr_aon_clocks.clk_io_peri
       reset_connection:
       {
         name: spi_host0
-        domain: "0"
-      }
-    }
-    {
-      name: peri_spi_host1_0
-      clock_group:
-      {
-        name: peri
-        src: top
-        sw_cg: yes
-        unique: no
-        clocks:
-        {
-          clk_io_div4_peri: io_div4
-          clk_io_div2_peri: io_div2
-          clk_io_peri: io
-          clk_usb_peri: usb
-          clk_aon_peri: aon
-        }
-      }
-      clock_connection: clkmgr_aon_clocks.clk_io_div2_peri
-      reset_connection:
-      {
-        name: spi_host1
-        domain: "0"
-      }
-    }
-    {
-      name: peri_usb_0
-      clock_group:
-      {
-        name: peri
-        src: top
-        sw_cg: yes
-        unique: no
-        clocks:
-        {
-          clk_io_div4_peri: io_div4
-          clk_io_div2_peri: io_div2
-          clk_io_peri: io
-          clk_usb_peri: usb
-          clk_aon_peri: aon
-        }
-      }
-      clock_connection: clkmgr_aon_clocks.clk_usb_peri
-      reset_connection:
-      {
-        name: usb
         domain: "0"
       }
     }
@@ -14718,30 +10451,6 @@
         }
       }
       clock_connection: clkmgr_aon_clocks.clk_io_div4_secure
-      reset_connection:
-      {
-        name: lc_io_div4
-        domain: Aon
-      }
-    }
-    {
-      name: peri_lc_io_div4_Aon
-      clock_group:
-      {
-        name: peri
-        src: top
-        sw_cg: yes
-        unique: no
-        clocks:
-        {
-          clk_io_div4_peri: io_div4
-          clk_io_div2_peri: io_div2
-          clk_io_peri: io
-          clk_usb_peri: usb
-          clk_aon_peri: aon
-        }
-      }
-      clock_connection: clkmgr_aon_clocks.clk_io_div4_peri
       reset_connection:
       {
         name: lc_io_div4
@@ -14888,75 +10597,6 @@
       }
     }
     {
-      name: aes_trans_lc_0
-      clock_group:
-      {
-        name: trans
-        src: top
-        sw_cg: hint
-        unique: yes
-        clocks:
-        {
-          clk_main_aes: main
-          clk_main_hmac: main
-          clk_main_kmac: main
-          clk_main_otbn: main
-        }
-      }
-      clock_connection: clkmgr_aon_clocks.clk_main_aes
-      reset_connection:
-      {
-        name: lc
-        domain: "0"
-      }
-    }
-    {
-      name: hmac_trans_lc_0
-      clock_group:
-      {
-        name: trans
-        src: top
-        sw_cg: hint
-        unique: yes
-        clocks:
-        {
-          clk_main_aes: main
-          clk_main_hmac: main
-          clk_main_kmac: main
-          clk_main_otbn: main
-        }
-      }
-      clock_connection: clkmgr_aon_clocks.clk_main_hmac
-      reset_connection:
-      {
-        name: lc
-        domain: "0"
-      }
-    }
-    {
-      name: kmac_trans_lc_0
-      clock_group:
-      {
-        name: trans
-        src: top
-        sw_cg: hint
-        unique: yes
-        clocks:
-        {
-          clk_main_aes: main
-          clk_main_hmac: main
-          clk_main_kmac: main
-          clk_main_otbn: main
-        }
-      }
-      clock_connection: clkmgr_aon_clocks.clk_main_kmac
-      reset_connection:
-      {
-        name: lc
-        domain: "0"
-      }
-    }
-    {
       name: otbn_trans_lc_0
       clock_group:
       {
@@ -14966,9 +10606,6 @@
         unique: yes
         clocks:
         {
-          clk_main_aes: main
-          clk_main_hmac: main
-          clk_main_kmac: main
           clk_main_otbn: main
         }
       }
@@ -15004,110 +10641,10 @@
         type: req_rsp
         act: rsp
         width: 1
-        inst_name: uart1
-        default: ""
-        end_idx: -1
-        top_signame: uart1_tl
-        index: -1
-      }
-      {
-        name: tl
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: uart2
-        default: ""
-        end_idx: -1
-        top_signame: uart2_tl
-        index: -1
-      }
-      {
-        name: tl
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: uart3
-        default: ""
-        end_idx: -1
-        top_signame: uart3_tl
-        index: -1
-      }
-      {
-        name: tl
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
         inst_name: gpio
         default: ""
         end_idx: -1
         top_signame: gpio_tl
-        index: -1
-      }
-      {
-        name: ram_cfg
-        struct: ram_2p_cfg
-        package: prim_ram_2p_pkg
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: spi_device
-        default: ""
-        top_signame: ast_ram_2p_cfg
-        index: -1
-      }
-      {
-        name: passthrough
-        struct: passthrough
-        package: spi_device_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: spi_device
-        default: ""
-        end_idx: -1
-        top_signame: spi_device_passthrough
-        index: -1
-      }
-      {
-        name: mbist_en
-        struct: logic
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: spi_device
-        index: -1
-      }
-      {
-        name: sck_monitor
-        struct: logic
-        type: uni
-        act: req
-        width: 1
-        inst_name: spi_device
-        default: ""
-        package: ""
-        external: true
-        top_signame: sck_monitor
-        conn_type: false
-        index: -1
-      }
-      {
-        name: tl
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: spi_device
-        default: ""
-        end_idx: -1
-        top_signame: spi_device_tl
         index: -1
       }
       {
@@ -15121,32 +10658,6 @@
         default: ""
         end_idx: -1
         top_signame: i2c0_tl
-        index: -1
-      }
-      {
-        name: tl
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: i2c1
-        default: ""
-        end_idx: -1
-        top_signame: i2c1_tl
-        index: -1
-      }
-      {
-        name: tl
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: i2c2
-        default: ""
-        end_idx: -1
-        top_signame: i2c2_tl
         index: -1
       }
       {
@@ -15230,7 +10741,7 @@
         inst_name: otp_ctrl
         default: ""
         top_signame: edn0_edn
-        index: 1
+        index: 0
       }
       {
         name: pwr_otp
@@ -15385,9 +10896,6 @@
         width: 1
         default: "'0"
         inst_name: otp_ctrl
-        end_idx: -1
-        top_type: broadcast
-        top_signame: otp_ctrl_otp_keymgr_key
         index: -1
       }
       {
@@ -15618,8 +11126,7 @@
         width: 1
         default: "'0"
         inst_name: lc_ctrl
-        top_signame: kmac_app
-        index: 1
+        index: -1
       }
       {
         name: lc_dft_en
@@ -15686,9 +11193,6 @@
         width: 1
         default: lc_ctrl_pkg::Off
         inst_name: lc_ctrl
-        end_idx: -1
-        top_type: broadcast
-        top_signame: lc_ctrl_lc_keymgr_en
         index: -1
       }
       {
@@ -15864,9 +11368,6 @@
         width: 1
         default: "'0"
         inst_name: lc_ctrl
-        end_idx: -1
-        top_type: broadcast
-        top_signame: lc_ctrl_lc_keymgr_div
         index: -1
       }
       {
@@ -15941,7 +11442,7 @@
         inst_name: alert_handler
         default: ""
         top_signame: edn0_edn
-        index: 4
+        index: 2
       }
       {
         name: esc_rx
@@ -15992,8 +11493,6 @@
         act: rsp
         width: 1
         inst_name: spi_host0
-        default: ""
-        top_signame: spi_device_passthrough
         index: -1
       }
       {
@@ -16007,255 +11506,6 @@
         default: ""
         end_idx: -1
         top_signame: spi_host0_tl
-        index: -1
-      }
-      {
-        name: passthrough
-        struct: passthrough
-        package: spi_device_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: spi_host1
-        index: -1
-      }
-      {
-        name: tl
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: spi_host1
-        default: ""
-        end_idx: -1
-        top_signame: spi_host1_tl
-        index: -1
-      }
-      {
-        name: usb_rx_d
-        desc: USB RX data from an external differential receiver, if available
-        struct: logic
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: usbdev
-        default: ""
-        package: ""
-        external: true
-        top_signame: usbdev_usb_rx_d
-        conn_type: false
-        index: -1
-      }
-      {
-        name: usb_tx_d
-        desc: USB transmit data value (not used if usb_tx_se0 is set)
-        struct: logic
-        type: uni
-        act: req
-        width: 1
-        inst_name: usbdev
-        default: ""
-        package: ""
-        external: true
-        top_signame: usbdev_usb_tx_d
-        conn_type: false
-        index: -1
-      }
-      {
-        name: usb_tx_se0
-        desc: Force transmission of a USB single-ended zero (i.e. both D+ and D- are low) regardless of usb_tx_d
-        struct: logic
-        type: uni
-        act: req
-        width: 1
-        inst_name: usbdev
-        default: ""
-        package: ""
-        external: true
-        top_signame: usbdev_usb_tx_se0
-        conn_type: false
-        index: -1
-      }
-      {
-        name: usb_tx_use_d_se0
-        desc: Use the usb_tx_d and usb_tx_se0 TX interface, instead of usb_dp_o and usb_dn_o
-        struct: logic
-        type: uni
-        act: req
-        width: 1
-        inst_name: usbdev
-        default: ""
-        package: ""
-        external: true
-        top_signame: usbdev_usb_tx_use_d_se0
-        conn_type: false
-        index: -1
-      }
-      {
-        name: usb_dp_pullup
-        desc: USB D+ pullup control
-        struct: logic
-        type: uni
-        act: req
-        width: 1
-        inst_name: usbdev
-        default: ""
-        package: ""
-        end_idx: -1
-        top_type: broadcast
-        top_signame: usbdev_usb_dp_pullup
-        index: -1
-      }
-      {
-        name: usb_dn_pullup
-        desc: USB D- pullup control
-        struct: logic
-        type: uni
-        act: req
-        width: 1
-        inst_name: usbdev
-        default: ""
-        package: ""
-        end_idx: -1
-        top_type: broadcast
-        top_signame: usbdev_usb_dn_pullup
-        index: -1
-      }
-      {
-        name: usb_rx_enable
-        desc: USB differential receiver enable
-        struct: logic
-        type: uni
-        act: req
-        width: 1
-        inst_name: usbdev
-        default: ""
-        package: ""
-        external: true
-        top_signame: usbdev_usb_rx_enable
-        conn_type: false
-        index: -1
-      }
-      {
-        name: usb_ref_val
-        struct: logic
-        type: uni
-        act: req
-        width: 1
-        inst_name: usbdev
-        default: ""
-        package: ""
-        external: true
-        top_signame: usbdev_usb_ref_val
-        conn_type: false
-        index: -1
-      }
-      {
-        name: usb_ref_pulse
-        struct: logic
-        type: uni
-        act: req
-        width: 1
-        inst_name: usbdev
-        default: ""
-        package: ""
-        external: true
-        top_signame: usbdev_usb_ref_pulse
-        conn_type: false
-        index: -1
-      }
-      {
-        name: usb_aon_suspend_req
-        struct: logic
-        type: uni
-        act: req
-        width: 1
-        inst_name: usbdev
-        default: ""
-        package: ""
-        end_idx: -1
-        top_type: broadcast
-        top_signame: usbdev_usb_aon_suspend_req
-        index: -1
-      }
-      {
-        name: usb_aon_wake_ack
-        struct: logic
-        type: uni
-        act: req
-        width: 1
-        inst_name: usbdev
-        default: ""
-        package: ""
-        end_idx: -1
-        top_type: broadcast
-        top_signame: usbdev_usb_aon_wake_ack
-        index: -1
-      }
-      {
-        name: usb_aon_bus_reset
-        struct: logic
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: usbdev
-        default: ""
-        package: ""
-        end_idx: -1
-        top_type: broadcast
-        top_signame: usbdev_usb_aon_bus_reset
-        index: -1
-      }
-      {
-        name: usb_aon_sense_lost
-        struct: logic
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: usbdev
-        default: ""
-        package: ""
-        end_idx: -1
-        top_type: broadcast
-        top_signame: usbdev_usb_aon_sense_lost
-        index: -1
-      }
-      {
-        name: usb_aon_wake_detect_active
-        struct: logic
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: usbdev
-        default: ""
-        package: ""
-        top_signame: pinmux_aon_usbdev_wake_detect_active
-        index: -1
-      }
-      {
-        name: ram_cfg
-        struct: ram_2p_cfg
-        package: prim_ram_2p_pkg
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: usbdev
-        default: ""
-        top_signame: ast_ram_2p_cfg
-        index: -1
-      }
-      {
-        name: tl
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: usbdev
-        default: ""
-        end_idx: -1
-        top_signame: usbdev_tl
         index: -1
       }
       {
@@ -16379,7 +11629,7 @@
         struct: logic
         type: uni
         act: rcv
-        width: 6
+        width: 5
         inst_name: pwrmgr_aon
         default: ""
         package: ""
@@ -16809,11 +12059,11 @@
         package: prim_mubi_pkg
         type: uni
         act: rcv
-        width: 4
+        width: 1
         inst_name: clkmgr_aon
         default: ""
         end_idx: -1
-        top_type: one-to-N
+        top_type: broadcast
         top_signame: clkmgr_aon_idle
         index: -1
       }
@@ -16880,58 +12130,6 @@
         default: ""
         end_idx: -1
         top_signame: sysrst_ctrl_aon_tl
-        index: -1
-      }
-      {
-        name: adc
-        struct: adc_ast
-        package: ast_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: adc_ctrl_aon
-        default: ""
-        external: true
-        top_signame: adc
-        conn_type: false
-        index: -1
-      }
-      {
-        name: wkup_req
-        struct: logic
-        type: uni
-        act: req
-        width: 1
-        inst_name: adc_ctrl_aon
-        default: ""
-        package: ""
-        top_signame: pwrmgr_aon_wakeups
-        index: 1
-      }
-      {
-        name: tl
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: adc_ctrl_aon
-        default: ""
-        end_idx: -1
-        top_signame: adc_ctrl_aon_tl
-        index: -1
-      }
-      {
-        name: tl
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: pwm_aon
-        default: ""
-        end_idx: -1
-        top_signame: pwm_aon_tl
         index: -1
       }
       {
@@ -17124,7 +12322,7 @@
         inst_name: pinmux_aon
         package: ""
         top_signame: pwrmgr_aon_wakeups
-        index: 2
+        index: 1
       }
       {
         name: usbdev_dppullup_en
@@ -17134,9 +12332,6 @@
         act: rcv
         width: 1
         inst_name: pinmux_aon
-        default: ""
-        package: ""
-        top_signame: usbdev_usb_dp_pullup
         index: -1
       }
       {
@@ -17147,9 +12342,6 @@
         act: rcv
         width: 1
         inst_name: pinmux_aon
-        default: ""
-        package: ""
-        top_signame: usbdev_usb_dn_pullup
         index: -1
       }
       {
@@ -17161,10 +12353,6 @@
         width: 1
         default: 1'b0
         inst_name: pinmux_aon
-        package: ""
-        external: true
-        top_signame: usb_dp_pullup_en
-        conn_type: false
         index: -1
       }
       {
@@ -17176,10 +12364,6 @@
         width: 1
         default: 1'b0
         inst_name: pinmux_aon
-        package: ""
-        external: true
-        top_signame: usb_dn_pullup_en
-        conn_type: false
         index: -1
       }
       {
@@ -17193,7 +12377,7 @@
         inst_name: pinmux_aon
         package: ""
         top_signame: pwrmgr_aon_wakeups
-        index: 3
+        index: 2
       }
       {
         name: usbdev_suspend_req
@@ -17203,9 +12387,6 @@
         act: rcv
         width: 1
         inst_name: pinmux_aon
-        default: ""
-        package: ""
-        top_signame: usbdev_usb_aon_suspend_req
         index: -1
       }
       {
@@ -17216,9 +12397,6 @@
         act: rcv
         width: 1
         inst_name: pinmux_aon
-        default: ""
-        package: ""
-        top_signame: usbdev_usb_aon_wake_ack
         index: -1
       }
       {
@@ -17230,8 +12408,6 @@
         width: 1
         default: 1'b0
         inst_name: pinmux_aon
-        package: ""
-        top_signame: usbdev_usb_aon_bus_reset
         index: -1
       }
       {
@@ -17243,8 +12419,6 @@
         width: 1
         default: 1'b0
         inst_name: pinmux_aon
-        package: ""
-        top_signame: usbdev_usb_aon_sense_lost
         index: -1
       }
       {
@@ -17256,10 +12430,6 @@
         width: 1
         default: 1'b0
         inst_name: pinmux_aon
-        package: ""
-        end_idx: -1
-        top_type: broadcast
-        top_signame: pinmux_aon_usbdev_wake_detect_active
         index: -1
       }
       {
@@ -17299,7 +12469,7 @@
         inst_name: aon_timer_aon
         package: ""
         top_signame: pwrmgr_aon_wakeups
-        index: 4
+        index: 3
       }
       {
         name: aon_timer_rst_req
@@ -17426,7 +12596,7 @@
         default: ""
         package: ""
         top_signame: pwrmgr_aon_wakeups
-        index: 5
+        index: 4
       }
       {
         name: tl
@@ -17752,10 +12922,6 @@
         act: req
         width: 1
         inst_name: flash_ctrl
-        default: ""
-        end_idx: -1
-        top_type: broadcast
-        top_signame: flash_ctrl_keymgr
         index: -1
       }
       {
@@ -18020,181 +13186,6 @@
         index: -1
       }
       {
-        name: idle
-        struct: mubi4
-        package: prim_mubi_pkg
-        type: uni
-        act: req
-        width: 1
-        inst_name: aes
-        default: ""
-        top_signame: clkmgr_aon_idle
-        index: 0
-      }
-      {
-        name: lc_escalate_en
-        struct: lc_tx
-        package: lc_ctrl_pkg
-        type: uni
-        act: rcv
-        width: 1
-        default: lc_ctrl_pkg::Off
-        inst_name: aes
-        top_signame: lc_ctrl_lc_escalate_en
-        index: -1
-      }
-      {
-        name: edn
-        struct: edn
-        package: edn_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: aes
-        default: ""
-        top_signame: edn0_edn
-        index: 5
-      }
-      {
-        name: keymgr_key
-        struct: hw_key_req
-        package: keymgr_pkg
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: aes
-        default: ""
-        top_signame: keymgr_aes_key
-        index: -1
-      }
-      {
-        name: tl
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: aes
-        default: ""
-        end_idx: -1
-        top_signame: aes_tl
-        index: -1
-      }
-      {
-        name: idle
-        struct: mubi4
-        package: prim_mubi_pkg
-        type: uni
-        act: req
-        width: 1
-        inst_name: hmac
-        default: ""
-        top_signame: clkmgr_aon_idle
-        index: 1
-      }
-      {
-        name: tl
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: hmac
-        default: ""
-        end_idx: -1
-        top_signame: hmac_tl
-        index: -1
-      }
-      {
-        name: keymgr_key
-        struct: hw_key_req
-        package: keymgr_pkg
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: kmac
-        default: ""
-        top_signame: keymgr_kmac_key
-        index: -1
-      }
-      {
-        name: app
-        struct: app
-        package: kmac_pkg
-        type: req_rsp
-        act: rsp
-        width: 3
-        inst_name: kmac
-        default: ""
-        end_idx: -1
-        top_type: one-to-N
-        top_signame: kmac_app
-        index: -1
-      }
-      {
-        name: entropy
-        struct: edn
-        package: edn_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: kmac
-        default: ""
-        top_signame: edn0_edn
-        index: 3
-      }
-      {
-        name: idle
-        struct: mubi4
-        package: prim_mubi_pkg
-        type: uni
-        act: req
-        width: 1
-        inst_name: kmac
-        default: ""
-        top_signame: clkmgr_aon_idle
-        index: 2
-      }
-      {
-        name: en_masking
-        struct: logic
-        type: uni
-        act: req
-        width: 1
-        inst_name: kmac
-        default: ""
-        package: ""
-        end_idx: -1
-        top_type: broadcast
-        top_signame: kmac_en_masking
-        index: -1
-      }
-      {
-        name: lc_escalate_en
-        struct: lc_tx
-        package: lc_ctrl_pkg
-        type: uni
-        act: rcv
-        width: 1
-        default: lc_ctrl_pkg::Off
-        inst_name: kmac
-        top_signame: lc_ctrl_lc_escalate_en
-        index: -1
-      }
-      {
-        name: tl
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: kmac
-        default: ""
-        end_idx: -1
-        top_signame: kmac_tl
-        index: -1
-      }
-      {
         name: otbn_otp_key
         struct: otbn_otp_key
         package: otp_ctrl_pkg
@@ -18228,7 +13219,7 @@
         inst_name: otbn
         default: ""
         top_signame: edn0_edn
-        index: 6
+        index: 3
       }
       {
         name: idle
@@ -18240,7 +13231,7 @@
         inst_name: otbn
         default: ""
         top_signame: clkmgr_aon_idle
-        index: 3
+        index: -1
       }
       {
         name: ram_cfg
@@ -18300,8 +13291,6 @@
         act: rcv
         width: 1
         inst_name: otbn
-        default: ""
-        top_signame: keymgr_otbn_key
         index: -1
       }
       {
@@ -18318,345 +13307,6 @@
         index: -1
       }
       {
-        name: edn
-        struct: edn
-        package: edn_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: keymgr
-        default: ""
-        top_signame: edn0_edn
-        index: 0
-      }
-      {
-        name: aes_key
-        struct: hw_key_req
-        package: keymgr_pkg
-        type: uni
-        act: req
-        width: 1
-        inst_name: keymgr
-        default: ""
-        end_idx: -1
-        top_type: broadcast
-        top_signame: keymgr_aes_key
-        index: -1
-      }
-      {
-        name: kmac_key
-        struct: hw_key_req
-        package: keymgr_pkg
-        type: uni
-        act: req
-        width: 1
-        inst_name: keymgr
-        default: ""
-        end_idx: -1
-        top_type: broadcast
-        top_signame: keymgr_kmac_key
-        index: -1
-      }
-      {
-        name: otbn_key
-        struct: otbn_key_req
-        package: keymgr_pkg
-        type: uni
-        act: req
-        width: 1
-        inst_name: keymgr
-        default: ""
-        end_idx: -1
-        top_type: broadcast
-        top_signame: keymgr_otbn_key
-        index: -1
-      }
-      {
-        name: kmac_data
-        struct: app
-        package: kmac_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: keymgr
-        default: ""
-        top_signame: kmac_app
-        index: 0
-      }
-      {
-        name: otp_key
-        struct: otp_keymgr_key
-        package: otp_ctrl_pkg
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: keymgr
-        default: ""
-        top_signame: otp_ctrl_otp_keymgr_key
-        index: -1
-      }
-      {
-        name: otp_device_id
-        struct: otp_device_id
-        package: otp_ctrl_pkg
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: keymgr
-        default: ""
-        top_signame: keymgr_otp_device_id
-        index: -1
-      }
-      {
-        name: flash
-        struct: keymgr_flash
-        package: flash_ctrl_pkg
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: keymgr
-        default: ""
-        top_signame: flash_ctrl_keymgr
-        index: -1
-      }
-      {
-        name: lc_keymgr_en
-        struct: lc_tx
-        package: lc_ctrl_pkg
-        type: uni
-        act: rcv
-        width: 1
-        default: lc_ctrl_pkg::On
-        inst_name: keymgr
-        top_signame: lc_ctrl_lc_keymgr_en
-        index: -1
-      }
-      {
-        name: lc_keymgr_div
-        struct: lc_keymgr_div
-        package: lc_ctrl_pkg
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: keymgr
-        default: ""
-        top_signame: lc_ctrl_lc_keymgr_div
-        index: -1
-      }
-      {
-        name: rom_digest
-        struct: keymgr_data
-        package: rom_ctrl_pkg
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: keymgr
-        default: ""
-        top_signame: rom_ctrl_keymgr_data
-        index: -1
-      }
-      {
-        name: kmac_en_masking
-        struct: logic
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: keymgr
-        default: ""
-        package: ""
-        top_signame: kmac_en_masking
-        index: -1
-      }
-      {
-        name: tl
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: keymgr
-        default: ""
-        end_idx: -1
-        top_signame: keymgr_tl
-        index: -1
-      }
-      {
-        name: csrng_cmd
-        struct: csrng
-        package: csrng_pkg
-        type: req_rsp
-        act: rsp
-        width: 2
-        inst_name: csrng
-        default: ""
-        end_idx: -1
-        top_type: one-to-N
-        top_signame: csrng_csrng_cmd
-        index: -1
-      }
-      {
-        name: entropy_src_hw_if
-        struct: entropy_src_hw_if
-        package: entropy_src_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: csrng
-        default: ""
-        end_idx: -1
-        top_signame: csrng_entropy_src_hw_if
-        index: -1
-      }
-      {
-        name: cs_aes_halt
-        struct: cs_aes_halt
-        package: entropy_src_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: csrng
-        default: ""
-        end_idx: -1
-        top_signame: csrng_cs_aes_halt
-        index: -1
-      }
-      {
-        name: otp_en_csrng_sw_app_read
-        struct: mubi8
-        package: prim_mubi_pkg
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: csrng
-        default: ""
-        top_signame: csrng_otp_en_csrng_sw_app_read
-        index: -1
-      }
-      {
-        name: lc_hw_debug_en
-        struct: lc_tx
-        package: lc_ctrl_pkg
-        type: uni
-        act: rcv
-        width: 1
-        default: lc_ctrl_pkg::Off
-        inst_name: csrng
-        top_signame: lc_ctrl_lc_hw_debug_en
-        index: -1
-      }
-      {
-        name: tl
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: csrng
-        default: ""
-        end_idx: -1
-        top_signame: csrng_tl
-        index: -1
-      }
-      {
-        name: entropy_src_hw_if
-        struct: entropy_src_hw_if
-        package: entropy_src_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: entropy_src
-        default: ""
-        top_signame: csrng_entropy_src_hw_if
-        index: -1
-      }
-      {
-        name: cs_aes_halt
-        struct: cs_aes_halt
-        package: entropy_src_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: entropy_src
-        default: ""
-        top_signame: csrng_cs_aes_halt
-        index: -1
-      }
-      {
-        name: entropy_src_rng
-        struct: entropy_src_rng
-        package: entropy_src_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: entropy_src
-        default: ""
-        external: true
-        top_signame: es_rng
-        conn_type: false
-        index: -1
-      }
-      {
-        name: entropy_src_xht
-        struct: entropy_src_xht
-        package: entropy_src_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: entropy_src
-        index: -1
-      }
-      {
-        name: otp_en_entropy_src_fw_read
-        struct: mubi8
-        package: prim_mubi_pkg
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: entropy_src
-        default: ""
-        top_signame: entropy_src_otp_en_entropy_src_fw_read
-        index: -1
-      }
-      {
-        name: otp_en_entropy_src_fw_over
-        struct: mubi8
-        package: prim_mubi_pkg
-        type: uni
-        act: rcv
-        width: 1
-        inst_name: entropy_src
-        default: ""
-        top_signame: entropy_src_otp_en_entropy_src_fw_over
-        index: -1
-      }
-      {
-        name: rng_fips
-        struct: logic
-        type: uni
-        act: req
-        width: 1
-        inst_name: entropy_src
-        default: ""
-        package: ""
-        external: true
-        top_signame: es_rng_fips
-        conn_type: false
-        index: -1
-      }
-      {
-        name: tl
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: rsp
-        width: 1
-        inst_name: entropy_src
-        default: ""
-        end_idx: -1
-        top_signame: entropy_src_tl
-        index: -1
-      }
-      {
         name: csrng_cmd
         desc: EDN supports a signal CSRNG application interface.
         struct: csrng
@@ -18665,9 +13315,7 @@
         act: req
         width: 1
         inst_name: edn0
-        default: ""
-        top_signame: csrng_csrng_cmd
-        index: 0
+        index: -1
       }
       {
         name: edn
@@ -18686,8 +13334,8 @@
         width: 8
         default: "'0"
         inst_name: edn0
-        end_idx: -1
-        top_type: one-to-N
+        end_idx: 5
+        top_type: partial-one-to-N
         top_signame: edn0_edn
         index: -1
       }
@@ -18713,9 +13361,7 @@
         act: req
         width: 1
         inst_name: edn1
-        default: ""
-        top_signame: csrng_csrng_cmd
-        index: 1
+        index: -1
       }
       {
         name: edn
@@ -18872,10 +13518,6 @@
         act: req
         width: 1
         inst_name: rom_ctrl
-        default: ""
-        end_idx: -1
-        top_type: broadcast
-        top_signame: rom_ctrl_keymgr_data
         index: -1
       }
       {
@@ -18886,9 +13528,7 @@
         act: req
         width: 1
         inst_name: rom_ctrl
-        default: ""
-        top_signame: kmac_app
-        index: 2
+        index: -1
       }
       {
         name: regs_tl
@@ -19107,7 +13747,7 @@
         inst_name: rv_core_ibex
         default: ""
         top_signame: edn0_edn
-        index: 7
+        index: 4
       }
       {
         name: icache_otp_key
@@ -19285,30 +13925,6 @@
         index: -1
       }
       {
-        name: tl_spi_host1
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: main
-        default: ""
-        top_signame: spi_host1_tl
-        index: -1
-      }
-      {
-        name: tl_usbdev
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: main
-        default: ""
-        top_signame: usbdev_tl
-        index: -1
-      }
-      {
         name: tl_flash_ctrl__core
         struct: tl
         package: tlul_pkg
@@ -19342,66 +13958,6 @@
         inst_name: main
         default: ""
         top_signame: flash_ctrl_mem_tl
-        index: -1
-      }
-      {
-        name: tl_hmac
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: main
-        default: ""
-        top_signame: hmac_tl
-        index: -1
-      }
-      {
-        name: tl_kmac
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: main
-        default: ""
-        top_signame: kmac_tl
-        index: -1
-      }
-      {
-        name: tl_aes
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: main
-        default: ""
-        top_signame: aes_tl
-        index: -1
-      }
-      {
-        name: tl_entropy_src
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: main
-        default: ""
-        top_signame: entropy_src_tl
-        index: -1
-      }
-      {
-        name: tl_csrng
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: main
-        default: ""
-        top_signame: csrng_tl
         index: -1
       }
       {
@@ -19450,18 +14006,6 @@
         inst_name: main
         default: ""
         top_signame: otbn_tl
-        index: -1
-      }
-      {
-        name: tl_keymgr
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: main
-        default: ""
-        top_signame: keymgr_tl
         index: -1
       }
       {
@@ -19525,42 +14069,6 @@
         index: -1
       }
       {
-        name: tl_uart1
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: peri
-        default: ""
-        top_signame: uart1_tl
-        index: -1
-      }
-      {
-        name: tl_uart2
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: peri
-        default: ""
-        top_signame: uart2_tl
-        index: -1
-      }
-      {
-        name: tl_uart3
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: peri
-        default: ""
-        top_signame: uart3_tl
-        index: -1
-      }
-      {
         name: tl_i2c0
         struct: tl
         package: tlul_pkg
@@ -19570,30 +14078,6 @@
         inst_name: peri
         default: ""
         top_signame: i2c0_tl
-        index: -1
-      }
-      {
-        name: tl_i2c1
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: peri
-        default: ""
-        top_signame: i2c1_tl
-        index: -1
-      }
-      {
-        name: tl_i2c2
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: peri
-        default: ""
-        top_signame: i2c2_tl
         index: -1
       }
       {
@@ -19609,18 +14093,6 @@
         index: -1
       }
       {
-        name: tl_pwm_aon
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: peri
-        default: ""
-        top_signame: pwm_aon_tl
-        index: -1
-      }
-      {
         name: tl_gpio
         struct: tl
         package: tlul_pkg
@@ -19630,18 +14102,6 @@
         inst_name: peri
         default: ""
         top_signame: gpio_tl
-        index: -1
-      }
-      {
-        name: tl_spi_device
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: peri
-        default: ""
-        top_signame: spi_device_tl
         index: -1
       }
       {
@@ -19813,18 +14273,6 @@
         index: -1
       }
       {
-        name: tl_adc_ctrl_aon
-        struct: tl
-        package: tlul_pkg
-        type: req_rsp
-        act: req
-        width: 1
-        inst_name: peri
-        default: ""
-        top_signame: adc_ctrl_aon_tl
-        index: -1
-      }
-      {
         name: tl_ast
         struct: tl
         package: tlul_pkg
@@ -19848,7 +14296,7 @@
         width: 1
         default: ""
         top_signame: edn0_edn
-        index: 2
+        index: 1
         external: true
         conn_type: true
       }
@@ -19891,12 +14339,10 @@
         inst_name: ast
         width: 1
         default: ""
-        end_idx: -1
-        top_type: broadcast
-        top_signame: ast_ram_2p_cfg
-        index: -1
         external: true
-        conn_type: true
+        top_signame: ram_2p_cfg
+        conn_type: false
+        index: -1
       }
       {
         struct: rom_cfg
@@ -19934,30 +14380,6 @@
     external:
     [
       {
-        package: ast_pkg
-        struct: adc_ast_req
-        signame: adc_req_o
-        width: 1
-        type: req_rsp
-        default: ""
-        direction: out
-        conn_type: false
-        index: -1
-        netname: adc_req
-      }
-      {
-        package: ast_pkg
-        struct: adc_ast_rsp
-        signame: adc_rsp_i
-        width: 1
-        type: req_rsp
-        default: ""
-        direction: in
-        conn_type: false
-        index: -1
-        netname: adc_rsp
-      }
-      {
         package: edn_pkg
         struct: edn_req
         signame: ast_edn_req_i
@@ -19966,7 +14388,7 @@
         default: ""
         direction: in
         conn_type: true
-        index: 2
+        index: 1
         netname: edn0_edn_req
       }
       {
@@ -19978,7 +14400,7 @@
         default: ""
         direction: out
         conn_type: true
-        index: 2
+        index: 1
         netname: edn0_edn_rsp
       }
       {
@@ -20025,9 +14447,9 @@
         type: uni
         default: ""
         direction: in
-        conn_type: true
+        conn_type: false
         index: -1
-        netname: ast_ram_2p_cfg
+        netname: ram_2p_cfg
       }
       {
         package: prim_rom_pkg
@@ -20210,42 +14632,6 @@
         netname: flash_obs
       }
       {
-        package: entropy_src_pkg
-        struct: entropy_src_rng_req
-        signame: es_rng_req_o
-        width: 1
-        type: req_rsp
-        default: ""
-        direction: out
-        conn_type: false
-        index: -1
-        netname: es_rng_req
-      }
-      {
-        package: entropy_src_pkg
-        struct: entropy_src_rng_rsp
-        signame: es_rng_rsp_i
-        width: 1
-        type: req_rsp
-        default: ""
-        direction: in
-        conn_type: false
-        index: -1
-        netname: es_rng_rsp
-      }
-      {
-        package: ""
-        struct: logic
-        signame: es_rng_fips_o
-        width: 1
-        type: uni
-        default: ""
-        direction: out
-        conn_type: false
-        index: -1
-        netname: es_rng_fips
-      }
-      {
         package: tlul_pkg
         struct: tl_h2d
         signame: ast_tl_req_o
@@ -20292,30 +14678,6 @@
         conn_type: false
         index: -1
         netname: dft_hold_tap_sel
-      }
-      {
-        package: ""
-        struct: logic
-        signame: usb_dp_pullup_en_o
-        width: 1
-        type: uni
-        default: 1'b0
-        direction: out
-        conn_type: false
-        index: -1
-        netname: usb_dp_pullup_en
-      }
-      {
-        package: ""
-        struct: logic
-        signame: usb_dn_pullup_en_o
-        width: 1
-        type: uni
-        default: 1'b0
-        direction: out
-        conn_type: false
-        index: -1
-        netname: usb_dn_pullup_en
       }
       {
         package: pwrmgr_pkg
@@ -20473,102 +14835,6 @@
         index: -1
         netname: ast_init_done
       }
-      {
-        package: ""
-        struct: logic
-        signame: sck_monitor_o
-        width: 1
-        type: uni
-        default: ""
-        direction: out
-        conn_type: false
-        index: -1
-        netname: sck_monitor
-      }
-      {
-        package: ""
-        struct: logic
-        signame: usbdev_usb_rx_d_i
-        width: 1
-        type: uni
-        default: ""
-        direction: in
-        conn_type: false
-        index: -1
-        netname: usbdev_usb_rx_d
-      }
-      {
-        package: ""
-        struct: logic
-        signame: usbdev_usb_tx_d_o
-        width: 1
-        type: uni
-        default: ""
-        direction: out
-        conn_type: false
-        index: -1
-        netname: usbdev_usb_tx_d
-      }
-      {
-        package: ""
-        struct: logic
-        signame: usbdev_usb_tx_se0_o
-        width: 1
-        type: uni
-        default: ""
-        direction: out
-        conn_type: false
-        index: -1
-        netname: usbdev_usb_tx_se0
-      }
-      {
-        package: ""
-        struct: logic
-        signame: usbdev_usb_tx_use_d_se0_o
-        width: 1
-        type: uni
-        default: ""
-        direction: out
-        conn_type: false
-        index: -1
-        netname: usbdev_usb_tx_use_d_se0
-      }
-      {
-        package: ""
-        struct: logic
-        signame: usbdev_usb_rx_enable_o
-        width: 1
-        type: uni
-        default: ""
-        direction: out
-        conn_type: false
-        index: -1
-        netname: usbdev_usb_rx_enable
-      }
-      {
-        package: ""
-        struct: logic
-        signame: usbdev_usb_ref_val_o
-        width: 1
-        type: uni
-        default: ""
-        direction: out
-        conn_type: false
-        index: -1
-        netname: usbdev_usb_ref_val
-      }
-      {
-        package: ""
-        struct: logic
-        signame: usbdev_usb_ref_pulse_o
-        width: 1
-        type: uni
-        default: ""
-        direction: out
-        conn_type: false
-        index: -1
-        netname: usbdev_usb_ref_pulse
-      }
     ]
     definitions:
     [
@@ -20593,17 +14859,6 @@
         act: rcv
         suffix: ""
         default: prim_ram_1p_pkg::RAM_1P_CFG_DEFAULT
-      }
-      {
-        package: prim_ram_2p_pkg
-        struct: ram_2p_cfg
-        signame: ast_ram_2p_cfg
-        width: 1
-        type: uni
-        end_idx: -1
-        act: rcv
-        suffix: ""
-        default: prim_ram_2p_pkg::RAM_2P_CFG_DEFAULT
       }
       {
         package: prim_rom_pkg
@@ -20659,83 +14914,6 @@
         act: req
         suffix: ""
         default: 1'b0
-      }
-      {
-        package: csrng_pkg
-        struct: csrng_req
-        signame: csrng_csrng_cmd_req
-        width: 2
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: csrng_pkg::CSRNG_REQ_DEFAULT
-      }
-      {
-        package: csrng_pkg
-        struct: csrng_rsp
-        signame: csrng_csrng_cmd_rsp
-        width: 2
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: entropy_src_pkg
-        struct: entropy_src_hw_if_req
-        signame: csrng_entropy_src_hw_if_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: req
-        suffix: req
-        default: ""
-      }
-      {
-        package: entropy_src_pkg
-        struct: entropy_src_hw_if_rsp
-        signame: csrng_entropy_src_hw_if_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: req
-        suffix: rsp
-        default: entropy_src_pkg::ENTROPY_SRC_HW_IF_RSP_DEFAULT
-      }
-      {
-        package: entropy_src_pkg
-        struct: cs_aes_halt_req
-        signame: csrng_cs_aes_halt_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: entropy_src_pkg::CS_AES_HALT_REQ_DEFAULT
-      }
-      {
-        package: entropy_src_pkg
-        struct: cs_aes_halt_rsp
-        signame: csrng_cs_aes_halt_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: flash_ctrl_pkg
-        struct: keymgr_flash
-        signame: flash_ctrl_keymgr
-        width: 1
-        type: uni
-        end_idx: -1
-        act: req
-        suffix: ""
-        default: flash_ctrl_pkg::KEYMGR_FLASH_DEFAULT
       }
       {
         package: otp_ctrl_pkg
@@ -20936,17 +15114,6 @@
         default: rom_ctrl_pkg::PWRMGR_DATA_DEFAULT
       }
       {
-        package: rom_ctrl_pkg
-        struct: keymgr_data
-        signame: rom_ctrl_keymgr_data
-        width: 1
-        type: uni
-        end_idx: -1
-        act: req
-        suffix: ""
-        default: rom_ctrl_pkg::KEYMGR_DATA_DEFAULT
-      }
-      {
         package: lc_ctrl_pkg
         struct: lc_tx
         signame: lc_ctrl_lc_flash_rma_req
@@ -20980,89 +15147,12 @@
         default: lc_ctrl_pkg::Off
       }
       {
-        package: ""
-        struct: logic
-        signame: usbdev_usb_dp_pullup
-        width: 1
-        type: uni
-        end_idx: -1
-        act: req
-        suffix: ""
-        default: "'0"
-      }
-      {
-        package: ""
-        struct: logic
-        signame: usbdev_usb_dn_pullup
-        width: 1
-        type: uni
-        end_idx: -1
-        act: req
-        suffix: ""
-        default: "'0"
-      }
-      {
-        package: ""
-        struct: logic
-        signame: usbdev_usb_aon_suspend_req
-        width: 1
-        type: uni
-        end_idx: -1
-        act: req
-        suffix: ""
-        default: "'0"
-      }
-      {
-        package: ""
-        struct: logic
-        signame: usbdev_usb_aon_wake_ack
-        width: 1
-        type: uni
-        end_idx: -1
-        act: req
-        suffix: ""
-        default: "'0"
-      }
-      {
-        package: ""
-        struct: logic
-        signame: usbdev_usb_aon_bus_reset
-        width: 1
-        type: uni
-        end_idx: -1
-        act: rcv
-        suffix: ""
-        default: "'0"
-      }
-      {
-        package: ""
-        struct: logic
-        signame: usbdev_usb_aon_sense_lost
-        width: 1
-        type: uni
-        end_idx: -1
-        act: rcv
-        suffix: ""
-        default: "'0"
-      }
-      {
-        package: ""
-        struct: logic
-        signame: pinmux_aon_usbdev_wake_detect_active
-        width: 1
-        type: uni
-        end_idx: -1
-        act: req
-        suffix: ""
-        default: 1'b0
-      }
-      {
         package: edn_pkg
         struct: edn_req
         signame: edn0_edn_req
         width: 8
         type: req_rsp
-        end_idx: -1
+        end_idx: 5
         act: rsp
         suffix: req
         default: "'0"
@@ -21073,7 +15163,7 @@
         signame: edn0_edn_rsp
         width: 8
         type: req_rsp
-        end_idx: -1
+        end_idx: 5
         act: rsp
         suffix: rsp
         default: ""
@@ -21123,87 +15213,10 @@
         default: ""
       }
       {
-        package: otp_ctrl_pkg
-        struct: otp_keymgr_key
-        signame: otp_ctrl_otp_keymgr_key
-        width: 1
-        type: uni
-        end_idx: -1
-        act: req
-        suffix: ""
-        default: "'0"
-      }
-      {
-        package: keymgr_pkg
-        struct: hw_key_req
-        signame: keymgr_aes_key
-        width: 1
-        type: uni
-        end_idx: -1
-        act: req
-        suffix: ""
-        default: keymgr_pkg::HW_KEY_REQ_DEFAULT
-      }
-      {
-        package: keymgr_pkg
-        struct: hw_key_req
-        signame: keymgr_kmac_key
-        width: 1
-        type: uni
-        end_idx: -1
-        act: req
-        suffix: ""
-        default: keymgr_pkg::HW_KEY_REQ_DEFAULT
-      }
-      {
-        package: keymgr_pkg
-        struct: otbn_key_req
-        signame: keymgr_otbn_key
-        width: 1
-        type: uni
-        end_idx: -1
-        act: req
-        suffix: ""
-        default: keymgr_pkg::OTBN_KEY_REQ_DEFAULT
-      }
-      {
-        package: kmac_pkg
-        struct: app_req
-        signame: kmac_app_req
-        width: 3
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: kmac_pkg::APP_REQ_DEFAULT
-      }
-      {
-        package: kmac_pkg
-        struct: app_rsp
-        signame: kmac_app_rsp
-        width: 3
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: ""
-        struct: logic
-        signame: kmac_en_masking
-        width: 1
-        type: uni
-        end_idx: -1
-        act: req
-        suffix: ""
-        default: "'0"
-      }
-      {
         package: prim_mubi_pkg
         struct: mubi4
         signame: clkmgr_aon_idle
-        width: 4
+        width: 1
         type: uni
         end_idx: -1
         act: rcv
@@ -21322,17 +15335,6 @@
       }
       {
         package: lc_ctrl_pkg
-        struct: lc_keymgr_div
-        signame: lc_ctrl_lc_keymgr_div
-        width: 1
-        type: uni
-        end_idx: -1
-        act: req
-        suffix: ""
-        default: "'0"
-      }
-      {
-        package: lc_ctrl_pkg
         struct: lc_tx
         signame: lc_ctrl_lc_dft_en
         width: 1
@@ -21368,17 +15370,6 @@
         package: lc_ctrl_pkg
         struct: lc_tx
         signame: lc_ctrl_lc_cpu_en
-        width: 1
-        type: uni
-        end_idx: -1
-        act: req
-        suffix: ""
-        default: lc_ctrl_pkg::Off
-      }
-      {
-        package: lc_ctrl_pkg
-        struct: lc_tx
-        signame: lc_ctrl_lc_keymgr_en
         width: 1
         type: uni
         end_idx: -1
@@ -21541,28 +15532,6 @@
         default: pwrmgr_pkg::PWR_CPU_DEFAULT
       }
       {
-        package: spi_device_pkg
-        struct: passthrough_req
-        signame: spi_device_passthrough_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: req
-        suffix: req
-        default: ""
-      }
-      {
-        package: spi_device_pkg
-        struct: passthrough_rsp
-        signame: spi_device_passthrough_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: req
-        suffix: rsp
-        default: spi_device_pkg::PASSTHROUGH_RSP_DEFAULT
-      }
-      {
         package: ""
         struct: logic
         signame: rv_dm_ndmreset_req
@@ -21588,7 +15557,7 @@
         package: ""
         struct: logic
         signame: pwrmgr_aon_wakeups
-        width: 6
+        width: 5
         type: uni
         end_idx: -1
         act: rcv
@@ -21807,50 +15776,6 @@
       {
         package: tlul_pkg
         struct: tl_h2d
-        signame: spi_host1_tl_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: tlul_pkg::TL_H2D_DEFAULT
-      }
-      {
-        package: tlul_pkg
-        struct: tl_d2h
-        signame: spi_host1_tl_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: tlul_pkg
-        struct: tl_h2d
-        signame: usbdev_tl_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: tlul_pkg::TL_H2D_DEFAULT
-      }
-      {
-        package: tlul_pkg
-        struct: tl_d2h
-        signame: usbdev_tl_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: tlul_pkg
-        struct: tl_h2d
         signame: flash_ctrl_core_tl_req
         width: 1
         type: req_rsp
@@ -21907,116 +15832,6 @@
         package: tlul_pkg
         struct: tl_d2h
         signame: flash_ctrl_mem_tl_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: tlul_pkg
-        struct: tl_h2d
-        signame: hmac_tl_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: tlul_pkg::TL_H2D_DEFAULT
-      }
-      {
-        package: tlul_pkg
-        struct: tl_d2h
-        signame: hmac_tl_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: tlul_pkg
-        struct: tl_h2d
-        signame: kmac_tl_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: tlul_pkg::TL_H2D_DEFAULT
-      }
-      {
-        package: tlul_pkg
-        struct: tl_d2h
-        signame: kmac_tl_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: tlul_pkg
-        struct: tl_h2d
-        signame: aes_tl_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: tlul_pkg::TL_H2D_DEFAULT
-      }
-      {
-        package: tlul_pkg
-        struct: tl_d2h
-        signame: aes_tl_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: tlul_pkg
-        struct: tl_h2d
-        signame: entropy_src_tl_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: tlul_pkg::TL_H2D_DEFAULT
-      }
-      {
-        package: tlul_pkg
-        struct: tl_d2h
-        signame: entropy_src_tl_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: tlul_pkg
-        struct: tl_h2d
-        signame: csrng_tl_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: tlul_pkg::TL_H2D_DEFAULT
-      }
-      {
-        package: tlul_pkg
-        struct: tl_d2h
-        signame: csrng_tl_rsp
         width: 1
         type: req_rsp
         end_idx: -1
@@ -22115,28 +15930,6 @@
       {
         package: tlul_pkg
         struct: tl_h2d
-        signame: keymgr_tl_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: tlul_pkg::TL_H2D_DEFAULT
-      }
-      {
-        package: tlul_pkg
-        struct: tl_d2h
-        signame: keymgr_tl_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: tlul_pkg
-        struct: tl_h2d
         signame: rv_core_ibex_cfg_tl_d_req
         width: 1
         type: req_rsp
@@ -22225,72 +16018,6 @@
       {
         package: tlul_pkg
         struct: tl_h2d
-        signame: uart1_tl_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: tlul_pkg::TL_H2D_DEFAULT
-      }
-      {
-        package: tlul_pkg
-        struct: tl_d2h
-        signame: uart1_tl_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: tlul_pkg
-        struct: tl_h2d
-        signame: uart2_tl_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: tlul_pkg::TL_H2D_DEFAULT
-      }
-      {
-        package: tlul_pkg
-        struct: tl_d2h
-        signame: uart2_tl_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: tlul_pkg
-        struct: tl_h2d
-        signame: uart3_tl_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: tlul_pkg::TL_H2D_DEFAULT
-      }
-      {
-        package: tlul_pkg
-        struct: tl_d2h
-        signame: uart3_tl_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: tlul_pkg
-        struct: tl_h2d
         signame: i2c0_tl_req
         width: 1
         type: req_rsp
@@ -22303,50 +16030,6 @@
         package: tlul_pkg
         struct: tl_d2h
         signame: i2c0_tl_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: tlul_pkg
-        struct: tl_h2d
-        signame: i2c1_tl_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: tlul_pkg::TL_H2D_DEFAULT
-      }
-      {
-        package: tlul_pkg
-        struct: tl_d2h
-        signame: i2c1_tl_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: tlul_pkg
-        struct: tl_h2d
-        signame: i2c2_tl_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: tlul_pkg::TL_H2D_DEFAULT
-      }
-      {
-        package: tlul_pkg
-        struct: tl_d2h
-        signame: i2c2_tl_rsp
         width: 1
         type: req_rsp
         end_idx: -1
@@ -22379,28 +16062,6 @@
       {
         package: tlul_pkg
         struct: tl_h2d
-        signame: pwm_aon_tl_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: tlul_pkg::TL_H2D_DEFAULT
-      }
-      {
-        package: tlul_pkg
-        struct: tl_d2h
-        signame: pwm_aon_tl_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: tlul_pkg
-        struct: tl_h2d
         signame: gpio_tl_req
         width: 1
         type: req_rsp
@@ -22413,28 +16074,6 @@
         package: tlul_pkg
         struct: tl_d2h
         signame: gpio_tl_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
-        package: tlul_pkg
-        struct: tl_h2d
-        signame: spi_device_tl_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: tlul_pkg::TL_H2D_DEFAULT
-      }
-      {
-        package: tlul_pkg
-        struct: tl_d2h
-        signame: spi_device_tl_rsp
         width: 1
         type: req_rsp
         end_idx: -1
@@ -22751,28 +16390,6 @@
         default: ""
       }
       {
-        package: tlul_pkg
-        struct: tl_h2d
-        signame: adc_ctrl_aon_tl_req
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: req
-        default: tlul_pkg::TL_H2D_DEFAULT
-      }
-      {
-        package: tlul_pkg
-        struct: tl_d2h
-        signame: adc_ctrl_aon_tl_rsp
-        width: 1
-        type: req_rsp
-        end_idx: -1
-        act: rsp
-        suffix: rsp
-        default: ""
-      }
-      {
         package: clkmgr_pkg
         struct: clkmgr_out
         signame: clkmgr_aon_clocks
@@ -22863,33 +16480,6 @@
         default: "'0"
       }
       {
-        package: prim_mubi_pkg
-        struct: mubi8
-        signame: csrng_otp_en_csrng_sw_app_read
-        width: 1
-        type: uni
-        end_idx: -1
-        default: ""
-      }
-      {
-        package: prim_mubi_pkg
-        struct: mubi8
-        signame: entropy_src_otp_en_entropy_src_fw_read
-        width: 1
-        type: uni
-        end_idx: -1
-        default: ""
-      }
-      {
-        package: prim_mubi_pkg
-        struct: mubi8
-        signame: entropy_src_otp_en_entropy_src_fw_over
-        width: 1
-        type: uni
-        end_idx: -1
-        default: ""
-      }
-      {
         package: otp_ctrl_pkg
         struct: otp_device_id
         signame: lc_ctrl_otp_device_id
@@ -22906,15 +16496,6 @@
         type: uni
         end_idx: -1
         default: "'0"
-      }
-      {
-        package: otp_ctrl_pkg
-        struct: otp_device_id
-        signame: keymgr_otp_device_id
-        width: 1
-        type: uni
-        end_idx: -1
-        default: ""
       }
       {
         package: prim_mubi_pkg

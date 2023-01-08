@@ -10,7 +10,7 @@
   dut: xbar_main
 
   // The name of the chip this XBAR configuration is made for.
-  top_chip: top_earlgrey
+  top_chip: top_custom_gf12
 
   // Testplan hjson file.
   testplan: "{proj_root}/hw/ip/tlul/data/tlul_testplan.hjson"

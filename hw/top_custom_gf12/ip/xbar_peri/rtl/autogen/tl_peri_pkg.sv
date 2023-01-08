@@ -7,16 +7,9 @@
 package tl_peri_pkg;
 
   localparam logic [31:0] ADDR_SPACE_UART0                   = 32'h 40000000;
-  localparam logic [31:0] ADDR_SPACE_UART1                   = 32'h 40010000;
-  localparam logic [31:0] ADDR_SPACE_UART2                   = 32'h 40020000;
-  localparam logic [31:0] ADDR_SPACE_UART3                   = 32'h 40030000;
   localparam logic [31:0] ADDR_SPACE_I2C0                    = 32'h 40080000;
-  localparam logic [31:0] ADDR_SPACE_I2C1                    = 32'h 40090000;
-  localparam logic [31:0] ADDR_SPACE_I2C2                    = 32'h 400a0000;
   localparam logic [31:0] ADDR_SPACE_PATTGEN                 = 32'h 400e0000;
-  localparam logic [31:0] ADDR_SPACE_PWM_AON                 = 32'h 40450000;
   localparam logic [31:0] ADDR_SPACE_GPIO                    = 32'h 40040000;
-  localparam logic [31:0] ADDR_SPACE_SPI_DEVICE              = 32'h 40050000;
   localparam logic [31:0] ADDR_SPACE_RV_TIMER                = 32'h 40100000;
   localparam logic [31:0] ADDR_SPACE_PWRMGR_AON              = 32'h 40400000;
   localparam logic [31:0] ADDR_SPACE_RSTMGR_AON              = 32'h 40410000;
@@ -31,25 +24,17 @@ package tl_peri_pkg;
   localparam logic [31:0] ADDR_SPACE_SRAM_CTRL_RET_AON__RAM  = 32'h 40600000;
   localparam logic [31:0] ADDR_SPACE_AON_TIMER_AON           = 32'h 40470000;
   localparam logic [31:0] ADDR_SPACE_SYSRST_CTRL_AON         = 32'h 40430000;
-  localparam logic [31:0] ADDR_SPACE_ADC_CTRL_AON            = 32'h 40440000;
   localparam logic [31:0] ADDR_SPACE_AST                     = 32'h 40480000;
 
   localparam logic [31:0] ADDR_MASK_UART0                   = 32'h 0000003f;
-  localparam logic [31:0] ADDR_MASK_UART1                   = 32'h 0000003f;
-  localparam logic [31:0] ADDR_MASK_UART2                   = 32'h 0000003f;
-  localparam logic [31:0] ADDR_MASK_UART3                   = 32'h 0000003f;
   localparam logic [31:0] ADDR_MASK_I2C0                    = 32'h 0000007f;
-  localparam logic [31:0] ADDR_MASK_I2C1                    = 32'h 0000007f;
-  localparam logic [31:0] ADDR_MASK_I2C2                    = 32'h 0000007f;
   localparam logic [31:0] ADDR_MASK_PATTGEN                 = 32'h 0000003f;
-  localparam logic [31:0] ADDR_MASK_PWM_AON                 = 32'h 0000007f;
   localparam logic [31:0] ADDR_MASK_GPIO                    = 32'h 0000003f;
-  localparam logic [31:0] ADDR_MASK_SPI_DEVICE              = 32'h 00001fff;
   localparam logic [31:0] ADDR_MASK_RV_TIMER                = 32'h 000001ff;
   localparam logic [31:0] ADDR_MASK_PWRMGR_AON              = 32'h 0000007f;
   localparam logic [31:0] ADDR_MASK_RSTMGR_AON              = 32'h 0000007f;
   localparam logic [31:0] ADDR_MASK_CLKMGR_AON              = 32'h 0000007f;
-  localparam logic [31:0] ADDR_MASK_PINMUX_AON              = 32'h 00000fff;
+  localparam logic [31:0] ADDR_MASK_PINMUX_AON              = 32'h 000007ff;
   localparam logic [31:0] ADDR_MASK_OTP_CTRL__CORE          = 32'h 00001fff;
   localparam logic [31:0] ADDR_MASK_OTP_CTRL__PRIM          = 32'h 0000001f;
   localparam logic [31:0] ADDR_MASK_LC_CTRL                 = 32'h 000000ff;
@@ -59,40 +44,31 @@ package tl_peri_pkg;
   localparam logic [31:0] ADDR_MASK_SRAM_CTRL_RET_AON__RAM  = 32'h 00000fff;
   localparam logic [31:0] ADDR_MASK_AON_TIMER_AON           = 32'h 0000003f;
   localparam logic [31:0] ADDR_MASK_SYSRST_CTRL_AON         = 32'h 000000ff;
-  localparam logic [31:0] ADDR_MASK_ADC_CTRL_AON            = 32'h 0000007f;
   localparam logic [31:0] ADDR_MASK_AST                     = 32'h 000003ff;
 
   localparam int N_HOST   = 1;
-  localparam int N_DEVICE = 27;
+  localparam int N_DEVICE = 19;
 
   typedef enum int {
     TlUart0 = 0,
-    TlUart1 = 1,
-    TlUart2 = 2,
-    TlUart3 = 3,
-    TlI2C0 = 4,
-    TlI2C1 = 5,
-    TlI2C2 = 6,
-    TlPattgen = 7,
-    TlPwmAon = 8,
-    TlGpio = 9,
-    TlSpiDevice = 10,
-    TlRvTimer = 11,
-    TlPwrmgrAon = 12,
-    TlRstmgrAon = 13,
-    TlClkmgrAon = 14,
-    TlPinmuxAon = 15,
-    TlOtpCtrlCore = 16,
-    TlOtpCtrlPrim = 17,
-    TlLcCtrl = 18,
-    TlSensorCtrl = 19,
-    TlAlertHandler = 20,
-    TlSramCtrlRetAonRegs = 21,
-    TlSramCtrlRetAonRam = 22,
-    TlAonTimerAon = 23,
-    TlSysrstCtrlAon = 24,
-    TlAdcCtrlAon = 25,
-    TlAst = 26
+    TlI2C0 = 1,
+    TlPattgen = 2,
+    TlGpio = 3,
+    TlRvTimer = 4,
+    TlPwrmgrAon = 5,
+    TlRstmgrAon = 6,
+    TlClkmgrAon = 7,
+    TlPinmuxAon = 8,
+    TlOtpCtrlCore = 9,
+    TlOtpCtrlPrim = 10,
+    TlLcCtrl = 11,
+    TlSensorCtrl = 12,
+    TlAlertHandler = 13,
+    TlSramCtrlRetAonRegs = 14,
+    TlSramCtrlRetAonRam = 15,
+    TlAonTimerAon = 16,
+    TlSysrstCtrlAon = 17,
+    TlAst = 18
   } tl_device_e;
 
   typedef enum int {

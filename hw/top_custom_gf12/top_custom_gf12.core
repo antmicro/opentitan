@@ -16,48 +16,31 @@ filesets:
       - lowrisc:ip:pinmux
       - lowrisc:ip:rv_timer
       - lowrisc:ip:tlul
-      - lowrisc:ip:spi_device
       - lowrisc:ip:spi_host
-      - lowrisc:ip:i2c
-      - lowrisc:ip:pattgen
-      - lowrisc:ip:pwm
-      - lowrisc:ip:aes
-      - lowrisc:ip:entropy_src
-      - lowrisc:ip:csrng
-      - lowrisc:ip:edn
-      - lowrisc:ip:hmac
-      - lowrisc:ip:kmac
-      - lowrisc:ip:otbn
       - lowrisc:prim:ram_1p_scr
       - lowrisc:prim:flash
       - lowrisc:ip:flash_ctrl
       - lowrisc:ip:sram_ctrl
-      - lowrisc:ip:keymgr
       - lowrisc:constants:top_pkg
       - lowrisc:constants:jtag_id_pkg
-      - lowrisc:ip:otp_ctrl
-      - lowrisc:ip:lc_ctrl
-      - lowrisc:ip:usbdev
       - lowrisc:top_earlgrey:xbar_main
       - lowrisc:top_earlgrey:xbar_peri
       - lowrisc:ip:rstmgr
       - lowrisc:ip:pwrmgr
       - lowrisc:ip:aon_timer
-      - lowrisc:ip:adc_ctrl
       - lowrisc:ip:sysrst_ctrl
       - lowrisc:ip:rom_ctrl
       - lowrisc:systems:clkmgr
       - lowrisc:systems:sensor_ctrl
       - lowrisc:tlul:headers
       - lowrisc:prim:all
-      - lowrisc:prim:usb_diff_rx
       - lowrisc:prim:mubi
       - lowrisc:systems:top_earlgrey_pkg
       - "fileset_partner  ? (partner:systems:ast_pkg)"
       - "!fileset_partner ? (lowrisc:systems:ast_pkg)"
     files:
       - rtl/autogen/top_earlgrey_rnd_cnst_pkg.sv
-      - rtl/autogen/top_earlgrey.sv
+      - rtl/autogen/top_custom_gf12.sv
     file_type: systemVerilogSource
 
   files_verilator_waiver:

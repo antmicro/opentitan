@@ -4,7 +4,7 @@
 //
 // ------------------- W A R N I N G: A U T O - G E N E R A T E D   C O D E !! -------------------//
 // PLEASE DO NOT HAND-EDIT THIS FILE. IT HAS BEEN AUTO-GENERATED WITH THE FOLLOWING COMMAND:
-// util/topgen.py -t hw/top_earlgrey/data/top_earlgrey.hjson -o hw/top_earlgrey/
+// util/topgen.py -t hw/top_custom_gf12/data/top_custom_gf12.hjson -o hw/top_custom_gf12/
 
 {
   name: main
@@ -76,21 +76,13 @@
       sram_ctrl_main.ram
       peri
       spi_host0
-      spi_host1
-      usbdev
       flash_ctrl.core
       flash_ctrl.prim
       flash_ctrl.mem
-      aes
-      entropy_src
-      csrng
       edn0
       edn1
-      hmac
       rv_plic
       otbn
-      keymgr
-      kmac
       sram_ctrl_main.regs
       rv_core_ibex.cfg
     ]
@@ -103,21 +95,13 @@
       sram_ctrl_main.ram
       peri
       spi_host0
-      spi_host1
-      usbdev
       flash_ctrl.core
       flash_ctrl.prim
       flash_ctrl.mem
-      aes
-      entropy_src
-      csrng
       edn0
       edn1
-      hmac
       rv_plic
       otbn
-      keymgr
-      kmac
       sram_ctrl_main.regs
       rv_core_ibex.cfg
     ]
@@ -278,44 +262,6 @@
       pipeline: true
     }
     {
-      name: spi_host1
-      type: device
-      clock: clk_spi_host1_i
-      reset: rst_spi_host1_ni
-      req_fifo_pass: false
-      rsp_fifo_pass: false
-      inst_type: spi_host
-      addr_range:
-      [
-        {
-          base_addr: 0x40310000
-          size_byte: 0x40
-        }
-      ]
-      xbar: false
-      stub: false
-      pipeline: true
-    }
-    {
-      name: usbdev
-      type: device
-      clock: clk_usb_i
-      reset: rst_usb_ni
-      req_fifo_pass: false
-      rsp_fifo_pass: false
-      inst_type: usbdev
-      addr_range:
-      [
-        {
-          base_addr: 0x40320000
-          size_byte: 0x1000
-        }
-      ]
-      xbar: false
-      stub: false
-      pipeline: true
-    }
-    {
       name: flash_ctrl.core
       type: device
       clock: clk_main_i
@@ -366,101 +312,6 @@
         {
           base_addr: 0x20000000
           size_byte: 0x100000
-        }
-      ]
-      xbar: false
-      stub: false
-      pipeline: true
-    }
-    {
-      name: hmac
-      type: device
-      clock: clk_main_i
-      reset: rst_main_ni
-      req_fifo_pass: false
-      rsp_fifo_pass: false
-      inst_type: hmac
-      addr_range:
-      [
-        {
-          base_addr: 0x41110000
-          size_byte: 0x1000
-        }
-      ]
-      xbar: false
-      stub: false
-      pipeline: true
-    }
-    {
-      name: kmac
-      type: device
-      clock: clk_main_i
-      reset: rst_main_ni
-      req_fifo_pass: false
-      rsp_fifo_pass: false
-      inst_type: kmac
-      addr_range:
-      [
-        {
-          base_addr: 0x41120000
-          size_byte: 0x1000
-        }
-      ]
-      xbar: false
-      stub: false
-      pipeline: true
-    }
-    {
-      name: aes
-      type: device
-      clock: clk_main_i
-      reset: rst_main_ni
-      req_fifo_pass: false
-      rsp_fifo_pass: false
-      inst_type: aes
-      addr_range:
-      [
-        {
-          base_addr: 0x41100000
-          size_byte: 0x100
-        }
-      ]
-      xbar: false
-      stub: false
-      pipeline: true
-    }
-    {
-      name: entropy_src
-      type: device
-      clock: clk_main_i
-      reset: rst_main_ni
-      req_fifo_pass: false
-      rsp_fifo_pass: false
-      inst_type: entropy_src
-      addr_range:
-      [
-        {
-          base_addr: 0x41160000
-          size_byte: 0x100
-        }
-      ]
-      xbar: false
-      stub: false
-      pipeline: true
-    }
-    {
-      name: csrng
-      type: device
-      clock: clk_main_i
-      reset: rst_main_ni
-      req_fifo_pass: false
-      rsp_fifo_pass: false
-      inst_type: csrng
-      addr_range:
-      [
-        {
-          base_addr: 0x41150000
-          size_byte: 0x80
         }
       ]
       xbar: false
@@ -537,25 +388,6 @@
         {
           base_addr: 0x41130000
           size_byte: 0x10000
-        }
-      ]
-      xbar: false
-      stub: false
-      pipeline: true
-    }
-    {
-      name: keymgr
-      type: device
-      clock: clk_main_i
-      reset: rst_main_ni
-      req_fifo_pass: false
-      rsp_fifo_pass: false
-      inst_type: keymgr
-      addr_range:
-      [
-        {
-          base_addr: 0x41140000
-          size_byte: 0x100
         }
       ]
       xbar: false

@@ -20,14 +20,10 @@ package rstmgr_pkg;
   parameter int OffDomains = PowerDomains-1;
 
   // positions of software controllable reset bits
-  parameter int SPI_DEVICE = 0;
-  parameter int SPI_HOST0 = 1;
-  parameter int SPI_HOST1 = 2;
-  parameter int USB = 3;
-  parameter int USB_AON = 4;
-  parameter int I2C0 = 5;
-  parameter int I2C1 = 6;
-  parameter int I2C2 = 7;
+  parameter int SPI_HOST0 = 0;
+  parameter int USB = 1;
+  parameter int USB_AON = 2;
+  parameter int I2C0 = 3;
 
   // resets generated and broadcast
   // SEC_CM: LEAF.RST.SHADOW
@@ -48,14 +44,10 @@ package rstmgr_pkg;
     logic [PowerDomains-1:0] rst_lc_usb_n;
     logic [PowerDomains-1:0] rst_sys_n;
     logic [PowerDomains-1:0] rst_sys_io_div4_n;
-    logic [PowerDomains-1:0] rst_spi_device_n;
     logic [PowerDomains-1:0] rst_spi_host0_n;
-    logic [PowerDomains-1:0] rst_spi_host1_n;
     logic [PowerDomains-1:0] rst_usb_n;
     logic [PowerDomains-1:0] rst_usb_aon_n;
     logic [PowerDomains-1:0] rst_i2c0_n;
-    logic [PowerDomains-1:0] rst_i2c1_n;
-    logic [PowerDomains-1:0] rst_i2c2_n;
   } rstmgr_out_t;
 
   // reset indication for alert handler
@@ -76,17 +68,13 @@ package rstmgr_pkg;
     prim_mubi_pkg::mubi4_t [PowerDomains-1:0] lc_usb;
     prim_mubi_pkg::mubi4_t [PowerDomains-1:0] sys;
     prim_mubi_pkg::mubi4_t [PowerDomains-1:0] sys_io_div4;
-    prim_mubi_pkg::mubi4_t [PowerDomains-1:0] spi_device;
     prim_mubi_pkg::mubi4_t [PowerDomains-1:0] spi_host0;
-    prim_mubi_pkg::mubi4_t [PowerDomains-1:0] spi_host1;
     prim_mubi_pkg::mubi4_t [PowerDomains-1:0] usb;
     prim_mubi_pkg::mubi4_t [PowerDomains-1:0] usb_aon;
     prim_mubi_pkg::mubi4_t [PowerDomains-1:0] i2c0;
-    prim_mubi_pkg::mubi4_t [PowerDomains-1:0] i2c1;
-    prim_mubi_pkg::mubi4_t [PowerDomains-1:0] i2c2;
   } rstmgr_rst_en_t;
 
-  parameter int NumOutputRst = 24 * PowerDomains;
+  parameter int NumOutputRst = 20 * PowerDomains;
 
   // cpu reset requests and status
   typedef struct packed {

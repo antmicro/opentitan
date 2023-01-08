@@ -5,11 +5,11 @@
 // ------------------- W A R N I N G: A U T O - G E N E R A T E D   C O D E !! -------------------//
 // PLEASE DO NOT HAND-EDIT THIS FILE. IT HAS BEEN AUTO-GENERATED WITH THE FOLLOWING COMMAND:
 //
-// util/topgen.py -t hw/top_earlgrey/data/top_earlgrey.hjson \
-//                -o hw/top_earlgrey/ \
+// util/topgen.py -t hw/top_custom_gf12/data/top_custom_gf12.hjson \
+//                -o hw/top_custom_gf12/ \
 //                --rnd_cnst_seed 4881560218908238235
 
-module chip_earlgrey_cw310 #(
+module chip_custom_gf12_cw310 #(
   // Path to a VMEM file containing the contents of the boot ROM, which will be
   // baked into the FPGA bitstream.
   parameter BootRomInitFile = "test_rom_fpga_cw310.32.vmem",
@@ -25,12 +25,6 @@ module chip_earlgrey_cw310 #(
   inout SPI_HOST_D3, // Dedicated Pad for spi_host0_sd
   inout SPI_HOST_CLK, // Dedicated Pad for spi_host0_sck
   inout SPI_HOST_CS_L, // Dedicated Pad for spi_host0_csb
-  inout SPI_DEV_D0, // Dedicated Pad for spi_device_sd
-  inout SPI_DEV_D1, // Dedicated Pad for spi_device_sd
-  inout SPI_DEV_D2, // Dedicated Pad for spi_device_sd
-  inout SPI_DEV_D3, // Dedicated Pad for spi_device_sd
-  inout SPI_DEV_CLK, // Dedicated Pad for spi_device_sck
-  inout SPI_DEV_CS_L, // Dedicated Pad for spi_device_csb
   inout IOR8, // Dedicated Pad for sysrst_ctrl_aon_ec_rst_l
   inout IOR9, // Dedicated Pad for sysrst_ctrl_aon_flash_wp_l
   inout IO_CLK, // Manual Pad
@@ -98,7 +92,7 @@ module chip_earlgrey_cw310 #(
   inout IOR13  // MIO Pad 46
 );
 
-  import top_earlgrey_pkg::*;
+  import top_custom_gf12_pkg::*;
   import prim_pad_wrapper_pkg::*;
 
   ////////////////////////////
@@ -134,20 +128,12 @@ module chip_earlgrey_cw310 #(
     dio_pad_type: {
       BidirStd, // DIO spi_host0_csb
       BidirStd, // DIO spi_host0_sck
-      InputStd, // DIO spi_device_csb
-      InputStd, // DIO spi_device_sck
       BidirOd, // DIO sysrst_ctrl_aon_flash_wp_l
       BidirOd, // DIO sysrst_ctrl_aon_ec_rst_l
-      BidirStd, // DIO spi_device_sd
-      BidirStd, // DIO spi_device_sd
-      BidirStd, // DIO spi_device_sd
-      BidirStd, // DIO spi_device_sd
       BidirStd, // DIO spi_host0_sd
       BidirStd, // DIO spi_host0_sd
       BidirStd, // DIO spi_host0_sd
-      BidirStd, // DIO spi_host0_sd
-      BidirStd, // DIO usbdev_usb_dn
-      BidirStd  // DIO usbdev_usb_dp
+      BidirStd  // DIO spi_host0_sd
     },
     mio_pad_type: {
       BidirOd, // MIO Pad 46
@@ -256,7 +242,7 @@ module chip_earlgrey_cw310 #(
   /////////////////////////
 
   // Only signals going to non-custom pads need to be tied off.
-  logic [69:0] unused_sig;
+  logic [63:0] unused_sig;
 
   //////////////////////
   // Padring Instance //
@@ -268,7 +254,7 @@ module chip_earlgrey_cw310 #(
   padring #(
     // Padring specific counts may differ from pinmux config due
     // to custom, stubbed or added pads.
-    .NDioPads(29),
+    .NDioPads(23),
     .NMioPads(47),
     .DioPadType ({
       BidirStd, // IO_TRIGGER
@@ -287,12 +273,6 @@ module chip_earlgrey_cw310 #(
       InputStd, // IO_CLK
       BidirOd, // IOR9
       BidirOd, // IOR8
-      InputStd, // SPI_DEV_CS_L
-      InputStd, // SPI_DEV_CLK
-      BidirStd, // SPI_DEV_D3
-      BidirStd, // SPI_DEV_D2
-      BidirStd, // SPI_DEV_D1
-      BidirStd, // SPI_DEV_D0
       BidirStd, // SPI_HOST_CS_L
       BidirStd, // SPI_HOST_CLK
       BidirStd, // SPI_HOST_D3
@@ -373,12 +353,6 @@ module chip_earlgrey_cw310 #(
       IO_CLK,
       IOR9,
       IOR8,
-      SPI_DEV_CS_L,
-      SPI_DEV_CLK,
-      SPI_DEV_D3,
-      SPI_DEV_D2,
-      SPI_DEV_D1,
-      SPI_DEV_D0,
       SPI_HOST_CS_L,
       SPI_HOST_CLK,
       SPI_HOST_D3,
@@ -456,12 +430,6 @@ module chip_earlgrey_cw310 #(
         manual_in_io_clk,
         dio_in[DioSysrstCtrlAonFlashWpL],
         dio_in[DioSysrstCtrlAonEcRstL],
-        dio_in[DioSpiDeviceCsb],
-        dio_in[DioSpiDeviceSck],
-        dio_in[DioSpiDeviceSd3],
-        dio_in[DioSpiDeviceSd2],
-        dio_in[DioSpiDeviceSd1],
-        dio_in[DioSpiDeviceSd0],
         dio_in[DioSpiHost0Csb],
         dio_in[DioSpiHost0Sck],
         dio_in[DioSpiHost0Sd3],
@@ -487,12 +455,6 @@ module chip_earlgrey_cw310 #(
         manual_out_io_clk,
         dio_out[DioSysrstCtrlAonFlashWpL],
         dio_out[DioSysrstCtrlAonEcRstL],
-        dio_out[DioSpiDeviceCsb],
-        dio_out[DioSpiDeviceSck],
-        dio_out[DioSpiDeviceSd3],
-        dio_out[DioSpiDeviceSd2],
-        dio_out[DioSpiDeviceSd1],
-        dio_out[DioSpiDeviceSd0],
         dio_out[DioSpiHost0Csb],
         dio_out[DioSpiHost0Sck],
         dio_out[DioSpiHost0Sd3],
@@ -518,12 +480,6 @@ module chip_earlgrey_cw310 #(
         manual_oe_io_clk,
         dio_oe[DioSysrstCtrlAonFlashWpL],
         dio_oe[DioSysrstCtrlAonEcRstL],
-        dio_oe[DioSpiDeviceCsb],
-        dio_oe[DioSpiDeviceSck],
-        dio_oe[DioSpiDeviceSd3],
-        dio_oe[DioSpiDeviceSd2],
-        dio_oe[DioSpiDeviceSd1],
-        dio_oe[DioSpiDeviceSd0],
         dio_oe[DioSpiHost0Csb],
         dio_oe[DioSpiHost0Sck],
         dio_oe[DioSpiHost0Sd3],
@@ -549,12 +505,6 @@ module chip_earlgrey_cw310 #(
         manual_attr_io_clk,
         dio_attr[DioSysrstCtrlAonFlashWpL],
         dio_attr[DioSysrstCtrlAonEcRstL],
-        dio_attr[DioSpiDeviceCsb],
-        dio_attr[DioSpiDeviceSck],
-        dio_attr[DioSpiDeviceSd3],
-        dio_attr[DioSpiDeviceSd2],
-        dio_attr[DioSpiDeviceSd1],
-        dio_attr[DioSpiDeviceSd0],
         dio_attr[DioSpiHost0Csb],
         dio_attr[DioSpiHost0Sck],
         dio_attr[DioSpiHost0Sd3],
@@ -978,7 +928,7 @@ module chip_earlgrey_cw310 #(
 // TODO: align this with ASIC version to minimize the duplication.
 // Also need to add AST simulation and FPGA emulation models for things like entropy source -
 // otherwise Verilator / FPGA will hang.
-  top_earlgrey #(
+  top_custom_gf12 #(
     .SecAesMasking(1'b1),
     .SecAesSBoxImpl(aes_pkg::SBoxImplDom),
     .SecAesStartTriggerDelay(40),
@@ -999,7 +949,7 @@ module chip_earlgrey_cw310 #(
     .SramCtrlRetAonInstrExec(0),
     .SramCtrlMainInstrExec(1),
     .PinmuxAonTargetCfg(PinmuxTargetCfg)
-  ) top_earlgrey (
+  ) top_custom_gf12 (
     .por_n_i                      ( por_n                 ),
     .clk_main_i                   ( ast_base_clks.clk_sys ),
     .clk_io_i                     ( ast_base_clks.clk_io  ),
@@ -1120,7 +1070,7 @@ module chip_earlgrey_cw310 #(
   end
 
   prim_mubi_pkg::mubi4_t clk_trans_idle, manual_in_io_clk_idle;
-  assign clk_trans_idle = top_earlgrey.clkmgr_aon_idle[trigger_sel];
+  assign clk_trans_idle = top_custom_gf12.clkmgr_aon_idle[trigger_sel];
 
   logic clk_io_div4_trigger_en, manual_in_io_clk_trigger_en;
   logic clk_io_div4_trigger_oe, manual_in_io_clk_trigger_oe;
@@ -1143,4 +1093,4 @@ module chip_earlgrey_cw310 #(
   assign manual_out_io_trigger = manual_in_io_clk_trigger_en &
       prim_mubi_pkg::mubi4_test_false_strict(manual_in_io_clk_idle);
 
-endmodule : chip_earlgrey_cw310
+endmodule : chip_custom_gf12_cw310

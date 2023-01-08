@@ -69,18 +69,6 @@
     }
     { struct: "tl"
       type:   "req_rsp"
-      name:   "tl_spi_host1"
-      act:    "req"
-      package: "tlul_pkg"
-    }
-    { struct: "tl"
-      type:   "req_rsp"
-      name:   "tl_usbdev"
-      act:    "req"
-      package: "tlul_pkg"
-    }
-    { struct: "tl"
-      type:   "req_rsp"
       name:   "tl_flash_ctrl__core"
       act:    "req"
       package: "tlul_pkg"
@@ -94,36 +82,6 @@
     { struct: "tl"
       type:   "req_rsp"
       name:   "tl_flash_ctrl__mem"
-      act:    "req"
-      package: "tlul_pkg"
-    }
-    { struct: "tl"
-      type:   "req_rsp"
-      name:   "tl_hmac"
-      act:    "req"
-      package: "tlul_pkg"
-    }
-    { struct: "tl"
-      type:   "req_rsp"
-      name:   "tl_kmac"
-      act:    "req"
-      package: "tlul_pkg"
-    }
-    { struct: "tl"
-      type:   "req_rsp"
-      name:   "tl_aes"
-      act:    "req"
-      package: "tlul_pkg"
-    }
-    { struct: "tl"
-      type:   "req_rsp"
-      name:   "tl_entropy_src"
-      act:    "req"
-      package: "tlul_pkg"
-    }
-    { struct: "tl"
-      type:   "req_rsp"
-      name:   "tl_csrng"
       act:    "req"
       package: "tlul_pkg"
     }
@@ -148,12 +106,6 @@
     { struct: "tl"
       type:   "req_rsp"
       name:   "tl_otbn"
-      act:    "req"
-      package: "tlul_pkg"
-    }
-    { struct: "tl"
-      type:   "req_rsp"
-      name:   "tl_keymgr"
       act:    "req"
       package: "tlul_pkg"
     }

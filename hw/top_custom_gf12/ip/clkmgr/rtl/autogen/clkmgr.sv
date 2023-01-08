@@ -68,7 +68,7 @@
 
   // idle hints
   // SEC_CM: IDLE.INTERSIG.MUBI
-  input prim_mubi_pkg::mubi4_t [3:0] idle_i,
+  input prim_mubi_pkg::mubi4_t [0:0] idle_i,
 
   // life cycle state output
   // SEC_CM: LC_CTRL.INTERSIG.MUBI
@@ -765,7 +765,6 @@
   ////////////////////////////////////////////////////
 
   logic clk_io_div4_peri_sw_en;
-  logic clk_io_div2_peri_sw_en;
   logic clk_io_peri_sw_en;
   logic clk_usb_peri_sw_en;
 
@@ -809,48 +808,6 @@
     .rst_ni(rst_io_div4_ni),
     .mubi_i(((clk_io_div4_peri_combined_en) ? MuBi4False : MuBi4True)),
     .mubi_o(cg_en_o.io_div4_peri)
-  );
-
-  prim_flop_2sync #(
-    .Width(1)
-  ) u_clk_io_div2_peri_sw_en_sync (
-    .clk_i(clk_io_div2_i),
-    .rst_ni(rst_io_div2_ni),
-    .d_i(reg2hw.clk_enables.clk_io_div2_peri_en.q),
-    .q_o(clk_io_div2_peri_sw_en)
-  );
-
-  // Declared as size 1 packed array to avoid FPV warning.
-  prim_mubi_pkg::mubi4_t [0:0] clk_io_div2_peri_scanmode;
-  prim_mubi4_sync #(
-    .NumCopies(1),
-    .AsyncOn(0)
-  ) u_clk_io_div2_peri_scanmode_sync  (
-    .clk_i,
-    .rst_ni,
-    .mubi_i(scanmode_i),
-    .mubi_o(clk_io_div2_peri_scanmode)
-  );
-
-  logic clk_io_div2_peri_combined_en;
-  assign clk_io_div2_peri_combined_en = clk_io_div2_peri_sw_en & clk_io_div2_en;
-  prim_clock_gating #(
-    .FpgaBufGlobal(1'b1) // This clock spans across multiple clock regions.
-  ) u_clk_io_div2_peri_cg (
-    .clk_i(clk_io_div2_i),
-    .en_i(clk_io_div2_peri_combined_en),
-    .test_en_i(mubi4_test_true_strict(clk_io_div2_peri_scanmode[0])),
-    .clk_o(clocks_o.clk_io_div2_peri)
-  );
-
-  // clock gated indication for alert handler
-  prim_mubi4_sender #(
-    .ResetValue(MuBi4True)
-  ) u_prim_mubi4_sender_clk_io_div2_peri (
-    .clk_i(clk_io_div2_i),
-    .rst_ni(rst_io_div2_ni),
-    .mubi_i(((clk_io_div2_peri_combined_en) ? MuBi4False : MuBi4True)),
-    .mubi_o(cg_en_o.io_div2_peri)
   );
 
   prim_flop_2sync #(
@@ -944,73 +901,7 @@
   // clock target
   ////////////////////////////////////////////////////
 
-  logic [3:0] idle_cnt_err;
-
-  clkmgr_trans #(
-    .FpgaBufGlobal(1'b0) // This clock is used primarily locally.
-  ) u_clk_main_aes_trans (
-    .clk_i(clk_main_i),
-    .clk_gated_i(clk_main_root),
-    .rst_ni(rst_main_ni),
-    .en_i(clk_main_en),
-    .idle_i(idle_i[HintMainAes]),
-    .sw_hint_i(reg2hw.clk_hints.clk_main_aes_hint.q),
-    .scanmode_i,
-    .alert_cg_en_o(cg_en_o.main_aes),
-    .clk_o(clocks_o.clk_main_aes),
-    .clk_reg_i(clk_i),
-    .rst_reg_ni(rst_ni),
-    .reg_en_o(hw2reg.clk_hints_status.clk_main_aes_val.d),
-    .reg_cnt_err_o(idle_cnt_err[HintMainAes])
-  );
-  `ASSERT_PRIM_COUNT_ERROR_TRIGGER_ALERT(
-    ClkMainAesCountCheck_A,
-    u_clk_main_aes_trans.u_idle_cnt,
-    alert_tx_o[1])
-
-  clkmgr_trans #(
-    .FpgaBufGlobal(1'b0) // This clock is used primarily locally.
-  ) u_clk_main_hmac_trans (
-    .clk_i(clk_main_i),
-    .clk_gated_i(clk_main_root),
-    .rst_ni(rst_main_ni),
-    .en_i(clk_main_en),
-    .idle_i(idle_i[HintMainHmac]),
-    .sw_hint_i(reg2hw.clk_hints.clk_main_hmac_hint.q),
-    .scanmode_i,
-    .alert_cg_en_o(cg_en_o.main_hmac),
-    .clk_o(clocks_o.clk_main_hmac),
-    .clk_reg_i(clk_i),
-    .rst_reg_ni(rst_ni),
-    .reg_en_o(hw2reg.clk_hints_status.clk_main_hmac_val.d),
-    .reg_cnt_err_o(idle_cnt_err[HintMainHmac])
-  );
-  `ASSERT_PRIM_COUNT_ERROR_TRIGGER_ALERT(
-    ClkMainHmacCountCheck_A,
-    u_clk_main_hmac_trans.u_idle_cnt,
-    alert_tx_o[1])
-
-  clkmgr_trans #(
-    .FpgaBufGlobal(1'b1) // KMAC is getting too big for a single clock region.
-  ) u_clk_main_kmac_trans (
-    .clk_i(clk_main_i),
-    .clk_gated_i(clk_main_root),
-    .rst_ni(rst_main_ni),
-    .en_i(clk_main_en),
-    .idle_i(idle_i[HintMainKmac]),
-    .sw_hint_i(reg2hw.clk_hints.clk_main_kmac_hint.q),
-    .scanmode_i,
-    .alert_cg_en_o(cg_en_o.main_kmac),
-    .clk_o(clocks_o.clk_main_kmac),
-    .clk_reg_i(clk_i),
-    .rst_reg_ni(rst_ni),
-    .reg_en_o(hw2reg.clk_hints_status.clk_main_kmac_val.d),
-    .reg_cnt_err_o(idle_cnt_err[HintMainKmac])
-  );
-  `ASSERT_PRIM_COUNT_ERROR_TRIGGER_ALERT(
-    ClkMainKmacCountCheck_A,
-    u_clk_main_kmac_trans.u_idle_cnt,
-    alert_tx_o[1])
+  logic [0:0] idle_cnt_err;
 
   clkmgr_trans #(
     .FpgaBufGlobal(1'b0) // This clock is used primarily locally.
@@ -1020,13 +911,13 @@
     .rst_ni(rst_main_ni),
     .en_i(clk_main_en),
     .idle_i(idle_i[HintMainOtbn]),
-    .sw_hint_i(reg2hw.clk_hints.clk_main_otbn_hint.q),
+    .sw_hint_i(reg2hw.clk_hints.q),
     .scanmode_i,
     .alert_cg_en_o(cg_en_o.main_otbn),
     .clk_o(clocks_o.clk_main_otbn),
     .clk_reg_i(clk_i),
     .rst_reg_ni(rst_ni),
-    .reg_en_o(hw2reg.clk_hints_status.clk_main_otbn_val.d),
+    .reg_en_o(hw2reg.clk_hints_status.d),
     .reg_cnt_err_o(idle_cnt_err[HintMainOtbn])
   );
   `ASSERT_PRIM_COUNT_ERROR_TRIGGER_ALERT(
@@ -1037,10 +928,7 @@
   assign hw2reg.fatal_err_code.idle_cnt.de = |idle_cnt_err;
 
   // state readback
-  assign hw2reg.clk_hints_status.clk_main_aes_val.de = 1'b1;
-  assign hw2reg.clk_hints_status.clk_main_hmac_val.de = 1'b1;
-  assign hw2reg.clk_hints_status.clk_main_kmac_val.de = 1'b1;
-  assign hw2reg.clk_hints_status.clk_main_otbn_val.de = 1'b1;
+  assign hw2reg.clk_hints_status.de = 1'b1;
 
   // SEC_CM: JITTER.CONFIG.MUBI
   assign jitter_en_o = mubi4_t'(reg2hw.jitter_enable.q);

@@ -26,12 +26,6 @@ tl_device_t xbar_devices[$] = '{
     '{"spi_host0", '{
         '{32'h40300000, 32'h4030003f}
     }},
-    '{"spi_host1", '{
-        '{32'h40310000, 32'h4031003f}
-    }},
-    '{"usbdev", '{
-        '{32'h40320000, 32'h40320fff}
-    }},
     '{"flash_ctrl__core", '{
         '{32'h41000000, 32'h410001ff}
     }},
@@ -40,21 +34,6 @@ tl_device_t xbar_devices[$] = '{
     }},
     '{"flash_ctrl__mem", '{
         '{32'h20000000, 32'h200fffff}
-    }},
-    '{"hmac", '{
-        '{32'h41110000, 32'h41110fff}
-    }},
-    '{"kmac", '{
-        '{32'h41120000, 32'h41120fff}
-    }},
-    '{"aes", '{
-        '{32'h41100000, 32'h411000ff}
-    }},
-    '{"entropy_src", '{
-        '{32'h41160000, 32'h411600ff}
-    }},
-    '{"csrng", '{
-        '{32'h41150000, 32'h4115007f}
     }},
     '{"edn0", '{
         '{32'h41170000, 32'h4117007f}
@@ -67,9 +46,6 @@ tl_device_t xbar_devices[$] = '{
     }},
     '{"otbn", '{
         '{32'h41130000, 32'h4113ffff}
-    }},
-    '{"keymgr", '{
-        '{32'h41140000, 32'h411400ff}
     }},
     '{"rv_core_ibex__cfg", '{
         '{32'h411f0000, 32'h411f00ff}
@@ -97,21 +73,13 @@ tl_host_t xbar_hosts[$] = '{
         "sram_ctrl_main__ram",
         "peri",
         "spi_host0",
-        "spi_host1",
-        "usbdev",
         "flash_ctrl__core",
         "flash_ctrl__prim",
         "flash_ctrl__mem",
-        "aes",
-        "entropy_src",
-        "csrng",
         "edn0",
         "edn1",
-        "hmac",
         "rv_plic",
         "otbn",
-        "keymgr",
-        "kmac",
         "sram_ctrl_main__regs",
         "rv_core_ibex__cfg"}}
     ,
@@ -123,21 +91,13 @@ tl_host_t xbar_hosts[$] = '{
         "sram_ctrl_main__ram",
         "peri",
         "spi_host0",
-        "spi_host1",
-        "usbdev",
         "flash_ctrl__core",
         "flash_ctrl__prim",
         "flash_ctrl__mem",
-        "aes",
-        "entropy_src",
-        "csrng",
         "edn0",
         "edn1",
-        "hmac",
         "rv_plic",
         "otbn",
-        "keymgr",
-        "kmac",
         "sram_ctrl_main__regs",
         "rv_core_ibex__cfg"}}
 };

@@ -5,11 +5,11 @@
 // ------------------- W A R N I N G: A U T O - G E N E R A T E D   C O D E !! -------------------//
 // PLEASE DO NOT HAND-EDIT THIS FILE. IT HAS BEEN AUTO-GENERATED WITH THE FOLLOWING COMMAND:
 //
-// util/topgen.py -t hw/top_earlgrey/data/top_earlgrey.hjson \
-//                -o hw/top_earlgrey/ \
+// util/topgen.py -t hw/top_custom_gf12/data/top_custom_gf12.hjson \
+//                -o hw/top_custom_gf12/ \
 //                --rnd_cnst_seed 4881560218908238235
 
-module chip_earlgrey_asic #(
+module chip_custom_gf12_asic #(
   parameter bit SecRomCtrlDisableScrambling = 1'b0
 ) (
   // Dedicated Pads
@@ -28,12 +28,6 @@ module chip_earlgrey_asic #(
   inout SPI_HOST_D3, // Dedicated Pad for spi_host0_sd
   inout SPI_HOST_CLK, // Dedicated Pad for spi_host0_sck
   inout SPI_HOST_CS_L, // Dedicated Pad for spi_host0_csb
-  inout SPI_DEV_D0, // Dedicated Pad for spi_device_sd
-  inout SPI_DEV_D1, // Dedicated Pad for spi_device_sd
-  inout SPI_DEV_D2, // Dedicated Pad for spi_device_sd
-  inout SPI_DEV_D3, // Dedicated Pad for spi_device_sd
-  inout SPI_DEV_CLK, // Dedicated Pad for spi_device_sck
-  inout SPI_DEV_CS_L, // Dedicated Pad for spi_device_csb
   inout IOR8, // Dedicated Pad for sysrst_ctrl_aon_ec_rst_l
   inout IOR9, // Dedicated Pad for sysrst_ctrl_aon_flash_wp_l
   inout AST_MISC, // Manual Pad
@@ -88,7 +82,7 @@ module chip_earlgrey_asic #(
   inout IOR13  // MIO Pad 46
 );
 
-  import top_earlgrey_pkg::*;
+  import top_custom_gf12_pkg::*;
   import prim_pad_wrapper_pkg::*;
 
   ////////////////////////////
@@ -124,20 +118,12 @@ module chip_earlgrey_asic #(
     dio_pad_type: {
       BidirStd, // DIO spi_host0_csb
       BidirStd, // DIO spi_host0_sck
-      InputStd, // DIO spi_device_csb
-      InputStd, // DIO spi_device_sck
       BidirOd, // DIO sysrst_ctrl_aon_flash_wp_l
       BidirOd, // DIO sysrst_ctrl_aon_ec_rst_l
-      BidirStd, // DIO spi_device_sd
-      BidirStd, // DIO spi_device_sd
-      BidirStd, // DIO spi_device_sd
-      BidirStd, // DIO spi_device_sd
       BidirStd, // DIO spi_host0_sd
       BidirStd, // DIO spi_host0_sd
       BidirStd, // DIO spi_host0_sd
-      BidirStd, // DIO spi_host0_sd
-      BidirStd, // DIO usbdev_usb_dn
-      BidirStd  // DIO usbdev_usb_dp
+      BidirStd  // DIO spi_host0_sd
     },
     mio_pad_type: {
       BidirOd, // MIO Pad 46
@@ -245,7 +231,7 @@ module chip_earlgrey_asic #(
   padring #(
     // Padring specific counts may differ from pinmux config due
     // to custom, stubbed or added pads.
-    .NDioPads(24),
+    .NDioPads(18),
     .NMioPads(47),
     .PhysicalPads(1),
     .NIoBanks(int'(IoBankCount)),
@@ -253,12 +239,6 @@ module chip_earlgrey_asic #(
       scan_role_pkg::DioPadAstMiscScanRole,
       scan_role_pkg::DioPadIor9ScanRole,
       scan_role_pkg::DioPadIor8ScanRole,
-      scan_role_pkg::DioPadSpiDevCsLScanRole,
-      scan_role_pkg::DioPadSpiDevClkScanRole,
-      scan_role_pkg::DioPadSpiDevD3ScanRole,
-      scan_role_pkg::DioPadSpiDevD2ScanRole,
-      scan_role_pkg::DioPadSpiDevD1ScanRole,
-      scan_role_pkg::DioPadSpiDevD0ScanRole,
       scan_role_pkg::DioPadSpiHostCsLScanRole,
       scan_role_pkg::DioPadSpiHostClkScanRole,
       scan_role_pkg::DioPadSpiHostD3ScanRole,
@@ -328,12 +308,6 @@ module chip_earlgrey_asic #(
       IoBankVcc, // AST_MISC
       IoBankVcc, // IOR9
       IoBankVcc, // IOR8
-      IoBankVioa, // SPI_DEV_CS_L
-      IoBankVioa, // SPI_DEV_CLK
-      IoBankVioa, // SPI_DEV_D3
-      IoBankVioa, // SPI_DEV_D2
-      IoBankVioa, // SPI_DEV_D1
-      IoBankVioa, // SPI_DEV_D0
       IoBankVioa, // SPI_HOST_CS_L
       IoBankVioa, // SPI_HOST_CLK
       IoBankVioa, // SPI_HOST_D3
@@ -403,12 +377,6 @@ module chip_earlgrey_asic #(
       InputStd, // AST_MISC
       BidirOd, // IOR9
       BidirOd, // IOR8
-      InputStd, // SPI_DEV_CS_L
-      InputStd, // SPI_DEV_CLK
-      BidirStd, // SPI_DEV_D3
-      BidirStd, // SPI_DEV_D2
-      BidirStd, // SPI_DEV_D1
-      BidirStd, // SPI_DEV_D0
       BidirStd, // SPI_HOST_CS_L
       BidirStd, // SPI_HOST_CLK
       BidirStd, // SPI_HOST_D3
@@ -484,12 +452,6 @@ module chip_earlgrey_asic #(
       AST_MISC,
       IOR9,
       IOR8,
-      SPI_DEV_CS_L,
-      SPI_DEV_CLK,
-      SPI_DEV_D3,
-      SPI_DEV_D2,
-      SPI_DEV_D1,
-      SPI_DEV_D0,
       SPI_HOST_CS_L,
       SPI_HOST_CLK,
       SPI_HOST_D3,
@@ -562,12 +524,6 @@ module chip_earlgrey_asic #(
         manual_in_ast_misc,
         dio_in[DioSysrstCtrlAonFlashWpL],
         dio_in[DioSysrstCtrlAonEcRstL],
-        dio_in[DioSpiDeviceCsb],
-        dio_in[DioSpiDeviceSck],
-        dio_in[DioSpiDeviceSd3],
-        dio_in[DioSpiDeviceSd2],
-        dio_in[DioSpiDeviceSd1],
-        dio_in[DioSpiDeviceSd0],
         dio_in[DioSpiHost0Csb],
         dio_in[DioSpiHost0Sck],
         dio_in[DioSpiHost0Sd3],
@@ -588,12 +544,6 @@ module chip_earlgrey_asic #(
         manual_out_ast_misc,
         dio_out[DioSysrstCtrlAonFlashWpL],
         dio_out[DioSysrstCtrlAonEcRstL],
-        dio_out[DioSpiDeviceCsb],
-        dio_out[DioSpiDeviceSck],
-        dio_out[DioSpiDeviceSd3],
-        dio_out[DioSpiDeviceSd2],
-        dio_out[DioSpiDeviceSd1],
-        dio_out[DioSpiDeviceSd0],
         dio_out[DioSpiHost0Csb],
         dio_out[DioSpiHost0Sck],
         dio_out[DioSpiHost0Sd3],
@@ -614,12 +564,6 @@ module chip_earlgrey_asic #(
         manual_oe_ast_misc,
         dio_oe[DioSysrstCtrlAonFlashWpL],
         dio_oe[DioSysrstCtrlAonEcRstL],
-        dio_oe[DioSpiDeviceCsb],
-        dio_oe[DioSpiDeviceSck],
-        dio_oe[DioSpiDeviceSd3],
-        dio_oe[DioSpiDeviceSd2],
-        dio_oe[DioSpiDeviceSd1],
-        dio_oe[DioSpiDeviceSd0],
         dio_oe[DioSpiHost0Csb],
         dio_oe[DioSpiHost0Sck],
         dio_oe[DioSpiHost0Sd3],
@@ -640,12 +584,6 @@ module chip_earlgrey_asic #(
         manual_attr_ast_misc,
         dio_attr[DioSysrstCtrlAonFlashWpL],
         dio_attr[DioSysrstCtrlAonEcRstL],
-        dio_attr[DioSpiDeviceCsb],
-        dio_attr[DioSpiDeviceSck],
-        dio_attr[DioSpiDeviceSd3],
-        dio_attr[DioSpiDeviceSd2],
-        dio_attr[DioSpiDeviceSd1],
-        dio_attr[DioSpiDeviceSd0],
         dio_attr[DioSpiHost0Csb],
         dio_attr[DioSpiHost0Sck],
         dio_attr[DioSpiHost0Sd3],
@@ -1068,11 +1006,11 @@ module chip_earlgrey_asic #(
   //////////////////////
   // Top-level design //
   //////////////////////
-  top_earlgrey #(
+  top_custom_gf12 #(
     .PinmuxAonTargetCfg(PinmuxTargetCfg),
     .SecAesAllowForcingMasks(1'b1),
     .SecRomCtrlDisableScrambling(SecRomCtrlDisableScrambling)
-  ) top_earlgrey (
+  ) top_custom_gf12 (
     // ast connections
     .por_n_i                      ( por_n                      ),
     .clk_main_i                   ( ast_base_clks.clk_sys      ),
@@ -1165,4 +1103,4 @@ module chip_earlgrey_asic #(
 
 
 
-endmodule : chip_earlgrey_asic
+endmodule : chip_custom_gf12_asic

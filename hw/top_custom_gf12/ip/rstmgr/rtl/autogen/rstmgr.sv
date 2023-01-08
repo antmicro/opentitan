@@ -192,12 +192,12 @@ module rstmgr
   ////////////////////////////////////////////////////
 
   // consistency check errors
-  logic [20:0][PowerDomains-1:0] cnsty_chk_errs;
-  logic [20:0][PowerDomains-1:0] shadow_cnsty_chk_errs;
+  logic [16:0][PowerDomains-1:0] cnsty_chk_errs;
+  logic [16:0][PowerDomains-1:0] shadow_cnsty_chk_errs;
 
   // consistency sparse fsm errors
-  logic [20:0][PowerDomains-1:0] fsm_errs;
-  logic [20:0][PowerDomains-1:0] shadow_fsm_errs;
+  logic [16:0][PowerDomains-1:0] fsm_errs;
+  logic [16:0][PowerDomains-1:0] shadow_fsm_errs;
 
   assign hw2reg.err_code.reg_intg_err.d  = 1'b1;
   assign hw2reg.err_code.reg_intg_err.de = reg_intg_err;
@@ -904,46 +904,12 @@ module rstmgr
   assign shadow_cnsty_chk_errs[12] = '0;
   assign shadow_fsm_errs[12] = '0;
 
-  // Generating resets for spi_device
-  // Power Domains: ['0']
-  // Shadowed: False
-  assign resets_o.rst_spi_device_n[DomainAonSel] = '0;
-  assign cnsty_chk_errs[13][DomainAonSel] = '0;
-  assign fsm_errs[13][DomainAonSel] = '0;
-  assign rst_en_o.spi_device[DomainAonSel] = MuBi4True;
-  rstmgr_leaf_rst #(
-    .SecCheck(SecCheck),
-    .SecMaxSyncDelay(SecMaxSyncDelay),
-    .SwRstReq(1'b1)
-  ) u_d0_spi_device (
-    .clk_i,
-    .rst_ni,
-    .leaf_clk_i(clk_io_div4_i),
-    .parent_rst_ni(rst_lc_src_n[Domain0Sel]),
-    .sw_rst_req_ni(reg2hw.sw_rst_ctrl_n[SPI_DEVICE].q),
-    .scan_rst_ni,
-    .scanmode_i,
-    .rst_en_o(rst_en_o.spi_device[Domain0Sel]),
-    .leaf_rst_o(resets_o.rst_spi_device_n[Domain0Sel]),
-    .err_o(cnsty_chk_errs[13][Domain0Sel]),
-    .fsm_err_o(fsm_errs[13][Domain0Sel])
-  );
-
-  if (SecCheck) begin : gen_d0_spi_device_assert
-  `ASSERT_PRIM_FSM_ERROR_TRIGGER_ALERT(
-    D0SpiDeviceFsmCheck_A,
-    u_d0_spi_device.gen_rst_chk.u_rst_chk.u_state_regs,
-    alert_tx_o[0])
-  end
-  assign shadow_cnsty_chk_errs[13] = '0;
-  assign shadow_fsm_errs[13] = '0;
-
   // Generating resets for spi_host0
   // Power Domains: ['0']
   // Shadowed: False
   assign resets_o.rst_spi_host0_n[DomainAonSel] = '0;
-  assign cnsty_chk_errs[14][DomainAonSel] = '0;
-  assign fsm_errs[14][DomainAonSel] = '0;
+  assign cnsty_chk_errs[13][DomainAonSel] = '0;
+  assign fsm_errs[13][DomainAonSel] = '0;
   assign rst_en_o.spi_host0[DomainAonSel] = MuBi4True;
   rstmgr_leaf_rst #(
     .SecCheck(SecCheck),
@@ -959,8 +925,8 @@ module rstmgr
     .scanmode_i,
     .rst_en_o(rst_en_o.spi_host0[Domain0Sel]),
     .leaf_rst_o(resets_o.rst_spi_host0_n[Domain0Sel]),
-    .err_o(cnsty_chk_errs[14][Domain0Sel]),
-    .fsm_err_o(fsm_errs[14][Domain0Sel])
+    .err_o(cnsty_chk_errs[13][Domain0Sel]),
+    .fsm_err_o(fsm_errs[13][Domain0Sel])
   );
 
   if (SecCheck) begin : gen_d0_spi_host0_assert
@@ -969,49 +935,15 @@ module rstmgr
     u_d0_spi_host0.gen_rst_chk.u_rst_chk.u_state_regs,
     alert_tx_o[0])
   end
-  assign shadow_cnsty_chk_errs[14] = '0;
-  assign shadow_fsm_errs[14] = '0;
-
-  // Generating resets for spi_host1
-  // Power Domains: ['0']
-  // Shadowed: False
-  assign resets_o.rst_spi_host1_n[DomainAonSel] = '0;
-  assign cnsty_chk_errs[15][DomainAonSel] = '0;
-  assign fsm_errs[15][DomainAonSel] = '0;
-  assign rst_en_o.spi_host1[DomainAonSel] = MuBi4True;
-  rstmgr_leaf_rst #(
-    .SecCheck(SecCheck),
-    .SecMaxSyncDelay(SecMaxSyncDelay),
-    .SwRstReq(1'b1)
-  ) u_d0_spi_host1 (
-    .clk_i,
-    .rst_ni,
-    .leaf_clk_i(clk_io_div2_i),
-    .parent_rst_ni(rst_lc_src_n[Domain0Sel]),
-    .sw_rst_req_ni(reg2hw.sw_rst_ctrl_n[SPI_HOST1].q),
-    .scan_rst_ni,
-    .scanmode_i,
-    .rst_en_o(rst_en_o.spi_host1[Domain0Sel]),
-    .leaf_rst_o(resets_o.rst_spi_host1_n[Domain0Sel]),
-    .err_o(cnsty_chk_errs[15][Domain0Sel]),
-    .fsm_err_o(fsm_errs[15][Domain0Sel])
-  );
-
-  if (SecCheck) begin : gen_d0_spi_host1_assert
-  `ASSERT_PRIM_FSM_ERROR_TRIGGER_ALERT(
-    D0SpiHost1FsmCheck_A,
-    u_d0_spi_host1.gen_rst_chk.u_rst_chk.u_state_regs,
-    alert_tx_o[0])
-  end
-  assign shadow_cnsty_chk_errs[15] = '0;
-  assign shadow_fsm_errs[15] = '0;
+  assign shadow_cnsty_chk_errs[13] = '0;
+  assign shadow_fsm_errs[13] = '0;
 
   // Generating resets for usb
   // Power Domains: ['0']
   // Shadowed: False
   assign resets_o.rst_usb_n[DomainAonSel] = '0;
-  assign cnsty_chk_errs[16][DomainAonSel] = '0;
-  assign fsm_errs[16][DomainAonSel] = '0;
+  assign cnsty_chk_errs[14][DomainAonSel] = '0;
+  assign fsm_errs[14][DomainAonSel] = '0;
   assign rst_en_o.usb[DomainAonSel] = MuBi4True;
   rstmgr_leaf_rst #(
     .SecCheck(SecCheck),
@@ -1027,8 +959,8 @@ module rstmgr
     .scanmode_i,
     .rst_en_o(rst_en_o.usb[Domain0Sel]),
     .leaf_rst_o(resets_o.rst_usb_n[Domain0Sel]),
-    .err_o(cnsty_chk_errs[16][Domain0Sel]),
-    .fsm_err_o(fsm_errs[16][Domain0Sel])
+    .err_o(cnsty_chk_errs[14][Domain0Sel]),
+    .fsm_err_o(fsm_errs[14][Domain0Sel])
   );
 
   if (SecCheck) begin : gen_d0_usb_assert
@@ -1037,49 +969,29 @@ module rstmgr
     u_d0_usb.gen_rst_chk.u_rst_chk.u_state_regs,
     alert_tx_o[0])
   end
-  assign shadow_cnsty_chk_errs[16] = '0;
-  assign shadow_fsm_errs[16] = '0;
+  assign shadow_cnsty_chk_errs[14] = '0;
+  assign shadow_fsm_errs[14] = '0;
 
   // Generating resets for usb_aon
-  // Power Domains: ['0']
+  // Power Domains: []
   // Shadowed: False
   assign resets_o.rst_usb_aon_n[DomainAonSel] = '0;
-  assign cnsty_chk_errs[17][DomainAonSel] = '0;
-  assign fsm_errs[17][DomainAonSel] = '0;
+  assign cnsty_chk_errs[15][DomainAonSel] = '0;
+  assign fsm_errs[15][DomainAonSel] = '0;
   assign rst_en_o.usb_aon[DomainAonSel] = MuBi4True;
-  rstmgr_leaf_rst #(
-    .SecCheck(SecCheck),
-    .SecMaxSyncDelay(SecMaxSyncDelay),
-    .SwRstReq(1'b1)
-  ) u_d0_usb_aon (
-    .clk_i,
-    .rst_ni,
-    .leaf_clk_i(clk_aon_i),
-    .parent_rst_ni(rst_lc_src_n[Domain0Sel]),
-    .sw_rst_req_ni(reg2hw.sw_rst_ctrl_n[USB_AON].q),
-    .scan_rst_ni,
-    .scanmode_i,
-    .rst_en_o(rst_en_o.usb_aon[Domain0Sel]),
-    .leaf_rst_o(resets_o.rst_usb_aon_n[Domain0Sel]),
-    .err_o(cnsty_chk_errs[17][Domain0Sel]),
-    .fsm_err_o(fsm_errs[17][Domain0Sel])
-  );
-
-  if (SecCheck) begin : gen_d0_usb_aon_assert
-  `ASSERT_PRIM_FSM_ERROR_TRIGGER_ALERT(
-    D0UsbAonFsmCheck_A,
-    u_d0_usb_aon.gen_rst_chk.u_rst_chk.u_state_regs,
-    alert_tx_o[0])
-  end
-  assign shadow_cnsty_chk_errs[17] = '0;
-  assign shadow_fsm_errs[17] = '0;
+  assign resets_o.rst_usb_aon_n[Domain0Sel] = '0;
+  assign cnsty_chk_errs[15][Domain0Sel] = '0;
+  assign fsm_errs[15][Domain0Sel] = '0;
+  assign rst_en_o.usb_aon[Domain0Sel] = MuBi4True;
+  assign shadow_cnsty_chk_errs[15] = '0;
+  assign shadow_fsm_errs[15] = '0;
 
   // Generating resets for i2c0
   // Power Domains: ['0']
   // Shadowed: False
   assign resets_o.rst_i2c0_n[DomainAonSel] = '0;
-  assign cnsty_chk_errs[18][DomainAonSel] = '0;
-  assign fsm_errs[18][DomainAonSel] = '0;
+  assign cnsty_chk_errs[16][DomainAonSel] = '0;
+  assign fsm_errs[16][DomainAonSel] = '0;
   assign rst_en_o.i2c0[DomainAonSel] = MuBi4True;
   rstmgr_leaf_rst #(
     .SecCheck(SecCheck),
@@ -1095,8 +1007,8 @@ module rstmgr
     .scanmode_i,
     .rst_en_o(rst_en_o.i2c0[Domain0Sel]),
     .leaf_rst_o(resets_o.rst_i2c0_n[Domain0Sel]),
-    .err_o(cnsty_chk_errs[18][Domain0Sel]),
-    .fsm_err_o(fsm_errs[18][Domain0Sel])
+    .err_o(cnsty_chk_errs[16][Domain0Sel]),
+    .fsm_err_o(fsm_errs[16][Domain0Sel])
   );
 
   if (SecCheck) begin : gen_d0_i2c0_assert
@@ -1105,76 +1017,8 @@ module rstmgr
     u_d0_i2c0.gen_rst_chk.u_rst_chk.u_state_regs,
     alert_tx_o[0])
   end
-  assign shadow_cnsty_chk_errs[18] = '0;
-  assign shadow_fsm_errs[18] = '0;
-
-  // Generating resets for i2c1
-  // Power Domains: ['0']
-  // Shadowed: False
-  assign resets_o.rst_i2c1_n[DomainAonSel] = '0;
-  assign cnsty_chk_errs[19][DomainAonSel] = '0;
-  assign fsm_errs[19][DomainAonSel] = '0;
-  assign rst_en_o.i2c1[DomainAonSel] = MuBi4True;
-  rstmgr_leaf_rst #(
-    .SecCheck(SecCheck),
-    .SecMaxSyncDelay(SecMaxSyncDelay),
-    .SwRstReq(1'b1)
-  ) u_d0_i2c1 (
-    .clk_i,
-    .rst_ni,
-    .leaf_clk_i(clk_io_div4_i),
-    .parent_rst_ni(rst_lc_src_n[Domain0Sel]),
-    .sw_rst_req_ni(reg2hw.sw_rst_ctrl_n[I2C1].q),
-    .scan_rst_ni,
-    .scanmode_i,
-    .rst_en_o(rst_en_o.i2c1[Domain0Sel]),
-    .leaf_rst_o(resets_o.rst_i2c1_n[Domain0Sel]),
-    .err_o(cnsty_chk_errs[19][Domain0Sel]),
-    .fsm_err_o(fsm_errs[19][Domain0Sel])
-  );
-
-  if (SecCheck) begin : gen_d0_i2c1_assert
-  `ASSERT_PRIM_FSM_ERROR_TRIGGER_ALERT(
-    D0I2c1FsmCheck_A,
-    u_d0_i2c1.gen_rst_chk.u_rst_chk.u_state_regs,
-    alert_tx_o[0])
-  end
-  assign shadow_cnsty_chk_errs[19] = '0;
-  assign shadow_fsm_errs[19] = '0;
-
-  // Generating resets for i2c2
-  // Power Domains: ['0']
-  // Shadowed: False
-  assign resets_o.rst_i2c2_n[DomainAonSel] = '0;
-  assign cnsty_chk_errs[20][DomainAonSel] = '0;
-  assign fsm_errs[20][DomainAonSel] = '0;
-  assign rst_en_o.i2c2[DomainAonSel] = MuBi4True;
-  rstmgr_leaf_rst #(
-    .SecCheck(SecCheck),
-    .SecMaxSyncDelay(SecMaxSyncDelay),
-    .SwRstReq(1'b1)
-  ) u_d0_i2c2 (
-    .clk_i,
-    .rst_ni,
-    .leaf_clk_i(clk_io_div4_i),
-    .parent_rst_ni(rst_lc_src_n[Domain0Sel]),
-    .sw_rst_req_ni(reg2hw.sw_rst_ctrl_n[I2C2].q),
-    .scan_rst_ni,
-    .scanmode_i,
-    .rst_en_o(rst_en_o.i2c2[Domain0Sel]),
-    .leaf_rst_o(resets_o.rst_i2c2_n[Domain0Sel]),
-    .err_o(cnsty_chk_errs[20][Domain0Sel]),
-    .fsm_err_o(fsm_errs[20][Domain0Sel])
-  );
-
-  if (SecCheck) begin : gen_d0_i2c2_assert
-  `ASSERT_PRIM_FSM_ERROR_TRIGGER_ALERT(
-    D0I2c2FsmCheck_A,
-    u_d0_i2c2.gen_rst_chk.u_rst_chk.u_state_regs,
-    alert_tx_o[0])
-  end
-  assign shadow_cnsty_chk_errs[20] = '0;
-  assign shadow_fsm_errs[20] = '0;
+  assign shadow_cnsty_chk_errs[16] = '0;
+  assign shadow_fsm_errs[16] = '0;
 
 
   ////////////////////////////////////////////////////
