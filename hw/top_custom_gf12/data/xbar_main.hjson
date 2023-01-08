@@ -85,20 +85,6 @@
       req_fifo_pass: false,
       rsp_fifo_pass: false,
     },
-    { name:      "spi_host1",
-      type:      "device",
-      clock:     "clk_spi_host1_i",
-      reset:     "rst_spi_host1_ni",
-      req_fifo_pass: false,
-      rsp_fifo_pass: false,
-    },
-    { name:      "usbdev",
-      type:      "device",
-      clock:     "clk_usb_i",
-      reset:     "rst_usb_ni",
-      req_fifo_pass: false,
-      rsp_fifo_pass: false,
-    },
     { name:      "flash_ctrl.core",
       type:      "device",
       clock:     "clk_main_i",
@@ -119,41 +105,6 @@
       type:      "device",
       clock:     "clk_main_i",
       reset:     "rst_main_ni",
-      req_fifo_pass: false,
-      rsp_fifo_pass: false,
-    },
-    { name:      "hmac",
-      type:      "device",
-      clock:     "clk_main_i",
-      reset:     "rst_main_ni",
-      req_fifo_pass: false,
-      rsp_fifo_pass: false,
-    },
-    { name:         "kmac"
-      type:         "device"
-      clock:        "clk_main_i"
-      reset:        "rst_main_ni"
-      req_fifo_pass: false,
-      rsp_fifo_pass: false,
-    }
-    { name:      "aes",
-      type:      "device",
-      clock:     "clk_main_i"
-      reset:     "rst_main_ni"
-      req_fifo_pass: false,
-      rsp_fifo_pass: false,
-    },
-    { name:      "entropy_src",
-      type:      "device",
-      clock:     "clk_main_i"
-      reset:     "rst_main_ni"
-      req_fifo_pass: false,
-      rsp_fifo_pass: false,
-    },
-    { name:      "csrng",
-      type:      "device",
-      clock:     "clk_main_i"
-      reset:     "rst_main_ni"
       req_fifo_pass: false,
       rsp_fifo_pass: false,
     },
@@ -186,13 +137,6 @@
       req_fifo_pass: false,
       rsp_fifo_pass: false,
     },
-    { name:      "keymgr",
-      type:      "device",
-      clock:     "clk_main_i"
-      reset:     "rst_main_ni"
-      req_fifo_pass: false,
-      rsp_fifo_pass: false,
-    },
     { name:      "rv_core_ibex.cfg",
       type:      "device",
       clock:     "clk_main_i"
@@ -218,18 +162,18 @@
     rv_core_ibex.corei:  ["rom_ctrl.rom", "rv_dm.mem", "sram_ctrl_main.ram", "flash_ctrl.mem"],
     rv_core_ibex.cored:  [
       "rom_ctrl.rom", "rom_ctrl.regs", "rv_dm.mem", "rv_dm.regs",
-      "sram_ctrl_main.ram", "peri", "spi_host0", "spi_host1", "usbdev",
+      "sram_ctrl_main.ram", "peri", "spi_host0",
       "flash_ctrl.core", "flash_ctrl.prim", "flash_ctrl.mem",
-      "aes", "entropy_src", "csrng", "edn0", "edn1", "hmac",
-      "rv_plic", "otbn", "keymgr", "kmac", "sram_ctrl_main.regs",
+      "edn0", "edn1",
+      "rv_plic", "otbn", "sram_ctrl_main.regs",
       "rv_core_ibex.cfg"
     ],
     rv_dm.sba: [
       "rom_ctrl.rom", "rom_ctrl.regs", "rv_dm.mem", "rv_dm.regs",
-      "sram_ctrl_main.ram", "peri", "spi_host0", "spi_host1", "usbdev",
+      "sram_ctrl_main.ram", "peri", "spi_host0",
       "flash_ctrl.core", "flash_ctrl.prim", "flash_ctrl.mem",
-      "aes", "entropy_src", "csrng", "edn0", "edn1", "hmac",
-      "rv_plic", "otbn", "keymgr", "kmac", "sram_ctrl_main.regs",
+      "edn0", "edn1",
+      "rv_plic", "otbn", "sram_ctrl_main.regs",
       "rv_core_ibex.cfg",
     ],
   },

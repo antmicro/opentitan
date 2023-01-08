@@ -2,8 +2,8 @@
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
 // SPDX-License-Identifier: Apache-2.0
 //
-// TOP Earlgrey configuration
-{ name: "earlgrey",
+// TOP Custom GF12 configuration
+{ name: "custom_gf12",
   type: "top",
 
   /////////////////////////////////////////////////////////////
@@ -152,14 +152,10 @@
       { name: "lc_usb",         gen: true,  type: "top", parent: "lc_src",  clk: "usb"     }
       { name: "sys",            gen: true,  type: "top", parent: "sys_src", clk: "main"    }
       { name: "sys_io_div4",    gen: true,  type: "top", parent: "sys_src", clk: "io_div4" }
-      { name: "spi_device",     gen: true,  type: "top", parent: "lc_src", clk: "io_div4", sw: true }
       { name: "spi_host0",      gen: true,  type: "top", parent: "lc_src", clk: "io",      sw: true }
-      { name: "spi_host1",      gen: true,  type: "top", parent: "lc_src", clk: "io_div2", sw: true }
       { name: "usb",            gen: true,  type: "top", parent: "lc_src", clk: "usb",     sw: true }
       { name: "usb_aon",        gen: true,  type: "top", parent: "lc_src", clk: "aon",     sw: true }
       { name: "i2c0",           gen: true,  type: "top", parent: "lc_src", clk: "io_div4", sw: true },
-      { name: "i2c1",           gen: true,  type: "top", parent: "lc_src", clk: "io_div4", sw: true },
-      { name: "i2c2",           gen: true,  type: "top", parent: "lc_src", clk: "io_div4", sw: true },
     ]
   }
 
@@ -193,51 +189,6 @@
       reset_connections: {rst_ni: "lc_io_div4"},
       base_addr: "0x40000000",
     },
-    { name: "uart1",    // instance name
-      type: "uart",     // Must be matched to the ip name in `ip.hson` (_reg, _cfg permitted)
-                        // and `hw/ip/{type}`
-
-      // clock connections defines the port to top level clock connection
-      // the ip.hjson will declare the clock port names
-      // If none are defined at ip.hjson, clk_i is used by default
-      clock_srcs: {clk_i: "io_div4"},
-      clock_group: "peri",
-      // reset connections defines the port to top level reset connection
-      // the ip.hjson will declare the reset port names
-      // If none are defined at ip.hjson, rst_ni is used by default
-      reset_connections: {rst_ni: "lc_io_div4"},
-      base_addr: "0x40010000",
-    },
-    { name: "uart2",    // instance name
-      type: "uart",     // Must be matched to the ip name in `ip.hson` (_reg, _cfg permitted)
-                        // and `hw/ip/{type}`
-
-      // clock connections defines the port to top level clock connection
-      // the ip.hjson will declare the clock port names
-      // If none are defined at ip.hjson, clk_i is used by default
-      clock_srcs: {clk_i: "io_div4"},
-      clock_group: "peri",
-      // reset connections defines the port to top level reset connection
-      // the ip.hjson will declare the reset port names
-      // If none are defined at ip.hjson, rst_ni is used by default
-      reset_connections: {rst_ni: "lc_io_div4"},
-      base_addr: "0x40020000",
-    },
-    { name: "uart3",    // instance name
-      type: "uart",     // Must be matched to the ip name in `ip.hson` (_reg, _cfg permitted)
-                        // and `hw/ip/{type}`
-
-      // clock connections defines the port to top level clock connection
-      // the ip.hjson will declare the clock port names
-      // If none are defined at ip.hjson, clk_i is used by default
-      clock_srcs: {clk_i: "io_div4"},
-      clock_group: "peri",
-      // reset connections defines the port to top level reset connection
-      // the ip.hjson will declare the reset port names
-      // If none are defined at ip.hjson, rst_ni is used by default
-      reset_connections: {rst_ni: "lc_io_div4"},
-      base_addr: "0x40030000",
-    },
     { name: "gpio",
       type: "gpio",
       clock_srcs: {clk_i: "io_div4"},
@@ -248,33 +199,12 @@
         GpioAsyncOn: "1"
       }
     }
-    { name: "spi_device",
-      type: "spi_device",
-      clock_srcs: {clk_i: "io_div4", scan_clk_i: "io_div2"},
-      clock_group: "peri",
-      reset_connections: {rst_ni: "spi_device"},
-      base_addr: "0x40050000",
-    },
     { name: "i2c0",
       type: "i2c",
       clock_srcs: {clk_i: "io_div4"},
       clock_group: "peri",
       reset_connections: {rst_ni: "i2c0"},
       base_addr: "0x40080000",
-    },
-    { name: "i2c1",
-      type: "i2c",
-      clock_srcs: {clk_i: "io_div4"},
-      clock_group: "peri",
-      reset_connections: {rst_ni: "i2c1"},
-      base_addr: "0x40090000",
-    },
-    { name: "i2c2",
-      type: "i2c",
-      clock_srcs: {clk_i: "io_div4"},
-      clock_group: "peri",
-      reset_connections: {rst_ni: "i2c2"},
-      base_addr: "0x400A0000",
     },
     { name: "pattgen",
       type: "pattgen",
@@ -323,23 +253,6 @@
       clock_group: "peri",
       reset_connections: {rst_ni: "spi_host0"},
       base_addr: "0x40300000",
-    },
-    { name: "spi_host1",
-      type: "spi_host",
-      clock_srcs: {clk_i: "io_div2"},
-      clock_group: "peri",
-      reset_connections: {rst_ni: "spi_host1"},
-      base_addr: "0x40310000",
-    },
-    { name: "usbdev",
-      type: "usbdev",
-      clock_srcs: {clk_i: "usb", clk_aon_i: "aon"},
-      clock_group: "peri",
-      reset_connections: {rst_ni: "usb", rst_aon_ni: "usb_aon"},
-      base_addr: "0x40320000",
-      param_decl: {
-        RcvrWakeTimeUs: "100"
-      },
     },
     { name: "pwrmgr_aon",
       type: "pwrmgr",
@@ -413,13 +326,13 @@
           group: "ast",
           clock: "main"
         },
-        clk_io_i: {
-          group: "ast",
-          clock: "io"
-        },
         clk_usb_i: {
           group: "ast",
           clock: "usb"
+        },
+        clk_io_i: {
+          group: "ast",
+          clock: "io"
         },
         clk_aon_i: {
           group: "ast",
@@ -452,22 +365,6 @@
       reset_connections: {rst_ni: "lc_io_div4", rst_aon_ni: "lc_aon"},
       domain: ["Aon"],
       base_addr: "0x40430000"
-    },
-    { name: "adc_ctrl_aon",
-      type: "adc_ctrl",
-      clock_srcs: {clk_i: "io_div4", clk_aon_i: "aon"},
-      clock_group: "peri",
-      reset_connections: {rst_ni: "lc_io_div4", rst_aon_ni: "lc_aon"},
-      domain: ["Aon"],
-      base_addr: "0x40440000"
-    },
-    { name: "pwm_aon",
-      type: "pwm",
-      clock_srcs: {clk_i: "io_div4", clk_core_i: "aon"},
-      clock_group: "peri",
-      reset_connections: {rst_ni: "lc_io_div4", rst_core_ni: "lc_aon"},
-      domain: ["Aon"],
-      base_addr: "0x40450000",
     },
     { name: "pinmux_aon",
       type: "pinmux",
@@ -625,34 +522,6 @@
       base_addr: "0x48000000",
       attr: "ipgen",
     },
-    { name: "aes",
-      type: "aes",
-      clock_srcs: {clk_i: "main", clk_edn_i: "main"},
-      clock_group: "trans",
-      reset_connections: {rst_ni: "lc", rst_edn_ni: "lc"},
-      param_decl: {
-        SecMasking: "1",
-        SecSBoxImpl: "aes_pkg::SBoxImplDom"
-      }
-      base_addr: "0x41100000",
-    },
-    { name: "hmac",
-      type: "hmac",
-      clock_srcs: {clk_i: "main"},
-      clock_group: "trans",
-      reset_connections: {rst_ni: "lc"},
-      base_addr: "0x41110000",
-    },
-    { name: "kmac",
-      type: "kmac",
-      param_decl: {
-        EnMasking: "1",
-      }
-      clock_srcs: {clk_i: "main", clk_edn_i: "main"}
-      clock_group: "trans"
-      reset_connections: {rst_ni: "lc", rst_edn_ni: "lc"}
-      base_addr: "0x41120000"
-    },
     { name: "otbn",
       type: "otbn",
       clock_srcs: {
@@ -672,27 +541,6 @@
       clock_group: "trans",
       reset_connections: {rst_ni: "lc", rst_edn_ni: "lc", rst_otp_ni: "lc_io_div4"},
       base_addr: "0x41130000",
-    },
-    { name: "keymgr",
-      type: "keymgr",
-      clock_srcs: {clk_i: "main", clk_edn_i: "main"},
-      clock_group: "secure",
-      reset_connections: {rst_ni: "lc", rst_edn_ni: "lc"},
-      base_addr: "0x41140000",
-    },
-    { name: "csrng",
-      type: "csrng",
-      clock_srcs: {clk_i: "main"},
-      clock_group: "secure",
-      reset_connections: {rst_ni: "lc"},
-      base_addr: "0x41150000",
-    },
-    { name: "entropy_src",
-      type: "entropy_src",
-      clock_srcs: {clk_i: "main"},
-      clock_group: "secure",
-      reset_connections: {rst_ni: "lc"},
-      base_addr: "0x41160000",
     },
     { name: "edn0",
       type: "edn",
@@ -877,7 +725,6 @@
                                    'sram_ctrl_main.cfg',
                                    'sram_ctrl_ret_aon.cfg',
                                    'rv_core_ibex.ram_cfg'],
-      'ast.ram_2p_cfg'          : ['spi_device.ram_cfg', 'usbdev.ram_cfg'],
       'ast.rom_cfg'             : ['rom_ctrl.rom_cfg'],
       'alert_handler.crashdump' : ['rstmgr_aon.alert_dump'],
       'alert_handler.esc_rx'    : ['rv_core_ibex.esc_rx',
@@ -889,10 +736,6 @@
                                    'lc_ctrl.esc_scrap_state1_tx',
                                    'pwrmgr_aon.esc_rst_tx'],
       'aon_timer_aon.nmi_wdog_timer_bark' : ['rv_core_ibex.nmi_wdog']
-      'csrng.csrng_cmd'         : ['edn0.csrng_cmd', 'edn1.csrng_cmd'],
-      'csrng.entropy_src_hw_if' : ['entropy_src.entropy_src_hw_if'],
-      'csrng.cs_aes_halt'       : ['entropy_src.cs_aes_halt'],
-      'flash_ctrl.keymgr'       : ['keymgr.flash'],
       'flash_ctrl.otp'          : ['otp_ctrl.flash_otp_key'],
       'flash_ctrl.rma_seed'     : ['lc_ctrl.lc_flash_rma_seed'],
       'otp_ctrl.sram_otp_key'   : ['sram_ctrl_main.sram_otp_key',
@@ -908,45 +751,21 @@
                                    'aon_timer_aon.sleep_mode'],
       'pwrmgr_aon.fetch_en'     : ['rv_core_ibex.pwrmgr_cpu_en'],
       'rom_ctrl.pwrmgr_data'    : ['pwrmgr_aon.rom_ctrl'],
-      'rom_ctrl.keymgr_data'    : ['keymgr.rom_digest'],
-      'flash_ctrl.keymgr'       : ['keymgr.flash'],
       'alert_handler.crashdump' : ['rstmgr_aon.alert_dump'],
-      'csrng.entropy_src_hw_if' : ['entropy_src.entropy_src_hw_if'],
 
       // Daisy chained LC RMA req/ack interface: LC -> Flash -> OTBN -> LC
       'lc_ctrl.lc_flash_rma_req' : ['flash_ctrl.rma_req'],
       'flash_ctrl.rma_ack'       : ['otbn.lc_rma_req'],
       'otbn.lc_rma_ack'          : ['lc_ctrl.lc_flash_rma_ack'],
 
-      // usbdev connection to pinmux
-      'usbdev.usb_dp_pullup'      : ['pinmux_aon.usbdev_dppullup_en'],
-      'usbdev.usb_dn_pullup'      : ['pinmux_aon.usbdev_dnpullup_en'],
-      'usbdev.usb_aon_suspend_req': ['pinmux_aon.usbdev_suspend_req'],
-      'usbdev.usb_aon_wake_ack'   : ['pinmux_aon.usbdev_wake_ack'],
-      'usbdev.usb_aon_bus_reset'  : ['pinmux_aon.usbdev_bus_reset'],
-      'usbdev.usb_aon_sense_lost' : ['pinmux_aon.usbdev_sense_lost'],
-      'pinmux_aon.usbdev_wake_detect_active' : ['usbdev.usb_aon_wake_detect_active'],
-
       // Edn connections
-      'edn0.edn'              : ['keymgr.edn', 'otp_ctrl.edn', 'ast.edn', 'kmac.entropy',
-                                 'alert_handler.edn', 'aes.edn', 'otbn.edn_urnd',
+      'edn0.edn'              : ['otp_ctrl.edn', 'ast.edn',
+                                 'alert_handler.edn', 'otbn.edn_urnd',
                                  'rv_core_ibex.edn'],
       'edn1.edn'              : ['otbn.edn_rnd'],
 
       // OTBN OTP scramble key
       'otp_ctrl.otbn_otp_key' : ['otbn.otbn_otp_key'],
-
-      // KeyMgr Sideload & KDF function
-      'otp_ctrl.otp_keymgr_key' : ['keymgr.otp_key'],
-      'keymgr.aes_key'          : ['aes.keymgr_key'],
-      'keymgr.kmac_key'         : ['kmac.keymgr_key'],
-      'keymgr.otbn_key'         : ['otbn.keymgr_key'],
-
-      // KMAC Application Interface
-      'kmac.app'                : ['keymgr.kmac_data',    // Keymgr needs to be at index 0
-                                   'lc_ctrl.kmac_data',   // LC needs to be at index 1
-                                   'rom_ctrl.kmac_data'], // ROM needs to be at index 2
-      'kmac.en_masking'         : ['keymgr.kmac_en_masking']
 
       // The idle connection is automatically connected through topgen.
       // The user does not need to explicitly declare anything other than
@@ -964,9 +783,6 @@
       'lc_ctrl.lc_otp_program'     : ['otp_ctrl.lc_otp_program'],
       'lc_ctrl.lc_otp_vendor_test' : ['otp_ctrl.lc_otp_vendor_test'],
 
-      // Diversification constant coming from life cycle
-      'lc_ctrl.lc_keymgr_div'  : ['keymgr.lc_keymgr_div'],
-
       // LC function control signal broadcast
       'lc_ctrl.lc_dft_en'          : ['otp_ctrl.lc_dft_en',
                                       'pinmux_aon.lc_dft_en',
@@ -976,15 +792,11 @@
       'lc_ctrl.lc_nvm_debug_en'    : ['flash_ctrl.lc_nvm_debug_en'],
       'lc_ctrl.lc_hw_debug_en'     : ['sram_ctrl_main.lc_hw_debug_en',
                                       'pinmux_aon.lc_hw_debug_en',
-                                      'csrng.lc_hw_debug_en',
                                       'rv_dm.lc_hw_debug_en',
                                       'clkmgr_aon.lc_hw_debug_en',
                                       'pwrmgr_aon.lc_hw_debug_en',],
       'lc_ctrl.lc_cpu_en'          : ['rv_core_ibex.lc_cpu_en'],
-      'lc_ctrl.lc_keymgr_en'       : ['keymgr.lc_keymgr_en'],
-      'lc_ctrl.lc_escalate_en'     : ['aes.lc_escalate_en',
-                                      'kmac.lc_escalate_en',
-                                      'otbn.lc_escalate_en',
+      'lc_ctrl.lc_escalate_en'     : ['otbn.lc_escalate_en',
                                       'otp_ctrl.lc_escalate_en',
                                       'sram_ctrl_main.lc_escalate_en',
                                       'sram_ctrl_ret_aon.lc_escalate_en',
@@ -1019,9 +831,6 @@
       // rv core ibex connections
       'rv_core_ibex.crash_dump' : ['rstmgr_aon.cpu_dump'],
       'rv_core_ibex.pwrmgr'     : ['pwrmgr_aon.pwr_cpu'],
-
-      // spi passthrough connection
-      'spi_device.passthrough'     : ['spi_host0.passthrough']
 
       // Debug module reset request to power manager
       'rv_dm.ndmreset_req' : ['pwrmgr_aon.ndmreset_req'],
@@ -1061,18 +870,13 @@
         // TODO(#6713): The actual struct breakout and mapping currently needs to
         // be performed by hand in the toplevel template.
         'otp_ctrl.otp_hw_cfg',
-        'csrng.otp_en_csrng_sw_app_read',
-        'entropy_src.otp_en_entropy_src_fw_read',
-        'entropy_src.otp_en_entropy_src_fw_over',
         'lc_ctrl.otp_device_id',
         'lc_ctrl.otp_manuf_state',
-        'keymgr.otp_device_id',
         'sram_ctrl_main.otp_en_sram_ifetch',
     ],
 
     // ext is to create port in the top.
     'external': {
-        'adc_ctrl_aon.adc'                : 'adc'
         'ast.edn'                         : '',
         'ast.lc_dft_en'                   : '',
         'ast.obs_ctrl'                    : 'obs_ctrl',
@@ -1093,13 +897,9 @@
         'flash_ctrl.flash_test_mode_a'    : 'flash_test_mode_a',
         'flash_ctrl.flash_test_voltage_h' : 'flash_test_voltage_h',
         'flash_ctrl.fla_obs'              : 'flash_obs',
-        'entropy_src.entropy_src_rng'     : 'es_rng',
-        'entropy_src.rng_fips'            : 'es_rng_fips',
         'peri.tl_ast'                     : 'ast_tl',
         'pinmux_aon.dft_strap_test'       : 'dft_strap_test'
         'pinmux_aon.dft_hold_tap_sel'     : 'dft_hold_tap_sel',
-        'pinmux_aon.usb_dppullup_en'      : 'usb_dp_pullup_en',
-        'pinmux_aon.usb_dnpullup_en'      : 'usb_dn_pullup_en',
         'pwrmgr_aon.pwr_ast'              : 'pwrmgr_ast',
         'otp_ctrl.otp_ast_pwr_seq'        : '',
         'otp_ctrl.otp_ast_pwr_seq_h'      : '',
@@ -1111,14 +911,6 @@
         'sensor_ctrl.ast_status'          : 'sensor_ctrl_ast_status',
         'sensor_ctrl.ast2pinmux'          : 'ast2pinmux',
         'sensor_ctrl.ast_init_done'       : 'ast_init_done',
-        'spi_device.sck_monitor'          : 'sck_monitor',
-        'usbdev.usb_rx_d'                 : '',
-        'usbdev.usb_tx_d'                 : '',
-        'usbdev.usb_tx_se0'               : '',
-        'usbdev.usb_tx_use_d_se0'         : '',
-        'usbdev.usb_rx_enable'            : '',
-        'usbdev.usb_ref_val'              : '',
-        'usbdev.usb_ref_pulse'            : '',
     },
   },
 
@@ -1192,12 +984,6 @@
       { name: 'SPI_HOST_D3'     , type: 'BidirStd', bank: 'VIOA', connection: 'direct', desc: 'SPI host data'},
       { name: 'SPI_HOST_CLK'    , type: 'BidirStd', bank: 'VIOA', connection: 'direct', desc: 'SPI host clock'},
       { name: 'SPI_HOST_CS_L'   , type: 'BidirStd', bank: 'VIOA', connection: 'direct', desc: 'SPI host chip select'},
-      { name: 'SPI_DEV_D0'      , type: 'BidirStd', bank: 'VIOA', connection: 'direct', desc: 'SPI device data'},
-      { name: 'SPI_DEV_D1'      , type: 'BidirStd', bank: 'VIOA', connection: 'direct', desc: 'SPI device data'},
-      { name: 'SPI_DEV_D2'      , type: 'BidirStd', bank: 'VIOA', connection: 'direct', desc: 'SPI device data'},
-      { name: 'SPI_DEV_D3'      , type: 'BidirStd', bank: 'VIOA', connection: 'direct', desc: 'SPI device data'},
-      { name: 'SPI_DEV_CLK'     , type: 'InputStd', bank: 'VIOA', connection: 'direct', desc: 'SPI device clock'},
-      { name: 'SPI_DEV_CS_L'    , type: 'InputStd', bank: 'VIOA', connection: 'direct', desc: 'SPI device chip select'},
       // IOA
       { name: 'IOA0'            , type: 'BidirStd', bank: 'VIOA', connection: 'muxed' , desc: 'Muxed IO pad'},
       { name: 'IOA1'            , type: 'BidirStd', bank: 'VIOA', connection: 'muxed' , desc: 'Muxed IO pad'},
@@ -1292,9 +1078,6 @@
     //         DIO is manual, there is no way to automatically infer the corresponding pad type).
     //
     signals: [
-      // USB
-      { instance: 'usbdev',          port: 'usb_dp',         connection: 'manual', pad: ''             , desc: ''},
-      { instance: 'usbdev',          port: 'usb_dn',         connection: 'manual', pad: ''             , desc: ''},
       // SPI Host0
       { instance: 'spi_host0',       port: 'sck',            connection: 'direct', pad: 'SPI_HOST_CLK' , desc: ''},
       { instance: 'spi_host0',       port: 'csb',            connection: 'direct', pad: 'SPI_HOST_CS_L', desc: ''},
@@ -1302,28 +1085,13 @@
       { instance: 'spi_host0',       port: 'sd[1]',          connection: 'direct', pad: 'SPI_HOST_D1'  , desc: ''},
       { instance: 'spi_host0',       port: 'sd[2]',          connection: 'direct', pad: 'SPI_HOST_D2'  , desc: ''},
       { instance: 'spi_host0',       port: 'sd[3]',          connection: 'direct', pad: 'SPI_HOST_D3'  , desc: ''},
-      // SPI Device
-      { instance: 'spi_device',      port: 'sck',            connection: 'direct', pad: 'SPI_DEV_CLK'  , desc: ''},
-      { instance: 'spi_device',      port: 'csb',            connection: 'direct', pad: 'SPI_DEV_CS_L' , desc: ''},
-      { instance: 'spi_device',      port: 'sd[0]',          connection: 'direct', pad: 'SPI_DEV_D0'   , desc: ''},
-      { instance: 'spi_device',      port: 'sd[1]',          connection: 'direct', pad: 'SPI_DEV_D1'   , desc: ''},
-      { instance: 'spi_device',      port: 'sd[2]',          connection: 'direct', pad: 'SPI_DEV_D2'   , desc: ''},
-      { instance: 'spi_device',      port: 'sd[3]',          connection: 'direct', pad: 'SPI_DEV_D3'   , desc: ''},
       // MIOs
       { instance: "gpio",            port: '',               connection: 'muxed' , pad: ''             , desc: ''},
       { instance: "uart0",           port: '',               connection: 'muxed' , pad: ''             , desc: ''},
-      { instance: "uart1",           port: '',               connection: 'muxed' , pad: ''             , desc: ''},
-      { instance: "uart2",           port: '',               connection: 'muxed' , pad: ''             , desc: ''},
-      { instance: "uart3",           port: '',               connection: 'muxed' , pad: ''             , desc: ''},
       { instance: "i2c0",            port: '',               connection: 'muxed' , pad: ''             , desc: ''},
-      { instance: "i2c1",            port: '',               connection: 'muxed' , pad: ''             , desc: ''},
-      { instance: "i2c2",            port: '',               connection: 'muxed' , pad: ''             , desc: ''},
       { instance: "pattgen",         port: '',               connection: 'muxed' , pad: ''             , desc: ''},
-      { instance: "spi_device",      port: 'tpm_csb',        connection: 'muxed' , pad: ''             , desc: ''},
-      { instance: "spi_host1",       port: '',               connection: 'muxed' , pad: ''             , desc: ''},
       { instance: "flash_ctrl",      port: '',               connection: 'muxed' , pad: ''             , desc: ''},
       { instance: "sensor_ctrl",     port: '',               connection: 'muxed' , pad: ''             , desc: ''},
-      { instance: "pwm_aon",         port: '',               connection: 'muxed' , pad: ''             , desc: ''},
       { instance: "otp_ctrl",        port: 'test[0]',        connection: 'muxed' , pad: ''             , desc: ''},
       // Sysrst ctrl has both muxed and dedicated IOs
       { instance: "sysrst_ctrl_aon", port: 'ac_present',     connection: 'muxed' , pad: ''             , desc: ''},
@@ -1340,7 +1108,6 @@
       { instance: "sysrst_ctrl_aon", port: 'pwrb_out',       connection: 'muxed',  pad: ''             , desc: ''},
       { instance: "sysrst_ctrl_aon", port: 'lid_open',       connection: 'muxed' , pad: ''             , desc: ''},
       { instance: "sysrst_ctrl_aon", port: 'z3_wakeup',      connection: 'muxed' , pad: ''             , desc: ''},
-      { instance: 'usbdev',          port: 'sense',          connection: 'muxed' , pad: ''             , desc: ''},
     ],
 
     num_wkup_detect: 8
