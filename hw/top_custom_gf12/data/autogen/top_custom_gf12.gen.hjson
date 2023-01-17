@@ -8002,20 +8002,12 @@
         idx: 33
       }
       {
-        name: IOC12
-        type: BidirOd
-        bank: VCC
-        connection: muxed
-        desc: Muxed IO pad
-        idx: 34
-      }
-      {
         name: IOR0
         type: BidirStd
         bank: VCC
         connection: muxed
         desc: Muxed IO pad
-        idx: 35
+        idx: 34
       }
       {
         name: IOR1
@@ -8023,7 +8015,7 @@
         bank: VCC
         connection: muxed
         desc: Muxed IO pad
-        idx: 36
+        idx: 35
       }
       {
         name: IOR2
@@ -8031,7 +8023,7 @@
         bank: VCC
         connection: muxed
         desc: Muxed IO pad
-        idx: 37
+        idx: 36
       }
       {
         name: IOR3
@@ -8039,7 +8031,7 @@
         bank: VCC
         connection: muxed
         desc: Muxed IO pad
-        idx: 38
+        idx: 37
       }
       {
         name: IOR4
@@ -8047,7 +8039,7 @@
         bank: VCC
         connection: muxed
         desc: Muxed IO pad
-        idx: 39
+        idx: 38
       }
       {
         name: IOR5
@@ -8055,7 +8047,7 @@
         bank: VCC
         connection: muxed
         desc: Muxed IO pad
-        idx: 40
+        idx: 39
       }
       {
         name: IOR6
@@ -8063,7 +8055,7 @@
         bank: VCC
         connection: muxed
         desc: Muxed IO pad
-        idx: 41
+        idx: 40
       }
       {
         name: IOR7
@@ -8071,7 +8063,7 @@
         bank: VCC
         connection: muxed
         desc: Muxed IO pad
-        idx: 42
+        idx: 41
       }
       {
         name: IOR8
@@ -8088,38 +8080,6 @@
         connection: direct
         desc: Dedicated sysrst_ctrl output (flash_wp_l))
         idx: 16
-      }
-      {
-        name: IOR10
-        type: BidirOd
-        bank: VCC
-        connection: muxed
-        desc: Muxed IO pad
-        idx: 43
-      }
-      {
-        name: IOR11
-        type: BidirOd
-        bank: VCC
-        connection: muxed
-        desc: Muxed IO pad
-        idx: 44
-      }
-      {
-        name: IOR12
-        type: BidirOd
-        bank: VCC
-        connection: muxed
-        desc: Muxed IO pad
-        idx: 45
-      }
-      {
-        name: IOR13
-        type: BidirOd
-        bank: VCC
-        connection: muxed
-        desc: Muxed IO pad
-        idx: 46
       }
     ]
   }
@@ -9177,7 +9137,7 @@
         inouts: 34
         inputs: 10
         outputs: 22
-        pads: 47
+        pads: 42
       }
     }
   }
@@ -9232,31 +9192,31 @@
             name: tck
             pad: IOR3
             desc: JTAG tck signal.
-            idx: 38
+            idx: 37
           }
           {
             name: tms
             pad: IOR0
             desc: JTAG tms signal.
-            idx: 35
+            idx: 34
           }
           {
             name: trst_n
             pad: IOR4
             desc: JTAG trst_n signal.
-            idx: 39
+            idx: 38
           }
           {
             name: tdi
             pad: IOR2
             desc: JTAG tdi signal.
-            idx: 37
+            idx: 36
           }
           {
             name: tdo
             pad: IOR1
             desc: JTAG tdo signal.
-            idx: 36
+            idx: 35
           }
         ]
       }
@@ -9411,31 +9371,31 @@
             name: tck
             pad: IOR3
             desc: JTAG tck signal.
-            idx: 38
+            idx: 37
           }
           {
             name: tms
             pad: IOR0
             desc: JTAG tms signal.
-            idx: 35
+            idx: 34
           }
           {
             name: trst_n
             pad: IOR4
             desc: JTAG trst_n signal.
-            idx: 39
+            idx: 38
           }
           {
             name: tdi
             pad: IOR2
             desc: JTAG tdi signal.
-            idx: 37
+            idx: 36
           }
           {
             name: tdo
             pad: IOR1
             desc: JTAG tdo signal.
-            idx: 36
+            idx: 35
           }
         ]
       }
@@ -9447,6 +9407,33 @@
         remove_ports: []
         remove_pads:
         [
+          IOC0
+          IOC1
+          IOC2
+          IOC5
+          IOC6
+          IOC7
+          IOC8
+          IOA0
+          IOA1
+          IOA2
+          IOA3
+          IOA4
+          IOA5
+          IOA6
+          IOA7
+          IOA8
+          IOB0
+          IOB1
+          IOB2
+          IOB3
+          IOB4
+          IOB5
+          IOB6
+          IOB10
+          IOB11
+          IOB12
+          IOR5
           CC1
           CC2
           FLASH_TEST_VOLT
@@ -9479,20 +9466,6 @@
             connection: manual
             desc: JTAG header SRST, triggers POR
           }
-          {
-            name: IO_CLKOUT
-            type: BidirStd
-            bank: VCC
-            connection: manual
-            desc: Manual clock output for SCA setup
-          }
-          {
-            name: IO_TRIGGER
-            type: BidirStd
-            bank: VCC
-            connection: manual
-            desc: Manual trigger output for SCA setup
-          }
         ]
       }
       pinmux:
@@ -9500,58 +9473,34 @@
         special_signals:
         [
           {
-            name: tap0
-            pad: IOC8
-            desc: TAP strap signal.
-            idx: 30
-          }
-          {
-            name: tap1
-            pad: IOC5
-            desc: TAP strap signal.
-            idx: 27
-          }
-          {
-            name: dft0
-            pad: IOC3
-            desc: DFT strap signal.
-            idx: 25
-          }
-          {
-            name: dft1
-            pad: IOC4
-            desc: DFT strap signal.
-            idx: 26
-          }
-          {
             name: tck
             pad: IOR3
             desc: JTAG tck signal.
-            idx: 38
+            idx: 37
           }
           {
             name: tms
             pad: IOR0
             desc: JTAG tms signal.
-            idx: 35
+            idx: 34
           }
           {
             name: trst_n
             pad: IOR4
             desc: JTAG trst_n signal.
-            idx: 39
+            idx: 38
           }
           {
             name: tdi
             pad: IOR2
             desc: JTAG tdi signal.
-            idx: 37
+            idx: 36
           }
           {
             name: tdo
             pad: IOR1
             desc: JTAG tdo signal.
-            idx: 36
+            idx: 35
           }
         ]
       }

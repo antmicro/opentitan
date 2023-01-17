@@ -30,57 +30,23 @@ module chip_custom_gf12_arty_a35 #(
   inout IO_CLK, // Manual Pad
   inout POR_BUTTON_N, // Manual Pad
   inout JTAG_SRST_N, // Manual Pad
-  inout IO_CLKOUT, // Manual Pad
-  inout IO_TRIGGER, // Manual Pad
 
   // Muxed Pads
-  inout IOA0, // MIO Pad 0
-  inout IOA1, // MIO Pad 1
-  inout IOA2, // MIO Pad 2
-  inout IOA3, // MIO Pad 3
-  inout IOA4, // MIO Pad 4
-  inout IOA5, // MIO Pad 5
-  inout IOA6, // MIO Pad 6
-  inout IOA7, // MIO Pad 7
-  inout IOA8, // MIO Pad 8
-  inout IOB0, // MIO Pad 9
-  inout IOB1, // MIO Pad 10
-  inout IOB2, // MIO Pad 11
-  inout IOB3, // MIO Pad 12
-  inout IOB4, // MIO Pad 13
-  inout IOB5, // MIO Pad 14
-  inout IOB6, // MIO Pad 15
   inout IOB7, // MIO Pad 16
   inout IOB8, // MIO Pad 17
   inout IOB9, // MIO Pad 18
-  inout IOB10, // MIO Pad 19
-  inout IOB11, // MIO Pad 20
-  inout IOB12, // MIO Pad 21
-  inout IOC0, // MIO Pad 22
-  inout IOC1, // MIO Pad 23
-  inout IOC2, // MIO Pad 24
   inout IOC3, // MIO Pad 25
   inout IOC4, // MIO Pad 26
-  inout IOC5, // MIO Pad 27
-  inout IOC6, // MIO Pad 28
-  inout IOC7, // MIO Pad 29
-  inout IOC8, // MIO Pad 30
   inout IOC9, // MIO Pad 31
   inout IOC10, // MIO Pad 32
   inout IOC11, // MIO Pad 33
-  inout IOC12, // MIO Pad 34
-  inout IOR0, // MIO Pad 35
-  inout IOR1, // MIO Pad 36
-  inout IOR2, // MIO Pad 37
-  inout IOR3, // MIO Pad 38
-  inout IOR4, // MIO Pad 39
-  inout IOR5, // MIO Pad 40
-  inout IOR6, // MIO Pad 41
-  inout IOR7, // MIO Pad 42
-  inout IOR10, // MIO Pad 43
-  inout IOR11, // MIO Pad 44
-  inout IOR12, // MIO Pad 45
-  inout IOR13  // MIO Pad 46
+  inout IOR0, // MIO Pad 34
+  inout IOR1, // MIO Pad 35
+  inout IOR2, // MIO Pad 36
+  inout IOR3, // MIO Pad 37
+  inout IOR4, // MIO Pad 38
+  inout IOR6, // MIO Pad 40
+  inout IOR7  // MIO Pad 41
 );
 
   import top_custom_gf12_pkg::*;
@@ -90,15 +56,11 @@ module chip_custom_gf12_arty_a35 #(
   // Special Signal Indices //
   ////////////////////////////
 
-  localparam int Tap0PadIdx = 30;
-  localparam int Tap1PadIdx = 27;
-  localparam int Dft0PadIdx = 25;
-  localparam int Dft1PadIdx = 26;
-  localparam int TckPadIdx = 38;
-  localparam int TmsPadIdx = 35;
-  localparam int TrstNPadIdx = 39;
-  localparam int TdiPadIdx = 37;
-  localparam int TdoPadIdx = 36;
+  localparam int TckPadIdx = 37;
+  localparam int TmsPadIdx = 34;
+  localparam int TrstNPadIdx = 38;
+  localparam int TdiPadIdx = 36;
+  localparam int TdoPadIdx = 35;
 
   // DFT and Debug signal positions in the pinout.
   localparam pinmux_pkg::target_cfg_t PinmuxTargetCfg = '{
@@ -127,11 +89,6 @@ module chip_custom_gf12_arty_a35 #(
       BidirStd  // DIO spi_host0_sd
     },
     mio_pad_type: {
-      BidirOd, // MIO Pad 46
-      BidirOd, // MIO Pad 45
-      BidirOd, // MIO Pad 44
-      BidirOd, // MIO Pad 43
-      BidirStd, // MIO Pad 42
       BidirStd, // MIO Pad 41
       BidirStd, // MIO Pad 40
       BidirStd, // MIO Pad 39
@@ -139,7 +96,7 @@ module chip_custom_gf12_arty_a35 #(
       BidirStd, // MIO Pad 37
       BidirStd, // MIO Pad 36
       BidirStd, // MIO Pad 35
-      BidirOd, // MIO Pad 34
+      BidirStd, // MIO Pad 34
       BidirOd, // MIO Pad 33
       BidirOd, // MIO Pad 32
       BidirStd, // MIO Pad 31
@@ -200,22 +157,99 @@ module chip_custom_gf12_arty_a35 #(
   logic manual_in_io_clk, manual_out_io_clk, manual_oe_io_clk;
   logic manual_in_por_button_n, manual_out_por_button_n, manual_oe_por_button_n;
   logic manual_in_jtag_srst_n, manual_out_jtag_srst_n, manual_oe_jtag_srst_n;
-  logic manual_in_io_clkout, manual_out_io_clkout, manual_oe_io_clkout;
-  logic manual_in_io_trigger, manual_out_io_trigger, manual_oe_io_trigger;
 
   pad_attr_t manual_attr_por_n;
   pad_attr_t manual_attr_io_clk;
   pad_attr_t manual_attr_por_button_n;
   pad_attr_t manual_attr_jtag_srst_n;
-  pad_attr_t manual_attr_io_clkout;
-  pad_attr_t manual_attr_io_trigger;
 
   /////////////////////////
   // Stubbed pad tie-off //
   /////////////////////////
 
   // Only signals going to non-custom pads need to be tied off.
-  logic [63:0] unused_sig;
+  logic [58:0] unused_sig;
+  assign mio_in[0] = 1'b0;
+  assign mio_in_raw[0] = 1'b0;
+  assign unused_sig[15] = mio_out[0] ^ mio_oe[0];
+  assign mio_in[1] = 1'b0;
+  assign mio_in_raw[1] = 1'b0;
+  assign unused_sig[16] = mio_out[1] ^ mio_oe[1];
+  assign mio_in[2] = 1'b0;
+  assign mio_in_raw[2] = 1'b0;
+  assign unused_sig[17] = mio_out[2] ^ mio_oe[2];
+  assign mio_in[3] = 1'b0;
+  assign mio_in_raw[3] = 1'b0;
+  assign unused_sig[18] = mio_out[3] ^ mio_oe[3];
+  assign mio_in[4] = 1'b0;
+  assign mio_in_raw[4] = 1'b0;
+  assign unused_sig[19] = mio_out[4] ^ mio_oe[4];
+  assign mio_in[5] = 1'b0;
+  assign mio_in_raw[5] = 1'b0;
+  assign unused_sig[20] = mio_out[5] ^ mio_oe[5];
+  assign mio_in[6] = 1'b0;
+  assign mio_in_raw[6] = 1'b0;
+  assign unused_sig[21] = mio_out[6] ^ mio_oe[6];
+  assign mio_in[7] = 1'b0;
+  assign mio_in_raw[7] = 1'b0;
+  assign unused_sig[22] = mio_out[7] ^ mio_oe[7];
+  assign mio_in[8] = 1'b0;
+  assign mio_in_raw[8] = 1'b0;
+  assign unused_sig[23] = mio_out[8] ^ mio_oe[8];
+  assign mio_in[9] = 1'b0;
+  assign mio_in_raw[9] = 1'b0;
+  assign unused_sig[24] = mio_out[9] ^ mio_oe[9];
+  assign mio_in[10] = 1'b0;
+  assign mio_in_raw[10] = 1'b0;
+  assign unused_sig[25] = mio_out[10] ^ mio_oe[10];
+  assign mio_in[11] = 1'b0;
+  assign mio_in_raw[11] = 1'b0;
+  assign unused_sig[26] = mio_out[11] ^ mio_oe[11];
+  assign mio_in[12] = 1'b0;
+  assign mio_in_raw[12] = 1'b0;
+  assign unused_sig[27] = mio_out[12] ^ mio_oe[12];
+  assign mio_in[13] = 1'b0;
+  assign mio_in_raw[13] = 1'b0;
+  assign unused_sig[28] = mio_out[13] ^ mio_oe[13];
+  assign mio_in[14] = 1'b0;
+  assign mio_in_raw[14] = 1'b0;
+  assign unused_sig[29] = mio_out[14] ^ mio_oe[14];
+  assign mio_in[15] = 1'b0;
+  assign mio_in_raw[15] = 1'b0;
+  assign unused_sig[30] = mio_out[15] ^ mio_oe[15];
+  assign mio_in[19] = 1'b0;
+  assign mio_in_raw[19] = 1'b0;
+  assign unused_sig[34] = mio_out[19] ^ mio_oe[19];
+  assign mio_in[20] = 1'b0;
+  assign mio_in_raw[20] = 1'b0;
+  assign unused_sig[35] = mio_out[20] ^ mio_oe[20];
+  assign mio_in[21] = 1'b0;
+  assign mio_in_raw[21] = 1'b0;
+  assign unused_sig[36] = mio_out[21] ^ mio_oe[21];
+  assign mio_in[22] = 1'b0;
+  assign mio_in_raw[22] = 1'b0;
+  assign unused_sig[37] = mio_out[22] ^ mio_oe[22];
+  assign mio_in[23] = 1'b0;
+  assign mio_in_raw[23] = 1'b0;
+  assign unused_sig[38] = mio_out[23] ^ mio_oe[23];
+  assign mio_in[24] = 1'b0;
+  assign mio_in_raw[24] = 1'b0;
+  assign unused_sig[39] = mio_out[24] ^ mio_oe[24];
+  assign mio_in[27] = 1'b0;
+  assign mio_in_raw[27] = 1'b0;
+  assign unused_sig[42] = mio_out[27] ^ mio_oe[27];
+  assign mio_in[28] = 1'b0;
+  assign mio_in_raw[28] = 1'b0;
+  assign unused_sig[43] = mio_out[28] ^ mio_oe[28];
+  assign mio_in[29] = 1'b0;
+  assign mio_in_raw[29] = 1'b0;
+  assign unused_sig[44] = mio_out[29] ^ mio_oe[29];
+  assign mio_in[30] = 1'b0;
+  assign mio_in_raw[30] = 1'b0;
+  assign unused_sig[45] = mio_out[30] ^ mio_oe[30];
+  assign mio_in[39] = 1'b0;
+  assign mio_in_raw[39] = 1'b0;
+  assign unused_sig[54] = mio_out[39] ^ mio_oe[39];
 
   //////////////////////
   // Padring Instance //
@@ -227,11 +261,9 @@ module chip_custom_gf12_arty_a35 #(
   padring #(
     // Padring specific counts may differ from pinmux config due
     // to custom, stubbed or added pads.
-    .NDioPads(14),
-    .NMioPads(47),
+    .NDioPads(12),
+    .NMioPads(15),
     .DioPadType ({
-      BidirStd, // IO_TRIGGER
-      BidirStd, // IO_CLKOUT
       InputStd, // JTAG_SRST_N
       InputStd, // POR_BUTTON_N
       InputStd, // IO_CLK
@@ -246,53 +278,21 @@ module chip_custom_gf12_arty_a35 #(
       InputStd  // POR_N
     }),
     .MioPadType ({
-      BidirOd, // IOR13
-      BidirOd, // IOR12
-      BidirOd, // IOR11
-      BidirOd, // IOR10
       BidirStd, // IOR7
       BidirStd, // IOR6
-      BidirStd, // IOR5
       BidirStd, // IOR4
       BidirStd, // IOR3
       BidirStd, // IOR2
       BidirStd, // IOR1
       BidirStd, // IOR0
-      BidirOd, // IOC12
       BidirOd, // IOC11
       BidirOd, // IOC10
       BidirStd, // IOC9
-      BidirStd, // IOC8
-      BidirStd, // IOC7
-      BidirStd, // IOC6
-      BidirStd, // IOC5
       BidirStd, // IOC4
       BidirStd, // IOC3
-      BidirStd, // IOC2
-      BidirStd, // IOC1
-      BidirStd, // IOC0
-      BidirOd, // IOB12
-      BidirOd, // IOB11
-      BidirOd, // IOB10
       BidirOd, // IOB9
       BidirStd, // IOB8
-      BidirStd, // IOB7
-      BidirStd, // IOB6
-      BidirStd, // IOB5
-      BidirStd, // IOB4
-      BidirStd, // IOB3
-      BidirStd, // IOB2
-      BidirStd, // IOB1
-      BidirStd, // IOB0
-      BidirOd, // IOA8
-      BidirOd, // IOA7
-      BidirOd, // IOA6
-      BidirStd, // IOA5
-      BidirStd, // IOA4
-      BidirStd, // IOA3
-      BidirStd, // IOA2
-      BidirStd, // IOA1
-      BidirStd  // IOA0
+      BidirStd  // IOB7
     })
   ) u_padring (
   // This is only used for scan and DFT purposes
@@ -301,8 +301,6 @@ module chip_custom_gf12_arty_a35 #(
     .dio_in_raw_o ( ),
     // Chip IOs
     .dio_pad_io ({
-      IO_TRIGGER,
-      IO_CLKOUT,
       JTAG_SRST_N,
       POR_BUTTON_N,
       IO_CLK,
@@ -318,59 +316,25 @@ module chip_custom_gf12_arty_a35 #(
     }),
 
     .mio_pad_io ({
-      IOR13,
-      IOR12,
-      IOR11,
-      IOR10,
       IOR7,
       IOR6,
-      IOR5,
       IOR4,
       IOR3,
       IOR2,
       IOR1,
       IOR0,
-      IOC12,
       IOC11,
       IOC10,
       IOC9,
-      IOC8,
-      IOC7,
-      IOC6,
-      IOC5,
       IOC4,
       IOC3,
-      IOC2,
-      IOC1,
-      IOC0,
-      IOB12,
-      IOB11,
-      IOB10,
       IOB9,
       IOB8,
-      IOB7,
-      IOB6,
-      IOB5,
-      IOB4,
-      IOB3,
-      IOB2,
-      IOB1,
-      IOB0,
-      IOA8,
-      IOA7,
-      IOA6,
-      IOA5,
-      IOA4,
-      IOA3,
-      IOA2,
-      IOA1,
-      IOA0
+      IOB7
     }),
 
     // Core-facing
     .dio_in_o ({
-        manual_in_io_trigger,
-        manual_in_io_clkout,
         manual_in_jtag_srst_n,
         manual_in_por_button_n,
         manual_in_io_clk,
@@ -385,8 +349,6 @@ module chip_custom_gf12_arty_a35 #(
         manual_in_por_n
       }),
     .dio_out_i ({
-        manual_out_io_trigger,
-        manual_out_io_clkout,
         manual_out_jtag_srst_n,
         manual_out_por_button_n,
         manual_out_io_clk,
@@ -401,8 +363,6 @@ module chip_custom_gf12_arty_a35 #(
         manual_out_por_n
       }),
     .dio_oe_i ({
-        manual_oe_io_trigger,
-        manual_oe_io_clkout,
         manual_oe_jtag_srst_n,
         manual_oe_por_button_n,
         manual_oe_io_clk,
@@ -417,8 +377,6 @@ module chip_custom_gf12_arty_a35 #(
         manual_oe_por_n
       }),
     .dio_attr_i ({
-        manual_attr_io_trigger,
-        manual_attr_io_clkout,
         manual_attr_jtag_srst_n,
         manual_attr_por_button_n,
         manual_attr_io_clk,
@@ -433,11 +391,36 @@ module chip_custom_gf12_arty_a35 #(
         manual_attr_por_n
       }),
 
-    .mio_in_o (mio_in[46:0]),
-    .mio_out_i (mio_out[46:0]),
-    .mio_oe_i (mio_oe[46:0]),
-    .mio_attr_i (mio_attr[46:0]),
-    .mio_in_raw_o (mio_in_raw[46:0])
+    .mio_in_o ({
+        mio_in[41:40],
+        mio_in[38:31],
+        mio_in[26:25],
+        mio_in[18:16]
+      }),
+    .mio_out_i ({
+        mio_out[41:40],
+        mio_out[38:31],
+        mio_out[26:25],
+        mio_out[18:16]
+      }),
+    .mio_oe_i ({
+        mio_oe[41:40],
+        mio_oe[38:31],
+        mio_oe[26:25],
+        mio_oe[18:16]
+      }),
+    .mio_attr_i ({
+        mio_attr[41:40],
+        mio_attr[38:31],
+        mio_attr[26:25],
+        mio_attr[18:16]
+      }),
+    .mio_in_raw_o ({
+        mio_in_raw[41:40],
+        mio_in_raw[38:31],
+        mio_in_raw[26:25],
+        mio_in_raw[18:16]
+      })
   );
 
 

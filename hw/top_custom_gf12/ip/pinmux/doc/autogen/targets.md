@@ -7,6 +7,6 @@ util/topgen.py -t hw/top_custom_gf12/data/top_custom_gf12.hjson -o hw/top_custom
 
 |  Target Name  |  #IO Banks  |  #Muxed Pads  |  #Direct Pads  |  #Manual Pads  |  #Total Pads  |                                  Pinout / Pinmux Tables                                   |
 |:-------------:|:-----------:|:-------------:|:--------------:|:--------------:|:-------------:|:-----------------------------------------------------------------------------------------:|
-|     ASIC      |      4      |      47       |       8        |       10       |      65       |   [Pinout Table](../../../top_custom_gf12/ip/pinmux/doc/autogen/pinout_asic/index.html)   |
-|     CW310     |      4      |      47       |       8        |       15       |      70       |  [Pinout Table](../../../top_custom_gf12/ip/pinmux/doc/autogen/pinout_cw310/index.html)   |
-|   ARTY_A35    |      4      |      47       |       8        |       6        |      61       | [Pinout Table](../../../top_custom_gf12/ip/pinmux/doc/autogen/pinout_arty_a35/index.html) |
+|     ASIC      |      4      |      42       |       8        |       10       |      60       |   [Pinout Table](../../../top_custom_gf12/ip/pinmux/doc/autogen/pinout_asic/index.html)   |
+|     CW310     |      4      |      42       |       8        |       15       |      65       |  [Pinout Table](../../../top_custom_gf12/ip/pinmux/doc/autogen/pinout_cw310/index.html)   |
+|   ARTY_A35    |      4      |      15       |       8        |       4        |      27       | [Pinout Table](../../../top_custom_gf12/ip/pinmux/doc/autogen/pinout_arty_a35/index.html) |

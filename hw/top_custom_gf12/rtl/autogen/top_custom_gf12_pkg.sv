@@ -599,7 +599,14 @@ package top_custom_gf12_pkg;
     DioSysrstCtrlAonFlashWpL = 5,
     DioSpiHost0Sck = 6,
     DioSpiHost0Csb = 7,
-    DioCount = 8
+    DioCount = 8,
+    DioUsbdevUsbDn = -1,
+    DioUsbdevUsbDp = -2,
+    MioInUsbdevSense = -3,
+    Tap0PadIdx = -4,
+    Tap1PadIdx = -5,
+    Dft0PadIdx = -6,
+    Dft1PadIdx = -7
   } dio_e;
 
   // Enumeration for the types of pads.
@@ -646,19 +653,14 @@ package top_custom_gf12_pkg;
     MioPadIoc9 = 31,
     MioPadIoc10 = 32,
     MioPadIoc11 = 33,
-    MioPadIoc12 = 34,
-    MioPadIor0 = 35,
-    MioPadIor1 = 36,
-    MioPadIor2 = 37,
-    MioPadIor3 = 38,
-    MioPadIor4 = 39,
-    MioPadIor5 = 40,
-    MioPadIor6 = 41,
-    MioPadIor7 = 42,
-    MioPadIor10 = 43,
-    MioPadIor11 = 44,
-    MioPadIor12 = 45,
-    MioPadIor13 = 46,
+    MioPadIor0 = 34,
+    MioPadIor1 = 35,
+    MioPadIor2 = 36,
+    MioPadIor3 = 37,
+    MioPadIor4 = 38,
+    MioPadIor5 = 39,
+    MioPadIor6 = 40,
+    MioPadIor7 = 41,
     MioPadCount
   } mio_pad_e;
 

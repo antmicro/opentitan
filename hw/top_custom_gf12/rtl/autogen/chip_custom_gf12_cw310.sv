@@ -77,19 +77,14 @@ module chip_custom_gf12_cw310 #(
   inout IOC9, // MIO Pad 31
   inout IOC10, // MIO Pad 32
   inout IOC11, // MIO Pad 33
-  inout IOC12, // MIO Pad 34
-  inout IOR0, // MIO Pad 35
-  inout IOR1, // MIO Pad 36
-  inout IOR2, // MIO Pad 37
-  inout IOR3, // MIO Pad 38
-  inout IOR4, // MIO Pad 39
-  inout IOR5, // MIO Pad 40
-  inout IOR6, // MIO Pad 41
-  inout IOR7, // MIO Pad 42
-  inout IOR10, // MIO Pad 43
-  inout IOR11, // MIO Pad 44
-  inout IOR12, // MIO Pad 45
-  inout IOR13  // MIO Pad 46
+  inout IOR0, // MIO Pad 34
+  inout IOR1, // MIO Pad 35
+  inout IOR2, // MIO Pad 36
+  inout IOR3, // MIO Pad 37
+  inout IOR4, // MIO Pad 38
+  inout IOR5, // MIO Pad 39
+  inout IOR6, // MIO Pad 40
+  inout IOR7  // MIO Pad 41
 );
 
   import top_custom_gf12_pkg::*;
@@ -103,11 +98,11 @@ module chip_custom_gf12_cw310 #(
   localparam int Tap1PadIdx = 27;
   localparam int Dft0PadIdx = 25;
   localparam int Dft1PadIdx = 26;
-  localparam int TckPadIdx = 38;
-  localparam int TmsPadIdx = 35;
-  localparam int TrstNPadIdx = 39;
-  localparam int TdiPadIdx = 37;
-  localparam int TdoPadIdx = 36;
+  localparam int TckPadIdx = 37;
+  localparam int TmsPadIdx = 34;
+  localparam int TrstNPadIdx = 38;
+  localparam int TdiPadIdx = 36;
+  localparam int TdoPadIdx = 35;
 
   // DFT and Debug signal positions in the pinout.
   localparam pinmux_pkg::target_cfg_t PinmuxTargetCfg = '{
@@ -136,11 +131,6 @@ module chip_custom_gf12_cw310 #(
       BidirStd  // DIO spi_host0_sd
     },
     mio_pad_type: {
-      BidirOd, // MIO Pad 46
-      BidirOd, // MIO Pad 45
-      BidirOd, // MIO Pad 44
-      BidirOd, // MIO Pad 43
-      BidirStd, // MIO Pad 42
       BidirStd, // MIO Pad 41
       BidirStd, // MIO Pad 40
       BidirStd, // MIO Pad 39
@@ -148,7 +138,7 @@ module chip_custom_gf12_cw310 #(
       BidirStd, // MIO Pad 37
       BidirStd, // MIO Pad 36
       BidirStd, // MIO Pad 35
-      BidirOd, // MIO Pad 34
+      BidirStd, // MIO Pad 34
       BidirOd, // MIO Pad 33
       BidirOd, // MIO Pad 32
       BidirStd, // MIO Pad 31
@@ -242,7 +232,7 @@ module chip_custom_gf12_cw310 #(
   /////////////////////////
 
   // Only signals going to non-custom pads need to be tied off.
-  logic [63:0] unused_sig;
+  logic [58:0] unused_sig;
 
   //////////////////////
   // Padring Instance //
@@ -255,7 +245,7 @@ module chip_custom_gf12_cw310 #(
     // Padring specific counts may differ from pinmux config due
     // to custom, stubbed or added pads.
     .NDioPads(23),
-    .NMioPads(47),
+    .NMioPads(42),
     .DioPadType ({
       BidirStd, // IO_TRIGGER
       BidirStd, // IO_CLKOUT
@@ -282,10 +272,6 @@ module chip_custom_gf12_cw310 #(
       InputStd  // POR_N
     }),
     .MioPadType ({
-      BidirOd, // IOR13
-      BidirOd, // IOR12
-      BidirOd, // IOR11
-      BidirOd, // IOR10
       BidirStd, // IOR7
       BidirStd, // IOR6
       BidirStd, // IOR5
@@ -294,7 +280,6 @@ module chip_custom_gf12_cw310 #(
       BidirStd, // IOR2
       BidirStd, // IOR1
       BidirStd, // IOR0
-      BidirOd, // IOC12
       BidirOd, // IOC11
       BidirOd, // IOC10
       BidirStd, // IOC9
@@ -363,10 +348,6 @@ module chip_custom_gf12_cw310 #(
     }),
 
     .mio_pad_io ({
-      IOR13,
-      IOR12,
-      IOR11,
-      IOR10,
       IOR7,
       IOR6,
       IOR5,
@@ -375,7 +356,6 @@ module chip_custom_gf12_cw310 #(
       IOR2,
       IOR1,
       IOR0,
-      IOC12,
       IOC11,
       IOC10,
       IOC9,
@@ -514,11 +494,11 @@ module chip_custom_gf12_cw310 #(
         manual_attr_por_n
       }),
 
-    .mio_in_o (mio_in[46:0]),
-    .mio_out_i (mio_out[46:0]),
-    .mio_oe_i (mio_oe[46:0]),
-    .mio_attr_i (mio_attr[46:0]),
-    .mio_in_raw_o (mio_in_raw[46:0])
+    .mio_in_o (mio_in[41:0]),
+    .mio_out_i (mio_out[41:0]),
+    .mio_oe_i (mio_oe[41:0]),
+    .mio_attr_i (mio_attr[41:0]),
+    .mio_in_raw_o (mio_in_raw[41:0])
   );
 
 

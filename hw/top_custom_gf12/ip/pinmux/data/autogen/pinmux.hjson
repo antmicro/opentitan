@@ -308,7 +308,7 @@
     { name: "NMioPads",
       desc: "Number of muxed IO pads",
       type: "int",
-      default: "47",
+      default: "42",
       local: "true"
     },
     { name: "NDioPads",

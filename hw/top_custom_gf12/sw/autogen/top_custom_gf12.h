@@ -922,7 +922,7 @@ extern const top_custom_gf12_alert_peripheral_t
 
 // PERIPH_INSEL ranges from 0 to NUM_MIO_PADS + 2 -1}
 //  0 and 1 are tied to value 0 and 1
-#define NUM_MIO_PADS 47
+#define NUM_MIO_PADS 42
 #define NUM_DIO_PADS 8
 
 #define PINMUX_PERIPH_OUTSEL_IDX_OFFSET 3
@@ -1018,20 +1018,15 @@ typedef enum top_custom_gf12_pinmux_insel {
   kTopCustomGf12PinmuxInselIoc9 = 33, /**< MIO Pad 31 */
   kTopCustomGf12PinmuxInselIoc10 = 34, /**< MIO Pad 32 */
   kTopCustomGf12PinmuxInselIoc11 = 35, /**< MIO Pad 33 */
-  kTopCustomGf12PinmuxInselIoc12 = 36, /**< MIO Pad 34 */
-  kTopCustomGf12PinmuxInselIor0 = 37, /**< MIO Pad 35 */
-  kTopCustomGf12PinmuxInselIor1 = 38, /**< MIO Pad 36 */
-  kTopCustomGf12PinmuxInselIor2 = 39, /**< MIO Pad 37 */
-  kTopCustomGf12PinmuxInselIor3 = 40, /**< MIO Pad 38 */
-  kTopCustomGf12PinmuxInselIor4 = 41, /**< MIO Pad 39 */
-  kTopCustomGf12PinmuxInselIor5 = 42, /**< MIO Pad 40 */
-  kTopCustomGf12PinmuxInselIor6 = 43, /**< MIO Pad 41 */
-  kTopCustomGf12PinmuxInselIor7 = 44, /**< MIO Pad 42 */
-  kTopCustomGf12PinmuxInselIor10 = 45, /**< MIO Pad 43 */
-  kTopCustomGf12PinmuxInselIor11 = 46, /**< MIO Pad 44 */
-  kTopCustomGf12PinmuxInselIor12 = 47, /**< MIO Pad 45 */
-  kTopCustomGf12PinmuxInselIor13 = 48, /**< MIO Pad 46 */
-  kTopCustomGf12PinmuxInselLast = 48, /**< \internal Last valid insel value */
+  kTopCustomGf12PinmuxInselIor0 = 36, /**< MIO Pad 34 */
+  kTopCustomGf12PinmuxInselIor1 = 37, /**< MIO Pad 35 */
+  kTopCustomGf12PinmuxInselIor2 = 38, /**< MIO Pad 36 */
+  kTopCustomGf12PinmuxInselIor3 = 39, /**< MIO Pad 37 */
+  kTopCustomGf12PinmuxInselIor4 = 40, /**< MIO Pad 38 */
+  kTopCustomGf12PinmuxInselIor5 = 41, /**< MIO Pad 39 */
+  kTopCustomGf12PinmuxInselIor6 = 42, /**< MIO Pad 40 */
+  kTopCustomGf12PinmuxInselIor7 = 43, /**< MIO Pad 41 */
+  kTopCustomGf12PinmuxInselLast = 43, /**< \internal Last valid insel value */
 } top_custom_gf12_pinmux_insel_t;
 
 /**
@@ -1072,20 +1067,15 @@ typedef enum top_custom_gf12_pinmux_mio_out {
   kTopCustomGf12PinmuxMioOutIoc9 = 31, /**< MIO Pad 31 */
   kTopCustomGf12PinmuxMioOutIoc10 = 32, /**< MIO Pad 32 */
   kTopCustomGf12PinmuxMioOutIoc11 = 33, /**< MIO Pad 33 */
-  kTopCustomGf12PinmuxMioOutIoc12 = 34, /**< MIO Pad 34 */
-  kTopCustomGf12PinmuxMioOutIor0 = 35, /**< MIO Pad 35 */
-  kTopCustomGf12PinmuxMioOutIor1 = 36, /**< MIO Pad 36 */
-  kTopCustomGf12PinmuxMioOutIor2 = 37, /**< MIO Pad 37 */
-  kTopCustomGf12PinmuxMioOutIor3 = 38, /**< MIO Pad 38 */
-  kTopCustomGf12PinmuxMioOutIor4 = 39, /**< MIO Pad 39 */
-  kTopCustomGf12PinmuxMioOutIor5 = 40, /**< MIO Pad 40 */
-  kTopCustomGf12PinmuxMioOutIor6 = 41, /**< MIO Pad 41 */
-  kTopCustomGf12PinmuxMioOutIor7 = 42, /**< MIO Pad 42 */
-  kTopCustomGf12PinmuxMioOutIor10 = 43, /**< MIO Pad 43 */
-  kTopCustomGf12PinmuxMioOutIor11 = 44, /**< MIO Pad 44 */
-  kTopCustomGf12PinmuxMioOutIor12 = 45, /**< MIO Pad 45 */
-  kTopCustomGf12PinmuxMioOutIor13 = 46, /**< MIO Pad 46 */
-  kTopCustomGf12PinmuxMioOutLast = 46, /**< \internal Last valid mio output */
+  kTopCustomGf12PinmuxMioOutIor0 = 34, /**< MIO Pad 34 */
+  kTopCustomGf12PinmuxMioOutIor1 = 35, /**< MIO Pad 35 */
+  kTopCustomGf12PinmuxMioOutIor2 = 36, /**< MIO Pad 36 */
+  kTopCustomGf12PinmuxMioOutIor3 = 37, /**< MIO Pad 37 */
+  kTopCustomGf12PinmuxMioOutIor4 = 38, /**< MIO Pad 38 */
+  kTopCustomGf12PinmuxMioOutIor5 = 39, /**< MIO Pad 39 */
+  kTopCustomGf12PinmuxMioOutIor6 = 40, /**< MIO Pad 40 */
+  kTopCustomGf12PinmuxMioOutIor7 = 41, /**< MIO Pad 41 */
+  kTopCustomGf12PinmuxMioOutLast = 41, /**< \internal Last valid mio output */
 } top_custom_gf12_pinmux_mio_out_t;
 
 /**
@@ -1207,20 +1197,15 @@ typedef enum top_custom_gf12_muxed_pads {
   kTopCustomGf12MuxedPadsIoc9 = 31, /**<  */
   kTopCustomGf12MuxedPadsIoc10 = 32, /**<  */
   kTopCustomGf12MuxedPadsIoc11 = 33, /**<  */
-  kTopCustomGf12MuxedPadsIoc12 = 34, /**<  */
-  kTopCustomGf12MuxedPadsIor0 = 35, /**<  */
-  kTopCustomGf12MuxedPadsIor1 = 36, /**<  */
-  kTopCustomGf12MuxedPadsIor2 = 37, /**<  */
-  kTopCustomGf12MuxedPadsIor3 = 38, /**<  */
-  kTopCustomGf12MuxedPadsIor4 = 39, /**<  */
-  kTopCustomGf12MuxedPadsIor5 = 40, /**<  */
-  kTopCustomGf12MuxedPadsIor6 = 41, /**<  */
-  kTopCustomGf12MuxedPadsIor7 = 42, /**<  */
-  kTopCustomGf12MuxedPadsIor10 = 43, /**<  */
-  kTopCustomGf12MuxedPadsIor11 = 44, /**<  */
-  kTopCustomGf12MuxedPadsIor12 = 45, /**<  */
-  kTopCustomGf12MuxedPadsIor13 = 46, /**<  */
-  kTopCustomGf12MuxedPadsLast = 46, /**< \internal Last valid muxed pad */
+  kTopCustomGf12MuxedPadsIor0 = 34, /**<  */
+  kTopCustomGf12MuxedPadsIor1 = 35, /**<  */
+  kTopCustomGf12MuxedPadsIor2 = 36, /**<  */
+  kTopCustomGf12MuxedPadsIor3 = 37, /**<  */
+  kTopCustomGf12MuxedPadsIor4 = 38, /**<  */
+  kTopCustomGf12MuxedPadsIor5 = 39, /**<  */
+  kTopCustomGf12MuxedPadsIor6 = 40, /**<  */
+  kTopCustomGf12MuxedPadsIor7 = 41, /**<  */
+  kTopCustomGf12MuxedPadsLast = 41, /**< \internal Last valid muxed pad */
 } top_custom_gf12_muxed_pads_t;
 
 /**

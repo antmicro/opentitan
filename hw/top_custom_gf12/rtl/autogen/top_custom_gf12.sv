@@ -82,9 +82,9 @@ module top_custom_gf12 #(
   parameter bit RvCoreIbexPipeLine = 0
 ) (
   // Multiplexed I/O
-  input        [46:0] mio_in_i,
-  output logic [46:0] mio_out_o,
-  output logic [46:0] mio_oe_o,
+  input        [41:0] mio_in_i,
+  output logic [41:0] mio_out_o,
+  output logic [41:0] mio_oe_o,
   // Dedicated I/O
   input        [7:0]  dio_in_i,
   output logic [7:0]  dio_out_o,
