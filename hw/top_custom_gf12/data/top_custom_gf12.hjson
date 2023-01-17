@@ -1021,7 +1021,7 @@
       { name: 'IOC9'            , type: 'BidirStd', bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
       { name: 'IOC10'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
       { name: 'IOC11'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
-      { name: 'IOC12'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
+      // { name: 'IOC12'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
       // IOR
       { name: 'IOR0'            , type: 'BidirStd', bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
       { name: 'IOR1'            , type: 'BidirStd', bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
@@ -1033,10 +1033,10 @@
       { name: 'IOR7'            , type: 'BidirStd', bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
       { name: 'IOR8'            , type: 'BidirOd' , bank: 'VCC' , connection: 'direct', desc: 'Dedicated sysrst_ctrl output (ec_rst_l)'},
       { name: 'IOR9'            , type: 'BidirOd' , bank: 'VCC' , connection: 'direct', desc: 'Dedicated sysrst_ctrl output (flash_wp_l))'},
-      { name: 'IOR10'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
-      { name: 'IOR11'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
-      { name: 'IOR12'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
-      { name: 'IOR13'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
+      // { name: 'IOR10'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
+      // { name: 'IOR11'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
+      // { name: 'IOR12'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
+      // { name: 'IOR13'           , type: 'BidirOd' , bank: 'VCC' , connection: 'muxed' , desc: 'Muxed IO pad'},
     ]
   }
 
@@ -1241,6 +1241,10 @@
       pinout: {
         remove_ports: [],
         remove_pads: [
+          'IOC0', 'IOC1','IOC2','IOC5','IOC6','IOC7','IOC8',
+          'IOA0', 'IOA1','IOA2','IOA3','IOA4','IOA5','IOA6','IOA7','IOA8',
+          'IOB0', 'IOB1','IOB2','IOB3','IOB4','IOB5','IOB6', 'IOB10','IOB11','IOB12',
+          'IOR5',
           'CC1', 'CC2',
           'FLASH_TEST_VOLT', 'OTP_EXT_VOLT'
           'FLASH_TEST_MODE0', 'FLASH_TEST_MODE1',
@@ -1252,20 +1256,20 @@
           { name: 'IO_CLK',           type: 'InputStd', bank: 'VCC', connection: 'manual', desc: 'Extra clock input for FPGA target'}
           { name: 'POR_BUTTON_N',     type: 'InputStd', bank: 'VCC', connection: 'manual', desc: 'Power-on reset button input'}
           { name: 'JTAG_SRST_N',      type: 'InputStd', bank: 'VCC', connection: 'manual', desc: 'JTAG header SRST, triggers POR'}
-          // Custom USB pads
-          // ChipWhisperer IO
-          { name: 'IO_CLKOUT',        type: 'BidirStd', bank: 'VCC', connection: 'manual', desc: 'Manual clock output for SCA setup'}
-          { name: 'IO_TRIGGER',       type: 'BidirStd', bank: 'VCC', connection: 'manual', desc: 'Manual trigger output for SCA setup'}
+          // // Custom USB pads
+          // // ChipWhisperer IO
+          // { name: 'IO_CLKOUT',        type: 'BidirStd', bank: 'VCC', connection: 'manual', desc: 'Manual clock output for SCA setup'}
+          // { name: 'IO_TRIGGER',       type: 'BidirStd', bank: 'VCC', connection: 'manual', desc: 'Manual trigger output for SCA setup'}
         ],
       },
 
       pinmux: {
         special_signals: [
           // Straps
-          { name: 'tap0',   pad: 'IOC8', desc: 'TAP strap signal.'   },
-          { name: 'tap1',   pad: 'IOC5', desc: 'TAP strap signal.'   },
-          { name: 'dft0',   pad: 'IOC3', desc: 'DFT strap signal.'   },
-          { name: 'dft1',   pad: 'IOC4', desc: 'DFT strap signal.'   },
+          // { name: 'tap0',   pad: 'IOC8', desc: 'TAP strap signal.'   },
+          // { name: 'tap1',   pad: 'IOC5', desc: 'TAP strap signal.'   },
+          // { name: 'dft0',   pad: 'IOC3', desc: 'DFT strap signal.'   },
+          // { name: 'dft1',   pad: 'IOC4', desc: 'DFT strap signal.'   },
           // JTAG
           { name: 'tck',    pad: 'IOR3', desc: 'JTAG tck signal.'    },
           { name: 'tms',    pad: 'IOR0', desc: 'JTAG tms signal.'    },

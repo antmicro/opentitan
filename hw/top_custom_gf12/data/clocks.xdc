@@ -14,12 +14,12 @@ set clks_aon_unbuf [get_clocks -of_objects [get_pin clkgen/pll/CLKOUT4]]
 ## This is not really recommended per Vivado's guidelines, but hopefully these clocks are slow enough and their
 ## destination flops few enough.
 
-set u_pll clkgen/pll
-set u_div2 top_*/u_clkmgr_aon/u_no_scan_io_div2_div
-create_generated_clock -name clk_io_div2 -source [get_pin ${u_pll}/CLKOUT0] -divide_by 2 [get_pin ${u_div2}/u_clk_div_buf/gen_xilinx.u_impl_xilinx/gen_fpga_buf.gen_bufg.bufg_i/O]
-
-set u_div4 top_*/u_clkmgr_aon/u_no_scan_io_div4_div
-create_generated_clock -name clk_io_div4 -source [get_pin ${u_pll}/CLKOUT0] -divide_by 4 [get_pin ${u_div4}/u_clk_div_buf/gen_xilinx.u_impl_xilinx/gen_fpga_buf.gen_bufg.bufg_i/O]
+#set u_pll clkgen/pll
+#set u_div2 top_*/u_clkmgr_aon/u_no_scan_io_div2_div
+#create_generated_clock -name clk_io_div2 -source [get_pin ${u_pll}/CLKOUT0] -divide_by 2 [get_pin ${u_div2}/u_clk_div_buf/gen_xilinx.u_impl_xilinx/gen_fpga_buf.gen_bufg.bufg_i/O]
+#
+#set u_div4 top_*/u_clkmgr_aon/u_no_scan_io_div4_div
+#create_generated_clock -name clk_io_div4 -source [get_pin ${u_pll}/CLKOUT0] -divide_by 4 [get_pin ${u_div4}/u_clk_div_buf/gen_xilinx.u_impl_xilinx/gen_fpga_buf.gen_bufg.bufg_i/O]
 
 
 # the step-down mux is implemented with a LUT right now and the mux switches on the falling edge.
@@ -36,8 +36,8 @@ set_clock_sense -positive \
 ## JTAG clocks and I/O delays
 # Create clocks for the various TAPs.
 create_clock -add -name jtag_tck -period 100.00 -waveform {0 50} [get_ports IOR3]
-create_generated_clock -name lc_jtag_tck -source [get_ports IOR3] -divide_by 1 [get_pin top_*/u_pinmux_aon/u_pinmux_strap_sampling/u_pinmux_jtag_buf_lc/prim_clock_buf_tck/gen_xilinx.u_impl_xilinx/gen_fpga_buf.gen_bufg.bufg_i/O]
-create_generated_clock -name rv_jtag_tck -source [get_ports IOR3] -divide_by 1 [get_pin top_*/u_pinmux_aon/u_pinmux_strap_sampling/u_pinmux_jtag_buf_rv/prim_clock_buf_tck/gen_xilinx.u_impl_xilinx/gen_fpga_buf.gen_bufg.bufg_i/O]
+#create_generated_clock -name lc_jtag_tck -source [get_ports IOR3] -divide_by 1 [get_pin top_*/u_pinmux_aon/u_pinmux_strap_sampling/u_pinmux_jtag_buf_lc/prim_clock_buf_tck/gen_xilinx.u_impl_xilinx/gen_fpga_buf.gen_bufg.bufg_i/O]
+#create_generated_clock -name rv_jtag_tck -source [get_ports IOR3] -divide_by 1 [get_pin top_*/u_pinmux_aon/u_pinmux_strap_sampling/u_pinmux_jtag_buf_rv/prim_clock_buf_tck/gen_xilinx.u_impl_xilinx/gen_fpga_buf.gen_bufg.bufg_i/O]
 
 set lc_jtag_tck_inv_pin  \
   [get_pins -filter {DIRECTION == OUT && IS_LEAF} -of_objects \
@@ -71,12 +71,12 @@ set_input_delay  -add_delay -clock_fall -clock jtag_tck -min  0.0 [get_ports {IO
 set_input_delay  -add_delay -clock_fall -clock jtag_tck -max 15.0 [get_ports {IOR0 IOR2}]
 
 ## SPI clocks
-create_clock -add -name clk_spi  -period 100.00 -waveform {0 50} [get_ports SPI_DEV_CLK]
-set_input_delay -clock clk_spi 5 [get_ports SPI_DEV_D0]
-set_input_delay -clock clk_spi 5 [get_ports SPI_DEV_D1]
-set_output_delay -clock clk_spi 5 [get_ports SPI_DEV_D0] -add_delay
-set_output_delay -clock clk_spi 5 [get_ports SPI_DEV_D1] -add_delay
-
+#create_clock -add -name clk_spi  -period 100.00 -waveform {0 50} [get_ports SPI_DEV_CLK]
+#set_input_delay -clock clk_spi 5 [get_ports SPI_DEV_D0]
+#set_input_delay -clock clk_spi 5 [get_ports SPI_DEV_D1]
+#set_output_delay -clock clk_spi 5 [get_ports SPI_DEV_D0] -add_delay
+#set_output_delay -clock clk_spi 5 [get_ports SPI_DEV_D1] -add_delay
+#
 # set clock sense on the input to spi buffers to help the tool understand the clocks are shifted versions of each other
 # This can also be accomplished through create_genearted_clocks.
 
@@ -99,12 +99,12 @@ set_output_delay -clock clk_spi 5 [get_ports SPI_DEV_D1] -add_delay
 
 ## create_generated_clock appraoch
 ## create_generated_clock is preferred since the buffer cell used here is hand-instantiated, while the set_clock_sense point is simply a LUT
-create_generated_clock -name clk_spi_in  -divide_by 1 -source [get_ports SPI_DEV_CLK] [get_pins top_*/u_spi_device/u_clk_spi_in_buf/gen_xilinx.u_impl_xilinx/gen_fpga_buf.gen_bufr.bufr_i/O]
-create_generated_clock -name clk_spi_out -divide_by 1 -source [get_ports SPI_DEV_CLK] [get_pins top_*/u_spi_device/u_clk_spi_out_buf/gen_xilinx.u_impl_xilinx/gen_fpga_buf.gen_bufr.bufr_i/O] -invert
+#create_generated_clock -name clk_spi_in  -divide_by 1 -source [get_ports SPI_DEV_CLK] [get_pins top_*/u_spi_device/u_clk_spi_in_buf/gen_xilinx.u_impl_xilinx/gen_fpga_buf.gen_bufr.bufr_i/O]
+#create_generated_clock -name clk_spi_out -divide_by 1 -source [get_ports SPI_DEV_CLK] [get_pins top_*/u_spi_device/u_clk_spi_out_buf/gen_xilinx.u_impl_xilinx/gen_fpga_buf.gen_bufr.bufr_i/O] -invert
 
 ## Set asynchronous clock groups
-set_clock_groups -group ${clks_10_unbuf} -group ${clks_48_unbuf} -group ${clks_aon_unbuf} -group clk_io_div2 -group clk_io_div4 -group [get_clocks -include_generated_clocks jtag_tck] -group {clk_spi clk_spi_in clk_spi_out} -group sys_clk_pin -asynchronous
+#set_clock_groups -group ${clks_10_unbuf} -group ${clks_48_unbuf} -group ${clks_aon_unbuf} -group clk_io_div2 -group clk_io_div4 -group [get_clocks -include_generated_clocks jtag_tck] -group {clk_spi clk_spi_in clk_spi_out} -group sys_clk_pin -asynchronous
 
 ## The usb calibration handling inside ast is assumed to be async to the outside world
 ## even though its interface is also a usb clock.
-set_false_path -from [get_clocks clk_usb_48mhz] -to [get_pins u_ast/u_usb_clk/u_ref_pulse_sync/u_sync*/u_sync_1/gen_*/q_o_reg[0]/D]
+#set_false_path -from [get_clocks clk_usb_48mhz] -to [get_pins u_ast/u_usb_clk/u_ref_pulse_sync/u_sync*/u_sync_1/gen_*/q_o_reg[0]/D]

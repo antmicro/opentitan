@@ -18,6 +18,7 @@ filesets:
       - lowrisc:ip:tlul
       - lowrisc:ip:spi_host
       - lowrisc:ip:i2c
+      - lowrisc:ip:usbdev
       - lowrisc:ip:otbn
       - lowrisc:prim:ram_1p_scr
       - lowrisc:prim:flash

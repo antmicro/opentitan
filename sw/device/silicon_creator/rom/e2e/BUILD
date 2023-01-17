@@ -1164,6 +1164,7 @@ ALERT_LC_STATES = get_lc_items(
     srcs = ["rom_e2e_alert_config_test.c"],
     devices = [
         "fpga_cw310",
+        "fpga_arty_35t",
     ],
     local_defines = [
         "OTP_ALERT_DIGEST=OTP_CTRL_PARAM_OWNER_SW_CFG_ROM_ALERT_DIGEST_{}_OFFSET".format(lc_state.upper()),
@@ -1292,6 +1293,7 @@ otp_alert_digest(
     srcs = ["rom_e2e_shutdown_alert_config_test.c"],
     devices = [
         "fpga_cw310",
+        "fpga_arty_35t",
     ],
     deps = [
         "//hw/ip/uart/data:uart_regs",
@@ -1355,6 +1357,7 @@ opentitan_flash_binary(
     srcs = ["empty_test.c"],
     devices = [
         "fpga_cw310",
+        "fpga_arty_35t",
         "sim_dv",
     ],
     local_defines = [
@@ -1577,6 +1580,7 @@ BOOT_POLICY_BAD_MANIFEST_CASES = [
     srcs = ["empty_test.c"],
     devices = [
         "fpga_cw310",
+        "fpga_arty_35t",
         "sim_dv",
         "sim_verilator",
     ],
@@ -1613,6 +1617,7 @@ BOOT_POLICY_BAD_MANIFEST_CASES = [
     },
     devices = [
         "fpga_cw310",
+        "fpga_arty_35t",
         "sim_dv",
         "sim_verilator",
     ],
@@ -1831,6 +1836,7 @@ BOOT_DATA_RECOVERY_CASES = [
     srcs = ["empty_test.c"],
     devices = [
         "fpga_cw310",
+        "fpga_arty_35t",
     ],
     manifest = manifest(
         dict(
@@ -2033,6 +2039,7 @@ SIGVERIFY_LC_KEYS = [
     for device in [
         "sim_dv",
         "fpga_cw310",
+        "fpga_arty_35t",
     ]
     for key in SIGVERIFY_LC_KEYS
 ]
@@ -2104,7 +2111,7 @@ BOOT_POLICY_VALID_CASES = [
                 "offset": SLOTS["b"],
             },
         },
-        devices = ["fpga_cw310"],
+        devices = ["fpga_cw310", "fpga_arty_35t"],
     )
     for a in BOOT_POLICY_VALID_CASES
     for b in BOOT_POLICY_VALID_CASES
@@ -2843,6 +2850,7 @@ test_suite(
         devices = [
             "sim_dv",
             "fpga_cw310",
+            "fpga_arty_35t",
         ],
     )
     for key in SIGVERIFY_LC_KEYS
@@ -2862,6 +2870,7 @@ test_suite(
     for device in [
         "sim_dv",
         "fpga_cw310",
+        "fpga_arty_35t",
     ]
     for key in SIGVERIFY_LC_KEYS
 ]
@@ -2882,6 +2891,7 @@ test_suite(
         devices = [
             "sim_dv",
             "fpga_cw310",
+            "fpga_arty_35t",
         ],
     )
     for key in [
@@ -3562,6 +3572,7 @@ opentitan_flash_binary(
     srcs = ["rom_ext_upgrade_test.c"],
     devices = [
         "fpga_cw310",
+        "fpga_arty_35t",
     ],
     deps = [
         "//hw/ip/otp_ctrl/data:otp_ctrl_regs",

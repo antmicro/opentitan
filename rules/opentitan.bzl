@@ -40,6 +40,7 @@ PER_DEVICE_DEPS = {
     "sim_dv": ["@//sw/device/lib/arch:sim_dv"],
     "fpga_cw305": ["@//sw/device/lib/arch:fpga_cw305"],
     "fpga_cw310": ["@//sw/device/lib/arch:fpga_cw310"],
+    "fpga_arty_a35t": ["@//sw/device/lib/arch:fpga_arty_a35t"],
 }
 
 # Default keys used to sign ROM_EXT and BL0 images for testing.

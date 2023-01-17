@@ -25,6 +25,14 @@ _FPGA_CW310_TESTROM_PATH = "{}/$(location {})".format(_PREFIX, _FPGA_CW310_TESTR
 
 _FPGA_CW310_OTP_RMA_PATH = "{}/$(location {})".format(_PREFIX, _FPGA_CW310_OTP_RMA)
 
+_FPGA_ARTY_A35T_TESTROM = "//sw/device/lib/testing/test_rom:test_rom_fpga_arty_a35t_scr_vmem"
+
+_FPGA_ARTY_A35T_OTP_RMA = "//hw/ip/otp_ctrl/data:img_rma"
+
+_FPGA_ARTY_A35T_TESTROM_PATH = "{}/$(location {})".format(_PREFIX, _FPGA_ARTY_A35T_TESTROM)
+
+_FPGA_ARTY_A35T_OTP_RMA_PATH = "{}/$(location {})".format(_PREFIX, _FPGA_ARTY_A35T_OTP_RMA)
+
 # Note: all of the targets are tagged with "manual" to prevent them from being
 # matched by bazel wildcards like "//...".  In order to build the bitstream,
 # you need to ask for it directly or by dependency via another rule, such as
@@ -58,19 +66,19 @@ fusesoc_build (
     testonly = True,
     srcs = [
         "//hw:all_files",
-        _FPGA_CW310_TESTROM,
-        _FPGA_CW310_OTP_RMA,
+        _FPGA_ARTY_A35T_TESTROM,
+        _FPGA_ARTY_A35T_OTP_RMA,
     ],
     cores = ["//:cores"],
     data = ["//hw/ip/otbn:all_files"],
     flags = [
-        "--BootRomInitFile=" + _FPGA_CW310_TESTROM_PATH,
-        "--OtpCtrlMemInitFile=" + _FPGA_CW310_OTP_RMA_PATH,
+        "--BootRomInitFile=" + _FPGA_ARTY_A35T_TESTROM_PATH,
+        "--OtpCtrlMemInitFile=" + _FPGA_ARTY_A35T_OTP_RMA_PATH,
     ],
     output_groups = {
-        "bitstream": ["synth-vivado/lowrisc_systems_chip_custom_gf12_arty_35t_0.1.bit"],
-        "rom_mmi": ["synth-vivado/rom.mmi"],
-        "otp_mmi": ["synth-vivado/otp.mmi"],
+        "bitstream_arty_a35t": ["synth-vivado/lowrisc_systems_chip_custom_gf12_arty_35t_0.1.bit"],
+        "rom_mmi_arty_a35t": ["synth-vivado/rom.mmi"],
+        "otp_mmi_arty_a35t": ["synth-vivado/otp.mmi"],
     },
     systems = ["lowrisc:systems:chip_custom_gf12_arty_a35"],
     tags = ["manual"],
@@ -82,6 +90,22 @@ filegroup(
     testonly = True,
     srcs = [":fpga_cw310"],
     output_group = "bitstream",
+    tags = ["manual"],
+)
+
+filegroup(
+    name = "fpga_arty_35t_test_rom",
+    testonly = True,
+    srcs = [":fpga_arty_35t"],
+    output_group = "bitstream_arty_a35t",
+    tags = ["manual"],
+)
+
+filegroup(
+    name = "rom_mmi_arty_a35t",
+    testonly = True,
+    srcs = [":fpga_arty_35t"],
+    output_group = "rom_mmi_arty_a35t",
     tags = ["manual"],
 )
 
@@ -101,12 +125,29 @@ filegroup(
     tags = ["manual"],
 )
 
+filegroup(
+    name = "otp_mmi_arty_a35t",
+    testonly = True,
+    srcs = [":fpga_arty_a35t"],
+    output_group = "otp_mmi_arty_a35t",
+    tags = ["manual"],
+)
+
 bitstream_splice(
     name = "fpga_cw310_rom",
     testonly = True,
     src = ":fpga_cw310_test_rom",
     data = "//sw/device/silicon_creator/rom:rom_with_fake_keys_fpga_cw310_scr_vmem",
     meminfo = ":rom_mmi",
+    tags = ["manual"],
+)
+
+bitstream_splice(
+    name = "fpga_arty_35t_rom",
+    testonly = True,
+    src = ":fpga_arty_35t_test_rom",
+    data = "//sw/device/silicon_creator/rom:rom_with_fake_keys_fpga_arty_a35t_scr_vmem",
+    meminfo = ":rom_mmi_arty_a35t",
     tags = ["manual"],
 )
 

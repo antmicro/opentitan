@@ -50,6 +50,17 @@ typedef enum device_type {
    * development board with SCA capability, containing a Xilinx FPGA.
    */
   kDeviceFpgaCw305 = 3,
+  /**
+   * Represents the Digilent NexysVideo board containing Xilinx Artix 200T
+   * FPGA device.
+   */
+  kDeviceFpgaNexysVideo = 4,
+  /**
+   * Represents the "Arty 35t FPGA" device, i.e., cheap FPGA
+   * development board for custom, small version of OpenTitan,
+   * containing a Xilinx FPGA.
+   */
+  kDeviceFpgaArty35t = 5,
 } device_type_t;
 
 /**

@@ -12,7 +12,7 @@ set workroot [pwd]
 set_property STEPS.SYNTH_DESIGN.TCL.PRE "${workroot}/vivado_hook_synth_design_pre.tcl" [get_runs synth_1]
 
 # Post opt design hook
-set_property STEPS.OPT_DESIGN.TCL.POST "${workroot}/vivado_hook_opt_design_post.tcl" [get_runs impl_1]
+#set_property STEPS.OPT_DESIGN.TCL.POST "${workroot}/vivado_hook_opt_design_post.tcl" [get_runs impl_1]
 
 # TODO: This hook is not getting called by Vivado when running through our
 # fusesoc flow (it gets called when writing a bitstream through the GUI).

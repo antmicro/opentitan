@@ -30,6 +30,15 @@ cc_library(
 )
 
 cc_library(
+    name = "fpga_arty_a35t",
+    srcs = ["device_fpga_arty_a35t.c"],
+    deps = [
+        ":device",
+        "//sw/device/silicon_creator/lib:rom_print",
+        "//sw/device/silicon_creator/lib/drivers:ibex",
+    ],
+)
+cc_library(
     name = "sim_dv",
     srcs = ["device_sim_dv.c"],
     deps = [":device"],

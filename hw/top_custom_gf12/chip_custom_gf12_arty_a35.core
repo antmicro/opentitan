@@ -77,7 +77,7 @@ targets:
     filesets:
       - files_rtl_arty_35t
       - files_ascentlint_waiver
-    toplevel: chip_earlgrey_arty_35t
+    toplevel: chip_custom_gf12_arty_a35
     parameters:
       - IBEX_CUSTOM_PMP_RESET_VALUES
       - AST_BYPASS_CLK=true
@@ -88,7 +88,7 @@ targets:
       - files_rtl_arty_35t
       - files_constraints
       - files_tcl
-    toplevel: chip_earlgrey_arty_35t
+    toplevel: chip_custom_gf12_arty_a35
     parameters:
       - BootRomInitFile
       - OtpCtrlMemInitFile
