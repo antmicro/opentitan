@@ -9,7 +9,7 @@
 //                -o hw/top_custom_gf12/ \
 //                --rnd_cnst_seed 4881560218908238235
 
-module chip_custom_gf12_arty_a35 #(
+module chip_custom_gf12_arty_a35t #(
   // Path to a VMEM file containing the contents of the boot ROM, which will be
   // baked into the FPGA bitstream.
   parameter BootRomInitFile = "test_rom_fpga_arty_a35.32.vmem",
@@ -740,4 +740,4 @@ module chip_custom_gf12_arty_a35 #(
 
 
 
-endmodule : chip_custom_gf12_arty_a35
+endmodule : chip_custom_gf12_arty_a35t
