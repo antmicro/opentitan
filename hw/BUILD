@@ -17,6 +17,12 @@ string_list_flag(
     build_setting_default = [
         "--threads",
         "4",
+        "--notiming",
+        "--Wno-PINMISSING",
+        "--Wno-VARHIDDEN",
+        "--Wno-IMPLICIT",
+        "--Wno-WIDTH",
+        "--Wno-ENUMVALUE"
     ],
 )
 
@@ -113,6 +119,7 @@ filegroup(
     ) + [
         "//hw/ip:all_files",
         "//hw/top_earlgrey:all_files",
+        "//hw/top_custom_gf12:all_files",
     ],
     visibility = ["//visibility:public"],
 )

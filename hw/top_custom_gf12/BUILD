@@ -23,9 +23,9 @@ autogen_hjson_header(
 filegroup(
     name = "all_files",
     srcs = glob(["**"]) + [
-        "//hw/top_earlgrey/data:all_files",
-        "//hw/top_earlgrey/dv/verilator:all_files",
-        "//hw/top_earlgrey/ip:all_files",
-        "//hw/top_earlgrey/sw:all_files",
+        "//hw/top_custom_gf12/data:all_files",
+        "//hw/top_custom_gf12/dv/verilator:all_files",
+        "//hw/top_custom_gf12/ip:all_files",
+        "//hw/top_custom_gf12/sw:all_files",
     ],
 )
