@@ -55,8 +55,9 @@ def dv_params(
         timeout = _BASE_PARAMS["timeout"],
         test_runner = "@//util:dvsim_test_runner.sh",
         test_cmds = [],
+        soc_config = "earlgrey",
         # DV-specific Parameters
-        dvsim_config = "@//hw/top_earlgrey/dv:chip_sim_cfg.hjson",
+        dvsim_config = None,
         **kwargs):
     """A macro to create DV sim parameters for OpenTitan functional tests.
 
@@ -73,8 +74,13 @@ def dv_params(
         @param timeout: The timeout to apply to the test rule.
         @param test_cmds: A list of required commands and args that make up the
                           immutable portion of the harness invocation.
+        @param soc_config: Name of the SoC config (eg. 'earlgrey')
         @param dvsim_config: The dvsim.py Hjson config file for the toplevel.
     """
+
+    if dvsim_config == None:
+        dvsim_config = "@//hw/top_" + soc_config + "/dv:chip_sim_cfg.hjson"
+
     required_test_cmds = [
         "-i",
         "chip_sw_{name}",
@@ -83,7 +89,7 @@ def dv_params(
     required_data = [
         dvsim_config,
         "@//util/dvsim",
-        "@//hw:all_files",
+        "@//hw:all_" + soc_config + "_files",
         "@//hw:fusesoc_ignore",
     ]
     required_tags = ["dv"]
@@ -118,6 +124,7 @@ def verilator_params(
             "--exit-success={exit_success}",
             "--exit-failure={exit_failure}",
         ],
+        soc_config = "earlgrey",
         # Verilator-specific Parameters
         # None
         **kwargs):
@@ -136,6 +143,7 @@ def verilator_params(
         @param timeout: The timeout to apply to the test rule.
         @param test_cmds: A list of required commands and args that make up the
                           immutable portion of the harness invocation.
+        @param soc_config: Name of the SoC config (eg. 'earlgrey')
     """
     default_args = [
         "--rcfile=",
@@ -143,13 +151,13 @@ def verilator_params(
     ]
     required_test_cmds = [
         "--interface=verilator",
-        "--verilator-bin=$(location @//hw:verilator_earlgrey)",
+        "--verilator-bin=$(location @//hw:verilator_" + soc_config + ")",
         "--verilator-rom=$(location {rom})",
         "--verilator-flash=$(location {flash})",
         "--verilator-otp=$(location {otp})",
     ]
     required_data = [
-        "@//hw:verilator_earlgrey",
+        "@//hw:verilator_" + soc_config,
         "@//hw:fusesoc_ignore",
     ]
     required_tags = ["verilator", "cpu:5"]
@@ -242,6 +250,7 @@ def cw310_params(
 
 def opentitan_functest(
         name,
+        soc_config = "earlgrey",
         targets = VALID_TARGETS,
         args = [],
         data = [],
@@ -265,6 +274,7 @@ def opentitan_functest(
     the corresponding hardware target via `opentitantool`.
     Parameters:
       @param name: The name of this rule.
+      @param soc_config: Name of the SoC config (eg. 'earlgrey')
       @param targets: A list of hardware targets on which to dispatch tests.
       @param args: Extra arguments (in addition to those defined in the target-
                    specific parameter dictionary) to pass to the test harness
@@ -289,12 +299,12 @@ def opentitan_functest(
 
     This macro emits the following rules:
         if `test_in_rom`:
-          opentitan_rom_binary named: {name}_rom_prog (and all emitted rules).
-        opentitan_flash_binary named: {name}_prog (and all emitted rules).
-        sh_test                named: {name}_sim_dv
-        sh_test                named: {name}_sim_verilator
-        sh_test                named: {name}_fpga_cw310
-        test_suite             named: {name}
+          opentitan_rom_binary named: {name}_{soc_config}_rom_prog (and all emitted rules).
+        opentitan_flash_binary named: {name}_{soc_config}_prog (and all emitted rules).
+        sh_test                named: {name}_{soc_config}_sim_dv
+        sh_test                named: {name}_{soc_config}_sim_verilator
+        sh_test                named: {name}_{soc_config}_fpga_cw310
+        test_suite             named: {name}_{soc_config}
     """
 
     deps = kwargs.pop("deps", [])
@@ -306,10 +316,10 @@ def opentitan_functest(
     for target in targets:
         if target == "dv":
             devices_to_build_for.append("sim_dv")
-            target_params["sim_dv"] = dv_params() if not dv else dv
+            target_params["sim_dv"] = dv_params(soc_config = soc_config) if not dv else dv
         elif target == "verilator":
             devices_to_build_for.append("sim_verilator")
-            target_params["sim_verilator"] = verilator_params() if not verilator else verilator
+            target_params["sim_verilator"] = verilator_params(soc_config = soc_config) if not verilator else verilator
         elif target in ["cw310_rom", "cw310_test_rom"]:
             devices_to_build_for.append("fpga_cw310")
 
@@ -351,7 +361,7 @@ def opentitan_functest(
             fail("Tests that run in ROM stage cannot use pre-built flash binary.")
         if any(["cw310" in t for t in targets]):
             fail("Tests that run in ROM stage cannot run on FPGA.")
-        ot_flash_binary = name + "_rom_prog"
+        ot_flash_binary = name + "_" + soc_config + "_rom_prog"
         opentitan_rom_binary(
             name = ot_flash_binary,
             deps = deps,
@@ -366,7 +376,7 @@ def opentitan_functest(
         if slot not in _FLASH_SLOTS:
             fail("Invalid slot: {}. Valid slots are: silicon_creator_{a,b,virtual}".format(slot))
         deps += _FLASH_SLOTS[slot]
-        ot_flash_binary = name + "_prog"
+        ot_flash_binary = name + "_" + soc_config + "_prog"
         opentitan_flash_binary(
             name = ot_flash_binary,
             signed = signed,
@@ -379,7 +389,7 @@ def opentitan_functest(
 
     for target, params in target_params.items():
         # Set test name.
-        test_name = "{}_{}".format(name, target)
+        test_name = "{}_{}_{}".format(name, soc_config, target)
 
         all_tests.append(test_name)
 
@@ -412,7 +422,7 @@ def opentitan_functest(
         rom = params.pop("rom", None)
         if rom:
             if test_in_rom:
-                rom_filegroup = "{}_rom_prog_{}".format(name, target)
+                rom_filegroup = "{}_{}_rom_prog_{}".format(name, soc_config, target)
                 rom = "{}_scr_vmem".format(rom_filegroup)
             else:
                 rom_label = Label(rom)
@@ -499,7 +509,7 @@ def opentitan_functest(
 
         # Fill placeholders in arg/data lists.
         format_dict = {
-            "name": name,
+            "name": "{}_{}".format(name, soc_config),
             "flash": flash,
             "rom": rom,
             "otp": otp,
@@ -540,13 +550,13 @@ def opentitan_functest(
     # check is necessary because `test_suite()` defaults to all the tests in the
     # caller's BUILD file when its `tests` attribute is the empty list.
     if all_tests == []:
-        fail("Zero tests generated for :{}, test_suite() would run the wrong tests.".format(name))
+        fail("Zero tests generated for :{}_{}, test_suite() would run the wrong tests.".format(name, soc_config))
 
     ############################################################################
     # Instantiate a suite of tests to run the same test on each hardware target.
     ############################################################################
     native.test_suite(
-        name = name,
+        name = "{}_{}".format(name, soc_config),
         tests = all_tests,
         # In test_suites, tags perform a filtering function and will select
         # matching tags internally instead of allowing filters to select
