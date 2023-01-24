@@ -1898,6 +1898,20 @@ opentitan_functest(
 )
 
 opentitan_functest(
+    name = "uart_smoketest",
+    srcs = ["uart_smoketest.c"],
+    soc_config = "custom_gf12",
+    deps = [
+        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//sw/device/lib/arch:device",
+        "//sw/device/lib/base:mmio",
+        "//sw/device/lib/dif:uart",
+        "//sw/device/lib/runtime:hart",
+        "//sw/device/lib/testing/test_framework:ottf_main",
+    ],
+)
+
+opentitan_functest(
     name = "usbdev_test",
     srcs = ["usbdev_test.c"],
     cw310 = cw310_params(
