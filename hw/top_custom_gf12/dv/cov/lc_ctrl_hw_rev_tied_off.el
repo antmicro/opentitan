@@ -10,7 +10,7 @@
 // ExclMode: default
 //==================================================
 CHECKSUM: "3497701341 3193573764"
-INSTANCE: tb.dut.top_earlgrey.u_lc_ctrl
+INSTANCE: tb.dut.top_custom_gf12.u_lc_ctrl
 ANNOTATION: "[UNR]: LcCtrlChipGen and LcCtrlChipRev are tied off to design parameters."
 Toggle hw_rev_o.chip_gen "logic hw_rev_o.chip_gen[15:0]"
 ANNOTATION: "[UNR]: LcCtrlChipGen and LcCtrlChipRev are tied off to design parameters."

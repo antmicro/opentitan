@@ -19,9 +19,9 @@ filesets:
       - lowrisc:dv:clkmgr_sva
       - lowrisc:dv:pwrmgr_sva
       - lowrisc:dv:rstmgr_sva
-      - lowrisc:dv:top_earlgrey_sva
-      - lowrisc:dv:top_earlgrey_xbar_main_bind
-      - lowrisc:dv:top_earlgrey_xbar_peri_bind
+      - lowrisc:dv:top_custom_gf12_sva
+      - lowrisc:dv:top_custom_gf12_xbar_main_bind
+      - lowrisc:dv:top_custom_gf12_xbar_peri_bind
       - lowrisc:dv:xbar_test
       - lowrisc:dv:xbar_macros
       - lowrisc:dv:sim_sram

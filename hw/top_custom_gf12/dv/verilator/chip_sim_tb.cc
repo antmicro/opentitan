@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
   simctrl.SetTop(&top, &top.clk_i, &top.rst_ni,
                  VerilatorSimCtrlFlags::ResetPolarityNegative);
 
-  std::string top_scope("TOP.chip_sim_tb.u_dut.top_earlgrey");
+  std::string top_scope("TOP.chip_sim_tb.u_dut.top_custom_gf12");
   std::string ram1p_adv_scope(
       "u_prim_ram_1p_adv.u_mem."
       "gen_generic.u_impl_generic");

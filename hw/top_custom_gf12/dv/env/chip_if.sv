@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // One chip level interface to rule them all, and in the IOs, bind them...
 //
-// The top_earlgrey SoC provides a bunch of fixed-function and muxed IO pads. The interface serves
+// The top_custom_gf12 SoC provides a bunch of fixed-function and muxed IO pads. The interface serves
 // as the gateway connection between the chip IOs and ALL functions mapped to the fixed and muxed
 // IOs. It creates sub-interfaces for all functions and connects them all to the chip IOs together.
 // The pin mapping to each function is provided in the following spreadsheet:
@@ -20,7 +20,7 @@
 interface chip_if;
 
   import chip_common_pkg::*;
-  import top_earlgrey_pkg::*;
+  import top_custom_gf12_pkg::*;
   import dv_utils_pkg::*;
   import uvm_pkg::*;
 
@@ -31,9 +31,9 @@ interface chip_if;
   // TODO: In Xcelium, the bind is not exposing the internal hierarchies to chip_if.
   // TODO: Autogen this in top_<top>_pkg.
 `ifdef XCELIUM
-  `define TOP_HIER          tb.dut.top_earlgrey
+  `define TOP_HIER          tb.dut.top_custom_gf12
 `else
-  `define TOP_HIER          top_earlgrey
+  `define TOP_HIER          top_custom_gf12
 `endif
 `define ADC_CTRL_HIER       `TOP_HIER.u_adc_ctrl_aon
 `define AES_HIER            `TOP_HIER.u_aes
@@ -87,12 +87,12 @@ interface chip_if;
   //
   // DO NOT manipulate this signal in test sequences directly. Use the individual functional
   // interfaces below instead.
-  wire [top_earlgrey_pkg::DioPadCount-1:0] dios;
-  wire [top_earlgrey_pkg::MioPadCount-1:0] mios;
+  wire [top_custom_gf12_pkg::DioPadCount-1:0] dios;
+  wire [top_custom_gf12_pkg::MioPadCount-1:0] mios;
 
   // Functional interface: for testing ALL chip IOs, such as pinmux and padctrl tests.
-  pins_if#(.Width(top_earlgrey_pkg::MioPadCount), .PullStrength("Weak")) mios_if(.pins(mios));
-  pins_if#(.Width(top_earlgrey_pkg::DioPadCount), .PullStrength("Weak")) dios_if(.pins(dios));
+  pins_if#(.Width(top_custom_gf12_pkg::MioPadCount), .PullStrength("Weak")) mios_if(.pins(mios));
+  pins_if#(.Width(top_custom_gf12_pkg::DioPadCount), .PullStrength("Weak")) dios_if(.pins(dios));
 
   // Functional (dedicated) interface (input): AST misc.
   wire ast_misc;
@@ -116,13 +116,13 @@ interface chip_if;
       dios_if.pins_pd = '1;
 
       // These are active low, so pull up.
-      dios_if.pins_pu[top_earlgrey_pkg::DioPadPorN] = 1;
-      dios_if.pins_pu[top_earlgrey_pkg::DioPadUsbP] = 1;
-      dios_if.pins_pu[top_earlgrey_pkg::DioPadIor8] = 1;
-      dios_if.pins_pu[top_earlgrey_pkg::DioPadIor9] = 1;
+      dios_if.pins_pu[top_custom_gf12_pkg::DioPadPorN] = 1;
+      dios_if.pins_pu[top_custom_gf12_pkg::DioPadUsbP] = 1;
+      dios_if.pins_pu[top_custom_gf12_pkg::DioPadIor8] = 1;
+      dios_if.pins_pu[top_custom_gf12_pkg::DioPadIor9] = 1;
 
       // No need of pulls for the SPI host peripheral.
-      dios_if.pins_pd[top_earlgrey_pkg::DioPadSpiHostCsL:top_earlgrey_pkg::DioPadSpiHostD0] = '0;
+      dios_if.pins_pd[top_custom_gf12_pkg::DioPadSpiHostCsL:top_custom_gf12_pkg::DioPadSpiHostD0] = '0;
     end else begin
       dios_if.disconnect();
     end
@@ -137,12 +137,12 @@ interface chip_if;
   // Chip IOs must always either be undriven or driven to a known value. Xs indicate multiple
   // drivers, which is an issue likely caused by multiple functions simultaneously attempting to
   // control the shared (muxed) pads.
-  for (genvar i = top_earlgrey_pkg::MioPadIoa0; i < top_earlgrey_pkg::MioPadCount; i++)
+  for (genvar i = top_custom_gf12_pkg::MioPadIoa0; i < top_custom_gf12_pkg::MioPadCount; i++)
   begin : gen_mios_x_check
     wire glitch_free_io;
     assign #1ps glitch_free_io = mios[i];
 
-    top_earlgrey_pkg::mio_pad_e named_io = top_earlgrey_pkg::mio_pad_e'(i);
+    top_custom_gf12_pkg::mio_pad_e named_io = top_custom_gf12_pkg::mio_pad_e'(i);
     always @(glitch_free_io) begin
       if (glitch_free_io === 1'bx) begin
         `uvm_error(MsgId, $sformatf("Detected an X on %0s", named_io.name()))
@@ -178,29 +178,29 @@ interface chip_if;
   // unknown monitor above will throw a fatal error and exit the simulation.
 
   // Functional (dedicated) interface (input): power on reset input.
-  pins_if #(.Width(1), .PullStrength("Weak")) por_n_if(.pins(dios[top_earlgrey_pkg::DioPadPorN]));
+  pins_if #(.Width(1), .PullStrength("Weak")) por_n_if(.pins(dios[top_custom_gf12_pkg::DioPadPorN]));
 
   // Functional (dedicated) interface (inout): USB.
   // TODO!
 
   // Functional (dedicated) interface (input): CC1, CC2.
   pins_if #(.Width(2), .PullStrength("Weak")) cc_if(
-    .pins(dios[top_earlgrey_pkg::DioPadCc2:top_earlgrey_pkg::DioPadCc1])
+    .pins(dios[top_custom_gf12_pkg::DioPadCc2:top_custom_gf12_pkg::DioPadCc1])
   );
 
   // Functional (dedicated) interface (analog input): flash test volt.
   pins_if #(.Width(1), .PullStrength("Weak")) flash_test_volt_if(
-    .pins(dios[top_earlgrey_pkg::DioPadFlashTestVolt])
+    .pins(dios[top_custom_gf12_pkg::DioPadFlashTestVolt])
   );
 
   // Functional (dedicated) interface (input): flash test mode0.
   pins_if #(.Width(2), .PullStrength("Weak")) flash_test_mode_if(
-    .pins(dios[top_earlgrey_pkg::DioPadFlashTestMode1:top_earlgrey_pkg::DioPadFlashTestMode0])
+    .pins(dios[top_custom_gf12_pkg::DioPadFlashTestMode1:top_custom_gf12_pkg::DioPadFlashTestMode0])
   );
 
   // Functional (dedicated) interface (analog input): OTP ext volt.
   pins_if #(.Width(1), .PullStrength("Weak")) otp_ext_volt_if(
-    .pins(dios[top_earlgrey_pkg::DioPadOtpExtVolt])
+    .pins(dios[top_custom_gf12_pkg::DioPadOtpExtVolt])
   );
 
   // Functional (dedicated) interface: SPI host interface (drives traffic into the chip).
@@ -208,12 +208,12 @@ interface chip_if;
   bit enable_spi_tpm;
   spi_if spi_host_if(
     .rst_n(`SPI_DEVICE_HIER.rst_ni),
-    .sio  (dios[top_earlgrey_pkg::DioPadSpiDevD3:top_earlgrey_pkg::DioPadSpiDevD0])
+    .sio  (dios[top_custom_gf12_pkg::DioPadSpiDevD3:top_custom_gf12_pkg::DioPadSpiDevD0])
   );
-  assign dios[top_earlgrey_pkg::DioPadSpiDevClk] = enable_spi_host | enable_spi_tpm ?
+  assign dios[top_custom_gf12_pkg::DioPadSpiDevClk] = enable_spi_host | enable_spi_tpm ?
       spi_host_if.sck : 1'bz;
-  assign dios[top_earlgrey_pkg::DioPadSpiDevCsL] = enable_spi_host ? spi_host_if.csb[0] : 1'bz;
-  assign mios[top_earlgrey_pkg::MioPadIoa7] = enable_spi_tpm ? spi_host_if.csb[1] : 1'bz;
+  assign dios[top_custom_gf12_pkg::DioPadSpiDevCsL] = enable_spi_host ? spi_host_if.csb[0] : 1'bz;
+  assign mios[top_custom_gf12_pkg::MioPadIoa7] = enable_spi_tpm ? spi_host_if.csb[1] : 1'bz;
   initial begin
     uvm_config_db#(virtual spi_if)::set(null, "*.env.m_spi_host_agent*", "vif", spi_host_if);
     do begin
@@ -228,15 +228,15 @@ interface chip_if;
 
   spi_if spi_device0_if(
     .rst_n(`SPI_HOST_HIER(0).rst_ni),
-    .sio  (dios[top_earlgrey_pkg::DioPadSpiHostD3:
-                top_earlgrey_pkg::DioPadSpiHostD0])
+    .sio  (dios[top_custom_gf12_pkg::DioPadSpiHostD3:
+                top_custom_gf12_pkg::DioPadSpiHostD0])
   );
 
   assign spi_device0_if.sck = __enable_spi_device[0] ?
-      dios[top_earlgrey_pkg::DioPadSpiHostClk] : 1'bz;
+      dios[top_custom_gf12_pkg::DioPadSpiHostClk] : 1'bz;
 
   assign spi_device0_if.csb = __enable_spi_device[0] ?
-      {'1, dios[top_earlgrey_pkg::DioPadSpiHostCsL]} : '1;
+      {'1, dios[top_custom_gf12_pkg::DioPadSpiHostCsL]} : '1;
 
   initial begin
     uvm_config_db#(virtual spi_if)::set(null, "*.env.m_spi_device_agents0*", "vif", spi_device0_if);
@@ -249,17 +249,17 @@ interface chip_if;
   // Functional (muxed) interface: SPI device 1 interface (receives traffic from the chip).
   spi_if spi_device1_if(
     .rst_n(`SPI_HOST_HIER(1).rst_ni),
-    .sio  ({mios[top_earlgrey_pkg::MioPadIob6],  // sio[3]
-            mios[top_earlgrey_pkg::MioPadIob5],  // sio[2]
-            mios[top_earlgrey_pkg::MioPadIob4],  // sio[1]
-            mios[top_earlgrey_pkg::MioPadIob3]}) // sio[0]
+    .sio  ({mios[top_custom_gf12_pkg::MioPadIob6],  // sio[3]
+            mios[top_custom_gf12_pkg::MioPadIob5],  // sio[2]
+            mios[top_custom_gf12_pkg::MioPadIob4],  // sio[1]
+            mios[top_custom_gf12_pkg::MioPadIob3]}) // sio[0]
   );
 
   assign spi_device1_if.sck = __enable_spi_device[1] ?
-      mios[top_earlgrey_pkg::MioPadIob0] : 1'bz;
+      mios[top_custom_gf12_pkg::MioPadIob0] : 1'bz;
 
   assign spi_device1_if.csb = __enable_spi_device[1] ?
-      {'1, mios[top_earlgrey_pkg::MioPadIob1]} : '1;
+      {'1, mios[top_custom_gf12_pkg::MioPadIob1]} : '1;
 
   initial begin
     uvm_config_db#(virtual spi_if)::set(null, "*.env.m_spi_device_agents1*", "vif", spi_device1_if);
@@ -279,37 +279,37 @@ interface chip_if;
 
   // Functional (dedicated) interface (inout): EC reset.
   pins_if #(.Width(1), .PullStrength("Weak")) ec_rst_l_if(
-    .pins(dios[top_earlgrey_pkg::DioPadIor8])
+    .pins(dios[top_custom_gf12_pkg::DioPadIor8])
   );
 
   // Functional (dedicated) interface (inout): flash write protect.
   pins_if #(.Width(1), .PullStrength("Weak")) flash_wp_l_if(
-    .pins(dios[top_earlgrey_pkg::DioPadIor9])
+    .pins(dios[top_custom_gf12_pkg::DioPadIor9])
   );
 
   // Functional (dedicated) interface (inout): power button.
   pins_if #(.Width(1), .PullStrength("Weak")) pwrb_in_if(
-    .pins(mios[top_earlgrey_pkg::MioPadIor13])
+    .pins(mios[top_custom_gf12_pkg::MioPadIor13])
   );  // TODO: move to R0.
 
   // Functional (muxed) interface: sysrst_ctrl.
   // TODO: Replace with sysrst_ctrl IP level interface.
   // TODO; combine all into 1 single sysrst_ctrl_if.
   pins_if #(.Width(8), .PullStrength("Weak")) sysrst_ctrl_if(
-    .pins({mios[top_earlgrey_pkg::MioPadIor6], mios[top_earlgrey_pkg::MioPadIor5],
-           mios[top_earlgrey_pkg::MioPadIoc9], mios[top_earlgrey_pkg::MioPadIoc7],
-           mios[top_earlgrey_pkg::MioPadIob9], mios[top_earlgrey_pkg::MioPadIob8],
-           mios[top_earlgrey_pkg::MioPadIob6], mios[top_earlgrey_pkg::MioPadIob3]})
+    .pins({mios[top_custom_gf12_pkg::MioPadIor6], mios[top_custom_gf12_pkg::MioPadIor5],
+           mios[top_custom_gf12_pkg::MioPadIoc9], mios[top_custom_gf12_pkg::MioPadIoc7],
+           mios[top_custom_gf12_pkg::MioPadIob9], mios[top_custom_gf12_pkg::MioPadIob8],
+           mios[top_custom_gf12_pkg::MioPadIob6], mios[top_custom_gf12_pkg::MioPadIob3]})
   );
 
   // Functional (muxed) interface: DFT straps.
   pins_if #(.Width(2), .PullStrength("Weak")) dft_straps_if(
-    .pins(mios[top_earlgrey_pkg::MioPadIoc4:top_earlgrey_pkg::MioPadIoc3])
+    .pins(mios[top_custom_gf12_pkg::MioPadIoc4:top_custom_gf12_pkg::MioPadIoc3])
   );
 
   // Functional (muxed) interface: TAP straps.
   pins_if #(.Width(2), .PullStrength("Weak")) tap_straps_if(
-    .pins({mios[top_earlgrey_pkg::MioPadIoc5], mios[top_earlgrey_pkg::MioPadIoc8]})
+    .pins({mios[top_custom_gf12_pkg::MioPadIoc5], mios[top_custom_gf12_pkg::MioPadIoc8]})
   );
 
   // Weakly pulldown TAP & DFT strap pins in DFT-enabled LC states.
@@ -385,7 +385,7 @@ interface chip_if;
 
   // Functional (muxed) interface: SW straps.
   pins_if #(.Width(3), .PullStrength("Weak")) sw_straps_if(
-    .pins(mios[top_earlgrey_pkg::MioPadIoc2:top_earlgrey_pkg::MioPadIoc0])
+    .pins(mios[top_custom_gf12_pkg::MioPadIoc2:top_custom_gf12_pkg::MioPadIoc0])
   );
 
   // Functional (muxed) interface: GPIOs.
@@ -396,22 +396,22 @@ interface chip_if;
   // subset. The selection below prevents as much contention as possible on the IOs, considering
   // various modes the testbench AND the device can be in.
   pins_if #(.Width(NUM_GPIOS), .PullStrength("Weak")) gpios_if(
-    .pins({mios[top_earlgrey_pkg::MioPadIor13], mios[top_earlgrey_pkg::MioPadIor12],
-           mios[top_earlgrey_pkg::MioPadIor11], mios[top_earlgrey_pkg::MioPadIor10],
-           mios[top_earlgrey_pkg::MioPadIor7], mios[top_earlgrey_pkg::MioPadIor6],
-           mios[top_earlgrey_pkg::MioPadIor5], mios[top_earlgrey_pkg::MioPadIor4],
-           mios[top_earlgrey_pkg::MioPadIor3], mios[top_earlgrey_pkg::MioPadIor2],
-           mios[top_earlgrey_pkg::MioPadIor1], mios[top_earlgrey_pkg::MioPadIor0],
-           mios[top_earlgrey_pkg::MioPadIoc12], mios[top_earlgrey_pkg::MioPadIoc11],
-           mios[top_earlgrey_pkg::MioPadIoc10], mios[top_earlgrey_pkg::MioPadIoc9],
-           mios[top_earlgrey_pkg::MioPadIob12], mios[top_earlgrey_pkg::MioPadIob11],
-           mios[top_earlgrey_pkg::MioPadIob10], mios[top_earlgrey_pkg::MioPadIob9],
-           mios[top_earlgrey_pkg::MioPadIob8], mios[top_earlgrey_pkg::MioPadIob7],
-           mios[top_earlgrey_pkg::MioPadIob6], mios[top_earlgrey_pkg::MioPadIoa8],
-           mios[top_earlgrey_pkg::MioPadIoa7], mios[top_earlgrey_pkg::MioPadIoa6],
-           mios[top_earlgrey_pkg::MioPadIoa5], mios[top_earlgrey_pkg::MioPadIoa4],
-           mios[top_earlgrey_pkg::MioPadIoa3], mios[top_earlgrey_pkg::MioPadIoa2],
-           mios[top_earlgrey_pkg::MioPadIoa1], mios[top_earlgrey_pkg::MioPadIoa0]})
+    .pins({mios[top_custom_gf12_pkg::MioPadIor13], mios[top_custom_gf12_pkg::MioPadIor12],
+           mios[top_custom_gf12_pkg::MioPadIor11], mios[top_custom_gf12_pkg::MioPadIor10],
+           mios[top_custom_gf12_pkg::MioPadIor7], mios[top_custom_gf12_pkg::MioPadIor6],
+           mios[top_custom_gf12_pkg::MioPadIor5], mios[top_custom_gf12_pkg::MioPadIor4],
+           mios[top_custom_gf12_pkg::MioPadIor3], mios[top_custom_gf12_pkg::MioPadIor2],
+           mios[top_custom_gf12_pkg::MioPadIor1], mios[top_custom_gf12_pkg::MioPadIor0],
+           mios[top_custom_gf12_pkg::MioPadIoc12], mios[top_custom_gf12_pkg::MioPadIoc11],
+           mios[top_custom_gf12_pkg::MioPadIoc10], mios[top_custom_gf12_pkg::MioPadIoc9],
+           mios[top_custom_gf12_pkg::MioPadIob12], mios[top_custom_gf12_pkg::MioPadIob11],
+           mios[top_custom_gf12_pkg::MioPadIob10], mios[top_custom_gf12_pkg::MioPadIob9],
+           mios[top_custom_gf12_pkg::MioPadIob8], mios[top_custom_gf12_pkg::MioPadIob7],
+           mios[top_custom_gf12_pkg::MioPadIob6], mios[top_custom_gf12_pkg::MioPadIoa8],
+           mios[top_custom_gf12_pkg::MioPadIoa7], mios[top_custom_gf12_pkg::MioPadIoa6],
+           mios[top_custom_gf12_pkg::MioPadIoa5], mios[top_custom_gf12_pkg::MioPadIoa4],
+           mios[top_custom_gf12_pkg::MioPadIoa3], mios[top_custom_gf12_pkg::MioPadIoa2],
+           mios[top_custom_gf12_pkg::MioPadIoa1], mios[top_custom_gf12_pkg::MioPadIoa0]})
   );
 
   // Functional (muxed) interface: JTAG (valid during debug enabled LC state only).
@@ -424,19 +424,19 @@ interface chip_if;
   wire __enable_jtag = |tap_straps_if.pins_oe;
   jtag_if jtag_if();
 
-  assign mios[top_earlgrey_pkg::MioPadIor0] = __enable_jtag ? jtag_if.tms : 1'bz;
-  assign jtag_if.tdo = __enable_jtag ? mios[top_earlgrey_pkg::MioPadIor1] : 1'bz;
-  assign mios[top_earlgrey_pkg::MioPadIor2] = __enable_jtag ? jtag_if.tdi : 1'bz;
-  assign mios[top_earlgrey_pkg::MioPadIor3] = __enable_jtag ? jtag_if.tck : 1'bz;
-  assign mios[top_earlgrey_pkg::MioPadIor4] = __enable_jtag ? jtag_if.trst_n : 1'bz;
+  assign mios[top_custom_gf12_pkg::MioPadIor0] = __enable_jtag ? jtag_if.tms : 1'bz;
+  assign jtag_if.tdo = __enable_jtag ? mios[top_custom_gf12_pkg::MioPadIor1] : 1'bz;
+  assign mios[top_custom_gf12_pkg::MioPadIor2] = __enable_jtag ? jtag_if.tdi : 1'bz;
+  assign mios[top_custom_gf12_pkg::MioPadIor3] = __enable_jtag ? jtag_if.tck : 1'bz;
+  assign mios[top_custom_gf12_pkg::MioPadIor4] = __enable_jtag ? jtag_if.trst_n : 1'bz;
 
   function automatic void set_tdo_pull(bit value);
     if (value) begin
-      mios_if.pins_pd[top_earlgrey_pkg::MioPadIor1] = 0;
-      mios_if.pins_pu[top_earlgrey_pkg::MioPadIor1] = 1;
+      mios_if.pins_pd[top_custom_gf12_pkg::MioPadIor1] = 0;
+      mios_if.pins_pu[top_custom_gf12_pkg::MioPadIor1] = 1;
     end else begin
-      mios_if.pins_pu[top_earlgrey_pkg::MioPadIor1] = 0;
-      mios_if.pins_pd[top_earlgrey_pkg::MioPadIor1] = 1;
+      mios_if.pins_pu[top_custom_gf12_pkg::MioPadIor1] = 0;
+      mios_if.pins_pd[top_custom_gf12_pkg::MioPadIor1] = 1;
     end
   endfunction
 
@@ -447,46 +447,46 @@ interface chip_if;
   // TODO: Revisit this logic.
   wire lc_hw_debug_en = (`LC_CTRL_HIER.lc_hw_debug_en_o == lc_ctrl_pkg::On);
   assign flash_ctrl_jtag_enabled = enable_flash_ctrl_jtag && lc_hw_debug_en;
-  assign mios[top_earlgrey_pkg::MioPadIob0] = flash_ctrl_jtag_enabled ?
+  assign mios[top_custom_gf12_pkg::MioPadIob0] = flash_ctrl_jtag_enabled ?
       flash_ctrl_jtag_if.tms : 1'bz;
   assign flash_ctrl_jtag_if.tdo = flash_ctrl_jtag_enabled ?
-      mios[top_earlgrey_pkg::MioPadIob1] : 1'bz;
-  assign mios[top_earlgrey_pkg::MioPadIob2] = flash_ctrl_jtag_enabled ?
+      mios[top_custom_gf12_pkg::MioPadIob1] : 1'bz;
+  assign mios[top_custom_gf12_pkg::MioPadIob2] = flash_ctrl_jtag_enabled ?
       flash_ctrl_jtag_if.tdi : 1'bz;
-  assign mios[top_earlgrey_pkg::MioPadIob3] = flash_ctrl_jtag_enabled ?
+  assign mios[top_custom_gf12_pkg::MioPadIob3] = flash_ctrl_jtag_enabled ?
       flash_ctrl_jtag_if.tck : 1'bz;
 
   // Functional (muxed) interface: AST2PAD.
   pins_if #(.Width(9), .PullStrength("Weak")) ast2pad_if(
-    .pins({mios[top_earlgrey_pkg::MioPadIoa0], mios[top_earlgrey_pkg::MioPadIoa1],
-           mios[top_earlgrey_pkg::MioPadIob3], mios[top_earlgrey_pkg::MioPadIob4],
-           mios[top_earlgrey_pkg::MioPadIob5], mios[top_earlgrey_pkg::MioPadIoc0],
-           mios[top_earlgrey_pkg::MioPadIoc4], mios[top_earlgrey_pkg::MioPadIoc7],
-           mios[top_earlgrey_pkg::MioPadIoc9]})
+    .pins({mios[top_custom_gf12_pkg::MioPadIoa0], mios[top_custom_gf12_pkg::MioPadIoa1],
+           mios[top_custom_gf12_pkg::MioPadIob3], mios[top_custom_gf12_pkg::MioPadIob4],
+           mios[top_custom_gf12_pkg::MioPadIob5], mios[top_custom_gf12_pkg::MioPadIoc0],
+           mios[top_custom_gf12_pkg::MioPadIoc4], mios[top_custom_gf12_pkg::MioPadIoc7],
+           mios[top_custom_gf12_pkg::MioPadIoc9]})
   );
 
   // Functional (muxed) interface: PAD2AST.
   pins_if #(.Width(8), .PullStrength("Weak")) pad2ast_if(
-    .pins({mios[top_earlgrey_pkg::MioPadIoa4], mios[top_earlgrey_pkg::MioPadIoa5],
-           mios[top_earlgrey_pkg::MioPadIob0], mios[top_earlgrey_pkg::MioPadIob1],
-           mios[top_earlgrey_pkg::MioPadIob2], mios[top_earlgrey_pkg::MioPadIoc1],
-           mios[top_earlgrey_pkg::MioPadIoc2], mios[top_earlgrey_pkg::MioPadIoc3]})
+    .pins({mios[top_custom_gf12_pkg::MioPadIoa4], mios[top_custom_gf12_pkg::MioPadIoa5],
+           mios[top_custom_gf12_pkg::MioPadIob0], mios[top_custom_gf12_pkg::MioPadIob1],
+           mios[top_custom_gf12_pkg::MioPadIob2], mios[top_custom_gf12_pkg::MioPadIoc1],
+           mios[top_custom_gf12_pkg::MioPadIoc2], mios[top_custom_gf12_pkg::MioPadIoc3]})
   );
 
   // Functional (muxed) interface: Pin wake up signal.
   // TODO: For these tests, use chip_pins_if instead, so that any pin can be configured to wakeup.
   pins_if #(.Width(1), .PullStrength("Weak")) pinmux_wkup_if(
-    .pins(mios[top_earlgrey_pkg::MioPadIob7])
+    .pins(mios[top_custom_gf12_pkg::MioPadIob7])
   );
 
   // Functional (muxed) interface: UARTs.
   localparam int AssignedUartTxIos[NUM_UARTS] = {
-      top_earlgrey_pkg::MioPadIoc4, top_earlgrey_pkg::MioPadIob5,
-      top_earlgrey_pkg::MioPadIoa5, top_earlgrey_pkg::MioPadIoa1
+      top_custom_gf12_pkg::MioPadIoc4, top_custom_gf12_pkg::MioPadIob5,
+      top_custom_gf12_pkg::MioPadIoa5, top_custom_gf12_pkg::MioPadIoa1
   };
   localparam int AssignedUartRxIos[NUM_UARTS] = {
-      top_earlgrey_pkg::MioPadIoc3, top_earlgrey_pkg::MioPadIob4,
-      top_earlgrey_pkg::MioPadIoa4, top_earlgrey_pkg::MioPadIoa0
+      top_custom_gf12_pkg::MioPadIoc3, top_custom_gf12_pkg::MioPadIob4,
+      top_custom_gf12_pkg::MioPadIoa4, top_custom_gf12_pkg::MioPadIoa0
   };
   bit [NUM_UARTS-1:0] __enable_uart;  // Internal signal.
 
@@ -520,14 +520,14 @@ interface chip_if;
 
   // {ioa7, ioa8}, {iob9, iob10}, {iob11, iob12} are the i2c connections
   localparam int AssignedI2cSclIos [NUM_I2CS]  = {
-    top_earlgrey_pkg::MioPadIoa7,
-    top_earlgrey_pkg::MioPadIob9,
-    top_earlgrey_pkg::MioPadIob11
+    top_custom_gf12_pkg::MioPadIoa7,
+    top_custom_gf12_pkg::MioPadIob9,
+    top_custom_gf12_pkg::MioPadIob11
   };
   localparam int AssignedI2cSdaIos [NUM_I2CS] = {
-    top_earlgrey_pkg::MioPadIoa8,
-    top_earlgrey_pkg::MioPadIob10,
-    top_earlgrey_pkg::MioPadIob12
+    top_custom_gf12_pkg::MioPadIoa8,
+    top_custom_gf12_pkg::MioPadIob10,
+    top_custom_gf12_pkg::MioPadIob12
   };
 
   // This part unfortunately has to be hardcoded since the macro cannot interpret a genvar.
@@ -560,8 +560,8 @@ interface chip_if;
 
   // Functional (muxed) interface: PWM.
   localparam int AssignedPwmIos[NUM_PWM_CHANNELS] = {
-      top_earlgrey_pkg::MioPadIob10, top_earlgrey_pkg::MioPadIob11, top_earlgrey_pkg::MioPadIob12,
-      top_earlgrey_pkg::MioPadIoc10, top_earlgrey_pkg::MioPadIoc11, top_earlgrey_pkg::MioPadIoc12
+      top_custom_gf12_pkg::MioPadIob10, top_custom_gf12_pkg::MioPadIob11, top_custom_gf12_pkg::MioPadIob12,
+      top_custom_gf12_pkg::MioPadIoc10, top_custom_gf12_pkg::MioPadIoc11, top_custom_gf12_pkg::MioPadIoc12
   };
 
   for (genvar i = 0; i < NUM_PWM_CHANNELS; i++) begin : gen_pwm_if_conn
@@ -584,11 +584,11 @@ interface chip_if;
   assign pattgen_if.rst_ni = `PATTGEN_HIER.rst_ni;
   assign pattgen_if.clk_i  = `PATTGEN_HIER.clk_i;
   assign pattgen_if.pda_tx = !__enable_pattgen ? {NUM_PATTGEN_CH{1'bz}} :
-                                                 {mios[top_earlgrey_pkg::MioPadIob11],
-                                                  mios[top_earlgrey_pkg::MioPadIob9]};
+                                                 {mios[top_custom_gf12_pkg::MioPadIob11],
+                                                  mios[top_custom_gf12_pkg::MioPadIob9]};
   assign pattgen_if.pcl_tx = !__enable_pattgen ? {NUM_PATTGEN_CH{1'bz}} :
-                                                 {mios[top_earlgrey_pkg::MioPadIob12],
-                                                  mios[top_earlgrey_pkg::MioPadIob10]};
+                                                 {mios[top_custom_gf12_pkg::MioPadIob12],
+                                                  mios[top_custom_gf12_pkg::MioPadIob10]};
 
   initial begin
     uvm_config_db#(virtual pattgen_if)::set(null, "*.env.m_pattgen_agent*", "vif", pattgen_if);
@@ -601,8 +601,8 @@ interface chip_if;
   //
   // The reset port is passive only.
   clk_rst_if#("ExtClkDriver") ext_clk_if(
-     .clk (mios[top_earlgrey_pkg::MioPadIoc6]),
-    .rst_n(dios[top_earlgrey_pkg::DioPadPorN])
+     .clk (mios[top_custom_gf12_pkg::MioPadIoc6]),
+    .rst_n(dios[top_custom_gf12_pkg::DioPadPorN])
   );
 
   // Internal probes / monitors.
@@ -864,7 +864,7 @@ interface chip_if;
 
   // Returns string path to an IP block instance.
   // TODO: Autogen this in top_<top>_pkg.
-  function automatic string get_hier_path(top_earlgrey_pkg::peripheral_e peripheral);
+  function automatic string get_hier_path(top_custom_gf12_pkg::peripheral_e peripheral);
     string path = dv_utils_pkg::get_parent_hier($sformatf("%m"));
     case (peripheral)
       PeripheralAdcCtrlAon:     path = {path, ".", `DV_STRINGIFY(`ADC_CTRL_HIER)};

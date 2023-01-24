@@ -10,7 +10,7 @@ class chip_sw_flash_host_gnt_err_inj_vseq extends chip_sw_base_vseq;
   `uvm_object_new
 
   localparam string FLASH_BANK1_HOST_GNT_ERR_PATH =
-       "tb.dut.top_earlgrey.u_flash_ctrl.u_eflash.gen_flash_cores[1].u_core.muxed_part";
+       "tb.dut.top_custom_gf12.u_flash_ctrl.u_eflash.gen_flash_cores[1].u_core.muxed_part";
 
   virtual task body();
     int polling_timeout_ns = 300_000;

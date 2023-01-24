@@ -19,11 +19,11 @@ class chip_sw_flash_rma_unlocked_vseq extends chip_sw_base_vseq;
     TestPhaseCheckWipe = 2
   } test_phases_e;
 
-  localparam string CHIP_GEN_PATH = "tb.dut.top_earlgrey.LcCtrlChipGen";
-  localparam string CHIP_REV_PATH = "tb.dut.top_earlgrey.LcCtrlChipRev";
+  localparam string CHIP_GEN_PATH = "tb.dut.top_custom_gf12.LcCtrlChipGen";
+  localparam string CHIP_REV_PATH = "tb.dut.top_custom_gf12.LcCtrlChipRev";
 
   localparam string LC_CTRL_TRANS_SUCCESS_PATH =
-    "tb.dut.top_earlgrey.u_lc_ctrl.u_lc_ctrl_fsm.trans_success_o";
+    "tb.dut.top_custom_gf12.u_lc_ctrl.u_lc_ctrl_fsm.trans_success_o";
 
   bit [15:0] chip_gen = 16'h 0000;
   bit [15:0] chip_rev = 16'h 0000;

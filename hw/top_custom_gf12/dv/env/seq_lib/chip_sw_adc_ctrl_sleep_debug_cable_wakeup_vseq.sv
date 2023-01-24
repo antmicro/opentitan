@@ -11,7 +11,7 @@ class chip_sw_adc_ctrl_sleep_debug_cable_wakeup_vseq extends chip_sw_base_vseq;
   localparam string ADC_CHANNEL1_HDL_PATH = "tb.dut.u_ast.u_adc.u_adc_ana.adc_d_ch1_o";
   localparam string ADC_DATA_VALID = "tb.dut.u_ast.u_adc.adc_d_val_o";
   localparam string ADC_POWERDOWN = "tb.dut.u_ast.u_adc.adc_pd_i";
-  localparam string ADC_CTRL_WAKEUP_REQ = "tb.dut.top_earlgrey.u_pwrmgr_aon.wakeups_i[1]";
+  localparam string ADC_CTRL_WAKEUP_REQ = "tb.dut.top_custom_gf12.u_pwrmgr_aon.wakeups_i[1]";
 
   localparam uint NUM_LOW_POWER_SAMPLES = 8;
   localparam uint NUM_NORMAL_POWER_SAMPLES = 8;

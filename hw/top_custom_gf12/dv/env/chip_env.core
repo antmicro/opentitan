@@ -8,8 +8,8 @@ filesets:
   files_dv:
     depend:
       - lowrisc:opentitan:bus_params_pkg
-      - lowrisc:systems:top_earlgrey_pkg
-      - lowrisc:systems:top_earlgrey
+      - lowrisc:systems:top_custom_gf12_pkg
+      - lowrisc:systems:top_custom_gf12
       - lowrisc:ip:spi_device
       - lowrisc:ip:kmac_pkg
       - lowrisc:ip:aes
@@ -144,7 +144,7 @@ filesets:
       - ast_supply_if.sv
       - pwrmgr_low_power_if.sv
       - rstmgr_cnsty_fault_if.sv
-      - top_earlgrey_error_injection_ifs_bind.sv
+      - top_custom_gf12_error_injection_ifs_bind.sv
     file_type: systemVerilogSource
 
 generate:
@@ -152,7 +152,7 @@ generate:
     generator: ralgen
     parameters:
       name: chip
-      top_hjson: ../../data/top_earlgrey.hjson
+      top_hjson: ../../data/top_custom_gf12.hjson
 
 targets:
   default:
