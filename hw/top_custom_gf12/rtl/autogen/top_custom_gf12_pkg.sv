@@ -599,14 +599,7 @@ package top_custom_gf12_pkg;
     DioSysrstCtrlAonFlashWpL = 5,
     DioSpiHost0Sck = 6,
     DioSpiHost0Csb = 7,
-    DioCount = 8,
-    DioUsbdevUsbDn = -1,
-    DioUsbdevUsbDp = -2,
-    MioInUsbdevSense = -3,
-    Tap0PadIdx = -4,
-    Tap1PadIdx = -5,
-    Dft0PadIdx = -6,
-    Dft1PadIdx = -7
+    DioCount = 8
   } dio_e;
 
   // Enumeration for the types of pads.

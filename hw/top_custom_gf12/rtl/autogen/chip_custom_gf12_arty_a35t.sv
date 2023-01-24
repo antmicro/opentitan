@@ -12,10 +12,10 @@
 module chip_custom_gf12_arty_a35t #(
   // Path to a VMEM file containing the contents of the boot ROM, which will be
   // baked into the FPGA bitstream.
-  parameter BootRomInitFile = "test_rom_fpga_arty_a35.32.vmem",
+  parameter BootRomInitFile = "test_rom_fpga_arty_a35t.32.vmem",
   // Path to a VMEM file containing the contents of the emulated OTP, which will be
   // baked into the FPGA bitstream.
-  parameter OtpCtrlMemInitFile = "otp_img_fpga_arty_a35.vmem"
+  parameter OtpCtrlMemInitFile = "otp_img_fpga_arty_a35t.vmem"
 ) (
   // Dedicated Pads
   inout POR_N, // Manual Pad
@@ -69,14 +69,21 @@ module chip_custom_gf12_arty_a35t #(
     trst_idx:          TrstNPadIdx,
     tdi_idx:           TdiPadIdx,
     tdo_idx:           TdoPadIdx,
-    tap_strap0_idx:    Tap0PadIdx,
-    tap_strap1_idx:    Tap1PadIdx,
-    dft_strap0_idx:    Dft0PadIdx,
-    dft_strap1_idx:    Dft1PadIdx,
+    //tap_strap0_idx:    Tap0PadIdx,
+    //tap_strap1_idx:    Tap1PadIdx,
+    //dft_strap0_idx:    Dft0PadIdx,
+    //dft_strap1_idx:    Dft1PadIdx,
+    tap_strap0_idx:    -1,
+    tap_strap1_idx:    -2,
+    dft_strap0_idx:    -3,
+    dft_strap1_idx:    -4,
     // TODO: check whether there is a better way to pass these USB-specific params
-    usb_dp_idx:        DioUsbdevUsbDp,
-    usb_dn_idx:        DioUsbdevUsbDn,
-    usb_sense_idx:     MioInUsbdevSense,
+    //usb_dp_idx:        DioUsbdevUsbDp,
+    //usb_dn_idx:        DioUsbdevUsbDn,
+    //usb_sense_idx:     MioInUsbdevSense,
+    usb_dp_idx:        -5,
+    usb_dn_idx:        -6,
+    usb_sense_idx:     -7,
     // Pad types for attribute WARL behavior
     dio_pad_type: {
       BidirStd, // DIO spi_host0_csb
@@ -738,6 +745,120 @@ module chip_custom_gf12_arty_a35t #(
 
 
 
+  //////////////////
+  // PLL for FPGA //
+  //////////////////
+
+  assign manual_attr_io_clk = '0;
+  assign manual_out_io_clk = 1'b0;
+  assign manual_oe_io_clk = 1'b0;
+  assign manual_attr_por_n = '0;
+  assign manual_out_por_n = 1'b0;
+  assign manual_oe_por_n = 1'b0;
+  assign manual_attr_por_button_n = '0;
+  assign manual_out_por_button_n = 1'b0;
+  assign manual_oe_por_button_n = 1'b0;
+
+
+
+  //////////////////////
+  // Top-level design //
+  //////////////////////
+
+  // the rst_ni pin only goes to AST
+  // the rest of the logic generates reset based on the 'pok' signal.
+  // for verilator purposes, make these two the same.
+  prim_mubi_pkg::mubi4_t lc_clk_bypass;   // TODO Tim
+
+// TODO: align this with ASIC version to minimize the duplication.
+// Also need to add AST simulation and FPGA emulation models for things like entropy source -
+// otherwise Verilator / FPGA will hang.
+  top_custom_gf12 #(
+    // .
+    .RomCtrlBootRomInitFile(BootRomInitFile),
+    .RvCoreIbexRegFile(ibex_pkg::RegFileFPGA),
+    .RvCoreIbexPipeLine(1),
+    .RvCoreIbexSecureIbex(0),
+    .SramCtrlRetAonInstrExec(0),
+    .SramCtrlMainInstrExec(1),
+    .PinmuxAonTargetCfg(PinmuxTargetCfg)
+  ) top_custom_gf12 (
+    .por_n_i                      ( por_n                 ),
+    .clk_main_i                   ( ast_base_clks.clk_sys ),
+    .clk_io_i                     ( ast_base_clks.clk_io  ),
+    .clk_usb_i                    ( ast_base_clks.clk_usb ),
+    .clk_aon_i                    ( ast_base_clks.clk_aon ),
+    .clks_ast_o                   ( clkmgr_aon_clocks     ),
+    .clk_main_jitter_en_o         ( jen                   ),
+    .rsts_ast_o                   ( rstmgr_aon_resets     ),
+    .sck_monitor_o                ( sck_monitor           ),
+    .pwrmgr_ast_req_o             ( base_ast_pwr          ),
+    .pwrmgr_ast_rsp_i             ( ast_base_pwr          ),
+    .usb_dp_pullup_en_o           ( usb_dp_pullup_en      ),
+    .usb_dn_pullup_en_o           ( usb_dn_pullup_en      ),
+    .usbdev_usb_rx_d_i            ( usb_rx_d              ),
+    .usbdev_usb_tx_d_o            ( usb_tx_d              ),
+    .usbdev_usb_tx_se0_o          ( usb_tx_se0            ),
+    .usbdev_usb_tx_use_d_se0_o    ( usb_tx_use_d_se0      ),
+    .usbdev_usb_rx_enable_o       ( usb_rx_enable         ),
+    .usbdev_usb_ref_val_o         ( usb_ref_val           ),
+    .usbdev_usb_ref_pulse_o       ( usb_ref_pulse         ),
+    .ast_edn_req_i                ( ast_edn_edn_req       ),
+    .ast_edn_rsp_o                ( ast_edn_edn_rsp       ),
+    .obs_ctrl_i                   ( obs_ctrl              ),
+    .flash_bist_enable_i          ( flash_bist_enable     ),
+    .flash_power_down_h_i         ( 1'b0                  ),
+    .flash_power_ready_h_i        ( 1'b1                  ),
+    .flash_obs_o                  ( flash_obs             ),
+    .io_clk_byp_req_o             ( io_clk_byp_req        ),
+    .io_clk_byp_ack_i             ( io_clk_byp_ack        ),
+    .all_clk_byp_req_o            ( all_clk_byp_req       ),
+    .all_clk_byp_ack_i            ( all_clk_byp_ack       ),
+    .hi_speed_sel_o               ( hi_speed_sel          ),
+    .div_step_down_req_i          ( div_step_down_req     ),
+    .fpga_info_i                  ( fpga_info             ),
+    .ast_tl_req_o                 ( base_ast_bus               ),
+    .ast_tl_rsp_i                 ( ast_base_bus               ),
+    .adc_req_o                    ( adc_req                    ),
+    .adc_rsp_i                    ( adc_rsp                    ),
+    .otp_ctrl_otp_ast_pwr_seq_o   ( otp_ctrl_otp_ast_pwr_seq   ),
+    .otp_ctrl_otp_ast_pwr_seq_h_i ( otp_ctrl_otp_ast_pwr_seq_h ),
+    .otp_obs_o                    ( otp_obs                    ),
+    .sensor_ctrl_ast_alert_req_i  ( ast_alert_req              ),
+    .sensor_ctrl_ast_alert_rsp_o  ( ast_alert_rsp              ),
+    .sensor_ctrl_ast_status_i     ( ast_pwst.io_pok            ),
+    .es_rng_req_o                 ( es_rng_req                 ),
+    .es_rng_rsp_i                 ( es_rng_rsp                 ),
+    .es_rng_fips_o                ( es_rng_fips                ),
+    .ast2pinmux_i                 ( ast2pinmux                 ),
+    .calib_rdy_i                  ( ast_init_done              ),
+    .ast_init_done_i              ( ast_init_done              ),
+
+    // Multiplexed I/O
+    .mio_in_i        ( mio_in   ),
+    .mio_out_o       ( mio_out  ),
+    .mio_oe_o        ( mio_oe   ),
+
+    // Dedicated I/O
+    .dio_in_i        ( dio_in   ),
+    .dio_out_o       ( dio_out  ),
+    .dio_oe_o        ( dio_oe   ),
+
+    // Pad attributes
+    .mio_attr_o      ( mio_attr      ),
+    .dio_attr_o      ( dio_attr      ),
+
+    // Memory attributes
+    .ram_1p_cfg_i    ( '0 ),
+    .ram_2p_cfg_i    ( '0 ),
+    .rom_cfg_i       ( '0 ),
+
+    // DFT signals
+    .dft_hold_tap_sel_i ( '0               ),
+    .scan_rst_ni        ( 1'b1             ),
+    .scan_en_i          ( 1'b0             ),
+    .scanmode_i         ( prim_mubi_pkg::MuBi4False )
+  );
 
 
 endmodule : chip_custom_gf12_arty_a35t
