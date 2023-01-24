@@ -100,7 +100,7 @@ We can save even more time by leveraging the bitstream cache with **[`//util/fpg
 The `:bitstream_bisect` tool is faster than regular `git bisect` because it restricts itself to cached bitstreams until it can make no more progress.
 Building a bitstream is many times slower than running a test (hours compared to minutes), and `git bisect` has no idea that some commits will be faster to classify than others due to the bitstream cache.
 
-For example, suppose that `//sw/device/tests:uart_smoketest` has regressed sometime in the last 30 commits.
+For example, suppose that `//sw/device/tests:uart_smoketest_earlgrey` has regressed sometime in the last 30 commits.
 The following command could easily save hours compared to a naive `git bisect`:
 
 ```sh
@@ -109,8 +109,8 @@ The following command could easily save hours compared to a naive `git bisect`:
 ./bazelisk.sh run //util/fpga:bitstream_bisect -- \
     --good HEAD~30 \
     --bad HEAD \
-    --fast-command "./bazelisk.sh test //sw/device/tests:uart_smoketest_fpga_cw310_rom" \
-    --slow-command "./bazelisk.sh test --define bitstream=vivado //sw/device/tests:uart_smoketest_fpga_cw310_rom"
+    --fast-command "./bazelisk.sh test //sw/device/tests:uart_smoketest_earlgrey_fpga_cw310_rom" \
+    --slow-command "./bazelisk.sh test --define bitstream=vivado //sw/device/tests:uart_smoketest_earlgrey_fpga_cw310_rom"
 ```
 
 One caveat is that neither `git bisect` nor `:bitstream_bisect` will help if the FPGA somehow retains state between tests.
@@ -120,7 +120,7 @@ For now, if you suspect this kind of FPGA flakiness, the best strategy may be a 
 
 Note that the slow command doesn't necessarily have to build a bitstream.
 If you don't have a Vivado license and the test regression is reproducible in Verilator, it could make sense to fall back to the Verilated test.
-Building on the example above, you could replace the slow command with `"./bazelisk.sh test //sw/device/tests:uart_smoketest_sim_verilator"` and the `:bitstream_bisect` tool would never build any bitstreams.
+Building on the example above, you could replace the slow command with `"./bazelisk.sh test //sw/device/tests:uart_smoketest_earlgrey_sim_verilator"` and the `:bitstream_bisect` tool would never build any bitstreams.
 
 For more information, consult the `:bitstream_bisect` tool directly!
 

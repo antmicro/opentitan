@@ -68,18 +68,18 @@ Moreover, Bazel automatically connects to the simulated UART (via `opentitantool
 For example, to run the UART smoke test on Verilator simulated hardware, and see the output in real time, use
 ```console
 cd $REPO_TOP
-bazel test --test_output=streamed //sw/device/tests:uart_smoketest_sim_verilator
+bazel test --test_output=streamed //sw/device/tests:uart_smoketest_earlgrey_sim_verilator
 ```
 or
 ```console
 cd $REPO_TOP
-bazel test --test_tag_filters=verilator --test_output=streamed //sw/device/tests:uart_smoketest
+bazel test --test_tag_filters=verilator --test_output=streamed //sw/device/tests:uart_smoketest_earlgrey
 ```
 
 You should expect to see something like:
 ```console
-Invoking: sw/host/opentitantool/opentitantool --rcfile= --logging=info --interface=verilator --verilator-bin=hw/build.verilator_real/sim-verilator/Vchip_sim_tb --verilator-rom=sw/device/lib/testing/test_rom/test_rom_sim_verilator.scr.39.vmem --verilator-flash=sw/device/tests/uart_smoketest_prog_sim_verilator.64.scr.vmem --verilator-otp=hw/ip/otp_ctrl/data/img_rma.vmem console --exit-failure=(FAIL|FAULT).*\n --exit-success=PASS.*\n --timeout=3600s
-[2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::subprocess] Spawning verilator: "hw/build.verilator_real/sim-verilator/Vchip_sim_tb" ["--meminit=rom,sw/device/lib/testing/test_rom/test_rom_sim_verilator.scr.39.vmem", "--meminit=flash,sw/device/tests/uart_smoketest_prog_sim_verilator.64.scr.vmem", "--meminit=otp,hw/ip/otp_ctrl/data/img_rma.vmem"]
+Invoking: sw/host/opentitantool/opentitantool --rcfile= --logging=info --interface=verilator --verilator-bin=hw/build.verilator_real/sim-verilator/Vchip_sim_tb --verilator-rom=sw/device/lib/testing/test_rom/test_rom_sim_verilator.scr.39.vmem --verilator-flash=sw/device/tests/uart_smoketest_earlgrey_prog_sim_verilator.64.scr.vmem --verilator-otp=hw/ip/otp_ctrl/data/img_rma.vmem console --exit-failure=(FAIL|FAULT).*\n --exit-success=PASS.*\n --timeout=3600s
+[2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::subprocess] Spawning verilator: "hw/build.verilator_real/sim-verilator/Vchip_sim_tb" ["--meminit=rom,sw/device/lib/testing/test_rom/test_rom_sim_verilator.scr.39.vmem", "--meminit=flash,sw/device/tests/uart_smoketest_earlgrey_prog_sim_verilator.64.scr.vmem", "--meminit=otp,hw/ip/otp_ctrl/data/img_rma.vmem"]
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] Simulation of OpenTitan Earl Grey
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] =================================
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout]
@@ -88,24 +88,24 @@ Invoking: sw/host/opentitantool/opentitantool --rcfile= --logging=info --interfa
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] $ kill -USR1 3422749
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout]
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout]
-[2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] GPIO: FIFO pipes created at $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_sim_verilator.runfiles/lowrisc_opentitan/gpio0-read (read) and $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_sim_verilator.runfiles/lowrisc_opentitan/gpio0-write (write) for 32-bit wide GPIO.
+[2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] GPIO: FIFO pipes created at $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_earlgrey_sim_verilator.runfiles/lowrisc_opentitan/gpio0-read (read) and $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_earlgrey_sim_verilator.runfiles/lowrisc_opentitan/gpio0-write (write) for 32-bit wide GPIO.
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] GPIO: To measure the values of the pins as driven by the device, run
-[2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] $ cat $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_sim_verilator.runfiles/lowrisc_opentitan/gpio0-read  # '0' low, '1' high, 'X' floating
+[2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] $ cat $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_earlgrey_sim_verilator.runfiles/lowrisc_opentitan/gpio0-read  # '0' low, '1' high, 'X' floating
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] GPIO: To drive the pins, run a command like
-[2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] $ echo 'h09 l31' > $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_sim_verilator.runfiles/lowrisc_opentitan/gpio0-write  # Pull the pin 9 high, and pin 31 low.
+[2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] $ echo 'h09 l31' > $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_earlgrey_sim_verilator.runfiles/lowrisc_opentitan/gpio0-write  # Pull the pin 9 high, and pin 31 low.
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout]
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] SPI: Created /dev/pts/9 for spi0. Connect to it with any terminal program, e.g.
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] $ screen /dev/pts/9
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] NOTE: a SPI transaction is run for every 4 characters entered.
-[2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] SPI: Monitor output file created at $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_sim_verilator.runfiles/lowrisc_opentitan/spi0.log. Works well with tail:
-[2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] $ tail -f $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_sim_verilator.runfiles/lowrisc_opentitan/spi0.log
+[2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] SPI: Monitor output file created at $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_earlgrey_sim_verilator.runfiles/lowrisc_opentitan/spi0.log. Works well with tail:
+[2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] $ tail -f $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_earlgrey_sim_verilator.runfiles/lowrisc_opentitan/spi0.log
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout]
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] UART: Created /dev/pts/10 for uart0. Connect to it with any terminal program, e.g.
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] $ screen /dev/pts/10
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] UART: Additionally writing all UART output to 'uart0.log'.
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout]
-[2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] USB: Monitor output file created at $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_sim_verilator.runfiles/lowrisc_opentitan/usb0.log. Works well with tail:
-[2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] $ tail -f $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_sim_verilator.runfiles/lowrisc_opentitan/usb0.log
+[2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] USB: Monitor output file created at $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_earlgrey_sim_verilator.runfiles/lowrisc_opentitan/usb0.log. Works well with tail:
+[2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] $ tail -f $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_earlgrey_sim_verilator.runfiles/lowrisc_opentitan/usb0.log
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout]
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] JTAG: Virtual JTAG interface dmi0 is listening on port 44853. Use
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] OpenOCD and the following configuration to connect:
@@ -116,8 +116,8 @@ Invoking: sw/host/opentitantool/opentitantool --rcfile= --logging=info --interfa
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout] Simulation running, end by pressing CTRL-c.
 [2022-06-09T08:08:16Z INFO  opentitanlib::transport::verilator::stdout]
 [2022-06-09T08:08:17Z INFO  opentitanlib::transport::verilator::transport] Verilator started with the following interaces:
-[2022-06-09T08:08:17Z INFO  opentitanlib::transport::verilator::transport] gpio_read = $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_sim_verilator.runfiles/lowrisc_opentitan/gpio0-read
-[2022-06-09T08:08:17Z INFO  opentitanlib::transport::verilator::transport] gpio_write = $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_sim_verilator.runfiles/lowrisc_opentitan/gpio0-write
+[2022-06-09T08:08:17Z INFO  opentitanlib::transport::verilator::transport] gpio_read = $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_earlgrey_sim_verilator.runfiles/lowrisc_opentitan/gpio0-read
+[2022-06-09T08:08:17Z INFO  opentitanlib::transport::verilator::transport] gpio_write = $HOME/.cache/bazel/_bazel_ttrippel/3d92022c091a734228e22679f3ac7c7f/execroot/lowrisc_opentitan/bazel-out/k8-fastbuild/bin/sw/device/tests/uart_smoketest_earlgrey_sim_verilator.runfiles/lowrisc_opentitan/gpio0-write
 [2022-06-09T08:08:17Z INFO  opentitanlib::transport::verilator::transport] uart = /dev/pts/10
 [2022-06-09T08:08:17Z INFO  opentitanlib::transport::verilator::transport] spi = /dev/pts/9
 Starting interactive console
@@ -175,7 +175,7 @@ See the [OpenOCD install instructions]({{< relref "install_openocd.md" >}}) for 
 Run the simulation with Bazel, making sure to build the device software with debug symbols using
 ```console
 cd $REPO_TOP
-bazel test --copt=-g --test_output=streamed //sw/device/tests:uart_smoketest_sim_verilator
+bazel test --copt=-g --test_output=streamed //sw/device/tests:uart_smoketest_earlgrey_sim_verilator
 ```
 
 Then, connect with OpenOCD using the following command.
@@ -190,7 +190,7 @@ Lastly, connect GDB using the following command (noting it needs to be altered t
 ```console
 cd $REPO_TOP
 riscv32-unknown-elf-gdb -ex "target extended-remote :3333" -ex "info reg" \
-  "$(./bazelisk.sh outquery --config=riscv32 //sw/device/tests:uart_smoketest_prog_sim_verilator.elf)"
+  "$(./bazelisk.sh outquery --config=riscv32 //sw/device/tests:uart_smoketest_earlgrey_prog_sim_verilator.elf)"
 ```
 
 ## SPI device test interface (optional)

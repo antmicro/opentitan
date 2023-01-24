@@ -16,7 +16,7 @@ Additionally, _most_ tests may be run with Bazel too.
 To install the correct version of bazel, build, and run a single test with Verilator, run:
 
 ```console
-$REPO_TOP/bazelisk.sh test --test_output=streamed --disk_cache=~/bazel_cache //sw/device/tests:uart_smoketest_sim_verilator
+$REPO_TOP/bazelisk.sh test --test_output=streamed --disk_cache=~/bazel_cache //sw/device/tests:uart_smoketest_earlgrey_sim_verilator
 ```
 
 This will take a while (an hour on a laptop is typical) if it's your first build or the first after a `git pull`, because Bazel has to build the chip simulation.
@@ -105,7 +105,7 @@ Examples of on-device tests are:
 * [chip-level tests]({{< relref "/sw/device/tests/index.md" >}}).
 * [ROM functional tests]({{< relref "/sw/device/silicon_creator/rom/docs/" >}})
 
-Test target names normally match file names (for instance, `//sw/device/tests:uart_smoketest` corresponds to `sw/device/test/uart_smoketest.c`).
+Test target names normally match file names (for instance, `//sw/device/tests:uart_smoketest_earlgrey` corresponds to `sw/device/test/uart_smoketest.c`).
 You can see all tests available under a given directory using `bazel query`, e.g.:
 
 ```console
@@ -143,11 +143,11 @@ These tags can also be used to filter builds using `--build_tag_filters=-cw310,-
 `--build_tests_only` is important when matching wildcards if you aren't using
 `--build_tag_filters` to prevent `bazelisk.sh test //...` from building targets that are filtered out by `--test_tag_filters`.
 
-There is no way to filter out dependencies of a test\_suite such as `//sw/device/tests:uart_smoketest` (Which is a suite that's assembled by the `opentitan_functest` rule) from a build.
+There is no way to filter out dependencies of a test\_suite such as `//sw/device/tests:uart_smoketest_earlgrey` (Which is a suite that's assembled by the `opentitan_functest` rule) from a build.
 
 ### Running on-device Tests
 
-On-device tests such as `//sw/device/tests:uart_smoketest` include multiple targets for different device simulation/emulation tools.
+On-device tests such as `//sw/device/tests:uart_smoketest_earlgrey` include multiple targets for different device simulation/emulation tools.
 Typically, you will only want to run one of these test targets at a time (for instance, only Verilator or only FPGA).
 Add `_sim_verilator` to the test name to run the test on Verilator only, and `_fpga_cw310_rom` or `_fpga_cw310_test_rom` to run the test on FPGA only.
 
@@ -287,19 +287,19 @@ A disassembly of all executable sections is produced by the build system by defa
 It can be found by looking for files with the `.dis` extension next to the corresponding ELF file.
 
 ```console
-./bazelisk.sh build //sw/device/tests:uart_smoketest_prog_sim_verilator_dis
+./bazelisk.sh build //sw/device/tests:uart_smoketest_earlgrey_prog_sim_verilator_dis
 
-less "$(./bazelisk.sh outquery //sw/device/tests:uart_smoketest_prog_sim_verilator_dis)"
+less "$(./bazelisk.sh outquery //sw/device/tests:uart_smoketest_earlgrey_prog_sim_verilator_dis)"
 ```
 
 To get a different type of disassembly, e.g. one which includes data sections in addition to executable sections, objdump can be called manually.
 For example the following command shows how to disassemble all sections of the UART DIF smoke test interleaved with the actual source code:
 
 ```console
-./bazelisk.sh build --config=riscv32 //sw/device/tests:uart_smoketest_prog_sim_verilator.elf
+./bazelisk.sh build --config=riscv32 //sw/device/tests:uart_smoketest_earlgrey_prog_sim_verilator.elf
 
 riscv32-unknown-elf-objdump --disassemble-all --headers --line-numbers --source \
-  "$(./bazelisk.sh outquery --config=riscv32 //sw/device/tests:uart_smoketest_prog_sim_verilator.elf)"
+  "$(./bazelisk.sh outquery --config=riscv32 //sw/device/tests:uart_smoketest_earlgrey_prog_sim_verilator.elf)"
 ```
 
 Refer to the output of `riscv32-unknown-elf-objdump --help` for a full list of options.

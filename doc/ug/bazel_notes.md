@@ -79,11 +79,11 @@ This macro is called `opentitan_functest`.
 
 - List all `sh_test` targets instantiated by a `opentitan_functest`, e.g. the UART smoketest:
   ```console
-  bazel query 'labels(tests, //sw/device/tests:uart_smoketest)'
+  bazel query 'labels(tests, //sw/device/tests:uart_smoketest_earlgrey)'
   ```
 - Query the HW and SW dependencies of a specific `opentitan_functest` for the `fpga_cw310` device, e.g. the UART smoketest:
   ```console
-  bazel query 'labels(data, //sw/device/tests:uart_smoketest_fpga_cw310)'
+  bazel query 'labels(data, //sw/device/tests:uart_smoketest_earlgrey_fpga_cw310)'
   ```
   or for any `opentitan_functest` target and `<device>` in {`sim_dv`, `sim_verilator`, `fpga_cw310`}
   ```console
@@ -91,7 +91,7 @@ This macro is called `opentitan_functest`.
   ```
 - Query the software artifacts built for the `opentitan_flash_binary` that is a dependency of an `opentitan_functest` for the `fpga_cw310` device, e.g. the UART smoketest:
   ```console
-  bazel query 'labels(srcs, //sw/device/tests:uart_smoketest_prog_fpga_cw310)'
+  bazel query 'labels(srcs, //sw/device/tests:uart_smoketest_earlgrey_prog_fpga_cw310)'
   ```
   or for any `opentitan_functest` `<target>` and `<device>` in {`sim_dv`, `sim_verilator`, `fpga_cw310`}
   ```console
@@ -174,15 +174,15 @@ However, only Verilator simulation and FPGA device software tests can be run wit
     --define DISABLE_VERILATOR_BUILD=true
     --test_tag_filters=cw310 \
     --test_output=streamed \
-    //sw/device/tests:uart_smoketest
+    //sw/device/tests:uart_smoketest_earlgrey
   ```
   or, remove the define/filtering flags and just append the `<device>` name like:
   ```console
-  bazel test --test_output=streamed //sw/device/tests:uart_smoketest_fpga_cw310
+  bazel test --test_output=streamed //sw/device/tests:uart_smoketest_earlgrey_fpga_cw310
   ```
   and similarly for Verilator:
   ```console
-  bazel test --test_output=streamed //sw/device/tests:uart_smoketest_sim_verilator
+  bazel test --test_output=streamed //sw/device/tests:uart_smoketest_earlgrey_sim_verilator
   ```
 
 # Linting Software
@@ -322,7 +322,7 @@ To avoid building it, use the
 `--define DISABLE_VERILATOR_BUILD=true` build option.
 For example, to build the UART smoke test artifacts but not the Verilator simulation binary run
 ```console
-bazel build --define DISABLE_VERILATOR_BUILD=true //sw/device/tests:uart_smoketest
+bazel build --define DISABLE_VERILATOR_BUILD=true //sw/device/tests:uart_smoketest_earlgrey
 ```
 
 ## Displaying Test Outputs in Real Time
@@ -330,7 +330,7 @@ bazel build --define DISABLE_VERILATOR_BUILD=true //sw/device/tests:uart_smokete
 By default, Bazel does not write test outputs to STDOUT.
 To see a test's output in real time, use the `--test_output=streamed` flag, like:
 ```console
-bazel test --test_output=streamed //sw/device/tests:uart_smoketest_fpga_cw310
+bazel test --test_output=streamed //sw/device/tests:uart_smoketest_earlgrey_fpga_cw310
 ```
 
 ## Filtering Broken Tests
