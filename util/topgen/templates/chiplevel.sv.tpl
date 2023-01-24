@@ -138,14 +138,21 @@ module chip_${top["name"]}_${target["name"]} #(
     trst_idx:          TrstNPadIdx,
     tdi_idx:           TdiPadIdx,
     tdo_idx:           TdoPadIdx,
-    tap_strap0_idx:    Tap0PadIdx,
-    tap_strap1_idx:    Tap1PadIdx,
-    dft_strap0_idx:    Dft0PadIdx,
-    dft_strap1_idx:    Dft1PadIdx,
+    //tap_strap0_idx:    Tap0PadIdx,
+    //tap_strap1_idx:    Tap1PadIdx,
+    //dft_strap0_idx:    Dft0PadIdx,
+    //dft_strap1_idx:    Dft1PadIdx,
+    tap_strap0_idx:    -1,
+    tap_strap1_idx:    -2,
+    dft_strap0_idx:    -3,
+    dft_strap1_idx:    -4,
     // TODO: check whether there is a better way to pass these USB-specific params
-    usb_dp_idx:        DioUsbdevUsbDp,
-    usb_dn_idx:        DioUsbdevUsbDn,
-    usb_sense_idx:     MioInUsbdevSense,
+    //usb_dp_idx:        DioUsbdevUsbDp,
+    //usb_dn_idx:        DioUsbdevUsbDn,
+    //usb_sense_idx:     MioInUsbdevSense,
+    usb_dp_idx:        -5,
+    usb_dn_idx:        -6,
+    usb_sense_idx:     -7,
     // Pad types for attribute WARL behavior
     dio_pad_type: {
 <%
@@ -1025,7 +1032,7 @@ module chip_${top["name"]}_${target["name"]} #(
 ###################################################################
 ## FPGA shared                                                   ##
 ###################################################################
-% if target["name"] in ["cw310", "cw305"]:
+% if target["name"] in ["cw310", "cw305", "arty_a35t"]:
   //////////////////
   // PLL for FPGA //
   //////////////////
@@ -1091,6 +1098,8 @@ module chip_${top["name"]}_${target["name"]} #(
     .SecAesAllowForcingMasks(1'b1),
     .SecAesSkipPRNGReseeding(1'b1),
     .UsbdevStub(1'b1),
+% elif target["name"] == "arty_a35t":
+    // .
 % else:
     .SecAesMasking(1'b0),
     .SecAesSBoxImpl(aes_pkg::SBoxImplLut),
