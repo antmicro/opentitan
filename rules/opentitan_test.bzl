@@ -143,13 +143,13 @@ def verilator_params(
     ]
     required_test_cmds = [
         "--interface=verilator",
-        "--verilator-bin=$(location @//hw:verilator)",
+        "--verilator-bin=$(location @//hw:verilator_earlgrey)",
         "--verilator-rom=$(location {rom})",
         "--verilator-flash=$(location {flash})",
         "--verilator-otp=$(location {otp})",
     ]
     required_data = [
-        "@//hw:verilator",
+        "@//hw:verilator_earlgrey",
         "@//hw:fusesoc_ignore",
     ]
     required_tags = ["verilator", "cpu:5"]

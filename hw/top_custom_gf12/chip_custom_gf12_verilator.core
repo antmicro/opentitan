@@ -2,7 +2,7 @@ CAPI=2:
 # Copyright lowRISC contributors.
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
-name: "lowrisc:systems:chip_custom_verilator:0.1"
+name: "lowrisc:systems:chip_custom_gf12_verilator:0.1"
 description: "Custom toplevel for simulation with Verilator"
 filesets:
   files_sim_verilator:
@@ -15,7 +15,7 @@ filesets:
       - lowrisc:systems:scan_role_pkg
 
     files:
-      - rtl/chip_custom_gf12_arty_a35t_verilator.sv: { file_type: systemVerilogSource }
+      - rtl/chip_custom_gf12_verilator.sv: { file_type: systemVerilogSource }
 
 parameters:
   AST_BYPASS_CLK:
@@ -33,7 +33,7 @@ targets:
     parameters:
       - IBEX_CUSTOM_PMP_RESET_VALUES
       - AST_BYPASS_CLK=true
-    toplevel: chip_earlgrey_verilator
+    toplevel: chip_custom_gf12_verilator
 
 
   lint:

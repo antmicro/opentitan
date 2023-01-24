@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
-load("//rules:fusesoc.bzl", "fusesoc_build")
+load("//rules:verilator.bzl", "verilator_build")
 
 # This configuration exposes fusesoc's "verilator_options" option to the
 # command line. This is intended to allow CI to specifically build a single
@@ -38,34 +38,6 @@ string_list_flag(
     ],
 )
 
-fusesoc_build(
-    name = "verilator_real",
-    srcs = [
-        ":all_files",
-    ],
-    cores = [
-        "//:cores",
-    ],
-    data = ["//hw/ip/otbn:all_files"],
-    make_options = ":make_options",
-    output_groups = {
-        "binary": ["sim-verilator/Vchip_sim_tb"],
-    },
-    systems = ["lowrisc:dv:chip_verilator_sim"],
-    tags = [
-        "manual",
-        "verilator",
-    ],
-    target = "sim",
-    verilator_options = ":verilator_options",
-)
-
-filegroup(
-    name = "verilator_bin",
-    srcs = [":verilator_real"],
-    output_group = "binary",
-)
-
 # This is used in CI steps that do not want to run Verilator tests, and thus
 # do not want to build the Verilated model. This causes the //hw:verilator
 # target to not emit any files, which will break any tests that rely on this;
@@ -88,16 +60,6 @@ genrule(
     """,
 )
 
-alias(
-    name = "verilator",
-    actual = select({
-        ":disable_verilator_build": ":verilator_stub",
-        "//conditions:default": ":verilator_bin",
-    }),
-    tags = ["verilator"],
-    visibility = ["//visibility:public"],
-)
-
 genrule(
     name = "fusesoc_ignore",
     outs = ["FUSESOC_IGNORE"],
@@ -105,6 +67,19 @@ genrule(
         touch $@
     """,
     visibility = ["//visibility:public"],
+)
+
+# Add Verilator targets
+verilator_build(
+    config = "earlgrey"
+)
+
+verilator_build(
+    config = "englishbreakfast"
+)
+
+verilator_build(
+    config = "custom_gf12"
 )
 
 # TODO(lowRISC/opentitan#7972): Globbing all of the //hw/... hierarchy together

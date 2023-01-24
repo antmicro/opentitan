@@ -26,7 +26,7 @@ module chip_sim_tb (
   logic cio_usbdev_dp_p2d, cio_usbdev_dp_d2p, cio_usbdev_dp_en_d2p;
   logic cio_usbdev_dn_p2d, cio_usbdev_dn_d2p, cio_usbdev_dn_en_d2p;
 
-  chip_earlgrey_verilator u_dut (
+  chip_custom_gf12_verilator u_dut (
     .clk_i,
     .rst_ni,
 

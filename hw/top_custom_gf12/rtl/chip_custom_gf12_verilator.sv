@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
 // SPDX-License-Identifier: Apache-2.0
 
-module chip_earlgrey_verilator (
+module chip_custom_gf12_verilator (
   // Clock and Reset
   input clk_i,
   input rst_ni,
@@ -499,12 +499,12 @@ module chip_earlgrey_verilator (
   logic [rstmgr_pkg::PowerDomains-1:0] por_n;
   assign por_n = {ast_pwst.main_pok, ast_pwst.aon_pok};
 
-  top_earlgrey #(
+  top_custom_gf12 #(
     .PinmuxAonTargetCfg(PinmuxTargetCfg),
     .SecAesAllowForcingMasks(1'b1),
     .SramCtrlMainInstrExec(1),
     .SramCtrlRetAonInstrExec(0)
-  ) top_earlgrey (
+  ) top_custom_gf12 (
     // update por / reset connections, this is not quite right here
     .por_n_i                      (por_n             ),
     .clk_main_i                   (clk_i             ),
@@ -592,4 +592,4 @@ module chip_earlgrey_verilator (
     .scanmode_i                   ( scanmode                   )
   );
 
-endmodule : chip_earlgrey_verilator
+endmodule : chip_custom_gf12_verilator
