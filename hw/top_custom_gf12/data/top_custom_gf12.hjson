@@ -1235,8 +1235,8 @@
           { name: 'tdo',    pad: 'IOR1', desc: 'JTAG tdo signal.'    },
         ],
       }
-    }
-  { name: 'arty_a35',
+    },
+  { name: 'arty_a35t',
 
       pinout: {
         remove_ports: [],
@@ -1278,5 +1278,6 @@
           { name: 'tdo',    pad: 'IOR1', desc: 'JTAG tdo signal.'    },
         ],
       }
-    }  ]
+    }
+  ]
 }

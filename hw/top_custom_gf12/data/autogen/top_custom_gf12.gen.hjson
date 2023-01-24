@@ -9401,7 +9401,7 @@
       }
     }
     {
-      name: arty_a35
+      name: arty_a35t
       pinout:
       {
         remove_ports: []

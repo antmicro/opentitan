@@ -20,7 +20,7 @@ filesets:
   files_constraints:
     files:
       - data/clocks.xdc
-      - data/pins_arty_a35.xdc
+      - data/pins_arty_a35t.xdc
       - data/placement.xdc
     file_type: xdc
 
