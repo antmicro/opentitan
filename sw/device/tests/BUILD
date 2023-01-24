@@ -1902,7 +1902,7 @@ opentitan_functest(
     srcs = ["uart_smoketest.c"],
     soc_config = "custom_gf12",
     deps = [
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//hw/top_custom_gf12/sw/autogen:top_custom_gf12",
         "//sw/device/lib/arch:device",
         "//sw/device/lib/base:mmio",
         "//sw/device/lib/dif:uart",

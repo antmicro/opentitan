@@ -7,19 +7,19 @@ load("//rules:linker.bzl", "ld_library")
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
-    name = "top_earlgrey",
+    name = "top_custom_gf12",
     srcs = [
-        "top_earlgrey.c",
+        "top_custom_gf12.c",
     ],
     hdrs = [
-        "top_earlgrey.h",
-        "top_earlgrey_memory.h",
+        "top_custom_gf12.h",
+        "top_custom_gf12_memory.h",
     ],
 )
 
 ld_library(
-    name = "top_earlgrey_memory",
-    includes = ["top_earlgrey_memory.ld"],
+    name = "top_custom_gf12_memory",
+    includes = ["top_custom_gf12_memory.ld"],
 )
 
 filegroup(
