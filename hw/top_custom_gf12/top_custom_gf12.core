@@ -18,7 +18,9 @@ filesets:
       - lowrisc:ip:tlul
       - lowrisc:ip:spi_host
       - lowrisc:ip:i2c
+      - lowrisc:ip:pattgen
       - lowrisc:ip:usbdev
+      - lowrisc:ip:edn
       - lowrisc:ip:otbn
       - lowrisc:prim:ram_1p_scr
       - lowrisc:prim:flash
@@ -26,6 +28,8 @@ filesets:
       - lowrisc:ip:sram_ctrl
       - lowrisc:constants:top_pkg
       - lowrisc:constants:jtag_id_pkg
+      - lowrisc:ip:otp_ctrl
+      - lowrisc:ip:lc_ctrl
       - lowrisc:top_earlgrey:xbar_main
       - lowrisc:top_earlgrey:xbar_peri
       - lowrisc:ip:rstmgr

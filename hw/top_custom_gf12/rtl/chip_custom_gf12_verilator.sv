@@ -63,23 +63,14 @@ module chip_custom_gf12_verilator (
     dio_in[DioUsbdevUsbDn] = cio_usbdev_dn_p2d_i;
   end
 
-  // USB
-  logic usb_dp_pullup;
-  logic usb_dn_pullup;
-  logic usb_rx_d;
-  logic usb_tx_d;
-  logic usb_tx_se0;
-  logic usb_tx_use_d_se0;
-  logic usb_rx_enable;
-
-  assign usb_rx_d = cio_usbdev_d_p2d_i;
-  assign cio_usbdev_d_d2p_o  = usb_tx_d;
-  assign cio_usbdev_d_en_d2p_o = dio_oe[DioUsbdevUsbDp];
-  assign cio_usbdev_dn_pullup_d2p_o = usb_dn_pullup;
-  assign cio_usbdev_dp_pullup_d2p_o = usb_dp_pullup;
-  assign cio_usbdev_se0_d2p_o = usb_tx_se0;
-  assign cio_usbdev_rx_enable_d2p_o = usb_rx_enable;
-  assign cio_usbdev_tx_use_d_se0_d2p_o = usb_tx_use_d_se0;
+  // USB (not used)
+  assign cio_usbdev_d_d2p_o  = 1'b0;
+  assign cio_usbdev_d_en_d2p_o = 1'b0;
+  assign cio_usbdev_dn_pullup_d2p_o = 1'b0;
+  assign cio_usbdev_dp_pullup_d2p_o = 1'b0;
+  assign cio_usbdev_se0_d2p_o = 1'b0;
+  assign cio_usbdev_rx_enable_d2p_o = 1'b0;
+  assign cio_usbdev_tx_use_d_se0_d2p_o = 1'b0;
 
   assign cio_usbdev_dp_d2p_o = dio_out[DioUsbdevUsbDp];
   assign cio_usbdev_dp_en_d2p_o = dio_oe[DioUsbdevUsbDp];
@@ -501,7 +492,7 @@ module chip_custom_gf12_verilator (
 
   top_custom_gf12 #(
     .PinmuxAonTargetCfg(PinmuxTargetCfg),
-    .SecAesAllowForcingMasks(1'b1),
+    //.SecAesAllowForcingMasks(1'b1),
     .SramCtrlMainInstrExec(1),
     .SramCtrlRetAonInstrExec(0)
   ) top_custom_gf12 (
@@ -515,18 +506,18 @@ module chip_custom_gf12_verilator (
     .clks_ast_o                   (clkmgr_aon_clocks ),
     .clk_main_jitter_en_o         ( jen              ),
     .rsts_ast_o                   ( rstmgr_aon_resets),
-    .sck_monitor_o                ( sck_monitor      ),
+    //.sck_monitor_o                ( sck_monitor      ),
     .pwrmgr_ast_req_o             ( base_ast_pwr     ),
     .pwrmgr_ast_rsp_i             ( ast_base_pwr     ),
     .sensor_ctrl_ast_alert_req_i  ( ast_alert_req    ),
     .sensor_ctrl_ast_alert_rsp_o  ( ast_alert_rsp    ),
     .sensor_ctrl_ast_status_i     ( ast_pwst.io_pok  ),
-    .usbdev_usb_ref_val_o         ( usb_ref_val      ),
-    .usbdev_usb_ref_pulse_o       ( usb_ref_pulse    ),
+    //.usbdev_usb_ref_val_o         ( usb_ref_val      ),
+    //.usbdev_usb_ref_pulse_o       ( usb_ref_pulse    ),
     .ast_tl_req_o                 ( base_ast_bus     ),
     .ast_tl_rsp_i                 ( ast_base_bus     ),
-    .adc_req_o                    ( adc_req          ),
-    .adc_rsp_i                    ( adc_rsp          ),
+    //.adc_req_o                    ( adc_req          ),
+    //.adc_rsp_i                    ( adc_rsp          ),
     .ast_edn_req_i                ( ast_edn_edn_req  ),
     .ast_edn_rsp_o                ( ast_edn_edn_rsp  ),
     .otp_ctrl_otp_ast_pwr_seq_o   ( otp_ctrl_otp_ast_pwr_seq   ),
@@ -534,9 +525,9 @@ module chip_custom_gf12_verilator (
     .flash_bist_enable_i          ( flash_bist_enable          ),
     .flash_power_down_h_i         ( flash_power_down_h         ),
     .flash_power_ready_h_i        ( flash_power_ready_h        ),
-    .es_rng_req_o                 ( es_rng_req                 ),
-    .es_rng_rsp_i                 ( es_rng_rsp                 ),
-    .es_rng_fips_o                ( es_rng_fips                ),
+    //.es_rng_req_o                 ( es_rng_req                 ),
+    //.es_rng_rsp_i                 ( es_rng_rsp                 ),
+    //.es_rng_fips_o                ( es_rng_fips                ),
     .all_clk_byp_req_o            ( all_clk_byp_req            ),
     .all_clk_byp_ack_i            ( all_clk_byp_ack            ),
     .io_clk_byp_req_o             ( io_clk_byp_req             ),
@@ -546,15 +537,6 @@ module chip_custom_gf12_verilator (
     .ast2pinmux_i                 ( ast2pinmux                 ),
     .calib_rdy_i                  ( ast_init_done              ),
     .ast_init_done_i              ( ast_init_done              ),
-
-    // USB signals
-    .usb_dp_pullup_en_o           (usb_dp_pullup),
-    .usb_dn_pullup_en_o           (usb_dn_pullup),
-    .usbdev_usb_rx_d_i            (usb_rx_d),
-    .usbdev_usb_tx_d_o            (usb_tx_d),
-    .usbdev_usb_tx_se0_o          (usb_tx_se0),
-    .usbdev_usb_tx_use_d_se0_o    (usb_tx_use_d_se0),
-    .usbdev_usb_rx_enable_o       (usb_rx_enable),
 
     // Flash test mode voltages
     .flash_test_mode_a_io         ( ),
@@ -591,5 +573,13 @@ module chip_custom_gf12_verilator (
     .scan_en_i                    ( scan_en                    ),
     .scanmode_i                   ( scanmode                   )
   );
+
+  // Unused
+  assign usb_ref_val    = 1'b0;
+  assign usb_ref_pulse  = 1'b0;
+  assign sck_monitor_o  = 1'b0;
+  assign adc_req        = 1'b0;
+  assign en_rng_req     = 1'b0;
+  assign en_rng_fips    = 1'b0;
 
 endmodule : chip_custom_gf12_verilator
