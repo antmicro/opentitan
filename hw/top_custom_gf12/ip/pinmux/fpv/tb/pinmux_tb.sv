@@ -9,7 +9,7 @@ module pinmux_tb
   import pinmux_pkg::*;
   import pinmux_reg_pkg::*;
   import prim_pad_wrapper_pkg::*;
-  import top_earlgrey_pkg::*;
+  import top_custom_gf12_pkg::*;
 #(
   parameter logic [NumAlerts-1:0] AlertAsyncOn = {NumAlerts{1'b1}}
 ) (
@@ -65,7 +65,7 @@ module pinmux_tb
   input [NDioPads-1:0] dio_in_i
 );
 
-  import top_earlgrey_pkg::*;
+  import top_custom_gf12_pkg::*;
 
   // Copied from chip_earlgrey_asic.sv
   // TODO: find a better way to automatically generate this FPV testbench via topgen/ipgen.

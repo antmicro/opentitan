@@ -7,6 +7,6 @@ package(default_visibility = ["//visibility:public"])
 filegroup(
     name = "all_files",
     srcs = glob(["**"]) + [
-        "//hw/top_earlgrey/ip/pinmux/data:all_files",
+        "//hw/top_custom_gf12/ip/pinmux/data:all_files",
     ],
 )

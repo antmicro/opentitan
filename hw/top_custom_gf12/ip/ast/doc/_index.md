@@ -1150,7 +1150,7 @@ ensure they cannot be hard-wired or faulted to either '1' or
 
 Inside the sensor controller, the events are then converted into alerts
 as part of the wider [<u>OpenTitan alert handling
-system</u>](https://docs.opentitan.org/hw/top_earlgrey/ip_autogen/alert_handler/doc/).
+system</u>](https://docs.opentitan.org/hw/top_custom_gf12/ip_autogen/alert_handler/doc/).
 
 ## Alert Signaling
 
