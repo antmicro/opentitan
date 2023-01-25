@@ -305,6 +305,7 @@ def elab_intermodule(topcfg: OrderedDict):
 
     # TODO: Cross check Can be done here not in validate as ipobj is not
     # available in validate
+    print(topcfg)
     error = check_intermodule(topcfg, "Inter-module Check")
     assert error == 0, "Inter-module validation is failed cannot move forward."
 
@@ -618,14 +619,14 @@ def check_intermodule_field(sig: OrderedDict,
     error = 0
 
     # type check
-    if sig["type"] not in IM_TYPES:
+    if sig is not None and sig["type"] not in IM_TYPES:
         log.error("{prefix} Inter_signal {name} "
                   "type {type} is incorrect.".format(prefix=prefix,
                                                      name=sig["name"],
                                                      type=sig["type"]))
         error += 1
 
-    if sig["act"] not in IM_ACTS:
+    if sig is not None and sig["act"] not in IM_ACTS:
         log.error("{prefix} Inter_signal {name} "
                   "act {act} is incorrect.".format(prefix=prefix,
                                                    name=sig["name"],

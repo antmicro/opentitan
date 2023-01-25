@@ -494,15 +494,17 @@ class TopGenC:
             gateable_clocks.add_constant(clock_name, docstring)
         gateable_clocks.add_last_constant("Last Valid Gateable Clock")
 
-        for name in by_type.hint_clks.keys():
-            # All these clocks start with `clk_` which is redundant.
-            clock_name = Name.from_snake_case(name).remove_part("clk")
-            docstring = "Clock {} in group {}".format(name, c2g[name].name)
-            hintable_clocks.add_constant(clock_name, docstring)
-        hintable_clocks.add_last_constant("Last Valid Hintable Clock")
+        if len(by_type.hint_clks) > 0:
+            for name in by_type.hint_clks.keys():
+                # All these clocks start with `clk_` which is redundant.
+                clock_name = Name.from_snake_case(name).remove_part("clk")
+                docstring = "Clock {} in group {}".format(name, c2g[name].name)
+                hintable_clocks.add_constant(clock_name, docstring)
+            hintable_clocks.add_last_constant("Last Valid Hintable Clock")
 
         self.clkmgr_gateable_clocks = gateable_clocks
-        self.clkmgr_hintable_clocks = hintable_clocks
+        if len(by_type.hint_clks) > 0:
+            self.clkmgr_hintable_clocks = hintable_clocks
 
     def _init_mmio_region(self):
         """

@@ -523,7 +523,9 @@ from topgen.lib import Name
     alert_tx_o[1])
 % endfor
   assign hw2reg.fatal_err_code.idle_cnt.d = 1'b1;
+% if len(typed_clocks.hint_clks.items()) > 0:
   assign hw2reg.fatal_err_code.idle_cnt.de = |idle_cnt_err;
+% endif
 
   // state readback
 % if len(typed_clocks.hint_clks.items()) > 1:

@@ -718,7 +718,8 @@ def connect_clocks(top, name_to_block: Dict[str, IpBlock]):
 
         clkmgr_idle.append(ep_name + '.' + idle_signal)
 
-    top['inter_module']['connect']['{}.idle'.format(clkmgr_name)] = clkmgr_idle
+    if len(clkmgr_idle) > 0:
+        top['inter_module']['connect']['{}.idle'.format(clkmgr_name)] = clkmgr_idle
 
 
 def amend_resets(top, name_to_block):

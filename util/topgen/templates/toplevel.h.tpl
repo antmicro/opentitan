@@ -195,6 +195,7 @@ ${helper.pwrmgr_reset_requests.render()}
  */
 ${helper.clkmgr_gateable_clocks.render()}
 
+% if hasattr(helper, "clkmgr_hintable_clocks"):
 /**
  * Clock Manager Software-Hinted Clocks.
  *
@@ -202,6 +203,7 @@ ${helper.clkmgr_gateable_clocks.render()}
  * but the clock manager is in control of whether the clock actually is stopped.
  */
 ${helper.clkmgr_hintable_clocks.render()}
+% endif
 
 /**
  * MMIO Region
