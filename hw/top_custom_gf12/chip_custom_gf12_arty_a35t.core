@@ -97,7 +97,7 @@ targets:
       - AST_BYPASS_CLK=true
     tools:
       vivado:
-        part: "xc7a35tcsg324-1" # Arty A35 with A35T
+        part: "xc7a100tcsg324-1" # Arty A35 with A35T
 
   lint:
     <<: *default_target
