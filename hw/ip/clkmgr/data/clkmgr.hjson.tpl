@@ -181,6 +181,8 @@
       act:     "rsp",
     },
 
+
+% if len(hint_names) > 0:
     { struct:  "mubi4",
       type:    "uni",
       name:    "idle",
@@ -188,6 +190,7 @@
       package: "prim_mubi_pkg",
       width:   "${len(hint_names)}"
     },
+% endif
 
     { struct:  "mubi4",
       desc:    "Indicates clocks are calibrated and frequencies accurate",
@@ -422,7 +425,8 @@
       swaccess: "rw",
       hwaccess: "hro",
       fields: [
-% for clk in hint_names.keys():
+% if len(hint_names) > 0:
+  % for clk in hint_names.keys():
         {
           bits: "${loop.index}",
           name: "${clk.upper()}_HINT",
@@ -432,7 +436,10 @@
             1 ${clk.upper()} is enabled.
           '''
         }
-% endfor
+  % endfor
+% else:
+        { bits: "0", resval: "1" }
+% endif
       ]
       // the CLK_HINT register cannot be written.
       // During top level randomized tests, it is possible to disable the clocks to transactional blocks
@@ -449,7 +456,8 @@
       swaccess: "ro",
       hwaccess: "hwo",
       fields: [
-% for clk in hint_names.keys():
+% if len(hint_names) > 0:
+  % for clk in hint_names.keys():
         {
           bits: "${loop.index}",
           name: "${clk.upper()}_VAL",
@@ -459,7 +467,10 @@
             1 ${clk.upper()} is enabled.
           '''
         }
-% endfor
+  % endfor
+% else:
+        { bits: "0", resval: "1" }
+% endif
       ]
       // the CLK_HINT_STATUS register is read-only and cannot be checked.
       // This register's value depends on the IDLE inputs, so cannot be predicted.

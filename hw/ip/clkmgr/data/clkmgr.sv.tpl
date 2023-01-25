@@ -60,9 +60,11 @@ from topgen.lib import Name
   // dft interface
   input prim_mubi_pkg::mubi4_t scanmode_i,
 
+% if len(typed_clocks.hint_clks) > 0:
   // idle hints
   // SEC_CM: IDLE.INTERSIG.MUBI
   input prim_mubi_pkg::mubi4_t [${len(typed_clocks.hint_clks)-1}:0] idle_i,
+% endif
 
   // life cycle state output
   // SEC_CM: LC_CTRL.INTERSIG.MUBI
@@ -480,7 +482,9 @@ from topgen.lib import Name
   // clock target
   ////////////////////////////////////////////////////
 
+% if len(typed_clocks.hint_clks) > 0:
   logic [${len(typed_clocks.hint_clks)-1}:0] idle_cnt_err;
+% endif
 % for clk, sig in typed_clocks.hint_clks.items():
 <%assert_name = Name.from_snake_case(clk)
 %>
