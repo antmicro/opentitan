@@ -29,12 +29,6 @@
       reset:     "rst_peri_ni",
       pipeline:  false
     },
-    { name:      "pattgen",
-      type:      "device",
-      clock:     "clk_peri_i",
-      reset:     "rst_peri_ni",
-      pipeline:  false
-    },
     { name:      "gpio",
       type:      "device",
       clock:     "clk_peri_i",
@@ -134,7 +128,7 @@
   ],
   connections: {
     main:  [
-      "uart0", "i2c0", "pattgen",
+      "uart0", "i2c0",
       "gpio", "rv_timer",
       "pwrmgr_aon", "rstmgr_aon", "clkmgr_aon", "pinmux_aon",
       "otp_ctrl.core", "otp_ctrl.prim", "lc_ctrl", "sensor_ctrl",
