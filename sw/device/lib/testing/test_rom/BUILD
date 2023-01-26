@@ -27,6 +27,7 @@ ld_library(
 
 opentitan_rom_binary(
     name = "test_rom",
+    soc_configs = ["earlgrey", "custom_gf12"],
     deps = [
         ":linker_script",
         ":test_rom_lib",

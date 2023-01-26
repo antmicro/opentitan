@@ -335,30 +335,24 @@ elf_to_disassembly = rv_rule(
 
 def _elf_to_scrambled_rom_impl(ctx):
     outputs = []
-    for src in ctx.files.srcs:
-        if src.extension != "elf":
-            fail("only ROM images in the ELF format may be converted to the VMEM format and scrambled.")
-        scrambled = ctx.actions.declare_file(
-            "{}.39.scr.vmem".format(
-                # Remove ".elf" from file basename.
-                src.basename.replace("." + src.extension, ""),
-            ),
-        )
-        outputs.append(scrambled)
-        ctx.actions.run(
-            outputs = [scrambled],
-            inputs = [
-                src,
-                ctx.executable._scramble_tool,
-                ctx.file._config,
-            ],
-            arguments = [
-                ctx.file._config.path,
-                src.path,
-                scrambled.path,
-            ],
-            executable = ctx.executable._scramble_tool,
-        )
+    if ctx.file.elf.extension != "elf":
+        fail("only ROM images in the ELF format may be converted to the VMEM format and scrambled.")
+    scrambled = ctx.actions.declare_file(ctx.attr.vmem)
+    outputs.append(scrambled)
+    ctx.actions.run(
+        outputs = [scrambled],
+        inputs = [
+            ctx.file.elf,
+            ctx.executable._scramble_tool,
+            ctx.file.hjson
+        ],
+        arguments = [
+            ctx.file.hjson.path,
+            ctx.file.elf.path,
+            scrambled.path,
+        ],
+        executable = ctx.executable._scramble_tool,
+    )
     return [DefaultInfo(
         files = depset(outputs),
         data_runfiles = ctx.runfiles(files = outputs),
@@ -367,16 +361,14 @@ def _elf_to_scrambled_rom_impl(ctx):
 elf_to_scrambled_rom_vmem = rv_rule(
     implementation = _elf_to_scrambled_rom_impl,
     attrs = {
-        "srcs": attr.label_list(allow_files = True),
+        "elf": attr.label(mandatory = True, allow_single_file = True),
+        "vmem": attr.string(mandatory = True),
+        "hjson": attr.label(mandatory = True, allow_single_file = True),
         "_scramble_tool": attr.label(
             default = "@//hw/ip/rom_ctrl/util:scramble_image",
             executable = True,
             cfg = "exec",
-        ),
-        "_config": attr.label(
-            default = "@//hw/top_earlgrey/data:autogen/top_earlgrey.gen.hjson",
-            allow_single_file = True,
-        ),
+        )
     },
 )
 
@@ -694,6 +686,8 @@ def opentitan_binary(
 
 def opentitan_rom_binary(
         name,
+        suffix = None,
+        soc_configs = ['earlgrey'],
         devices = PER_DEVICE_DEPS.keys(),
         platform = OPENTITAN_PLATFORM,
         testonly = True,
@@ -706,26 +700,31 @@ def opentitan_rom_binary(
     macro and those listed below.
     Args:
       @param name: The name of this rule.
+      @param soc_config: Name of the SoC config (eg. 'earlgrey')
       @param devices: List of devices to build the target for.
       @param platform: The target platform for the artifacts.
       @param **kwargs: Arguments to forward to `opentitan_binary`.
     Emits rules:
       For each device in per_device_deps entry:
         rules emitted by `opentitan_binary` named: see `opentitan_binary` macro
-        bin_to_rom_vmem                     named: <name>_<device>_vmem
-        elf_to_scrambled_rom_vmem           named: <name>_<device>_scr_vmem
-        filegroup                           named: <name>_<device>
+        bin_to_rom_vmem                     named: <name>_<soc_config>_<device>_vmem
+        elf_to_scrambled_rom_vmem           named: <name>_<soc_config>_<device>_scr_vmem
+        filegroup                           named: <name>_<soc_config>_<device>
           Containing all targets for a single device for the above generated rules.
-        filegroup                           named: <name>
+        filegroup                           named: <name>_<soc_config>
           Containing all targets across all devices for the above generated rules.
     """
+    kwargs.pop("soc_configs", "") # Prevent passing this param downstream
     deps = kwargs.pop("deps", [])
     all_targets = []
     for device in devices:
         if device not in PER_DEVICE_DEPS:
             fail("invalid device; device must be in {}".format(PER_DEVICE_DEPS.keys()))
         dev_deps = PER_DEVICE_DEPS[device]
-        devname = "{}_{}".format(name, device)
+        if suffix != None:
+            devname = "{}_{}_{}".format(name, suffix, device)
+        else:
+            devname = "{}_{}".format(name, device)
         dev_targets = []
 
         # Generate ELF, Binary, Disassembly, and (maybe) sim_dv logs database
@@ -753,22 +752,36 @@ def opentitan_rom_binary(
             word_size = 32,
         )
 
-        # Generate Scrambled ROM VMEM
-        scr_vmem_name = "{}_scr_vmem".format(devname)
-        dev_targets.append(":" + scr_vmem_name)
-        elf_to_scrambled_rom_vmem(
-            name = scr_vmem_name,
-            srcs = [elf_name],
-            platform = platform,
-            testonly = testonly,
-        )
+        # Generate Scrambled ROM VMEM(s)
+        for soc_config in soc_configs:
 
-        # Create a filegroup with just the current device's targets.
-        native.filegroup(
-            name = devname,
-            srcs = dev_targets,
-            testonly = testonly,
-        )
+            if suffix != None:
+                base_name = "{}_{}_{}_{}".format(name, soc_config, suffix, device)
+            else:
+                base_name = "{}_{}_{}".format(name, soc_config, device)
+
+            scr_vmem_name = "{}_scr_vmem".format(base_name)
+            scr_vmem_file = "{}.39.scr.vmem".format(base_name)
+
+            dev_targets.append(":" + scr_vmem_name)
+            hjson = "@//hw/top_{c}/data:autogen/top_{c}.gen.hjson".format(c=soc_config)
+
+            elf_to_scrambled_rom_vmem(
+                name = scr_vmem_name,
+                vmem = scr_vmem_file,
+                elf = elf_name,
+                hjson = hjson,
+                platform = platform,
+                testonly = testonly,
+            )
+
+            # Create a filegroup with just the current device's targets.
+            native.filegroup(
+                name = base_name,
+                srcs = dev_targets,
+                testonly = testonly,
+            )
+
         all_targets.extend(dev_targets)
 
     # Create a filegroup with just all targets from all devices.
@@ -921,6 +934,7 @@ def opentitan_flash_binary(
     macro and those listed below.
     Args:
       @param name: The name of this rule.
+      @param soc_config: Name of the SoC config (eg. 'earlgrey')
       @param devices: List of devices to build the target for.
       @param platform: The target platform for the artifacts.
       @param signing_keys: The signing keys for to sign each BIN file with.

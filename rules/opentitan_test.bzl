@@ -89,7 +89,8 @@ def dv_params(
     required_data = [
         dvsim_config,
         "@//util/dvsim",
-        "@//hw:all_" + soc_config + "_files",
+        "@//hw/ip:all_files",
+        "@//hw/top_" + soc_config + ":all_files",
         "@//hw:fusesoc_ignore",
     ]
     required_tags = ["dv"]
@@ -363,7 +364,9 @@ def opentitan_functest(
             fail("Tests that run in ROM stage cannot run on FPGA.")
         ot_flash_binary = name + "_" + soc_config + "_rom_prog"
         opentitan_rom_binary(
-            name = ot_flash_binary,
+            name = name,
+            suffix = "_rom_prog",
+            soc_configs = [soc_config],
             deps = deps,
             devices = devices_to_build_for,
             testonly = True,
@@ -426,13 +429,20 @@ def opentitan_functest(
                 rom = "{}_scr_vmem".format(rom_filegroup)
             else:
                 rom_label = Label(rom)
-                rom_filegroup = "@{}//{}:{}_{}".format(
+                rom_filegroup = "@{}//{}:{}_{}_{}".format(
                     rom_label.workspace_name,
                     rom_label.package,
                     rom_label.name,
+                    soc_config,
                     target,
                 )
-                rom = "{}_scr_vmem".format(rom_filegroup)
+                rom = "@{}//{}:{}_{}_{}_scr_vmem".format(
+                    rom_label.workspace_name,
+                    rom_label.package,
+                    rom_label.name,
+                    soc_config,
+                    target,
+                )
             target_data.append(rom)
             target_data.append(rom_filegroup)
 
