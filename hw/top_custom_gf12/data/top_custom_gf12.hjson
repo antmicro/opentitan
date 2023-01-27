@@ -488,8 +488,8 @@
           byte_write: "False",
           config: {
             type: "flash",
-            banks: 2,
-            pages_per_bank: 256,
+            banks: 1,
+            pages_per_bank: 128,
             program_resolution: 8, // maximum number of flash words allowed to program at one time
           }
         }
