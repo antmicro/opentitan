@@ -271,6 +271,16 @@ package top_custom_gf12_pkg;
   parameter int unsigned TOP_CUSTOM_GF12_RV_PLIC_SIZE_BYTES = 32'h8000000;
 
   /**
+   * Peripheral base address for kmac in top custom_gf12.
+   */
+  parameter int unsigned TOP_CUSTOM_GF12_KMAC_BASE_ADDR = 32'h41120000;
+
+  /**
+   * Peripheral size in bytes for kmac in top custom_gf12.
+   */
+  parameter int unsigned TOP_CUSTOM_GF12_KMAC_SIZE_BYTES = 32'h2;
+
+  /**
    * Peripheral base address for otbn in top custom_gf12.
    */
   parameter int unsigned TOP_CUSTOM_GF12_OTBN_BASE_ADDR = 32'h41130000;
@@ -689,6 +699,7 @@ package top_custom_gf12_pkg;
     PeripheralFlashCtrl,
     PeripheralGpio,
     PeripheralI2c0,
+    PeripheralKmac,
     PeripheralLcCtrl,
     PeripheralOtbn,
     PeripheralOtpCtrl,

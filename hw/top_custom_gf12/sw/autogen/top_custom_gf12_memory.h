@@ -506,6 +506,23 @@
  */
 #define TOP_CUSTOM_GF12_RV_PLIC_SIZE_BYTES 0x8000000
 /**
+ * Peripheral base address for kmac in top custom_gf12.
+ *
+ * This should be used with #mmio_region_from_addr to access the memory-mapped
+ * registers associated with the peripheral (usually via a DIF).
+ */
+#define TOP_CUSTOM_GF12_KMAC_BASE_ADDR 0x41120000
+
+/**
+ * Peripheral size for kmac in top custom_gf12.
+ *
+ * This is the size (in bytes) of the peripheral's reserved memory area. All
+ * memory-mapped registers associated with this peripheral should have an
+ * address between #TOP_CUSTOM_GF12_KMAC_BASE_ADDR and
+ * `TOP_CUSTOM_GF12_KMAC_BASE_ADDR + TOP_CUSTOM_GF12_KMAC_SIZE_BYTES`.
+ */
+#define TOP_CUSTOM_GF12_KMAC_SIZE_BYTES 0x2
+/**
  * Peripheral base address for otbn in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped

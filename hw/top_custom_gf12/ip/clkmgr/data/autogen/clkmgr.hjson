@@ -60,7 +60,7 @@
     { name: "NumHintableClocks",
       desc: "Number of hintable clocks",
       type: "int",
-      default: "1",
+      default: "2",
       local: "true"
     },
   ],
@@ -163,7 +163,7 @@
       name:    "idle",
       act:     "rcv",
       package: "prim_mubi_pkg",
-      width:   "1"
+      width:   "2"
     },
 
     { struct:  "mubi4",
@@ -417,6 +417,15 @@
       fields: [
         {
           bits: "0",
+          name: "CLK_MAIN_KMAC_HINT",
+          resval: 1,
+          desc: '''
+            0 CLK_MAIN_KMAC can be disabled.
+            1 CLK_MAIN_KMAC is enabled.
+          '''
+        }
+        {
+          bits: "1",
           name: "CLK_MAIN_OTBN_HINT",
           resval: 1,
           desc: '''
@@ -442,6 +451,15 @@
       fields: [
         {
           bits: "0",
+          name: "CLK_MAIN_KMAC_VAL",
+          resval: 1,
+          desc: '''
+            0 CLK_MAIN_KMAC is disabled.
+            1 CLK_MAIN_KMAC is enabled.
+          '''
+        }
+        {
+          bits: "1",
           name: "CLK_MAIN_OTBN_VAL",
           resval: 1,
           desc: '''

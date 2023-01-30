@@ -46,6 +46,7 @@ module top_custom_gf12 #(
   // parameters for rv_dm
   parameter logic [31:0] RvDmIdcodeValue = jtag_id_pkg::JTAG_IDCODE,
   // parameters for rv_plic
+  // parameters for kmac
   // parameters for otbn
   parameter bit OtbnStub = 0,
   parameter otbn_pkg::regfile_e OtbnRegFile = otbn_pkg::RegFileFF,
@@ -245,6 +246,7 @@ module top_custom_gf12 #(
   logic        cio_flash_ctrl_tdo_en_d2p;
   // rv_dm
   // rv_plic
+  // kmac
   // otbn
   // edn0
   // edn1
@@ -348,7 +350,9 @@ module top_custom_gf12 #(
   edn_pkg::edn_rsp_t [7:0] edn1_edn_rsp;
   otp_ctrl_pkg::otbn_otp_key_req_t       otp_ctrl_otbn_otp_key_req;
   otp_ctrl_pkg::otbn_otp_key_rsp_t       otp_ctrl_otbn_otp_key_rsp;
-  prim_mubi_pkg::mubi4_t       clkmgr_aon_idle;
+  kmac_pkg::app_req_t [1:0] kmac_app_req;
+  kmac_pkg::app_rsp_t [1:0] kmac_app_rsp;
+  prim_mubi_pkg::mubi4_t [1:0] clkmgr_aon_idle;
   jtag_pkg::jtag_req_t       pinmux_aon_lc_jtag_req;
   jtag_pkg::jtag_rsp_t       pinmux_aon_lc_jtag_rsp;
   jtag_pkg::jtag_req_t       pinmux_aon_rv_jtag_req;
@@ -603,9 +607,12 @@ module top_custom_gf12 #(
   // secure_lc_0
   assign lpg_cg_en[13] = clkmgr_aon_cg_en.main_secure;
   assign lpg_rst_en[13] = rstmgr_aon_rst_en.lc[rstmgr_pkg::Domain0Sel];
-  // otbn_trans_lc_0
-  assign lpg_cg_en[14] = clkmgr_aon_cg_en.main_otbn;
+  // kmac_trans_lc_0
+  assign lpg_cg_en[14] = clkmgr_aon_cg_en.main_kmac;
   assign lpg_rst_en[14] = rstmgr_aon_rst_en.lc[rstmgr_pkg::Domain0Sel];
+  // otbn_trans_lc_0
+  assign lpg_cg_en[15] = clkmgr_aon_cg_en.main_otbn;
+  assign lpg_rst_en[15] = rstmgr_aon_rst_en.lc[rstmgr_pkg::Domain0Sel];
 
 // tie-off unused connections
 //VCS coverage off
@@ -948,8 +955,8 @@ module top_custom_gf12 #(
       .otp_lc_data_i(otp_ctrl_otp_lc_data),
       .lc_otp_program_o(lc_ctrl_lc_otp_program_req),
       .lc_otp_program_i(lc_ctrl_lc_otp_program_rsp),
-      .kmac_data_o(),
-      .kmac_data_i('0),
+      .kmac_data_o(kmac_app_req[0]),
+      .kmac_data_i(kmac_app_rsp[0]),
       .lc_dft_en_o(lc_ctrl_lc_dft_en),
       .lc_nvm_debug_en_o(lc_ctrl_lc_nvm_debug_en),
       .lc_hw_debug_en_o(lc_ctrl_lc_hw_debug_en),
@@ -1511,6 +1518,19 @@ module top_custom_gf12 #(
       .clk_i (clkmgr_aon_clocks.clk_main_secure),
       .rst_ni (rstmgr_aon_resets.rst_lc_n[rstmgr_pkg::Domain0Sel])
   );
+  kmac_dummy u_kmac (
+
+      // Inter-module signals
+      .app_i(kmac_app_req),
+      .app_o(kmac_app_rsp),
+      .idle_o(clkmgr_aon_idle[0]),
+      .tl_i(tlul_pkg::TL_H2D_DEFAULT),
+      .tl_o(),
+
+      // Clock and reset connections
+      .clk_i (clkmgr_aon_clocks.clk_main_kmac),
+      .rst_ni (rstmgr_aon_resets.rst_lc_n[rstmgr_pkg::Domain0Sel])
+  );
   otbn #(
     .AlertAsyncOn(alert_handler_reg_pkg::AsyncOn[33:32]),
     .Stub(OtbnStub),
@@ -1534,7 +1554,7 @@ module top_custom_gf12 #(
       .edn_rnd_i(edn1_edn_rsp[0]),
       .edn_urnd_o(edn0_edn_req[3]),
       .edn_urnd_i(edn0_edn_rsp[3]),
-      .idle_o(clkmgr_aon_idle),
+      .idle_o(clkmgr_aon_idle[1]),
       .ram_cfg_i(ast_ram_1p_cfg),
       .lc_escalate_en_i(lc_ctrl_lc_escalate_en),
       .lc_rma_req_i(flash_ctrl_rma_ack),
@@ -1645,8 +1665,8 @@ module top_custom_gf12 #(
       .rom_cfg_i(ast_rom_cfg),
       .pwrmgr_data_o(rom_ctrl_pwrmgr_data),
       .keymgr_data_o(),
-      .kmac_data_o(),
-      .kmac_data_i(kmac_pkg::APP_RSP_DEFAULT),
+      .kmac_data_o(kmac_app_req[1]),
+      .kmac_data_i(kmac_app_rsp[1]),
       .regs_tl_i(rom_ctrl_regs_tl_req),
       .regs_tl_o(rom_ctrl_regs_tl_rsp),
       .rom_tl_i(rom_ctrl_rom_tl_req),

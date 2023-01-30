@@ -494,6 +494,24 @@ extern "C" {
 #define TOP_CUSTOM_GF12_RV_PLIC_SIZE_BYTES 0x8000000u
 
 /**
+ * Peripheral base address for kmac in top custom_gf12.
+ *
+ * This should be used with #mmio_region_from_addr to access the memory-mapped
+ * registers associated with the peripheral (usually via a DIF).
+ */
+#define TOP_CUSTOM_GF12_KMAC_BASE_ADDR 0x41120000u
+
+/**
+ * Peripheral size for kmac in top custom_gf12.
+ *
+ * This is the size (in bytes) of the peripheral's reserved memory area. All
+ * memory-mapped registers associated with this peripheral should have an
+ * address between #TOP_CUSTOM_GF12_KMAC_BASE_ADDR and
+ * `TOP_CUSTOM_GF12_KMAC_BASE_ADDR + TOP_CUSTOM_GF12_KMAC_SIZE_BYTES`.
+ */
+#define TOP_CUSTOM_GF12_KMAC_SIZE_BYTES 0x2u
+
+/**
  * Peripheral base address for otbn in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
@@ -1259,8 +1277,9 @@ typedef enum top_custom_gf12_gateable_clocks {
  * but the clock manager is in control of whether the clock actually is stopped.
  */
 typedef enum top_custom_gf12_hintable_clocks {
-  kTopCustomGf12HintableClocksMainOtbn = 0, /**< Clock clk_main_otbn in group trans */
-  kTopCustomGf12HintableClocksLast = 0, /**< \internal Last Valid Hintable Clock */
+  kTopCustomGf12HintableClocksMainKmac = 0, /**< Clock clk_main_kmac in group trans */
+  kTopCustomGf12HintableClocksMainOtbn = 1, /**< Clock clk_main_otbn in group trans */
+  kTopCustomGf12HintableClocksLast = 1, /**< \internal Last Valid Hintable Clock */
 } top_custom_gf12_hintable_clocks_t;
 
 /**
