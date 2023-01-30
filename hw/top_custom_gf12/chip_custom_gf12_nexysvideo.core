@@ -2,10 +2,10 @@ CAPI=2:
 # Copyright lowRISC contributors.
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
-name: "lowrisc:systems:chip_custom_gf12_arty_a35t:0.1"
-description: "Earl Grey toplevel for the ChipWhisperer CW310 board"
+name: "lowrisc:systems:chip_custom_gf12_nexysvideo:0.1"
+description: "Earl Grey toplevel for the Nexys Video board"
 filesets:
-  files_rtl_arty_a35t:
+  files_rtl_nexysvideo:
     depend:
       - lowrisc:systems:top_custom_gf12:0.1
       - lowrisc:systems:top_custom_gf12_pkg
@@ -14,13 +14,13 @@ filesets:
     files:
       - rtl/clkgen_xil7series.sv
       - rtl/usr_access_xil7series.sv
-      - rtl/autogen/chip_custom_gf12_arty_a35t.sv
+      - rtl/autogen/chip_custom_gf12_nexysvideo.sv
     file_type: systemVerilogSource
 
   files_constraints:
     files:
       - data/clocks.xdc
-      - data/pins_arty_a35t.xdc
+      - data/pins_nexysvideo.xdc
       - data/placement.xdc
     file_type: xdc
 
@@ -75,9 +75,9 @@ parameters:
 targets:
   default: &default_target
     filesets:
-      - files_rtl_arty_a35t
+      - files_rtl_nexysvideo
       - files_ascentlint_waiver
-    toplevel: chip_custom_gf12_arty_a35t
+    toplevel: chip_custom_gf12_nexysvideo
     parameters:
       - IBEX_CUSTOM_PMP_RESET_VALUES
       - AST_BYPASS_CLK=true
@@ -85,10 +85,10 @@ targets:
   synth:
     default_tool: vivado
     filesets:
-      - files_rtl_arty_a35t
+      - files_rtl_nexysvideo
       - files_constraints
       - files_tcl
-    toplevel: chip_custom_gf12_arty_a35t
+    toplevel: chip_custom_gf12_nexysvideo
     parameters:
       - BootRomInitFile
       - OtpCtrlMemInitFile

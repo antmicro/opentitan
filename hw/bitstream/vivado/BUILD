@@ -25,13 +25,13 @@ _FPGA_CW310_TESTROM_PATH = "{}/$(location {})".format(_PREFIX, _FPGA_CW310_TESTR
 
 _FPGA_CW310_OTP_RMA_PATH = "{}/$(location {})".format(_PREFIX, _FPGA_CW310_OTP_RMA)
 
-_FPGA_ARTY_A35T_TESTROM = "//sw/device/lib/testing/test_rom:test_rom_custom_gf12_fpga_arty_a35t_scr_vmem"
+_FPGA_NEXYSVIDEO_TESTROM = "//sw/device/lib/testing/test_rom:test_rom_custom_gf12_fpga_nexysvideo_scr_vmem"
 
-_FPGA_ARTY_A35T_OTP_RMA = "//hw/ip/otp_ctrl/data:img_rma"
+_FPGA_NEXYSVIDEO_OTP_RMA = "//hw/ip/otp_ctrl/data:img_rma"
 
-_FPGA_ARTY_A35T_TESTROM_PATH = "{}/$(location {})".format(_PREFIX, _FPGA_ARTY_A35T_TESTROM)
+_FPGA_NEXYSVIDEO_TESTROM_PATH = "{}/$(location {})".format(_PREFIX, _FPGA_NEXYSVIDEO_TESTROM)
 
-_FPGA_ARTY_A35T_OTP_RMA_PATH = "{}/$(location {})".format(_PREFIX, _FPGA_ARTY_A35T_OTP_RMA)
+_FPGA_NEXYSVIDEO_OTP_RMA_PATH = "{}/$(location {})".format(_PREFIX, _FPGA_NEXYSVIDEO_OTP_RMA)
 
 # Note: all of the targets are tagged with "manual" to prevent them from being
 # matched by bazel wildcards like "//...".  In order to build the bitstream,
@@ -62,25 +62,25 @@ fusesoc_build (
 )
 
 fusesoc_build (
-    name = "fpga_arty_a35t",
+    name = "fpga_nexysvideo",
     testonly = True,
     srcs = [
         "//hw:all_files",
-        _FPGA_ARTY_A35T_TESTROM,
-        _FPGA_ARTY_A35T_OTP_RMA,
+        _FPGA_NEXYSVIDEO_TESTROM,
+        _FPGA_NEXYSVIDEO_OTP_RMA,
     ],
     cores = ["//:cores"],
     data = ["//hw/ip/otbn:all_files"],
     flags = [
-        "--BootRomInitFile=" + _FPGA_ARTY_A35T_TESTROM_PATH,
-        "--OtpCtrlMemInitFile=" + _FPGA_ARTY_A35T_OTP_RMA_PATH,
+        "--BootRomInitFile=" + _FPGA_NEXYSVIDEO_TESTROM_PATH,
+        "--OtpCtrlMemInitFile=" + _FPGA_NEXYSVIDEO_OTP_RMA_PATH,
     ],
     output_groups = {
-        "bitstream_arty_a35t": ["synth-vivado/lowrisc_systems_chip_custom_gf12_arty_a35t_0.1.bit"],
-        "rom_mmi_arty_a35t": ["synth-vivado/rom.mmi"],
-        "otp_mmi_arty_a35t": ["synth-vivado/otp.mmi"],
+        "bitstream_nexysvideo": ["synth-vivado/lowrisc_systems_chip_custom_gf12_nexysvideo_0.1.bit"],
+        "rom_mmi_nexysvideo": ["synth-vivado/rom.mmi"],
+        "otp_mmi_nexysvideo": ["synth-vivado/otp.mmi"],
     },
-    systems = ["lowrisc:systems:chip_custom_gf12_arty_a35t"],
+    systems = ["lowrisc:systems:chip_custom_gf12_nexysvideo"],
     tags = ["manual"],
     target = "synth",
 )
@@ -94,18 +94,18 @@ filegroup(
 )
 
 filegroup(
-    name = "fpga_arty_a35t_test_rom",
+    name = "fpga_nexysvideo_test_rom",
     testonly = True,
-    srcs = [":fpga_arty_a35t"],
-    output_group = "bitstream_arty_a35t",
+    srcs = [":fpga_nexysvideo"],
+    output_group = "bitstream_nexysvideo",
     tags = ["manual"],
 )
 
 filegroup(
-    name = "rom_mmi_arty_a35t",
+    name = "rom_mmi_nexysvideo",
     testonly = True,
-    srcs = [":fpga_arty_a35t"],
-    output_group = "rom_mmi_arty_a35t",
+    srcs = [":fpga_nexysvideo"],
+    output_group = "rom_mmi_nexysvideo",
     tags = ["manual"],
 )
 
@@ -126,10 +126,10 @@ filegroup(
 )
 
 filegroup(
-    name = "otp_mmi_arty_a35t",
+    name = "otp_mmi_nexysvideo",
     testonly = True,
-    srcs = [":fpga_arty_a35t"],
-    output_group = "otp_mmi_arty_a35t",
+    srcs = [":fpga_nexysvideo"],
+    output_group = "otp_mmi_nexysvideo",
     tags = ["manual"],
 )
 
@@ -143,11 +143,11 @@ bitstream_splice(
 )
 
 bitstream_splice(
-    name = "fpga_arty_a35t_rom",
+    name = "fpga_nexysvideo_rom",
     testonly = True,
-    src = ":fpga_arty_a35t_test_rom",
-    data = "//sw/device/silicon_creator/rom:rom_with_fake_keys_fpga_arty_a35t_scr_vmem",
-    meminfo = ":rom_mmi_arty_a35t",
+    src = ":fpga_nexysvideo_test_rom",
+    data = "//sw/device/silicon_creator/rom:rom_with_fake_keys_fpga_nexysvideo_scr_vmem",
+    meminfo = ":rom_mmi_nexysvideo",
     tags = ["manual"],
 )
 
