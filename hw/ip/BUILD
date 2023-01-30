@@ -20,6 +20,7 @@ filegroup(
         "//hw/ip/i2c:all_files",
         "//hw/ip/keymgr:all_files",
         "//hw/ip/kmac:all_files",
+        "//hw/ip/kmac_dummy:all_files",
         "//hw/ip/lc_ctrl:all_files",
         "//hw/ip/otbn:all_files",
         "//hw/ip/otp_ctrl:all_files",

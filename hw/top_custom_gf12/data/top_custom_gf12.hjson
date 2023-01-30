@@ -522,6 +522,13 @@
       base_addr: "0x48000000",
       attr: "ipgen",
     },
+    { name: "kmac",
+      type: "kmac_dummy",
+      clock_srcs: {clk_i: "main"}
+      clock_group: "trans"
+      reset_connections: {rst_ni: "lc"}
+      base_addr: "0x41120000"
+    },
     { name: "otbn",
       type: "otbn",
       clock_srcs: {
@@ -766,6 +773,10 @@
 
       // OTBN OTP scramble key
       'otp_ctrl.otbn_otp_key' : ['otbn.otbn_otp_key'],
+
+      // KMAC dummy for ROM ctrl
+      'kmac.app'              : ['lc_ctrl.kmac_data',
+                                 'rom_ctrl.kmac_data'],
 
       // The idle connection is automatically connected through topgen.
       // The user does not need to explicitly declare anything other than

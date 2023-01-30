@@ -21,6 +21,7 @@ filesets:
       - lowrisc:ip:pattgen
       - lowrisc:ip:usbdev
       - lowrisc:ip:edn
+      - lowrisc:ip:kmac_dummy
       - lowrisc:ip:otbn
       - lowrisc:prim:ram_1p_scr
       - lowrisc:prim:flash

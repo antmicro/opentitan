@@ -1,0 +1,39 @@
+// Copyright lowRISC contributors.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+
+{ name: "kmac_dummy"
+  clocking: [
+    {clock: "clk_i", reset: "rst_ni", idle: "idle_o", primary: true},
+  ]
+  bus_interfaces: [
+    { protocol: "tlul", direction: "device" }
+  ]
+  interrupt_list: [
+  ]
+  alert_list: [
+  ]
+  param_list: [
+  ]
+  inter_signal_list: [
+    { struct:  "app"
+      type:    "req_rsp"
+      name:    "app"
+      act:     "rsp"
+      package: "kmac_pkg"
+      width:   "2"
+    }
+    { name:    "idle",
+      type:    "uni",
+      act:     "req",
+      package: "prim_mubi_pkg",
+      struct:  "mubi4",
+      width:   "1"
+    }
+  ]
+  countermeasures: [
+  ]
+  regwidth: "32"
+  registers: [
+  ]
+}
