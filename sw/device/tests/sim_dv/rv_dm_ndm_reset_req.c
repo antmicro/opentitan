@@ -103,7 +103,7 @@ static test_register_t kReg[] = {
     [OTP_CTRL] =
         {
             .name = "OTP_CTRL",
-            .base = TOP_EARLGREY_OTP_CTRL_CORE_BASE_ADDR,
+            .base = OPENTITAN_OTP_CTRL_CORE_BASE_ADDR,
             .offset = OTP_CTRL_DIRECT_ACCESS_WDATA_0_REG_OFFSET,
             .write_val = 0x06092022,
             .exp_read_val = OTP_CTRL_DIRECT_ACCESS_WDATA_0_REG_RESVAL,
@@ -111,7 +111,7 @@ static test_register_t kReg[] = {
     [PINMUX] =
         {
             .name = "PINMUX",
-            .base = TOP_EARLGREY_PINMUX_AON_BASE_ADDR,
+            .base = OPENTITAN_PINMUX_AON_BASE_ADDR,
             .offset = PINMUX_WKUP_DETECTOR_CNT_TH_1_REG_OFFSET,
             .write_val = 0x44,
             .exp_read_val = PINMUX_WKUP_DETECTOR_CNT_TH_1_REG_RESVAL,
@@ -120,7 +120,7 @@ static test_register_t kReg[] = {
     [ADC_CTRL] =
         {
             .name = "ADC_CTRL",
-            .base = TOP_EARLGREY_ADC_CTRL_AON_BASE_ADDR,
+            .base = OPENTITAN_ADC_CTRL_AON_BASE_ADDR,
             .offset = ADC_CTRL_ADC_SAMPLE_CTL_REG_OFFSET,
             .write_val = 0x37,
             .exp_read_val = ADC_CTRL_ADC_SAMPLE_CTL_REG_RESVAL,
@@ -129,7 +129,7 @@ static test_register_t kReg[] = {
     [SYSRST_CTRL] =
         {
             .name = "SYSRST_CTRL",
-            .base = TOP_EARLGREY_SYSRST_CTRL_AON_BASE_ADDR,
+            .base = OPENTITAN_SYSRST_CTRL_AON_BASE_ADDR,
             .offset = SYSRST_CTRL_EC_RST_CTL_REG_OFFSET,
             .write_val = 0x567,
             .exp_read_val = SYSRST_CTRL_EC_RST_CTL_REG_RESVAL,
@@ -138,7 +138,7 @@ static test_register_t kReg[] = {
     [KEYMGR] =
         {
             .name = "KEYMGR",
-            .base = TOP_EARLGREY_KEYMGR_BASE_ADDR,
+            .base = OPENTITAN_KEYMGR_BASE_ADDR,
             .offset = KEYMGR_MAX_OWNER_KEY_VER_SHADOWED_REG_OFFSET,
             .write_val = 0x1600ABBA,
             .exp_read_val = KEYMGR_MAX_OWNER_KEY_VER_SHADOWED_REG_RESVAL,
@@ -147,7 +147,7 @@ static test_register_t kReg[] = {
     [FLASH_CTRL] =
         {
             .name = "FLASH_CTRL",
-            .base = TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR,
+            .base = OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR,
             .offset = FLASH_CTRL_SCRATCH_REG_OFFSET,
             .write_val = 0x3927,
             .exp_read_val = FLASH_CTRL_SCRATCH_REG_RESVAL,
@@ -171,25 +171,25 @@ static void check_test_reg(void) {
 }
 
 static void init_peripherals(void) {
-  mmio_region_t addr = mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR);
+  mmio_region_t addr = mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR);
   CHECK_DIF_OK(dif_rstmgr_init(addr, &rstmgr));
 
-  addr = mmio_region_from_addr(TOP_EARLGREY_OTP_CTRL_CORE_BASE_ADDR);
+  addr = mmio_region_from_addr(OPENTITAN_OTP_CTRL_CORE_BASE_ADDR);
   CHECK_DIF_OK(dif_otp_ctrl_init(addr, &otp_ctrl));
 
-  addr = mmio_region_from_addr(TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR);
+  addr = mmio_region_from_addr(OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR);
   CHECK_DIF_OK(dif_flash_ctrl_init(addr, &flash_ctrl));
 
-  addr = mmio_region_from_addr(TOP_EARLGREY_ADC_CTRL_AON_BASE_ADDR);
+  addr = mmio_region_from_addr(OPENTITAN_ADC_CTRL_AON_BASE_ADDR);
   CHECK_DIF_OK(dif_adc_ctrl_init(addr, &adc_ctrl));
 
-  addr = mmio_region_from_addr(TOP_EARLGREY_SYSRST_CTRL_AON_BASE_ADDR);
+  addr = mmio_region_from_addr(OPENTITAN_SYSRST_CTRL_AON_BASE_ADDR);
   CHECK_DIF_OK(dif_sysrst_ctrl_init(addr, &sysrst_ctrl));
 
-  addr = mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR);
+  addr = mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR);
   CHECK_DIF_OK(dif_pinmux_init(addr, &pinmux));
 
-  addr = mmio_region_from_addr(TOP_EARLGREY_KEYMGR_BASE_ADDR);
+  addr = mmio_region_from_addr(OPENTITAN_KEYMGR_BASE_ADDR);
   CHECK_DIF_OK(dif_keymgr_init(addr, &keymgr));
 }
 

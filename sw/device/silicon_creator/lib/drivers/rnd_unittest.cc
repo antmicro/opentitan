@@ -27,8 +27,8 @@ using ::testing::Return;
 
 class RndTest : public rom_test::RomTest {
  protected:
-  uint32_t base_rv_ = TOP_EARLGREY_RV_CORE_IBEX_CFG_BASE_ADDR;
-  uint32_t base_es_ = TOP_EARLGREY_ENTROPY_SRC_BASE_ADDR;
+  uint32_t base_rv_ = OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR;
+  uint32_t base_es_ = OPENTITAN_ENTROPY_SRC_BASE_ADDR;
 
   rom_test::MockCrc32 crc32_;
   rom_test::MockAbsMmio mmio_;

@@ -42,32 +42,32 @@ enum {
 };
 
 static const dif_pinmux_index_t kPeripheralInputs[] = {
-    kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonKey0In,
-    kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonKey1In,
-    kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonKey2In,
-    kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonPwrbIn,
+    kOpentitanPinmuxPeripheralInSysrstCtrlAonKey0In,
+    kOpentitanPinmuxPeripheralInSysrstCtrlAonKey1In,
+    kOpentitanPinmuxPeripheralInSysrstCtrlAonKey2In,
+    kOpentitanPinmuxPeripheralInSysrstCtrlAonPwrbIn,
 };
 
 static const dif_pinmux_index_t kInputPads[] = {
-    kTopEarlgreyPinmuxInselIob3,
-    kTopEarlgreyPinmuxInselIob6,
-    kTopEarlgreyPinmuxInselIob8,
-    kTopEarlgreyPinmuxInselIor13,
+    kOpentitanPinmuxInselIob3,
+    kOpentitanPinmuxInselIob6,
+    kOpentitanPinmuxInselIob8,
+    kOpentitanPinmuxInselIor13,
 };
 
 static const dif_pinmux_index_t kPeripheralOutputs[] = {
-    kTopEarlgreyPinmuxOutselSysrstCtrlAonKey0Out,
-    kTopEarlgreyPinmuxOutselSysrstCtrlAonKey1Out,
-    kTopEarlgreyPinmuxOutselSysrstCtrlAonKey2Out,
-    kTopEarlgreyPinmuxOutselSysrstCtrlAonPwrbOut,
-    kTopEarlgreyPinmuxOutselSysrstCtrlAonBatDisable,
-    kTopEarlgreyPinmuxOutselSysrstCtrlAonZ3Wakeup,
+    kOpentitanPinmuxOutselSysrstCtrlAonKey0Out,
+    kOpentitanPinmuxOutselSysrstCtrlAonKey1Out,
+    kOpentitanPinmuxOutselSysrstCtrlAonKey2Out,
+    kOpentitanPinmuxOutselSysrstCtrlAonPwrbOut,
+    kOpentitanPinmuxOutselSysrstCtrlAonBatDisable,
+    kOpentitanPinmuxOutselSysrstCtrlAonZ3Wakeup,
 };
 
 static const dif_pinmux_index_t kOutputPads[] = {
-    kTopEarlgreyPinmuxMioOutIob9, kTopEarlgreyPinmuxMioOutIor5,
-    kTopEarlgreyPinmuxMioOutIor6, kTopEarlgreyPinmuxMioOutIoc7,
-    kTopEarlgreyPinmuxMioOutIoc9, kTopEarlgreyPinmuxMioOutIob7,
+    kOpentitanPinmuxMioOutIob9, kOpentitanPinmuxMioOutIor5,
+    kOpentitanPinmuxMioOutIor6, kOpentitanPinmuxMioOutIoc7,
+    kOpentitanPinmuxMioOutIoc9, kOpentitanPinmuxMioOutIob7,
 };
 
 static const dif_sysrst_ctrl_pin_t kSysrstCtrlOutputs[] = {
@@ -140,9 +140,9 @@ static void set_output_overrides(uint8_t override_value) {
 
 bool test_main(void) {
   CHECK_DIF_OK(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
   CHECK_DIF_OK(dif_sysrst_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_SYSRST_CTRL_AON_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_SYSRST_CTRL_AON_BASE_ADDR),
       &sysrst_ctrl));
   flash_ctrl_testutils_backdoor_init(&flash);
 

@@ -64,7 +64,7 @@ static void test_basic_io(void) {
 
   ptrdiff_t flash_bank_1_addr = FLASH_BANK_SZ;
   mmio_region_t flash_bank_1 = mmio_region_from_addr(
-      TOP_EARLGREY_FLASH_CTRL_MEM_BASE_ADDR + flash_bank_1_addr);
+      OPENTITAN_FLASH_CTRL_MEM_BASE_ADDR + flash_bank_1_addr);
 
   // Test erasing flash data partition; this should turn the whole bank to all
   // ones.
@@ -127,7 +127,7 @@ static void test_basic_io(void) {
   // Perform similar test on the last page of the first bank.
   ptrdiff_t flash_bank_0_last_page_addr = flash_bank_1_addr - FLASH_PAGE_SZ;
   mmio_region_t flash_bank_0_last_page = mmio_region_from_addr(
-      TOP_EARLGREY_FLASH_CTRL_MEM_BASE_ADDR + flash_bank_0_last_page_addr);
+      OPENTITAN_FLASH_CTRL_MEM_BASE_ADDR + flash_bank_0_last_page_addr);
   CHECK(flash_ctrl_testutils_erase_page(&flash, flash_bank_0_last_page_addr,
                                         /*partition_id=*/0,
                                         kDifFlashCtrlPartitionTypeData));
@@ -150,7 +150,7 @@ static void test_basic_io(void) {
 static void test_memory_protection(void) {
   dif_flash_ctrl_state_t flash;
   CHECK_DIF_OK(dif_flash_ctrl_init_state(
-      &flash, mmio_region_from_addr(TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR)));
+      &flash, mmio_region_from_addr(OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR)));
 
   // Set up default access for data partitions.
   flash_ctrl_testutils_default_region_access(
@@ -171,7 +171,7 @@ static void test_memory_protection(void) {
       .size = 0x1,
       .properties = protected_properties};
 
-  uintptr_t ok_region_start = TOP_EARLGREY_FLASH_CTRL_MEM_BASE_ADDR +
+  uintptr_t ok_region_start = OPENTITAN_FLASH_CTRL_MEM_BASE_ADDR +
                               (protected_region.base * FLASH_PAGE_SZ);
   uintptr_t ok_region_end =
       ok_region_start + (protected_region.size * FLASH_PAGE_SZ);
@@ -241,7 +241,7 @@ OTTF_DEFINE_TEST_CONFIG();
 bool test_main(void) {
   flash_info = dif_flash_ctrl_get_device_info();
   CHECK_DIF_OK(dif_flash_ctrl_init_state(
-      &flash, mmio_region_from_addr(TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR)));
+      &flash, mmio_region_from_addr(OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR)));
   flash_ctrl_testutils_wait_for_init(&flash);
 
   LOG_INFO("flash test!");

@@ -79,9 +79,9 @@ const uint32_t kEdnSeedMaterialReseed[kEdnSeedMaterialLen] = {
 
 void aes_testutils_masking_prng_zero_output_seed(void) {
   const dif_csrng_t csrng = {
-      .base_addr = mmio_region_from_addr(TOP_EARLGREY_CSRNG_BASE_ADDR)};
+      .base_addr = mmio_region_from_addr(OPENTITAN_CSRNG_BASE_ADDR)};
   const dif_edn_t edn0 = {
-      .base_addr = mmio_region_from_addr(TOP_EARLGREY_EDN0_BASE_ADDR)};
+      .base_addr = mmio_region_from_addr(OPENTITAN_EDN0_BASE_ADDR)};
 
   // Shutdown EDN0 and CSRNG
   CHECK_DIF_OK(dif_edn_stop(&edn0));
@@ -137,7 +137,7 @@ void aes_testutils_masking_prng_zero_output_seed(void) {
 
 void aes_testutils_csrng_kat(void) {
   const dif_csrng_t csrng = {
-      .base_addr = mmio_region_from_addr(TOP_EARLGREY_CSRNG_BASE_ADDR)};
+      .base_addr = mmio_region_from_addr(OPENTITAN_CSRNG_BASE_ADDR)};
 
   // Instantiate CSRNG with seed material suitable for switching the AES masking
   // off.

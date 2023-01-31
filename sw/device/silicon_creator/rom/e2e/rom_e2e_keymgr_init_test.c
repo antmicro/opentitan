@@ -25,7 +25,7 @@ OTTF_DEFINE_TEST_CONFIG();
 bool test_main(void) {
   dif_keymgr_t keymgr;
   CHECK_DIF_OK(dif_keymgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_KEYMGR_BASE_ADDR), &keymgr));
+      mmio_region_from_addr(OPENTITAN_KEYMGR_BASE_ADDR), &keymgr));
 
   keymgr_testutils_check_state(&keymgr, kDifKeymgrStateReset);
 

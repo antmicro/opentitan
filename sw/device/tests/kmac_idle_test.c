@@ -17,7 +17,7 @@ static dif_kmac_t kmac;
 OTTF_DEFINE_TEST_CONFIG();
 
 const dif_clkmgr_hintable_clock_t kmac_clock =
-    kTopEarlgreyHintableClocksMainKmac;
+    kOpentitanHintableClocksMainKmac;
 
 // Digest lengths in 32-bit words.
 #define DIGEST_LEN_SHA3_256 (256 / 32)
@@ -93,7 +93,7 @@ static void do_sha3_test(void) {
 
 bool test_main(void) {
   CHECK_DIF_OK(dif_clkmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_CLKMGR_AON_BASE_ADDR), &clkmgr));
+      mmio_region_from_addr(OPENTITAN_CLKMGR_AON_BASE_ADDR), &clkmgr));
 
   // Get initial hint and enable for KMAC clock and check both are enabled.
   dif_toggle_t clock_hint_state;
@@ -114,7 +114,7 @@ bool test_main(void) {
 
   // Initialize KMAC hardware.
   CHECK_DIF_OK(
-      dif_kmac_init(mmio_region_from_addr(TOP_EARLGREY_KMAC_BASE_ADDR), &kmac));
+      dif_kmac_init(mmio_region_from_addr(OPENTITAN_KMAC_BASE_ADDR), &kmac));
 
   // Configure KMAC hardware using software entropy.
   dif_kmac_config_t config = (dif_kmac_config_t){

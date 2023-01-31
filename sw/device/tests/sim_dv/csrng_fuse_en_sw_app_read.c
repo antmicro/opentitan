@@ -65,7 +65,7 @@ static void test_fuse_disable(const dif_csrng_t *csrng) {
 static void check_csrng_fuse_enabled(bool expected) {
   dif_otp_ctrl_t otp;
   CHECK_DIF_OK(dif_otp_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_OTP_CTRL_CORE_BASE_ADDR), &otp));
+      mmio_region_from_addr(OPENTITAN_OTP_CTRL_CORE_BASE_ADDR), &otp));
 
   dif_otp_ctrl_config_t config = {
       .check_timeout = 100000,
@@ -102,13 +102,13 @@ static void check_csrng_fuse_enabled(bool expected) {
 bool test_main(void) {
   dif_csrng_t csrng;
   CHECK_DIF_OK(dif_csrng_init(
-      mmio_region_from_addr(TOP_EARLGREY_CSRNG_BASE_ADDR), &csrng));
+      mmio_region_from_addr(OPENTITAN_CSRNG_BASE_ADDR), &csrng));
   CHECK_DIF_OK(dif_csrng_configure(&csrng));
 
   dif_rstmgr_t rstmgr;
   dif_rstmgr_reset_info_bitfield_t info;
   CHECK_DIF_OK(dif_rstmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR), &rstmgr));
+      mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR), &rstmgr));
   info = rstmgr_testutils_reason_get();
 
   if (info == kDifRstmgrResetInfoPor) {

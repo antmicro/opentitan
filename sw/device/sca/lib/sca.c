@@ -51,7 +51,7 @@ enum {
    * RV timer settings.
    */
   kRvTimerComparator = 0,
-  kRvTimerHart = kTopEarlgreyPlicTargetIbex0,
+  kRvTimerHart = kOpentitanPlicTargetIbex0,
 };
 
 static dif_uart_t uart0;
@@ -81,13 +81,13 @@ static void sca_init_uart(void) {
       .rx_enable = kDifToggleEnabled,
   };
 
-  OT_DISCARD(dif_uart_init(mmio_region_from_addr(TOP_EARLGREY_UART0_BASE_ADDR),
+  OT_DISCARD(dif_uart_init(mmio_region_from_addr(OPENTITAN_UART0_BASE_ADDR),
                            &uart0));
   OT_DISCARD(dif_uart_configure(&uart0, uart_config));
   base_uart_stdout(&uart0);
 
 #if !OT_IS_ENGLISH_BREAKFAST
-  OT_DISCARD(dif_uart_init(mmio_region_from_addr(TOP_EARLGREY_UART1_BASE_ADDR),
+  OT_DISCARD(dif_uart_init(mmio_region_from_addr(OPENTITAN_UART1_BASE_ADDR),
                            &uart1));
   OT_DISCARD(dif_uart_configure(&uart1, uart_config));
 #endif
@@ -100,7 +100,7 @@ static void sca_init_uart(void) {
  */
 static void sca_init_gpio(sca_trigger_source_t trigger) {
   OT_DISCARD(
-      dif_gpio_init(mmio_region_from_addr(TOP_EARLGREY_GPIO_BASE_ADDR), &gpio));
+      dif_gpio_init(mmio_region_from_addr(OPENTITAN_GPIO_BASE_ADDR), &gpio));
 
   uint32_t select_mask =
       bitfield_field32_write(0, kTriggerSourceBitfield, UINT32_MAX);
@@ -109,13 +109,13 @@ static void sca_init_gpio(sca_trigger_source_t trigger) {
   // Configure the pinmux to enable the GPIOs.
   for (size_t i = 0; i < 32; ++i) {
     if ((select_mask | enable_mask) & (1u << i)) {
-      dif_pinmux_index_t mio = kTopEarlgreyPinmuxInselIoa0 + i;
+      dif_pinmux_index_t mio = kOpentitanPinmuxInselIoa0 + i;
       dif_pinmux_index_t periph_io =
-          kTopEarlgreyPinmuxPeripheralInGpioGpio0 + i;
+          kOpentitanPinmuxPeripheralInGpioGpio0 + i;
       OT_DISCARD(dif_pinmux_input_select(&pinmux, periph_io, mio));
 
-      mio = kTopEarlgreyPinmuxMioOutIoa0 + i;
-      periph_io = kTopEarlgreyPinmuxOutselGpioGpio0 + i;
+      mio = kOpentitanPinmuxMioOutIoa0 + i;
+      periph_io = kOpentitanPinmuxOutselGpioGpio0 + i;
       OT_DISCARD(dif_pinmux_output_select(&pinmux, mio, periph_io));
     }
   }
@@ -132,7 +132,7 @@ static void sca_init_gpio(sca_trigger_source_t trigger) {
  */
 static void sca_init_timer(void) {
   OT_DISCARD(dif_rv_timer_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_TIMER_BASE_ADDR), &timer));
+      mmio_region_from_addr(OPENTITAN_RV_TIMER_BASE_ADDR), &timer));
   OT_DISCARD(dif_rv_timer_reset(&timer));
   dif_rv_timer_tick_params_t tick_params;
   OT_DISCARD(dif_rv_timer_approximate_tick_params(
@@ -149,9 +149,9 @@ static void sca_init_timer(void) {
  */
 static void sca_init_csrng(void) {
 #if !OT_IS_ENGLISH_BREAKFAST
-  OT_DISCARD(dif_csrng_init(mmio_region_from_addr(TOP_EARLGREY_CSRNG_BASE_ADDR),
+  OT_DISCARD(dif_csrng_init(mmio_region_from_addr(OPENTITAN_CSRNG_BASE_ADDR),
                             &csrng));
-  OT_DISCARD(dif_csrng_init(mmio_region_from_addr(TOP_EARLGREY_CSRNG_BASE_ADDR),
+  OT_DISCARD(dif_csrng_init(mmio_region_from_addr(OPENTITAN_CSRNG_BASE_ADDR),
                             &csrng));
 #endif
 }
@@ -162,10 +162,10 @@ static void sca_init_csrng(void) {
 static void sca_init_edn(void) {
 #if !OT_IS_ENGLISH_BREAKFAST
   OT_DISCARD(
-      dif_edn_init(mmio_region_from_addr(TOP_EARLGREY_EDN0_BASE_ADDR), &edn0));
+      dif_edn_init(mmio_region_from_addr(OPENTITAN_EDN0_BASE_ADDR), &edn0));
 
   OT_DISCARD(
-      dif_edn_init(mmio_region_from_addr(TOP_EARLGREY_EDN1_BASE_ADDR), &edn1));
+      dif_edn_init(mmio_region_from_addr(OPENTITAN_EDN1_BASE_ADDR), &edn1));
 #endif
 }
 
@@ -206,7 +206,7 @@ void sca_disable_peripherals(sca_peripherals_t disable) {
   if (disable & kScaPeripheralEntropy) {
     dif_entropy_src_t entropy;
     OT_DISCARD(dif_entropy_src_init(
-        mmio_region_from_addr(TOP_EARLGREY_ENTROPY_SRC_BASE_ADDR), &entropy));
+        mmio_region_from_addr(OPENTITAN_ENTROPY_SRC_BASE_ADDR), &entropy));
     OT_DISCARD(dif_entropy_src_set_enabled(&entropy, kDifToggleDisabled));
   }
 #endif
@@ -214,7 +214,7 @@ void sca_disable_peripherals(sca_peripherals_t disable) {
   // Disable HMAC, KMAC, OTBN and USB clocks through CLKMGR DIF.
   dif_clkmgr_t clkmgr;
   OT_DISCARD(dif_clkmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_CLKMGR_AON_BASE_ADDR), &clkmgr));
+      mmio_region_from_addr(OPENTITAN_CLKMGR_AON_BASE_ADDR), &clkmgr));
 
   if (disable & kScaPeripheralAes) {
     OT_DISCARD(dif_clkmgr_hintable_clock_set_hint(
@@ -257,7 +257,7 @@ void sca_disable_peripherals(sca_peripherals_t disable) {
 
 void sca_init(sca_trigger_source_t trigger, sca_peripherals_t enable) {
   OT_DISCARD(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
   pinmux_testutils_init(&pinmux);
   sca_init_uart();
   sca_init_gpio(trigger);
@@ -290,7 +290,7 @@ void sca_call_and_sleep(sca_callee callee, uint32_t sleep_cycles) {
   // the capture.
   dif_clkmgr_t clkmgr;
   OT_DISCARD(dif_clkmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_CLKMGR_AON_BASE_ADDR), &clkmgr));
+      mmio_region_from_addr(OPENTITAN_CLKMGR_AON_BASE_ADDR), &clkmgr));
 
   // Start timer to wake Ibex after the callee is done.
   uint64_t current_time;

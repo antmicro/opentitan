@@ -22,7 +22,7 @@ using ::testing::ElementsAreArray;
 
 class HmacTest : public rom_test::RomTest {
  protected:
-  uint32_t base_ = TOP_EARLGREY_HMAC_BASE_ADDR;
+  uint32_t base_ = OPENTITAN_HMAC_BASE_ADDR;
   rom_test::MockAbsMmio mmio_;
 };
 

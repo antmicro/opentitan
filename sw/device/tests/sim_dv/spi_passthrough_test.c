@@ -41,37 +41,37 @@ static dif_spi_host_t spi_host1;
 // Enable pull-ups for spi_host data pins to avoid floating inputs.
 static const pinmux_pad_attributes_t pinmux_pad_config[] = {
     {
-        .pad = kTopEarlgreyMuxedPadsIob1,
+        .pad = kOpentitanMuxedPadsIob1,
         .kind = kDifPinmuxPadKindMio,
         .flags = kDifPinmuxPadAttrPullResistorEnable |
                  kDifPinmuxPadAttrPullResistorUp,
     },
     {
-        .pad = kTopEarlgreyMuxedPadsIob3,
+        .pad = kOpentitanMuxedPadsIob3,
         .kind = kDifPinmuxPadKindMio,
         .flags = kDifPinmuxPadAttrPullResistorEnable |
                  kDifPinmuxPadAttrPullResistorUp,
     },
     {
-        .pad = kTopEarlgreyDirectPadsSpiHost0Sd0,
+        .pad = kOpentitanDirectPadsSpiHost0Sd0,
         .kind = kDifPinmuxPadKindDio,
         .flags = kDifPinmuxPadAttrPullResistorEnable |
                  kDifPinmuxPadAttrPullResistorUp,
     },
     {
-        .pad = kTopEarlgreyDirectPadsSpiHost0Sd1,
+        .pad = kOpentitanDirectPadsSpiHost0Sd1,
         .kind = kDifPinmuxPadKindDio,
         .flags = kDifPinmuxPadAttrPullResistorEnable |
                  kDifPinmuxPadAttrPullResistorUp,
     },
     {
-        .pad = kTopEarlgreyDirectPadsSpiHost0Sd2,
+        .pad = kOpentitanDirectPadsSpiHost0Sd2,
         .kind = kDifPinmuxPadKindDio,
         .flags = kDifPinmuxPadAttrPullResistorEnable |
                  kDifPinmuxPadAttrPullResistorUp,
     },
     {
-        .pad = kTopEarlgreyDirectPadsSpiHost0Sd3,
+        .pad = kOpentitanDirectPadsSpiHost0Sd3,
         .kind = kDifPinmuxPadKindDio,
         .flags = kDifPinmuxPadAttrPullResistorEnable |
                  kDifPinmuxPadAttrPullResistorUp,
@@ -89,49 +89,49 @@ typedef struct pinmux_select {
 
 static const pinmux_select_t pinmux_out_config[] = {
     {
-        .pad = kTopEarlgreyPinmuxMioOutIob0,
-        .peripheral = kTopEarlgreyPinmuxOutselSpiHost1Csb,
+        .pad = kOpentitanPinmuxMioOutIob0,
+        .peripheral = kOpentitanPinmuxOutselSpiHost1Csb,
     },
     {
-        .pad = kTopEarlgreyPinmuxMioOutIob2,
-        .peripheral = kTopEarlgreyPinmuxOutselSpiHost1Sck,
+        .pad = kOpentitanPinmuxMioOutIob2,
+        .peripheral = kOpentitanPinmuxOutselSpiHost1Sck,
     },
     {
-        .pad = kTopEarlgreyPinmuxMioOutIob1,
-        .peripheral = kTopEarlgreyPinmuxOutselSpiHost1Sd0,
+        .pad = kOpentitanPinmuxMioOutIob1,
+        .peripheral = kOpentitanPinmuxOutselSpiHost1Sd0,
     },
     {
-        .pad = kTopEarlgreyPinmuxMioOutIob3,
-        .peripheral = kTopEarlgreyPinmuxOutselSpiHost1Sd1,
+        .pad = kOpentitanPinmuxMioOutIob3,
+        .peripheral = kOpentitanPinmuxOutselSpiHost1Sd1,
     },
     // These peripheral I/Os are not assigned for tests.
     //     {
     //         .pad = ???,
-    //         .peripheral = kTopEarlgreyPinmuxOutselSpiHost1Sd2,
+    //         .peripheral = kOpentitanPinmuxOutselSpiHost1Sd2,
     //     },
     //     {
     //         .pad = ???,
-    //         .peripheral = kTopEarlgreyPinmuxOutselSpiHost1Sd3,
+    //         .peripheral = kOpentitanPinmuxOutselSpiHost1Sd3,
     //     },
 };
 
 static const pinmux_select_t pinmux_in_config[] = {
     {
-        .pad = kTopEarlgreyPinmuxInselIob1,
-        .peripheral = kTopEarlgreyPinmuxOutselSpiHost1Sd0,
+        .pad = kOpentitanPinmuxInselIob1,
+        .peripheral = kOpentitanPinmuxOutselSpiHost1Sd0,
     },
     {
-        .pad = kTopEarlgreyPinmuxInselIob3,
-        .peripheral = kTopEarlgreyPinmuxOutselSpiHost1Sd1,
+        .pad = kOpentitanPinmuxInselIob3,
+        .peripheral = kOpentitanPinmuxOutselSpiHost1Sd1,
     },
     // These peripheral I/Os are not assigned for tests.
     //     {
     //         .pad = ???,
-    //         .peripheral = kTopEarlgreyPinmuxOutselSpiHost1Sd2,
+    //         .peripheral = kOpentitanPinmuxOutselSpiHost1Sd2,
     //     },
     //     {
     //         .pad = ???,
-    //         .peripheral = kTopEarlgreyPinmuxOutselSpiHost1Sd3,
+    //         .peripheral = kOpentitanPinmuxOutselSpiHost1Sd3,
     //     },
 };
 
@@ -449,17 +449,17 @@ void spi_device_isr(void) {
  * Runs in interrupt context.
  */
 void ottf_external_isr(void) {
-  const uint32_t kPlicTarget = kTopEarlgreyPlicTargetIbex0;
+  const uint32_t kPlicTarget = kOpentitanPlicTargetIbex0;
   dif_rv_plic_irq_id_t plic_irq_id;
   CHECK_DIF_OK(dif_rv_plic_irq_claim(&rv_plic, kPlicTarget, &plic_irq_id));
 
-  top_earlgrey_plic_peripheral_t peripheral = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  opentitan_plic_peripheral_t peripheral = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   switch (peripheral) {
-    case kTopEarlgreyPlicPeripheralSpiDevice:
+    case kOpentitanPlicPeripheralSpiDevice:
       // Only the UploadCmdfifoNotEmpty interrupt is expected.
-      CHECK(plic_irq_id == kTopEarlgreyPlicIrqIdSpiDeviceUploadCmdfifoNotEmpty);
+      CHECK(plic_irq_id == kOpentitanPlicIrqIdSpiDeviceUploadCmdfifoNotEmpty);
       spi_device_isr();
       break;
     default:
@@ -473,7 +473,7 @@ void ottf_external_isr(void) {
 bool test_main(void) {
   // Initialize the pinmux.
   CHECK_DIF_OK(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
   pinmux_testutils_init(&pinmux);
   pinmux_testutils_configure_pads(&pinmux, pinmux_pad_config,
                                   ARRAYSIZE(pinmux_pad_config));
@@ -490,19 +490,19 @@ bool test_main(void) {
 
   // Initialize the PLIC.
   CHECK_DIF_OK(dif_rv_plic_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR), &rv_plic));
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR), &rv_plic));
 
   // Initialize the spi_host devices.
   CHECK_DIF_OK(dif_spi_host_init(
-      mmio_region_from_addr(TOP_EARLGREY_SPI_HOST0_BASE_ADDR), &spi_host0));
+      mmio_region_from_addr(OPENTITAN_SPI_HOST0_BASE_ADDR), &spi_host0));
   CHECK_DIF_OK(dif_spi_host_init(
-      mmio_region_from_addr(TOP_EARLGREY_SPI_HOST0_BASE_ADDR), &spi_host1));
+      mmio_region_from_addr(OPENTITAN_SPI_HOST0_BASE_ADDR), &spi_host1));
   init_spi_host(&spi_host0, (uint32_t)kClockFreqHiSpeedPeripheralHz);
   init_spi_host(&spi_host1, (uint32_t)kClockFreqPeripheralHz);
 
   // Initialize spi_device.
   mmio_region_t spi_device_base_addr =
-      mmio_region_from_addr(TOP_EARLGREY_SPI_DEVICE_BASE_ADDR);
+      mmio_region_from_addr(OPENTITAN_SPI_DEVICE_BASE_ADDR);
   CHECK_DIF_OK(dif_spi_device_init_handle(spi_device_base_addr, &spi_device));
   bool upload_write_commands = (kUploadWriteCommands != 0);
   spi_device_testutils_configure_passthrough(&spi_device, kFilteredCommands,
@@ -528,22 +528,22 @@ bool test_main(void) {
                                             kDifToggleEnabled));
 
   dif_rv_plic_irq_id_t spi_irqs[] = {
-      kTopEarlgreyPlicIrqIdSpiDeviceGenericRxFull,
-      kTopEarlgreyPlicIrqIdSpiDeviceGenericRxWatermark,
-      kTopEarlgreyPlicIrqIdSpiDeviceGenericTxWatermark,
-      kTopEarlgreyPlicIrqIdSpiDeviceGenericRxError,
-      kTopEarlgreyPlicIrqIdSpiDeviceGenericRxOverflow,
-      kTopEarlgreyPlicIrqIdSpiDeviceGenericTxUnderflow,
-      kTopEarlgreyPlicIrqIdSpiDeviceUploadCmdfifoNotEmpty,
-      kTopEarlgreyPlicIrqIdSpiDeviceReadbufWatermark,
-      kTopEarlgreyPlicIrqIdSpiDeviceReadbufFlip,
-      kTopEarlgreyPlicIrqIdSpiHost0Error,
-      kTopEarlgreyPlicIrqIdSpiHost0SpiEvent,
+      kOpentitanPlicIrqIdSpiDeviceGenericRxFull,
+      kOpentitanPlicIrqIdSpiDeviceGenericRxWatermark,
+      kOpentitanPlicIrqIdSpiDeviceGenericTxWatermark,
+      kOpentitanPlicIrqIdSpiDeviceGenericRxError,
+      kOpentitanPlicIrqIdSpiDeviceGenericRxOverflow,
+      kOpentitanPlicIrqIdSpiDeviceGenericTxUnderflow,
+      kOpentitanPlicIrqIdSpiDeviceUploadCmdfifoNotEmpty,
+      kOpentitanPlicIrqIdSpiDeviceReadbufWatermark,
+      kOpentitanPlicIrqIdSpiDeviceReadbufFlip,
+      kOpentitanPlicIrqIdSpiHost0Error,
+      kOpentitanPlicIrqIdSpiHost0SpiEvent,
   };
   for (int i = 0; i < ARRAYSIZE(spi_irqs); ++i) {
     dif_rv_plic_irq_id_t irq = spi_irqs[i];
     CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(
-        &rv_plic, irq, kTopEarlgreyPlicTargetIbex0, kDifToggleEnabled));
+        &rv_plic, irq, kOpentitanPlicTargetIbex0, kDifToggleEnabled));
     CHECK_DIF_OK(dif_rv_plic_irq_set_priority(&rv_plic, irq, 0x1));
   }
   irq_external_ctrl(/*en=*/true);

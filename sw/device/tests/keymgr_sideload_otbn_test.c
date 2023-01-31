@@ -153,7 +153,7 @@ bool test_main(void) {
   // Initialize OTBN.
   dif_otbn_t otbn;
   CHECK_DIF_OK(
-      dif_otbn_init(mmio_region_from_addr(TOP_EARLGREY_OTBN_BASE_ADDR), &otbn));
+      dif_otbn_init(mmio_region_from_addr(OPENTITAN_OTBN_BASE_ADDR), &otbn));
   // Test OTBN sideloading.
   test_otbn_with_sideloaded_key(&keymgr, &otbn);
 

@@ -32,7 +32,7 @@ static void increment_flash_counter(void) {
   dif_flash_ctrl_state_t flash_ctrl;
   CHECK_DIF_OK(dif_flash_ctrl_init_state(
       &flash_ctrl,
-      mmio_region_from_addr(TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR)));
+      mmio_region_from_addr(OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR)));
   flash_ctrl_testutils_default_region_access(&flash_ctrl,
                                              /*rd_en*/ true,
                                              /*prog_en*/ true, false, false,

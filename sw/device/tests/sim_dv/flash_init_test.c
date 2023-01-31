@@ -146,7 +146,7 @@ static void erase_and_write_regions(void) {
 static void read_and_check_host_if(uint32_t addr, const uint32_t *check_data) {
   uint32_t host_data[kNumTestWords];
   mmio_region_memcpy_from_mmio32(
-      mmio_region_from_addr(TOP_EARLGREY_EFLASH_BASE_ADDR), addr, &host_data,
+      mmio_region_from_addr(OPENTITAN_EFLASH_BASE_ADDR), addr, &host_data,
       kNumTestBytes);
   CHECK_ARRAYS_EQ(host_data, check_data, kNumTestWords);
 }
@@ -283,14 +283,14 @@ bool rom_test_main(void) {
   test_status_set(kTestStatusInTest);
   dif_pinmux_t pinmux;
   CHECK_DIF_OK(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
   pinmux_testutils_init(&pinmux);
 
   // We need to initialize the UART regardless if we LOG any messages, since
   // Verilator and FPGA platforms use the UART to communicate the test results.
   if (kDeviceType != kDeviceSimDV) {
     CHECK_DIF_OK(dif_uart_init(
-        mmio_region_from_addr(TOP_EARLGREY_UART0_BASE_ADDR), &uart0));
+        mmio_region_from_addr(OPENTITAN_UART0_BASE_ADDR), &uart0));
     CHECK_DIF_OK(
         dif_uart_configure(&uart0, (dif_uart_config_t){
                                        .baudrate = kUartBaudrate,
@@ -305,7 +305,7 @@ bool rom_test_main(void) {
 
   // Test code.
   mmio_region_t sram_region_ret_base_addr =
-      mmio_region_from_addr(TOP_EARLGREY_SRAM_CTRL_RET_AON_RAM_BASE_ADDR);
+      mmio_region_from_addr(OPENTITAN_SRAM_CTRL_RET_AON_RAM_BASE_ADDR);
 
   mmio_region_memcpy_from_mmio32(sram_region_ret_base_addr,
                                  kCreatorSecretDataRetSramAddress,
@@ -325,7 +325,7 @@ bool rom_test_main(void) {
 
   CHECK_DIF_OK(dif_flash_ctrl_init_state(
       &flash_state,
-      mmio_region_from_addr(TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR)));
+      mmio_region_from_addr(OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR)));
 
   switch (kTestPhase) {
     case kTestPhaseCheckUnscrambledInit0:

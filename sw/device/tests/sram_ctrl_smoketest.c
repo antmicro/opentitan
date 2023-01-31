@@ -53,10 +53,10 @@ bool test_main(void) {
   dif_sram_ctrl_t sram_ctrl_main;
   dif_sram_ctrl_t sram_ctrl_ret;
   CHECK_DIF_OK(dif_sram_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_SRAM_CTRL_MAIN_REGS_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_SRAM_CTRL_MAIN_REGS_BASE_ADDR),
       &sram_ctrl_main));
   CHECK_DIF_OK(dif_sram_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_SRAM_CTRL_RET_AON_REGS_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_SRAM_CTRL_RET_AON_REGS_BASE_ADDR),
       &sram_ctrl_ret));
 
   dif_sram_ctrl_status_bitfield_t status_main;
@@ -78,7 +78,7 @@ bool test_main(void) {
   mmio_region_t sram_region_main_addr =
       mmio_region_from_addr(sram_main_buffer_addr);
   mmio_region_t sram_region_ret_base_addr =
-      mmio_region_from_addr(TOP_EARLGREY_SRAM_CTRL_RET_AON_RAM_BASE_ADDR);
+      mmio_region_from_addr(OPENTITAN_SRAM_CTRL_RET_AON_RAM_BASE_ADDR);
 
   // write / read checks
   write_read_check(sram_region_ret_base_addr, "SRAM_RET");

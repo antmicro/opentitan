@@ -15,8 +15,8 @@
 #include "pwrmgr_regs.h"
 
 enum {
-  kBase = TOP_EARLGREY_AON_TIMER_AON_BASE_ADDR,
-  kPwrMgrBase = TOP_EARLGREY_PWRMGR_AON_BASE_ADDR,
+  kBase = OPENTITAN_AON_TIMER_AON_BASE_ADDR,
+  kPwrMgrBase = OPENTITAN_PWRMGR_AON_BASE_ADDR,
 
   kCtrlEnable = 1 << AON_TIMER_WDOG_CTRL_ENABLE_BIT,
   kCtrlDisable = 0 << AON_TIMER_WDOG_CTRL_ENABLE_BIT,
@@ -75,7 +75,7 @@ void watchdog_configure(watchdog_config_t config) {
   sec_mmio_write32(
       kPwrMgrBase + PWRMGR_RESET_EN_REG_OFFSET,
       bitfield_bit32_write(
-          0, kTopEarlgreyPowerManagerResetRequestsAonTimerAonAonTimerRstReq,
+          0, kOpentitanPowerManagerResetRequestsAonTimerAonAonTimerRstReq,
           true));
   abs_mmio_write32(kPwrMgrBase + PWRMGR_CFG_CDC_SYNC_REG_OFFSET, 1);
 

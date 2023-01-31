@@ -228,14 +228,14 @@ bool rom_test_main(void) {
   // has been reached, even though this test is also in the "boot ROM".
   test_status_set(kTestStatusInTest);
   CHECK_DIF_OK(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
   pinmux_testutils_init(&pinmux);
 
   // We need to initialize the UART regardless if we LOG any messages, since
   // Verilator and FPGA platforms use the UART to communicate the test results.
   if (kDeviceType != kDeviceSimDV) {
     CHECK_DIF_OK(dif_uart_init(
-        mmio_region_from_addr(TOP_EARLGREY_UART0_BASE_ADDR), &uart0));
+        mmio_region_from_addr(OPENTITAN_UART0_BASE_ADDR), &uart0));
     CHECK_DIF_OK(
         dif_uart_configure(&uart0, (dif_uart_config_t){
                                        .baudrate = kUartBaudrate,
@@ -251,13 +251,13 @@ bool rom_test_main(void) {
   // Start of the test specific code.
   CHECK_DIF_OK(dif_flash_ctrl_init_state(
       &flash_state,
-      mmio_region_from_addr(TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR)));
+      mmio_region_from_addr(OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR)));
   CHECK_DIF_OK(dif_lc_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_LC_CTRL_BASE_ADDR), &lc));
+      mmio_region_from_addr(OPENTITAN_LC_CTRL_BASE_ADDR), &lc));
 
   dif_otp_ctrl_t otp;
   CHECK_DIF_OK(dif_otp_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_OTP_CTRL_CORE_BASE_ADDR), &otp));
+      mmio_region_from_addr(OPENTITAN_OTP_CTRL_CORE_BASE_ADDR), &otp));
 
   dif_otp_ctrl_config_t otp_config = {
       .check_timeout = 100000,

@@ -67,24 +67,24 @@ static void init_peripherals(void) {
   };
   // Life cycle
   CHECK_DIF_OK(dif_lc_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_LC_CTRL_BASE_ADDR), &lc));
+      mmio_region_from_addr(OPENTITAN_LC_CTRL_BASE_ADDR), &lc));
   // OTP
   CHECK_DIF_OK(dif_otp_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_OTP_CTRL_CORE_BASE_ADDR), &otp));
+      mmio_region_from_addr(OPENTITAN_OTP_CTRL_CORE_BASE_ADDR), &otp));
   CHECK_DIF_OK(dif_otp_ctrl_configure(&otp, config));
   // Rstmgr
   CHECK_DIF_OK(dif_rstmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR), &rstmgr));
+      mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR), &rstmgr));
   // KMAC (init for Keymgr use)
   CHECK_DIF_OK(
-      dif_kmac_init(mmio_region_from_addr(TOP_EARLGREY_KMAC_BASE_ADDR), &kmac));
+      dif_kmac_init(mmio_region_from_addr(OPENTITAN_KMAC_BASE_ADDR), &kmac));
   kmac_testutils_config(&kmac, true);
   // Keymgr
   CHECK_DIF_OK(dif_keymgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_KEYMGR_BASE_ADDR), &keymgr));
+      mmio_region_from_addr(OPENTITAN_KEYMGR_BASE_ADDR), &keymgr));
   // Flash
   CHECK_DIF_OK(dif_flash_ctrl_init_state(
-      &flash, mmio_region_from_addr(TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR)));
+      &flash, mmio_region_from_addr(OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR)));
 }
 
 /**

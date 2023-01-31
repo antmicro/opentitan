@@ -32,16 +32,16 @@ bool test_main(void) {
   // Initialize pwrmgr
   dif_pwrmgr_t pwrmgr;
   CHECK_DIF_OK(dif_pwrmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_PWRMGR_AON_BASE_ADDR), &pwrmgr));
+      mmio_region_from_addr(OPENTITAN_PWRMGR_AON_BASE_ADDR), &pwrmgr));
 
   // Initialize rstmgr since this will check some registers.
   dif_rstmgr_t rstmgr;
   CHECK_DIF_OK(dif_rstmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR), &rstmgr));
+      mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR), &rstmgr));
 
   dif_aon_timer_t aon_timer;
   CHECK_DIF_OK(dif_aon_timer_init(
-      mmio_region_from_addr(TOP_EARLGREY_AON_TIMER_AON_BASE_ADDR), &aon_timer));
+      mmio_region_from_addr(OPENTITAN_AON_TIMER_AON_BASE_ADDR), &aon_timer));
 
   // Assuming the chip hasn't slept yet, wakeup reason should be empty.
 

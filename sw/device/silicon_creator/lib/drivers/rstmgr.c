@@ -20,7 +20,7 @@
 #include "rstmgr_regs.h"
 
 enum {
-  kBase = TOP_EARLGREY_RSTMGR_AON_BASE_ADDR,
+  kBase = OPENTITAN_RSTMGR_AON_BASE_ADDR,
 };
 
 rstmgr_alert_info_t rstmgr_alert_info;
@@ -48,17 +48,17 @@ uint32_t rstmgr_reason_get(void) {
                 RSTMGR_RESET_INFO_LOW_POWER_EXIT_BIT);
   REASON_ASSERT(kRstmgrReasonSysrstCtrl,
                 RSTMGR_RESET_INFO_HW_REQ_OFFSET +
-                    kTopEarlgreyPowerManagerResetRequestsSysrstCtrlAonRstReq);
+                    kOpentitanPowerManagerResetRequestsSysrstCtrlAonRstReq);
   REASON_ASSERT(
       kRstmgrReasonWatchdog,
       RSTMGR_RESET_INFO_HW_REQ_OFFSET +
-          kTopEarlgreyPowerManagerResetRequestsAonTimerAonAonTimerRstReq);
+          kOpentitanPowerManagerResetRequestsAonTimerAonAonTimerRstReq);
 
   // Alert escalation is one bit after the reset request index for the last
   // peripheral.
   REASON_ASSERT(kRstmgrReasonEscalation,
                 RSTMGR_RESET_INFO_HW_REQ_OFFSET +
-                    kTopEarlgreyPowerManagerResetRequestsLast + 2)
+                    kOpentitanPowerManagerResetRequestsLast + 2)
 
   // Check that the last index corresponds to the last bit in HW_REQ.
   static_assert(

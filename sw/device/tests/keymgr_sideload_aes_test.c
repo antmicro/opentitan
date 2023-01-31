@@ -101,7 +101,7 @@ void aes_test(void) {
   // Initialize AES.
   dif_aes_t aes;
   CHECK_DIF_OK(
-      dif_aes_init(mmio_region_from_addr(TOP_EARLGREY_AES_BASE_ADDR), &aes));
+      dif_aes_init(mmio_region_from_addr(OPENTITAN_AES_BASE_ADDR), &aes));
   CHECK_DIF_OK(dif_aes_reset(&aes));
 
   dif_aes_data_t in_data_plain;

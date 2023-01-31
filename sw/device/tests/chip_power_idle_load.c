@@ -86,33 +86,33 @@ static void wdog_irq_handler(void) {
 bool test_main(void) {
   // Define access to DUT IPs:
   CHECK_DIF_OK(dif_aon_timer_init(
-      mmio_region_from_addr(TOP_EARLGREY_AON_TIMER_AON_BASE_ADDR), &aon_timer));
+      mmio_region_from_addr(OPENTITAN_AON_TIMER_AON_BASE_ADDR), &aon_timer));
   CHECK_DIF_OK(dif_rv_core_ibex_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_CORE_IBEX_CFG_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR),
       &rv_core_ibex));
   CHECK_DIF_OK(dif_pwrmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_PWRMGR_AON_BASE_ADDR), &pwrmgr));
+      mmio_region_from_addr(OPENTITAN_PWRMGR_AON_BASE_ADDR), &pwrmgr));
   CHECK_DIF_OK(dif_rv_timer_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_TIMER_BASE_ADDR), &rv_timer));
+      mmio_region_from_addr(OPENTITAN_RV_TIMER_BASE_ADDR), &rv_timer));
   CHECK_DIF_OK(dif_alert_handler_init(
-      mmio_region_from_addr(TOP_EARLGREY_ALERT_HANDLER_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_ALERT_HANDLER_BASE_ADDR),
       &alert_handler));
   CHECK_DIF_OK(dif_pwm_init(
-      mmio_region_from_addr(TOP_EARLGREY_PWM_AON_BASE_ADDR), &pwm));
+      mmio_region_from_addr(OPENTITAN_PWM_AON_BASE_ADDR), &pwm));
   CHECK_DIF_OK(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
   CHECK_DIF_OK(dif_otp_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_OTP_CTRL_CORE_BASE_ADDR), &otp_ctrl));
+      mmio_region_from_addr(OPENTITAN_OTP_CTRL_CORE_BASE_ADDR), &otp_ctrl));
   CHECK_DIF_OK(
-      dif_gpio_init(mmio_region_from_addr(TOP_EARLGREY_GPIO_BASE_ADDR), &gpio));
+      dif_gpio_init(mmio_region_from_addr(OPENTITAN_GPIO_BASE_ADDR), &gpio));
 
   LOG_INFO("Running CHIP Power Idle Load test");
 
   static const uint32_t kGpioMask = 0x00000004;
 
   CHECK_DIF_OK(
-      dif_pinmux_output_select(&pinmux, (kTopEarlgreyPinmuxMioOutIoa0 + 2),
-                               (kTopEarlgreyPinmuxOutselGpioGpio0 + 2)));
+      dif_pinmux_output_select(&pinmux, (kOpentitanPinmuxMioOutIoa0 + 2),
+                               (kOpentitanPinmuxOutselGpioGpio0 + 2)));
 
   // Set output modes of all GPIO pins
   CHECK_DIF_OK(dif_gpio_output_set_enabled_all(&gpio, kGpioMask));
@@ -123,7 +123,7 @@ bool test_main(void) {
   LOG_INFO("GPIO active");
 
   // RV Timer
-  static const uint32_t kHart = (uint32_t)kTopEarlgreyPlicTargetIbex0;
+  static const uint32_t kHart = (uint32_t)kOpentitanPlicTargetIbex0;
   static const uint32_t kComparator = 0;
   static const uint64_t kTickFreqHz = 1000000;
   static const uint64_t kDeadline = UINT32_MAX;
@@ -232,14 +232,14 @@ bool test_main(void) {
   };
 
   static const dif_pinmux_index_t kPinmuxMioOut[PWM_PARAM_N_OUTPUTS] = {
-      kTopEarlgreyPinmuxMioOutIob10, kTopEarlgreyPinmuxMioOutIob11,
-      kTopEarlgreyPinmuxMioOutIob12, kTopEarlgreyPinmuxMioOutIoc10,
-      kTopEarlgreyPinmuxMioOutIoc11, kTopEarlgreyPinmuxMioOutIoc12,
+      kOpentitanPinmuxMioOutIob10, kOpentitanPinmuxMioOutIob11,
+      kOpentitanPinmuxMioOutIob12, kOpentitanPinmuxMioOutIoc10,
+      kOpentitanPinmuxMioOutIoc11, kOpentitanPinmuxMioOutIoc12,
   };
   static const dif_pinmux_index_t kPinmuxOutsel[PWM_PARAM_N_OUTPUTS] = {
-      kTopEarlgreyPinmuxOutselPwmAonPwm0, kTopEarlgreyPinmuxOutselPwmAonPwm1,
-      kTopEarlgreyPinmuxOutselPwmAonPwm2, kTopEarlgreyPinmuxOutselPwmAonPwm3,
-      kTopEarlgreyPinmuxOutselPwmAonPwm4, kTopEarlgreyPinmuxOutselPwmAonPwm5,
+      kOpentitanPinmuxOutselPwmAonPwm0, kOpentitanPinmuxOutselPwmAonPwm1,
+      kOpentitanPinmuxOutselPwmAonPwm2, kOpentitanPinmuxOutselPwmAonPwm3,
+      kOpentitanPinmuxOutselPwmAonPwm4, kOpentitanPinmuxOutselPwmAonPwm5,
   };
 
   CHECK_DIF_OK(dif_pwm_configure(&pwm, config_));

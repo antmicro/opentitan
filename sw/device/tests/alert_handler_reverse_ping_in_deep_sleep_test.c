@@ -53,7 +53,7 @@ static dif_pwrmgr_t pwrmgr;
 static dif_rstmgr_t rstmgr;
 static dif_aon_timer_t aon_timer;
 static dif_alert_handler_t alert_handler;
-static const uint32_t kPlicTarget = kTopEarlgreyPlicTargetIbex0;
+static const uint32_t kPlicTarget = kOpentitanPlicTargetIbex0;
 
 static plic_isr_ctx_t plic_ctx = {
     .rv_plic = &plic,
@@ -67,21 +67,21 @@ static volatile bool interrupt_serviced = false;
  */
 static void init_peripherals(void) {
   CHECK_DIF_OK(dif_rv_plic_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR), &plic));
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR), &plic));
   CHECK_DIF_OK(dif_alert_handler_init(
-      mmio_region_from_addr(TOP_EARLGREY_ALERT_HANDLER_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_ALERT_HANDLER_BASE_ADDR),
       &alert_handler));
   CHECK_DIF_OK(dif_pwrmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_PWRMGR_AON_BASE_ADDR), &pwrmgr));
+      mmio_region_from_addr(OPENTITAN_PWRMGR_AON_BASE_ADDR), &pwrmgr));
   CHECK_DIF_OK(dif_rstmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR), &rstmgr));
+      mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR), &rstmgr));
   CHECK_DIF_OK(dif_aon_timer_init(
-      mmio_region_from_addr(TOP_EARLGREY_AON_TIMER_AON_BASE_ADDR), &aon_timer));
+      mmio_region_from_addr(OPENTITAN_AON_TIMER_AON_BASE_ADDR), &aon_timer));
 
   // Enable all the alert_handler interrupts used in this test.
   rv_plic_testutils_irq_range_enable(&plic, kPlicTarget,
-                                     kTopEarlgreyPlicIrqIdAlertHandlerClassa,
-                                     kTopEarlgreyPlicIrqIdAlertHandlerClassd);
+                                     kOpentitanPlicIrqIdAlertHandlerClassa,
+                                     kOpentitanPlicIrqIdAlertHandlerClassd);
 }
 
 /**

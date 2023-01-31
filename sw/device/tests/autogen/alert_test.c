@@ -99,7 +99,7 @@ static dif_usbdev_t usbdev;
  */
 static void init_peripherals(void) {
   mmio_region_t base_addr;
-  base_addr = mmio_region_from_addr(TOP_EARLGREY_ALERT_HANDLER_BASE_ADDR);
+  base_addr = mmio_region_from_addr(OPENTITAN_ALERT_HANDLER_BASE_ADDR);
   CHECK_DIF_OK(dif_alert_handler_init(base_addr, &alert_handler));
 
   base_addr = mmio_region_from_addr(OPENTITAN_ADC_CTRL_AON_BASE_ADDR);

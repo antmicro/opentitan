@@ -17,5 +17,5 @@
 //   - `.static_critical`, required by the linker script.
 
 void _ottf_start(void) {
-  ((void (*)(void))TOP_EARLGREY_SRAM_CTRL_MAIN_RAM_BASE_ADDR)();
+  ((void (*)(void))OPENTITAN_SRAM_CTRL_MAIN_RAM_BASE_ADDR)();
 }

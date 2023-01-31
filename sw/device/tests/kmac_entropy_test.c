@@ -117,7 +117,7 @@ bool test_main(void) {
   // Initialize KMAC HWIP
   dif_kmac_t kmac;
   CHECK_DIF_OK(
-      dif_kmac_init(mmio_region_from_addr(TOP_EARLGREY_KMAC_BASE_ADDR), &kmac));
+      dif_kmac_init(mmio_region_from_addr(OPENTITAN_KMAC_BASE_ADDR), &kmac));
 
   // Configure KMAC to use EDN entropy
   dif_kmac_config_t config = {

@@ -41,63 +41,63 @@ static dif_pwrmgr_t pwrmgr;
 static dif_rstmgr_t rstmgr;
 static dif_rv_core_ibex_t ibex;
 static dif_flash_ctrl_state_t flash_ctrl;
-static const uint32_t kPlicTarget = kTopEarlgreyPlicTargetIbex0;
+static const uint32_t kPlicTarget = kOpentitanPlicTargetIbex0;
 
 // This location will be update from SV to contain the expected alert.
 static volatile const uint8_t kExpectedAlertNumber = 0;
 
 // List of all fatal alerts
 static const uint32_t fatal_alerts_list[] = {
-    kTopEarlgreyAlertIdUart0FatalFault,
-    kTopEarlgreyAlertIdUart1FatalFault,
-    kTopEarlgreyAlertIdUart2FatalFault,
-    kTopEarlgreyAlertIdUart3FatalFault,
-    kTopEarlgreyAlertIdGpioFatalFault,
-    kTopEarlgreyAlertIdSpiDeviceFatalFault,
-    kTopEarlgreyAlertIdI2c0FatalFault,
-    kTopEarlgreyAlertIdI2c1FatalFault,
-    kTopEarlgreyAlertIdI2c2FatalFault,
-    kTopEarlgreyAlertIdPattgenFatalFault,
-    kTopEarlgreyAlertIdRvTimerFatalFault,
-    // kTopEarlgreyAlertIdOtpCtrlFatalMacroError,
-    // kTopEarlgreyAlertIdOtpCtrlFatalCheckError,
-    kTopEarlgreyAlertIdOtpCtrlFatalBusIntegError,
-    // kTopEarlgreyAlertIdOtpCtrlFatalPrimOtpAlert,
-    // kTopEarlgreyAlertIdLcCtrlFatalProgError,
-    // kTopEarlgreyAlertIdLcCtrlFatalStateError,
-    kTopEarlgreyAlertIdLcCtrlFatalBusIntegError,
-    kTopEarlgreyAlertIdSpiHost0FatalFault,
-    kTopEarlgreyAlertIdSpiHost1FatalFault,
-    kTopEarlgreyAlertIdUsbdevFatalFault,
-    kTopEarlgreyAlertIdPwrmgrAonFatalFault,
-    kTopEarlgreyAlertIdRstmgrAonFatalFault,
-    // kTopEarlgreyAlertIdRstmgrAonFatalCnstyFault,
-    kTopEarlgreyAlertIdClkmgrAonFatalFault,
-    kTopEarlgreyAlertIdSysrstCtrlAonFatalFault,
-    kTopEarlgreyAlertIdAdcCtrlAonFatalFault,
-    kTopEarlgreyAlertIdPwmAonFatalFault,
-    kTopEarlgreyAlertIdPinmuxAonFatalFault,
-    kTopEarlgreyAlertIdAonTimerAonFatalFault,
-    kTopEarlgreyAlertIdSensorCtrlFatalAlert,
-    kTopEarlgreyAlertIdSramCtrlRetAonFatalError,
-    kTopEarlgreyAlertIdFlashCtrlFatalStdErr,
-    // kTopEarlgreyAlertIdFlashCtrlFatalErr,
-    // kTopEarlgreyAlertIdFlashCtrlFatalPrimFlashAlert,
-    kTopEarlgreyAlertIdRvDmFatalFault,
-    // kTopEarlgreyAlertIdRvPlicFatalFault,
-    kTopEarlgreyAlertIdAesFatalFault,
-    kTopEarlgreyAlertIdHmacFatalFault,
-    kTopEarlgreyAlertIdKmacFatalFaultErr,
-    kTopEarlgreyAlertIdOtbnFatal,
-    kTopEarlgreyAlertIdKeymgrFatalFaultErr,
-    kTopEarlgreyAlertIdCsrngFatalAlert,
-    kTopEarlgreyAlertIdEntropySrcFatalAlert,
-    kTopEarlgreyAlertIdEdn0FatalAlert,
-    kTopEarlgreyAlertIdEdn1FatalAlert,
-    kTopEarlgreyAlertIdSramCtrlMainFatalError,
-    kTopEarlgreyAlertIdRomCtrlFatal,
-    // kTopEarlgreyAlertIdRvCoreIbexFatalSwErr,
-    kTopEarlgreyAlertIdRvCoreIbexFatalHwErr,
+    kOpentitanAlertIdUart0FatalFault,
+    kOpentitanAlertIdUart1FatalFault,
+    kOpentitanAlertIdUart2FatalFault,
+    kOpentitanAlertIdUart3FatalFault,
+    kOpentitanAlertIdGpioFatalFault,
+    kOpentitanAlertIdSpiDeviceFatalFault,
+    kOpentitanAlertIdI2c0FatalFault,
+    kOpentitanAlertIdI2c1FatalFault,
+    kOpentitanAlertIdI2c2FatalFault,
+    kOpentitanAlertIdPattgenFatalFault,
+    kOpentitanAlertIdRvTimerFatalFault,
+    // kOpentitanAlertIdOtpCtrlFatalMacroError,
+    // kOpentitanAlertIdOtpCtrlFatalCheckError,
+    kOpentitanAlertIdOtpCtrlFatalBusIntegError,
+    // kOpentitanAlertIdOtpCtrlFatalPrimOtpAlert,
+    // kOpentitanAlertIdLcCtrlFatalProgError,
+    // kOpentitanAlertIdLcCtrlFatalStateError,
+    kOpentitanAlertIdLcCtrlFatalBusIntegError,
+    kOpentitanAlertIdSpiHost0FatalFault,
+    kOpentitanAlertIdSpiHost1FatalFault,
+    kOpentitanAlertIdUsbdevFatalFault,
+    kOpentitanAlertIdPwrmgrAonFatalFault,
+    kOpentitanAlertIdRstmgrAonFatalFault,
+    // kOpentitanAlertIdRstmgrAonFatalCnstyFault,
+    kOpentitanAlertIdClkmgrAonFatalFault,
+    kOpentitanAlertIdSysrstCtrlAonFatalFault,
+    kOpentitanAlertIdAdcCtrlAonFatalFault,
+    kOpentitanAlertIdPwmAonFatalFault,
+    kOpentitanAlertIdPinmuxAonFatalFault,
+    kOpentitanAlertIdAonTimerAonFatalFault,
+    kOpentitanAlertIdSensorCtrlFatalAlert,
+    kOpentitanAlertIdSramCtrlRetAonFatalError,
+    kOpentitanAlertIdFlashCtrlFatalStdErr,
+    // kOpentitanAlertIdFlashCtrlFatalErr,
+    // kOpentitanAlertIdFlashCtrlFatalPrimFlashAlert,
+    kOpentitanAlertIdRvDmFatalFault,
+    // kOpentitanAlertIdRvPlicFatalFault,
+    kOpentitanAlertIdAesFatalFault,
+    kOpentitanAlertIdHmacFatalFault,
+    kOpentitanAlertIdKmacFatalFaultErr,
+    kOpentitanAlertIdOtbnFatal,
+    kOpentitanAlertIdKeymgrFatalFaultErr,
+    kOpentitanAlertIdCsrngFatalAlert,
+    kOpentitanAlertIdEntropySrcFatalAlert,
+    kOpentitanAlertIdEdn0FatalAlert,
+    kOpentitanAlertIdEdn1FatalAlert,
+    kOpentitanAlertIdSramCtrlMainFatalError,
+    kOpentitanAlertIdRomCtrlFatal,
+    // kOpentitanAlertIdRvCoreIbexFatalSwErr,
+    kOpentitanAlertIdRvCoreIbexFatalHwErr,
 };
 
 /**
@@ -105,30 +105,30 @@ static const uint32_t fatal_alerts_list[] = {
  */
 static void init_peripherals(void) {
   mmio_region_t base_addr =
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR);
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR);
   CHECK_DIF_OK(dif_rv_plic_init(base_addr, &plic));
 
-  base_addr = mmio_region_from_addr(TOP_EARLGREY_ALERT_HANDLER_BASE_ADDR);
+  base_addr = mmio_region_from_addr(OPENTITAN_ALERT_HANDLER_BASE_ADDR);
   CHECK_DIF_OK(dif_alert_handler_init(base_addr, &alert_handler));
 
   // Initialize pwrmgr
   CHECK_DIF_OK(dif_pwrmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_PWRMGR_AON_BASE_ADDR), &pwrmgr));
+      mmio_region_from_addr(OPENTITAN_PWRMGR_AON_BASE_ADDR), &pwrmgr));
 
   // Initialize aon_timer
   CHECK_DIF_OK(dif_aon_timer_init(
-      mmio_region_from_addr(TOP_EARLGREY_AON_TIMER_AON_BASE_ADDR), &aon_timer));
+      mmio_region_from_addr(OPENTITAN_AON_TIMER_AON_BASE_ADDR), &aon_timer));
 
   CHECK_DIF_OK(dif_rstmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR), &rstmgr));
+      mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR), &rstmgr));
 
   mmio_region_t ibex_addr =
-      mmio_region_from_addr(TOP_EARLGREY_RV_CORE_IBEX_CFG_BASE_ADDR);
+      mmio_region_from_addr(OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR);
   CHECK_DIF_OK(dif_rv_core_ibex_init(ibex_addr, &ibex));
 
   CHECK_DIF_OK(dif_flash_ctrl_init_state(
       &flash_ctrl,
-      mmio_region_from_addr(TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR)));
+      mmio_region_from_addr(OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR)));
 }
 
 // NVM counters/fields to keep test steps between deep sleep modes
@@ -313,11 +313,11 @@ void cleanup_wakeup_src(void) {
 }
 
 static plic_isr_ctx_t plic_ctx = {.rv_plic = &plic,
-                                  .hart_id = kTopEarlgreyPlicTargetIbex0};
+                                  .hart_id = kOpentitanPlicTargetIbex0};
 
 static pwrmgr_isr_ctx_t pwrmgr_isr_ctx = {
     .pwrmgr = &pwrmgr,
-    .plic_pwrmgr_start_irq_id = kTopEarlgreyPlicIrqIdPwrmgrAonWakeup,
+    .plic_pwrmgr_start_irq_id = kOpentitanPlicIrqIdPwrmgrAonWakeup,
     .expected_irq = kDifPwrmgrIrqWakeup,
     .is_only_irq = true};
 
@@ -338,9 +338,9 @@ void init_test_components() {
   init_peripherals();
 
   // Enable all the AON interrupts used in this test.
-  rv_plic_testutils_irq_range_enable(&plic, kTopEarlgreyPlicTargetIbex0,
-                                     kTopEarlgreyPlicIrqIdPwrmgrAonWakeup,
-                                     kTopEarlgreyPlicIrqIdPwrmgrAonWakeup);
+  rv_plic_testutils_irq_range_enable(&plic, kOpentitanPlicTargetIbex0,
+                                     kOpentitanPlicIrqIdPwrmgrAonWakeup,
+                                     kOpentitanPlicIrqIdPwrmgrAonWakeup);
 
   // Enable pwrmgr interrupt
   CHECK_DIF_OK(dif_pwrmgr_irq_set_enabled(&pwrmgr, 0, kDifToggleEnabled));
@@ -477,12 +477,12 @@ static void execute_test_phases(uint8_t test_phase, uint32_t ping_timeout_cyc) {
  */
 void ottf_external_isr(void) {
   dif_pwrmgr_irq_t irq_id;
-  top_earlgrey_plic_peripheral_t peripheral;
+  opentitan_plic_peripheral_t peripheral;
 
   isr_testutils_pwrmgr_isr(plic_ctx, pwrmgr_isr_ctx, &peripheral, &irq_id);
 
   // Check that both the peripheral and the irq id is correct
-  CHECK(peripheral == kTopEarlgreyPlicPeripheralPwrmgrAon,
+  CHECK(peripheral == kOpentitanPlicPeripheralPwrmgrAon,
         "IRQ peripheral: %d is incorrect", peripheral);
   CHECK(irq_id == kDifPwrmgrIrqWakeup, "IRQ ID: %d is incorrect", irq_id);
 }
@@ -502,8 +502,8 @@ bool test_main(void) {
   // No local alerts is expected to be fired.
   while (test_step_cnt < num_total_wakeups) {
     // TODO: It seems to be that the only way to continue the SW execution
-    // after a kTopEarlgreyAlertIdFlashCtrlFatalStdErr or
-    // kTopEarlgreyAlertIdSramCtrlMainFatalError a reset. In this test, we are
+    // after a kOpentitanAlertIdFlashCtrlFatalStdErr or
+    // kOpentitanAlertIdSramCtrlMainFatalError a reset. In this test, we are
     // only interested in the shallow sleep mode. Figure out a method to handle
     // those alerts in C code. Currently, they are bypassed by the SV through
     // aplusarg (avoid_inject_fatal_error_for_ips).

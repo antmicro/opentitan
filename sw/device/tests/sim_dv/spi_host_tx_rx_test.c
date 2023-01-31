@@ -33,22 +33,22 @@ static volatile const uint8_t kSPIHostIdx = 0x0;
 static dif_spi_host_t spi_host;
 static dif_pinmux_t pinmux;
 
-static const top_earlgrey_direct_pads_t spi_host0_direct_pads[6] = {
-    kTopEarlgreyDirectPadsSpiHost0Sck,   // sck
-    kTopEarlgreyDirectPadsSpiHost0Csb,   // csb
-    kTopEarlgreyDirectPadsSpiHost0Sd3,   // sio[3]
-    kTopEarlgreyDirectPadsSpiHost0Sd2,   // sio[2]
-    kTopEarlgreyDirectPadsSpiHost0Sd1,   // sio[1]
-    kTopEarlgreyDirectPadsSpiHost0Sd0};  // sio[0]
+static const opentitan_direct_pads_t spi_host0_direct_pads[6] = {
+    kOpentitanDirectPadsSpiHost0Sck,   // sck
+    kOpentitanDirectPadsSpiHost0Csb,   // csb
+    kOpentitanDirectPadsSpiHost0Sd3,   // sio[3]
+    kOpentitanDirectPadsSpiHost0Sd2,   // sio[2]
+    kOpentitanDirectPadsSpiHost0Sd1,   // sio[1]
+    kOpentitanDirectPadsSpiHost0Sd0};  // sio[0]
 
 // pinmap defined in chip_if.sv (spi_device1_if)
-static const top_earlgrey_muxed_pads_t spi_host1_muxed_pads[6] = {
-    kTopEarlgreyMuxedPadsIob0,  // sck
-    kTopEarlgreyMuxedPadsIob1,  // csb
-    kTopEarlgreyMuxedPadsIob6,  // sio[3]
-    kTopEarlgreyMuxedPadsIob5,  // sio[2]
-    kTopEarlgreyMuxedPadsIob4,  // sio[1]
-    kTopEarlgreyMuxedPadsIob3,  // sio[0]
+static const opentitan_muxed_pads_t spi_host1_muxed_pads[6] = {
+    kOpentitanMuxedPadsIob0,  // sck
+    kOpentitanMuxedPadsIob1,  // csb
+    kOpentitanMuxedPadsIob6,  // sio[3]
+    kOpentitanMuxedPadsIob5,  // sio[2]
+    kOpentitanMuxedPadsIob4,  // sio[1]
+    kOpentitanMuxedPadsIob3,  // sio[0]
 };
 
 // For spi_host1
@@ -62,12 +62,12 @@ static const top_earlgrey_muxed_pads_t spi_host1_muxed_pads[6] = {
  * from...
  *
  * dif_result_t dif_pinmux_output_select(...,
- *   dif_pinmux_index_t mio_pad_output,        | top_earlgrey_pinmux_mio_out_t
- *   dif_pinmux_index_t outsel)                | top_earlgrey_pinmux_outsel_t
+ *   dif_pinmux_index_t mio_pad_output,        | opentitan_pinmux_mio_out_t
+ *   dif_pinmux_index_t outsel)                | opentitan_pinmux_outsel_t
  * dif_result_t dif_pinmux_input_select(...,
  *   dif_pinmux_index_t peripheral_input,      |
- * top_earlgrey_pinmux_peripheral_in_t dif_pinmux_index_t insel) |
- * top_earlgrey_pinmux_insel_t
+ * opentitan_pinmux_peripheral_in_t dif_pinmux_index_t insel) |
+ * opentitan_pinmux_insel_t
  *
  */
 
@@ -79,48 +79,48 @@ typedef struct pinmux_select {
 static const pinmux_select_t pinmux_out_config[] = {
     // spi_host1
     {
-        .pad = kTopEarlgreyPinmuxMioOutIob0,
-        .peripheral = kTopEarlgreyPinmuxOutselSpiHost1Sck,  // SCK
+        .pad = kOpentitanPinmuxMioOutIob0,
+        .peripheral = kOpentitanPinmuxOutselSpiHost1Sck,  // SCK
     },
     {
-        .pad = kTopEarlgreyPinmuxMioOutIob1,
-        .peripheral = kTopEarlgreyPinmuxOutselSpiHost1Csb,  // CSB
+        .pad = kOpentitanPinmuxMioOutIob1,
+        .peripheral = kOpentitanPinmuxOutselSpiHost1Csb,  // CSB
     },
     {
-        .pad = kTopEarlgreyPinmuxMioOutIob3,
-        .peripheral = kTopEarlgreyPinmuxOutselSpiHost1Sd0,  // sio[0]
+        .pad = kOpentitanPinmuxMioOutIob3,
+        .peripheral = kOpentitanPinmuxOutselSpiHost1Sd0,  // sio[0]
     },
     {
-        .pad = kTopEarlgreyPinmuxMioOutIob4,
-        .peripheral = kTopEarlgreyPinmuxOutselSpiHost1Sd1,  // sio[1]
+        .pad = kOpentitanPinmuxMioOutIob4,
+        .peripheral = kOpentitanPinmuxOutselSpiHost1Sd1,  // sio[1]
     },
     {
-        .pad = kTopEarlgreyPinmuxMioOutIob5,
-        .peripheral = kTopEarlgreyPinmuxOutselSpiHost1Sd2,  // sio[2]
+        .pad = kOpentitanPinmuxMioOutIob5,
+        .peripheral = kOpentitanPinmuxOutselSpiHost1Sd2,  // sio[2]
     },
     {
-        .pad = kTopEarlgreyPinmuxMioOutIob6,
-        .peripheral = kTopEarlgreyPinmuxOutselSpiHost1Sd3,  // sio[3]
+        .pad = kOpentitanPinmuxMioOutIob6,
+        .peripheral = kOpentitanPinmuxOutselSpiHost1Sd3,  // sio[3]
     },
 };
 
 static const pinmux_select_t pinmux_in_config[] = {
     // spi_host1
     {
-        .pad = kTopEarlgreyPinmuxInselIob3,
-        .peripheral = kTopEarlgreyPinmuxPeripheralInSpiHost1Sd0,  // sio[0]
+        .pad = kOpentitanPinmuxInselIob3,
+        .peripheral = kOpentitanPinmuxPeripheralInSpiHost1Sd0,  // sio[0]
     },
     {
-        .pad = kTopEarlgreyPinmuxInselIob4,
-        .peripheral = kTopEarlgreyPinmuxPeripheralInSpiHost1Sd1,  // sio[1]
+        .pad = kOpentitanPinmuxInselIob4,
+        .peripheral = kOpentitanPinmuxPeripheralInSpiHost1Sd1,  // sio[1]
     },
     {
-        .pad = kTopEarlgreyPinmuxInselIob5,
-        .peripheral = kTopEarlgreyPinmuxPeripheralInSpiHost1Sd2,  // sio[2]
+        .pad = kOpentitanPinmuxInselIob5,
+        .peripheral = kOpentitanPinmuxPeripheralInSpiHost1Sd2,  // sio[2]
     },
     {
-        .pad = kTopEarlgreyPinmuxInselIob6,
-        .peripheral = kTopEarlgreyPinmuxPeripheralInSpiHost1Sd3,  // sio[3]
+        .pad = kOpentitanPinmuxInselIob6,
+        .peripheral = kOpentitanPinmuxPeripheralInSpiHost1Sd3,  // sio[3]
     },
 };
 
@@ -198,7 +198,7 @@ void setup_pinmux_pads_spi_host1(void) {
 bool test_main(void) {
   // Initialize the pinmux.
   CHECK_DIF_OK(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
   pinmux_testutils_init(&pinmux);
 
   // Setup pinmux if required, enable weak pull-up on relevant pads
@@ -211,12 +211,12 @@ bool test_main(void) {
   uint64_t clkHz;
   switch (kSPIHostIdx) {
     case 0: {
-      base_addr = TOP_EARLGREY_SPI_HOST0_BASE_ADDR;
+      base_addr = OPENTITAN_SPI_HOST0_BASE_ADDR;
       clkHz = kClockFreqHiSpeedPeripheralHz;
       break;
     }
     case 1: {
-      base_addr = TOP_EARLGREY_SPI_HOST1_BASE_ADDR;
+      base_addr = OPENTITAN_SPI_HOST1_BASE_ADDR;
       clkHz = kClockFreqPeripheralHz;
       break;
     }

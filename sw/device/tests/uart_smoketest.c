@@ -19,7 +19,7 @@ OTTF_DEFINE_TEST_CONFIG(.enable_concurrency = false,
 bool test_main(void) {
   dif_uart_t uart;
   CHECK_DIF_OK(dif_uart_init(
-      mmio_region_from_addr(TOP_EARLGREY_UART0_BASE_ADDR), &uart));
+      mmio_region_from_addr(OPENTITAN_UART0_BASE_ADDR), &uart));
   CHECK_DIF_OK(
       dif_uart_configure(&uart, (dif_uart_config_t){
                                     .baudrate = kUartBaudrate,
@@ -28,7 +28,7 @@ bool test_main(void) {
                                     .parity = kDifUartParityEven,
                                     .tx_enable = kDifToggleEnabled,
                                     .rx_enable = kDifToggleEnabled,
-                                }));
+                                 }));
   CHECK_DIF_OK(
       dif_uart_loopback_set(&uart, kDifUartLoopbackSystem, kDifToggleEnabled));
   CHECK_DIF_OK(dif_uart_fifo_reset(&uart, kDifUartDatapathAll));

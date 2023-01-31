@@ -45,23 +45,23 @@ static volatile bool header_interrupt_received = false;
 static void en_plic_irqs(dif_rv_plic_t *plic) {
   // Enable functional interrupts as well as error interrupts to make sure
   // everything is behaving as expected.
-  top_earlgrey_plic_irq_id_t plic_irqs[] = {
-      kTopEarlgreyPlicIrqIdSpiDeviceGenericRxFull,
-      kTopEarlgreyPlicIrqIdSpiDeviceGenericRxWatermark,
-      kTopEarlgreyPlicIrqIdSpiDeviceGenericTxWatermark,
-      kTopEarlgreyPlicIrqIdSpiDeviceGenericRxError,
-      kTopEarlgreyPlicIrqIdSpiDeviceGenericRxOverflow,
-      kTopEarlgreyPlicIrqIdSpiDeviceGenericTxUnderflow,
-      kTopEarlgreyPlicIrqIdSpiDeviceUploadCmdfifoNotEmpty,
-      kTopEarlgreyPlicIrqIdSpiDeviceUploadPayloadNotEmpty,
-      kTopEarlgreyPlicIrqIdSpiDeviceUploadPayloadOverflow,
-      kTopEarlgreyPlicIrqIdSpiDeviceReadbufWatermark,
-      kTopEarlgreyPlicIrqIdSpiDeviceReadbufFlip,
-      kTopEarlgreyPlicIrqIdSpiDeviceTpmHeaderNotEmpty};
+  opentitan_plic_irq_id_t plic_irqs[] = {
+      kOpentitanPlicIrqIdSpiDeviceGenericRxFull,
+      kOpentitanPlicIrqIdSpiDeviceGenericRxWatermark,
+      kOpentitanPlicIrqIdSpiDeviceGenericTxWatermark,
+      kOpentitanPlicIrqIdSpiDeviceGenericRxError,
+      kOpentitanPlicIrqIdSpiDeviceGenericRxOverflow,
+      kOpentitanPlicIrqIdSpiDeviceGenericTxUnderflow,
+      kOpentitanPlicIrqIdSpiDeviceUploadCmdfifoNotEmpty,
+      kOpentitanPlicIrqIdSpiDeviceUploadPayloadNotEmpty,
+      kOpentitanPlicIrqIdSpiDeviceUploadPayloadOverflow,
+      kOpentitanPlicIrqIdSpiDeviceReadbufWatermark,
+      kOpentitanPlicIrqIdSpiDeviceReadbufFlip,
+      kOpentitanPlicIrqIdSpiDeviceTpmHeaderNotEmpty};
 
   for (uint32_t i = 0; i < ARRAYSIZE(plic_irqs); ++i) {
     CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(
-        plic, plic_irqs[i], kTopEarlgreyPlicTargetIbex0, kDifToggleEnabled));
+        plic, plic_irqs[i], kOpentitanPlicTargetIbex0, kDifToggleEnabled));
 
     // Assign a default priority
     CHECK_DIF_OK(dif_rv_plic_irq_set_priority(plic, plic_irqs[i],
@@ -96,17 +96,17 @@ static void en_spi_device_irqs(dif_spi_device_t *spi_device) {
 
 void ottf_external_isr(void) {
   plic_isr_ctx_t plic_ctx = {.rv_plic = &plic,
-                             .hart_id = kTopEarlgreyPlicTargetIbex0};
+                             .hart_id = kOpentitanPlicTargetIbex0};
 
   // We should only be receiving the tpm header interrupt during this test.
   spi_device_isr_ctx_t spi_device_ctx = {
       .spi_device = &spi_device.dev,
       .plic_spi_device_start_irq_id =
-          kTopEarlgreyPlicIrqIdSpiDeviceGenericRxFull,
+          kOpentitanPlicIrqIdSpiDeviceGenericRxFull,
       .expected_irq = kDifSpiDeviceIrqTpmHeaderNotEmpty,
       .is_only_irq = true};
 
-  top_earlgrey_plic_peripheral_t peripheral;
+  opentitan_plic_peripheral_t peripheral;
   dif_spi_device_irq_t spi_device_irq;
   isr_testutils_spi_device_isr(plic_ctx, spi_device_ctx, &peripheral,
                                &spi_device_irq);
@@ -147,20 +147,20 @@ static void atomic_wait_for_interrupt() {
 
 bool test_main(void) {
   CHECK_DIF_OK(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
 
   CHECK_DIF_OK(dif_spi_device_init_handle(
-      mmio_region_from_addr(TOP_EARLGREY_SPI_DEVICE_BASE_ADDR), &spi_device));
+      mmio_region_from_addr(OPENTITAN_SPI_DEVICE_BASE_ADDR), &spi_device));
 
   CHECK_DIF_OK(dif_rv_plic_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR), &plic));
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR), &plic));
 
   // Set IoA7 for tpm csb.
   // Longer term this needs to migrate to a top specific, platform specific
   // setting.
   CHECK_DIF_OK(dif_pinmux_input_select(
-      &pinmux, kTopEarlgreyPinmuxPeripheralInSpiDeviceTpmCsb,
-      kTopEarlgreyPinmuxInselIoa7));
+      &pinmux, kOpentitanPinmuxPeripheralInSpiDeviceTpmCsb,
+      kOpentitanPinmuxInselIoa7));
 
   dif_pinmux_pad_attr_t out_attr;
   dif_pinmux_pad_attr_t in_attr = {
@@ -169,7 +169,7 @@ bool test_main(void) {
       .flags = kDifPinmuxPadAttrPullResistorEnable |
                kDifPinmuxPadAttrPullResistorUp};
 
-  CHECK_DIF_OK(dif_pinmux_pad_write_attrs(&pinmux, kTopEarlgreyMuxedPadsIoa7,
+  CHECK_DIF_OK(dif_pinmux_pad_write_attrs(&pinmux, kOpentitanMuxedPadsIoa7,
                                           kDifPinmuxPadKindMio, in_attr,
                                           &out_attr));
 

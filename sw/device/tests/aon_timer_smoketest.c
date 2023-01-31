@@ -62,7 +62,7 @@ bool test_main(void) {
 
   // Initialise AON Timer.
   CHECK_DIF_OK(dif_aon_timer_init(
-      mmio_region_from_addr(TOP_EARLGREY_AON_TIMER_AON_BASE_ADDR), &aon));
+      mmio_region_from_addr(OPENTITAN_AON_TIMER_AON_BASE_ADDR), &aon));
 
   aon_timer_test_wakeup_timer(&aon);
   aon_timer_test_watchdog_timer(&aon);

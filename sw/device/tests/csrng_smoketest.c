@@ -53,7 +53,7 @@ void test_ctr_drbg_ctr0_smoke(const dif_csrng_t *csrng) {
 bool test_main(void) {
   dif_csrng_t csrng;
   CHECK_DIF_OK(dif_csrng_init(
-      mmio_region_from_addr(TOP_EARLGREY_CSRNG_BASE_ADDR), &csrng));
+      mmio_region_from_addr(OPENTITAN_CSRNG_BASE_ADDR), &csrng));
   CHECK_DIF_OK(dif_csrng_configure(&csrng));
 
   test_ctr_drbg_ctr0_smoke(&csrng);

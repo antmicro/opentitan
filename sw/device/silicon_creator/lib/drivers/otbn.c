@@ -21,7 +21,7 @@ enum {
   /**
    * Base address for OTBN.
    */
-  kBase = TOP_EARLGREY_OTBN_BASE_ADDR,
+  kBase = OPENTITAN_OTBN_BASE_ADDR,
   /**
    * Highest index of OTBN error bits.
    */

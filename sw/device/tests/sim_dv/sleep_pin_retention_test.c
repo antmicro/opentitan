@@ -21,7 +21,7 @@
 OTTF_DEFINE_TEST_CONFIG();
 
 // PLIC structures
-static const uint32_t kPlicTarget = kTopEarlgreyPlicTargetIbex0;
+static const uint32_t kPlicTarget = kOpentitanPlicTargetIbex0;
 static dif_gpio_t gpio;
 static dif_pwrmgr_t pwrmgr;
 static dif_pinmux_t pinmux;
@@ -31,7 +31,7 @@ static dif_rv_plic_t plic;
 static plic_isr_ctx_t plic_ctx = {.rv_plic = &plic, .hart_id = kPlicTarget};
 static pwrmgr_isr_ctx_t pwrmgr_isr_ctx = {
     .pwrmgr = &pwrmgr,
-    .plic_pwrmgr_start_irq_id = kTopEarlgreyPlicIrqIdPwrmgrAonWakeup,
+    .plic_pwrmgr_start_irq_id = kOpentitanPlicIrqIdPwrmgrAonWakeup,
     .expected_irq = kDifPwrmgrIrqWakeup,
     .is_only_irq = true};
 
@@ -55,12 +55,12 @@ enum { kNumGpioPads = 8 };
  */
 void ottf_external_isr(void) {
   dif_pwrmgr_irq_t irq_id;
-  top_earlgrey_plic_peripheral_t peripheral;
+  opentitan_plic_peripheral_t peripheral;
 
   isr_testutils_pwrmgr_isr(plic_ctx, pwrmgr_isr_ctx, &peripheral, &irq_id);
 
   // Check that both the peripheral and the irq id is correct
-  CHECK(peripheral == kTopEarlgreyPlicPeripheralPwrmgrAon,
+  CHECK(peripheral == kOpentitanPlicPeripheralPwrmgrAon,
         "IRQ peripheral: %d is incorrect", peripheral);
   CHECK(irq_id == kDifPwrmgrIrqWakeup, "IRQ ID: %d is incorrect", irq_id);
 
@@ -115,7 +115,7 @@ void gpio_test(dif_pwrmgr_t *pwrmgr, dif_pinmux_t *pinmux, dif_gpio_t *gpio,
     pad_mode = ((gpio_val >> i) & 0x1) ? kDifPinmuxSleepModeLow
                                        : kDifPinmuxSleepModeHigh;
     CHECK_DIF_OK(dif_pinmux_pad_sleep_enable(
-        pinmux, kTopEarlgreyPinmuxMioOutIoa0 + i, pad_kind, pad_mode));
+        pinmux, kOpentitanPinmuxMioOutIoa0 + i, pad_kind, pad_mode));
   }
 
   // 5. Initiate sleep mode
@@ -128,7 +128,7 @@ void gpio_test(dif_pwrmgr_t *pwrmgr, dif_pinmux_t *pinmux, dif_gpio_t *gpio,
   // 7. Turn-off retention.
   for (int i = 0; i < kNumGpioPads; i++) {
     CHECK_DIF_OK(dif_pinmux_pad_sleep_clear_state(
-        pinmux, kTopEarlgreyPinmuxMioOutIoa0 + i, pad_kind));
+        pinmux, kOpentitanPinmuxMioOutIoa0 + i, pad_kind));
   }
 }
 
@@ -147,11 +147,11 @@ void gpio_init(const dif_pinmux_t *pinmux, const dif_gpio_t *gpio) {
   // Configure PINMUX to GPIO
   for (int i = 0; i < kNumGpioPads; i++) {
     CHECK_DIF_OK(dif_pinmux_input_select(
-        pinmux, kTopEarlgreyPinmuxPeripheralInGpioGpio0 + i,
-        kTopEarlgreyPinmuxInselIoa0 + i));
+        pinmux, kOpentitanPinmuxPeripheralInGpioGpio0 + i,
+        kOpentitanPinmuxInselIoa0 + i));
     CHECK_DIF_OK(
-        dif_pinmux_output_select(pinmux, kTopEarlgreyPinmuxMioOutIoa0 + i,
-                                 kTopEarlgreyPinmuxOutselGpioGpio0 + i));
+        dif_pinmux_output_select(pinmux, kOpentitanPinmuxMioOutIoa0 + i,
+                                 kOpentitanPinmuxOutselGpioGpio0 + i));
   }
 }
 
@@ -169,18 +169,18 @@ bool test_main(void) {
 
   // Initialize power manager
   CHECK_DIF_OK(dif_pwrmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_PWRMGR_AON_BASE_ADDR), &pwrmgr));
+      mmio_region_from_addr(OPENTITAN_PWRMGR_AON_BASE_ADDR), &pwrmgr));
   CHECK_DIF_OK(dif_rv_plic_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR), &plic));
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR), &plic));
   CHECK_DIF_OK(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
   CHECK_DIF_OK(
-      dif_gpio_init(mmio_region_from_addr(TOP_EARLGREY_GPIO_BASE_ADDR), &gpio));
+      dif_gpio_init(mmio_region_from_addr(OPENTITAN_GPIO_BASE_ADDR), &gpio));
 
   // Enable all the AON interrupts used in this test.
   rv_plic_testutils_irq_range_enable(&plic, kPlicTarget,
-                                     kTopEarlgreyPlicIrqIdPwrmgrAonWakeup,
-                                     kTopEarlgreyPlicIrqIdPwrmgrAonWakeup);
+                                     kOpentitanPlicIrqIdPwrmgrAonWakeup,
+                                     kOpentitanPlicIrqIdPwrmgrAonWakeup);
   // Enable pwrmgr interrupt
   CHECK_DIF_OK(dif_pwrmgr_irq_set_enabled(&pwrmgr, 0, kDifToggleEnabled));
 
@@ -188,7 +188,7 @@ bool test_main(void) {
   wakeup_cfg.mode = kDifPinmuxWakeupModePositiveEdge;
   wakeup_cfg.signal_filter = false;
   wakeup_cfg.pad_type = 0;                              // MIO
-  wakeup_cfg.pad_select = kTopEarlgreyPinmuxInselIoa8;  // MIO08
+  wakeup_cfg.pad_select = kOpentitanPinmuxInselIoa8;  // MIO08
 
   // Configure Wakeup Detector 0
   CHECK_DIF_OK(dif_pinmux_wakeup_detector_enable(&pinmux, 0, wakeup_cfg));

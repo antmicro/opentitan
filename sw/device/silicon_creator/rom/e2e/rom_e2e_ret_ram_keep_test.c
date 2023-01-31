@@ -65,7 +65,7 @@ rom_error_t retention_ram_keep_test(void) {
     // Initialize pwrmgr
     dif_pwrmgr_t pwrmgr;
     CHECK_DIF_OK(dif_pwrmgr_init(
-        mmio_region_from_addr(TOP_EARLGREY_PWRMGR_AON_BASE_ADDR), &pwrmgr));
+        mmio_region_from_addr(OPENTITAN_PWRMGR_AON_BASE_ADDR), &pwrmgr));
 
     // Initialize aon timer
     // Issue a wakeup signal in ~150us through the AON timer.
@@ -81,7 +81,7 @@ rom_error_t retention_ram_keep_test(void) {
 
     dif_aon_timer_t aon_timer;
     CHECK_DIF_OK(dif_aon_timer_init(
-        mmio_region_from_addr(TOP_EARLGREY_AON_TIMER_AON_BASE_ADDR),
+        mmio_region_from_addr(OPENTITAN_AON_TIMER_AON_BASE_ADDR),
         &aon_timer));
     aon_timer_testutils_wakeup_config(&aon_timer, wakeup_threshold);
 

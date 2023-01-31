@@ -156,15 +156,15 @@ static void lock_otp_secret2_partition() {
 bool test_main(void) {
   LOG_INFO("Start LC walkthrough %d test.", kDestState);
 
-  mmio_region_t lc_reg = mmio_region_from_addr(TOP_EARLGREY_LC_CTRL_BASE_ADDR);
+  mmio_region_t lc_reg = mmio_region_from_addr(OPENTITAN_LC_CTRL_BASE_ADDR);
   CHECK_DIF_OK(dif_lc_ctrl_init(lc_reg, &lc));
 
   mmio_region_t otp_reg =
-      mmio_region_from_addr(TOP_EARLGREY_OTP_CTRL_CORE_BASE_ADDR);
+      mmio_region_from_addr(OPENTITAN_OTP_CTRL_CORE_BASE_ADDR);
   CHECK_DIF_OK(dif_otp_ctrl_init(otp_reg, &otp));
 
   CHECK_DIF_OK(dif_rstmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR), &rstmgr));
+      mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR), &rstmgr));
 
   LOG_INFO("Read and check LC state and count.");
   dif_lc_ctrl_state_t curr_state;

@@ -83,7 +83,7 @@ static void alert_handler_config(void) {
 
 bool test_main(void) {
   CHECK_DIF_OK(dif_alert_handler_init(
-      mmio_region_from_addr(TOP_EARLGREY_ALERT_HANDLER_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_ALERT_HANDLER_BASE_ADDR),
       &alert_handler));
 
   alert_handler_config();

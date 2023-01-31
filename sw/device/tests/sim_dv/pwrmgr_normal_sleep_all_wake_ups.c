@@ -42,9 +42,9 @@ bool test_main(void) {
   init_units();
 
   // Enable all the AON interrupts used in this test.
-  rv_plic_testutils_irq_range_enable(&rv_plic, kTopEarlgreyPlicTargetIbex0,
-                                     kTopEarlgreyPlicIrqIdPwrmgrAonWakeup,
-                                     kTopEarlgreyPlicIrqIdPwrmgrAonWakeup);
+  rv_plic_testutils_irq_range_enable(&rv_plic, kOpentitanPlicTargetIbex0,
+                                     kOpentitanPlicIrqIdPwrmgrAonWakeup,
+                                     kOpentitanPlicIrqIdPwrmgrAonWakeup);
 
   // Enable pwrmgr interrupt
   CHECK_DIF_OK(dif_pwrmgr_irq_set_enabled(&pwrmgr, 0, kDifToggleEnabled));

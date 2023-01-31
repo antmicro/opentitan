@@ -18,7 +18,7 @@
 OTTF_DEFINE_TEST_CONFIG();
 static dif_clkmgr_t clkmgr;
 static const dif_clkmgr_hintable_clock_t kHmacClock =
-    kTopEarlgreyHintableClocksMainHmac;
+    kOpentitanHintableClocksMainHmac;
 
 static const dif_hmac_transaction_t kHmacTransactionConfig = {
     .digest_endianness = kDifHmacEndiannessLittle,
@@ -34,7 +34,7 @@ static bool is_hintable_clock_enabled(const dif_clkmgr_t *clkmgr,
 }
 
 static void initialize_clkmgr(dif_clkmgr_hintable_clock_t clock) {
-  mmio_region_t addr = mmio_region_from_addr(TOP_EARLGREY_CLKMGR_AON_BASE_ADDR);
+  mmio_region_t addr = mmio_region_from_addr(OPENTITAN_CLKMGR_AON_BASE_ADDR);
   CHECK_DIF_OK(dif_clkmgr_init(addr, &clkmgr));
 
   // Get initial hint and enable for AES clock and check both are enabled.
@@ -70,7 +70,7 @@ bool test_main(void) {
 
   initialize_clkmgr(kHmacClock);
 
-  mmio_region_t base_addr = mmio_region_from_addr(TOP_EARLGREY_HMAC_BASE_ADDR);
+  mmio_region_t base_addr = mmio_region_from_addr(OPENTITAN_HMAC_BASE_ADDR);
   CHECK_DIF_OK(dif_hmac_init(base_addr, &hmac));
 
   // With the HMAC unit idle, write the HMAC clk hint to 0 within clkmgr to

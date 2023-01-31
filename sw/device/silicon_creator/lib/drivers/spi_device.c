@@ -18,7 +18,7 @@ enum {
   /**
    * Base address of the spi_device registers.
    */
-  kBase = TOP_EARLGREY_SPI_DEVICE_BASE_ADDR,
+  kBase = OPENTITAN_SPI_DEVICE_BASE_ADDR,
   /**
    * Start address of the SFDP space in spi_device buffer.
    */

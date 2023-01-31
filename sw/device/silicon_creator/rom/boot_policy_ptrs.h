@@ -13,7 +13,7 @@
 extern "C" {
 #endif  // __cplusplus
 
-static_assert((TOP_EARLGREY_EFLASH_SIZE_BYTES % 2) == 0,
+static_assert((OPENTITAN_EFLASH_SIZE_BYTES % 2) == 0,
               "Flash size is not divisible by 2");
 
 #ifdef OT_PLATFORM_RV32
@@ -24,7 +24,7 @@ static_assert((TOP_EARLGREY_EFLASH_SIZE_BYTES % 2) == 0,
  * @return Pointer to the manifest of the ROM_EXT image in slot A.
  */
 inline const manifest_t *boot_policy_manifest_a_get(void) {
-  return (const manifest_t *)TOP_EARLGREY_EFLASH_BASE_ADDR;
+  return (const manifest_t *)OPENTITAN_EFLASH_BASE_ADDR;
 }
 
 /**
@@ -34,8 +34,8 @@ inline const manifest_t *boot_policy_manifest_a_get(void) {
  * @return Pointer to the manifest of the ROM_EXT image in slot B.
  */
 inline const manifest_t *boot_policy_manifest_b_get(void) {
-  return (const manifest_t *)(TOP_EARLGREY_EFLASH_BASE_ADDR +
-                              (TOP_EARLGREY_EFLASH_SIZE_BYTES / 2));
+  return (const manifest_t *)(OPENTITAN_EFLASH_BASE_ADDR +
+                              (OPENTITAN_EFLASH_SIZE_BYTES / 2));
 }
 #else
 /**

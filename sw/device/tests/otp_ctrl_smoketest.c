@@ -30,7 +30,7 @@ OTTF_DEFINE_TEST_CONFIG();
  */
 bool test_main(void) {
   CHECK_DIF_OK(dif_otp_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_OTP_CTRL_CORE_BASE_ADDR), &otp));
+      mmio_region_from_addr(OPENTITAN_OTP_CTRL_CORE_BASE_ADDR), &otp));
 
   dif_otp_ctrl_config_t config = {
       .check_timeout = 100000,

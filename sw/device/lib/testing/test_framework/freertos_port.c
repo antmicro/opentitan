@@ -35,7 +35,7 @@ uint8_t ucHeap[configTOTAL_HEAP_SIZE];
 #if configUSE_PREEMPTION
 
 static dif_rv_timer_t timer;
-static const uint32_t kTimerHartId = (uint32_t)kTopEarlgreyPlicTargetIbex0;
+static const uint32_t kTimerHartId = (uint32_t)kOpentitanPlicTargetIbex0;
 static const uint32_t kTimerComparatorId = 0;
 static const uint64_t kTimerDeadline =
     100;  // Counter must reach 100 for an IRQ to be triggered.
@@ -60,7 +60,7 @@ void vPortSetupTimerInterrupt(void) {
 
   // Initialize and reset the timer.
   CHECK_DIF_OK(dif_rv_timer_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_TIMER_BASE_ADDR), &timer));
+      mmio_region_from_addr(OPENTITAN_RV_TIMER_BASE_ADDR), &timer));
   CHECK_DIF_OK(dif_rv_timer_reset(&timer));
 
   // Compute and set tick parameters (i.e., step, prescale, etc.).

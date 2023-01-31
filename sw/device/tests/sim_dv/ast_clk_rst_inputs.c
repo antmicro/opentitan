@@ -48,7 +48,7 @@ static volatile const uint8_t kChannel1MaxHighByte;
 static volatile const uint8_t kChannel1MinLowByte;
 static volatile const uint8_t kChannel1MinHighByte;
 
-static const uint32_t kPlicTarget = kTopEarlgreyPlicTargetIbex0;
+static const uint32_t kPlicTarget = kOpentitanPlicTargetIbex0;
 
 static dif_sensor_ctrl_t sensor_ctrl;
 static dif_alert_handler_t alert_handler;
@@ -67,11 +67,11 @@ static volatile bool interrupt_serviced = false;
 static bool first_adc_setup = true;
 
 static plic_isr_ctx_t plic_ctx = {.rv_plic = &plic,
-                                  .hart_id = kTopEarlgreyPlicTargetIbex0};
+                                  .hart_id = kOpentitanPlicTargetIbex0};
 
 static pwrmgr_isr_ctx_t pwrmgr_isr_ctx = {
     .pwrmgr = &pwrmgr,
-    .plic_pwrmgr_start_irq_id = kTopEarlgreyPlicIrqIdPwrmgrAonWakeup,
+    .plic_pwrmgr_start_irq_id = kOpentitanPlicIrqIdPwrmgrAonWakeup,
     .expected_irq = kDifPwrmgrIrqWakeup,
     .is_only_irq = true};
 
@@ -122,10 +122,10 @@ static void check_alert_state(dif_toggle_t fatal) {
   bool recov_cause = false;
 
   CHECK_DIF_OK(dif_alert_handler_alert_is_cause(
-      &alert_handler, kTopEarlgreyAlertIdSensorCtrlFatalAlert, &fatal_cause));
+      &alert_handler, kOpentitanAlertIdSensorCtrlFatalAlert, &fatal_cause));
 
   CHECK_DIF_OK(dif_alert_handler_alert_is_cause(
-      &alert_handler, kTopEarlgreyAlertIdSensorCtrlRecovAlert, &recov_cause));
+      &alert_handler, kOpentitanAlertIdSensorCtrlRecovAlert, &recov_cause));
 
   if (dif_toggle_to_bool(fatal)) {
     CHECK(fatal_cause & !recov_cause,
@@ -136,9 +136,9 @@ static void check_alert_state(dif_toggle_t fatal) {
   }
 
   CHECK_DIF_OK(dif_alert_handler_alert_acknowledge(
-      &alert_handler, kTopEarlgreyAlertIdSensorCtrlRecovAlert));
+      &alert_handler, kOpentitanAlertIdSensorCtrlRecovAlert));
   CHECK_DIF_OK(dif_alert_handler_alert_acknowledge(
-      &alert_handler, kTopEarlgreyAlertIdSensorCtrlFatalAlert));
+      &alert_handler, kOpentitanAlertIdSensorCtrlFatalAlert));
 };
 
 /**
@@ -179,26 +179,26 @@ static void test_event(uint32_t idx, dif_toggle_t fatal, bool set_event) {
 
 void init_units() {
   CHECK_DIF_OK(dif_pwrmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_PWRMGR_AON_BASE_ADDR), &pwrmgr));
+      mmio_region_from_addr(OPENTITAN_PWRMGR_AON_BASE_ADDR), &pwrmgr));
   CHECK_DIF_OK(dif_rstmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR), &rstmgr));
+      mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR), &rstmgr));
   CHECK_DIF_OK(dif_entropy_src_init(
-      mmio_region_from_addr(TOP_EARLGREY_ENTROPY_SRC_BASE_ADDR), &entropy_src));
+      mmio_region_from_addr(OPENTITAN_ENTROPY_SRC_BASE_ADDR), &entropy_src));
   CHECK_DIF_OK(dif_aon_timer_init(
-      mmio_region_from_addr(TOP_EARLGREY_AON_TIMER_AON_BASE_ADDR), &aon_timer));
+      mmio_region_from_addr(OPENTITAN_AON_TIMER_AON_BASE_ADDR), &aon_timer));
   CHECK_DIF_OK(dif_rv_plic_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR), &rv_plic));
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR), &rv_plic));
   CHECK_DIF_OK(dif_sensor_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_SENSOR_CTRL_BASE_ADDR), &sensor_ctrl));
+      mmio_region_from_addr(OPENTITAN_SENSOR_CTRL_BASE_ADDR), &sensor_ctrl));
   CHECK_DIF_OK(dif_alert_handler_init(
-      mmio_region_from_addr(TOP_EARLGREY_ALERT_HANDLER_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_ALERT_HANDLER_BASE_ADDR),
       &alert_handler));
   CHECK_DIF_OK(dif_rv_plic_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR), &plic));
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR), &plic));
   CHECK_DIF_OK(dif_clkmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_CLKMGR_AON_BASE_ADDR), &clkmgr));
+      mmio_region_from_addr(OPENTITAN_CLKMGR_AON_BASE_ADDR), &clkmgr));
   CHECK_DIF_OK(dif_adc_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_ADC_CTRL_AON_BASE_ADDR), &adc_ctrl));
+      mmio_region_from_addr(OPENTITAN_ADC_CTRL_AON_BASE_ADDR), &adc_ctrl));
 }
 
 /**
@@ -224,12 +224,12 @@ static void configure_adc_ctrl(const dif_adc_ctrl_t *adc_ctrl) {
 }
 
 static void en_plic_irqs(dif_rv_plic_t *plic) {
-  top_earlgrey_plic_irq_id_t plic_irqs[] = {
-      kTopEarlgreyPlicIrqIdAdcCtrlAonMatchDone};
+  opentitan_plic_irq_id_t plic_irqs[] = {
+      kOpentitanPlicIrqIdAdcCtrlAonMatchDone};
 
   for (uint32_t i = 0; i < ARRAYSIZE(plic_irqs); ++i) {
     CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(
-        plic, plic_irqs[i], kTopEarlgreyPlicTargetIbex0, kDifToggleEnabled));
+        plic, plic_irqs[i], kOpentitanPlicTargetIbex0, kDifToggleEnabled));
 
     // Assign a default priority
     CHECK_DIF_OK(dif_rv_plic_irq_set_priority(plic, plic_irqs[i], 0x1));
@@ -317,9 +317,9 @@ void ast_enter_sleep_states_and_check_functionality(
   uint32_t unhealthy_fifos, errors, alerts;
 
   const dif_edn_t edn0 = {
-      .base_addr = mmio_region_from_addr(TOP_EARLGREY_EDN0_BASE_ADDR)};
+      .base_addr = mmio_region_from_addr(OPENTITAN_EDN0_BASE_ADDR)};
   const dif_edn_t edn1 = {
-      .base_addr = mmio_region_from_addr(TOP_EARLGREY_EDN1_BASE_ADDR)};
+      .base_addr = mmio_region_from_addr(OPENTITAN_EDN1_BASE_ADDR)};
 
   if ((pwrmgr_config & (~kDifPwrmgrDomainOptionUsbClockInActivePower)) == 0) {
     deepsleep = true;
@@ -339,9 +339,9 @@ void ast_enter_sleep_states_and_check_functionality(
 
     // Enable all the AON interrupts used in this test.
     rv_plic_testutils_irq_range_enable(
-        &rv_plic, kTopEarlgreyPlicTargetIbex0,
-        kTopEarlgreyPlicIrqIdAdcCtrlAonMatchDone,
-        kTopEarlgreyPlicIrqIdAdcCtrlAonMatchDone);
+        &rv_plic, kOpentitanPlicTargetIbex0,
+        kOpentitanPlicIrqIdAdcCtrlAonMatchDone,
+        kOpentitanPlicIrqIdAdcCtrlAonMatchDone);
     CHECK_DIF_OK(dif_pwrmgr_irq_set_enabled(&pwrmgr, 0, kDifToggleEnabled));
 
     // Setup low power.
@@ -423,9 +423,9 @@ void ast_enter_sleep_states_and_check_functionality(
  */
 void set_edn_auto_mode() {
   const dif_edn_t edn0 = {
-      .base_addr = mmio_region_from_addr(TOP_EARLGREY_EDN0_BASE_ADDR)};
+      .base_addr = mmio_region_from_addr(OPENTITAN_EDN0_BASE_ADDR)};
   const dif_edn_t edn1 = {
-      .base_addr = mmio_region_from_addr(TOP_EARLGREY_EDN1_BASE_ADDR)};
+      .base_addr = mmio_region_from_addr(OPENTITAN_EDN1_BASE_ADDR)};
 
   // entropy_testutils_stop_all();
   CHECK_DIF_OK(dif_edn_stop(&edn0));
@@ -504,20 +504,20 @@ void set_edn_auto_mode() {
 
 void ottf_external_isr(void) {
   plic_isr_ctx_t plic_ctx = {.rv_plic = &plic,
-                             .hart_id = kTopEarlgreyPlicTargetIbex0};
+                             .hart_id = kOpentitanPlicTargetIbex0};
 
   adc_ctrl_isr_ctx_t adc_ctrl_ctx = {
       .adc_ctrl = &adc_ctrl,
-      .plic_adc_ctrl_start_irq_id = kTopEarlgreyPlicIrqIdAdcCtrlAonMatchDone,
+      .plic_adc_ctrl_start_irq_id = kOpentitanPlicIrqIdAdcCtrlAonMatchDone,
       .expected_irq = 0,
       .is_only_irq = true};
 
-  top_earlgrey_plic_peripheral_t peripheral;
+  opentitan_plic_peripheral_t peripheral;
   dif_adc_ctrl_irq_t adc_ctrl_irq;
   isr_testutils_adc_ctrl_isr(plic_ctx, adc_ctrl_ctx, &peripheral,
                              &adc_ctrl_irq);
 
-  CHECK(peripheral == kTopEarlgreyPlicPeripheralAdcCtrlAon);
+  CHECK(peripheral == kOpentitanPlicPeripheralAdcCtrlAon);
   CHECK(adc_ctrl_irq == kDifAdcCtrlIrqMatchDone);
   interrupt_serviced = true;
 }
@@ -547,10 +547,10 @@ bool test_main() {
 
   // Enable both recoverable and fatal alerts
   CHECK_DIF_OK(dif_alert_handler_configure_alert(
-      &alert_handler, kTopEarlgreyAlertIdSensorCtrlRecovAlert,
+      &alert_handler, kOpentitanAlertIdSensorCtrlRecovAlert,
       kDifAlertHandlerClassA, kDifToggleEnabled, kDifToggleEnabled));
   CHECK_DIF_OK(dif_alert_handler_configure_alert(
-      &alert_handler, kTopEarlgreyAlertIdSensorCtrlFatalAlert,
+      &alert_handler, kOpentitanAlertIdSensorCtrlFatalAlert,
       kDifAlertHandlerClassA, kDifToggleEnabled, kDifToggleEnabled));
 
   LOG_INFO("1 test alert/rng after Deep sleep 1");

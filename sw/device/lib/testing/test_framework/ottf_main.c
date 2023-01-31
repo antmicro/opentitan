@@ -81,7 +81,7 @@ char *ottf_task_get_self_name(void) {
 
 static void init_uart(void) {
   CHECK_DIF_OK(dif_uart_init(
-      mmio_region_from_addr(TOP_EARLGREY_UART0_BASE_ADDR), &uart0));
+      mmio_region_from_addr(OPENTITAN_UART0_BASE_ADDR), &uart0));
   CHECK_DIF_OK(
       dif_uart_configure(&uart0, (dif_uart_config_t){
                                      .baudrate = kUartBaudrate,
@@ -136,7 +136,7 @@ void _ottf_main(void) {
   // tests with a source of entropy for randomizing test behaviors.
   dif_rv_core_ibex_t rv_core_ibex;
   CHECK_DIF_OK(dif_rv_core_ibex_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_CORE_IBEX_CFG_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR),
       &rv_core_ibex));
   rand_testutils_rng_ctx = rand_testutils_init(&rv_core_ibex);
 

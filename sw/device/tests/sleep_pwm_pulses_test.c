@@ -40,15 +40,15 @@
 OTTF_DEFINE_TEST_CONFIG();
 
 static const dif_pinmux_index_t kPinmuxOutsel[PWM_PARAM_N_OUTPUTS] = {
-    kTopEarlgreyPinmuxOutselPwmAonPwm0, kTopEarlgreyPinmuxOutselPwmAonPwm1,
-    kTopEarlgreyPinmuxOutselPwmAonPwm2, kTopEarlgreyPinmuxOutselPwmAonPwm3,
-    kTopEarlgreyPinmuxOutselPwmAonPwm4, kTopEarlgreyPinmuxOutselPwmAonPwm5,
+    kOpentitanPinmuxOutselPwmAonPwm0, kOpentitanPinmuxOutselPwmAonPwm1,
+    kOpentitanPinmuxOutselPwmAonPwm2, kOpentitanPinmuxOutselPwmAonPwm3,
+    kOpentitanPinmuxOutselPwmAonPwm4, kOpentitanPinmuxOutselPwmAonPwm5,
 };
 
 static const dif_pinmux_index_t kPinmuxMioOut[PWM_PARAM_N_OUTPUTS] = {
-    kTopEarlgreyPinmuxMioOutIob10, kTopEarlgreyPinmuxMioOutIob11,
-    kTopEarlgreyPinmuxMioOutIob12, kTopEarlgreyPinmuxMioOutIoc10,
-    kTopEarlgreyPinmuxMioOutIoc11, kTopEarlgreyPinmuxMioOutIoc12,
+    kOpentitanPinmuxMioOutIob10, kOpentitanPinmuxMioOutIob11,
+    kOpentitanPinmuxMioOutIob12, kOpentitanPinmuxMioOutIoc10,
+    kOpentitanPinmuxMioOutIoc11, kOpentitanPinmuxMioOutIoc12,
 };
 
 static const dif_pwm_channel_t kPwmChannel[PWM_PARAM_N_OUTPUTS] = {
@@ -121,15 +121,15 @@ bool test_main(void) {
 
   // Initialize pwrmgr
   CHECK_DIF_OK(dif_pwrmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_PWRMGR_AON_BASE_ADDR), &pwrmgr));
+      mmio_region_from_addr(OPENTITAN_PWRMGR_AON_BASE_ADDR), &pwrmgr));
 
   // Initialize rstmgr since this will check some registers.
   CHECK_DIF_OK(dif_rstmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR), &rstmgr));
+      mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR), &rstmgr));
 
   dif_aon_timer_t aon_timer;
   CHECK_DIF_OK(dif_aon_timer_init(
-      mmio_region_from_addr(TOP_EARLGREY_AON_TIMER_AON_BASE_ADDR), &aon_timer));
+      mmio_region_from_addr(OPENTITAN_AON_TIMER_AON_BASE_ADDR), &aon_timer));
 
   // Assuming the chip hasn't slept yet, wakeup reason should be empty.
 
@@ -140,7 +140,7 @@ bool test_main(void) {
     dif_pinmux_t pinmux;
     // Initialize pwm
     CHECK_DIF_OK(dif_pwm_init(
-        mmio_region_from_addr(TOP_EARLGREY_PWM_AON_BASE_ADDR), &pwm));
+        mmio_region_from_addr(OPENTITAN_PWM_AON_BASE_ADDR), &pwm));
 
     // Update pwm.CFG
     CHECK_DIF_OK(dif_pwm_configure(&pwm, config_));
@@ -156,7 +156,7 @@ bool test_main(void) {
     // LOG_INFO is used to indicate pwmout is available to
     // SV pwm_monitor
     CHECK_DIF_OK(dif_pinmux_init(
-        mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+        mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
 
     LOG_INFO("pinmux_init begin");
     for (int i = 0; i < PWM_PARAM_N_OUTPUTS; ++i) {

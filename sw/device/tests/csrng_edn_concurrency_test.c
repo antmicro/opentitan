@@ -110,20 +110,20 @@ OTTF_DEFINE_TEST_CONFIG(.enable_concurrency = true,
  */
 static void init_peripherals(void) {
   CHECK_DIF_OK(dif_csrng_init(
-      mmio_region_from_addr(TOP_EARLGREY_CSRNG_BASE_ADDR), &csrng));
+      mmio_region_from_addr(OPENTITAN_CSRNG_BASE_ADDR), &csrng));
   CHECK_DIF_OK(
-      dif_edn_init(mmio_region_from_addr(TOP_EARLGREY_EDN0_BASE_ADDR), &edn0));
+      dif_edn_init(mmio_region_from_addr(OPENTITAN_EDN0_BASE_ADDR), &edn0));
   CHECK_DIF_OK(
-      dif_edn_init(mmio_region_from_addr(TOP_EARLGREY_EDN1_BASE_ADDR), &edn1));
+      dif_edn_init(mmio_region_from_addr(OPENTITAN_EDN1_BASE_ADDR), &edn1));
   CHECK_DIF_OK(dif_entropy_src_init(
-      mmio_region_from_addr(TOP_EARLGREY_ENTROPY_SRC_BASE_ADDR), &entropy_src));
+      mmio_region_from_addr(OPENTITAN_ENTROPY_SRC_BASE_ADDR), &entropy_src));
   CHECK_DIF_OK(dif_rv_plic_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR), &plic));
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR), &plic));
   CHECK_DIF_OK(dif_rv_core_ibex_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_CORE_IBEX_CFG_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR),
       &rv_core_ibex));
   CHECK_DIF_OK(
-      dif_otbn_init(mmio_region_from_addr(TOP_EARLGREY_OTBN_BASE_ADDR), &otbn));
+      dif_otbn_init(mmio_region_from_addr(OPENTITAN_OTBN_BASE_ADDR), &otbn));
 }
 
 /**

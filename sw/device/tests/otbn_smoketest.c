@@ -152,7 +152,7 @@ bool test_main(void) {
 
   dif_otbn_t otbn;
   CHECK_DIF_OK(
-      dif_otbn_init(mmio_region_from_addr(TOP_EARLGREY_OTBN_BASE_ADDR), &otbn));
+      dif_otbn_init(mmio_region_from_addr(OPENTITAN_OTBN_BASE_ADDR), &otbn));
 
   test_barrett384(&otbn);
   test_sec_wipe(&otbn);

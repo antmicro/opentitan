@@ -22,11 +22,11 @@ static dif_rv_plic_t plic;
 
 enum {
   kCurrentTestPhaseTimeoutUsec = 20,
-  kPlicTarget = kTopEarlgreyPlicTargetIbex0,
+  kPlicTarget = kOpentitanPlicTargetIbex0,
 };
 
 static volatile dif_sysrst_ctrl_irq_t irq;
-static volatile top_earlgrey_plic_peripheral_t peripheral;
+static volatile opentitan_plic_peripheral_t peripheral;
 dif_rv_plic_irq_id_t irq_id;
 
 // Test phase written by testbench.
@@ -39,18 +39,18 @@ enum {
 };
 
 static const dif_pinmux_index_t kPeripheralInputs[] = {
-    kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonKey0In,
-    kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonKey1In,
-    kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonKey2In,
-    kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonPwrbIn,
-    kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonAcPresent,
-    kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonLidOpen,
+    kOpentitanPinmuxPeripheralInSysrstCtrlAonKey0In,
+    kOpentitanPinmuxPeripheralInSysrstCtrlAonKey1In,
+    kOpentitanPinmuxPeripheralInSysrstCtrlAonKey2In,
+    kOpentitanPinmuxPeripheralInSysrstCtrlAonPwrbIn,
+    kOpentitanPinmuxPeripheralInSysrstCtrlAonAcPresent,
+    kOpentitanPinmuxPeripheralInSysrstCtrlAonLidOpen,
 };
 
 static const dif_pinmux_index_t kInputPads[] = {
-    kTopEarlgreyPinmuxInselIob3, kTopEarlgreyPinmuxInselIob6,
-    kTopEarlgreyPinmuxInselIob8, kTopEarlgreyPinmuxInselIor13,
-    kTopEarlgreyPinmuxInselIoc7, kTopEarlgreyPinmuxInselIoc9,
+    kOpentitanPinmuxInselIob3, kOpentitanPinmuxInselIob6,
+    kOpentitanPinmuxInselIob8, kOpentitanPinmuxInselIor13,
+    kOpentitanPinmuxInselIoc7, kOpentitanPinmuxInselIoc9,
 };
 
 static const dif_sysrst_ctrl_pin_t kSysrstCtrlInputs[] = {
@@ -92,9 +92,9 @@ void sysrst_ctrl_input_change_detect(
 
   wait_for_interrupt();
   // Check that the interrupt is triggered at the second part of the test.
-  CHECK(peripheral == kTopEarlgreyPlicPeripheralSysrstCtrlAon,
+  CHECK(peripheral == kOpentitanPlicPeripheralSysrstCtrlAon,
         "The interrupt is not triggered during the test.");
-  CHECK(irq_id == kTopEarlgreyPlicIrqIdSysrstCtrlAonEventDetected,
+  CHECK(irq_id == kOpentitanPlicIrqIdSysrstCtrlAonEventDetected,
         "Wrong irq_id");
 
   uint32_t causes;
@@ -141,9 +141,9 @@ void sysrst_ctrl_key_combo_detect(dif_sysrst_ctrl_key_combo_t key_combo,
 
   wait_for_interrupt();
   // Check that the interrupt is triggered at the second part of the test.
-  CHECK(peripheral == kTopEarlgreyPlicPeripheralSysrstCtrlAon,
+  CHECK(peripheral == kOpentitanPlicPeripheralSysrstCtrlAon,
         "The interrupt is not triggered during the test.");
-  CHECK(irq_id == kTopEarlgreyPlicIrqIdSysrstCtrlAonEventDetected,
+  CHECK(irq_id == kOpentitanPlicIrqIdSysrstCtrlAonEventDetected,
         "Wrong irq_id");
 
   uint32_t causes;
@@ -166,14 +166,14 @@ void sysrst_ctrl_key_combo_detect(dif_sysrst_ctrl_key_combo_t key_combo,
 void ottf_external_isr(void) {
   CHECK_DIF_OK(dif_rv_plic_irq_claim(&plic, kPlicTarget, &irq_id));
 
-  peripheral = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[irq_id];
+  peripheral = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[irq_id];
 
-  if (peripheral == kTopEarlgreyPlicPeripheralSysrstCtrlAon) {
+  if (peripheral == kOpentitanPlicPeripheralSysrstCtrlAon) {
     irq =
         (dif_sysrst_ctrl_irq_t)(irq_id -
                                 (dif_rv_plic_irq_id_t)
-                                    kTopEarlgreyPlicIrqIdSysrstCtrlAonEventDetected);
+                                    kOpentitanPlicIrqIdSysrstCtrlAonEventDetected);
     CHECK_DIF_OK(dif_sysrst_ctrl_irq_acknowledge(&sysrst_ctrl, irq));
   }
 
@@ -189,17 +189,17 @@ bool test_main(void) {
 
   // Initialize the PLIC.
   mmio_region_t plic_base_addr =
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR);
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR);
   CHECK_DIF_OK(dif_rv_plic_init(plic_base_addr, &plic));
 
   // Enable all the SYSRST CTRL interrupts on PLIC.
   rv_plic_testutils_irq_range_enable(
-      &plic, kPlicTarget, kTopEarlgreyPlicIrqIdSysrstCtrlAonEventDetected,
-      kTopEarlgreyPlicIrqIdSysrstCtrlAonEventDetected);
+      &plic, kPlicTarget, kOpentitanPlicIrqIdSysrstCtrlAonEventDetected,
+      kOpentitanPlicIrqIdSysrstCtrlAonEventDetected);
 
   // Initialize sysrst ctrl.
   CHECK_DIF_OK(dif_sysrst_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_SYSRST_CTRL_AON_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_SYSRST_CTRL_AON_BASE_ADDR),
       &sysrst_ctrl));
 
   // Enable sysrst ctrl irq.
@@ -210,7 +210,7 @@ bool test_main(void) {
   // Set input pins.
   dif_pinmux_t pinmux;
   CHECK_DIF_OK(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
   for (int i = 0; i < kOutputNunMioPads; ++i) {
     CHECK_DIF_OK(
         dif_pinmux_input_select(&pinmux, kPeripheralInputs[i], kInputPads[i]));

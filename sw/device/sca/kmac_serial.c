@@ -423,7 +423,7 @@ static dif_result_t kmac_get_digest(uint32_t *out, size_t len) {
  */
 static void kmac_init(void) {
   SS_CHECK_DIF_OK(
-      dif_kmac_init(mmio_region_from_addr(TOP_EARLGREY_KMAC_BASE_ADDR), &kmac));
+      dif_kmac_init(mmio_region_from_addr(OPENTITAN_KMAC_BASE_ADDR), &kmac));
 
   dif_kmac_config_t config = (dif_kmac_config_t){
       .entropy_mode = kDifKmacEntropyModeSoftware,

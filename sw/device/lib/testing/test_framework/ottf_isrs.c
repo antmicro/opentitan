@@ -154,14 +154,14 @@ bool ottf_flow_control_isr(void) { return false; }
 
 OT_WEAK
 void ottf_external_isr(void) {
-  const uint32_t kPlicTarget = kTopEarlgreyPlicTargetIbex0;
+  const uint32_t kPlicTarget = kOpentitanPlicTargetIbex0;
   dif_rv_plic_irq_id_t plic_irq_id;
   CHECK_DIF_OK(dif_rv_plic_irq_claim(&ottf_plic, kPlicTarget, &plic_irq_id));
 
-  top_earlgrey_plic_peripheral_t peripheral = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  opentitan_plic_peripheral_t peripheral = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
-  if (peripheral == kTopEarlgreyPlicPeripheralUart0 &&
+  if (peripheral == kOpentitanPlicPeripheralUart0 &&
       ottf_flow_control_isr()) {
     // Complete the IRQ at PLIC.
     CHECK_DIF_OK(

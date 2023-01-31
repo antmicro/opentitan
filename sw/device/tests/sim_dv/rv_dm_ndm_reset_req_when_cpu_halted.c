@@ -18,7 +18,7 @@ OTTF_DEFINE_TEST_CONFIG(.enable_concurrency = false,
 
 bool test_main(void) {
   CHECK_DIF_OK(dif_rstmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR), &rstmgr));
+      mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR), &rstmgr));
 
   if (rstmgr_testutils_is_reset_info(&rstmgr, kDifRstmgrResetInfoPor)) {
     rstmgr_testutils_reason_clear();

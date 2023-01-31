@@ -35,7 +35,7 @@ enum {
   /**
    * Base address of the flash_ctrl registers.
    */
-  kBase = TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR,
+  kBase = OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR,
 };
 
 /**
@@ -427,7 +427,7 @@ rom_error_t flash_ctrl_data_erase_verify(uint32_t addr,
   size_t i = 0;
   for (; launder32(i) < byte_count; i += sizeof(uint32_t)) {
     uint32_t word =
-        abs_mmio_read32(TOP_EARLGREY_FLASH_CTRL_MEM_BASE_ADDR + addr + i);
+        abs_mmio_read32(OPENTITAN_FLASH_CTRL_MEM_BASE_ADDR + addr + i);
     mask &= word;
     error &= word;
   }

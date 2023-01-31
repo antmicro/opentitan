@@ -52,7 +52,7 @@ OT_SECTION(".non_volatile_scratch") uint64_t hung_data_addr[4];
 static void set_hung_address(dif_clkmgr_gateable_clock_t clock,
                              uint32_t value) {
   uint32_t addr =
-      (uintptr_t)&hung_data_addr[clock] - TOP_EARLGREY_FLASH_CTRL_MEM_BASE_ADDR;
+      (uintptr_t)&hung_data_addr[clock] - OPENTITAN_FLASH_CTRL_MEM_BASE_ADDR;
   uint32_t flash_word[2] = {value, 0};
   CHECK(flash_ctrl_testutils_write(&flash_ctrl, addr, 0, flash_word,
                                    kDifFlashCtrlPartitionTypeData, 2));
@@ -97,15 +97,15 @@ static void usbdev_csr_access() {
   CHECK(state == kDifToggleEnabled);
 }
 
-peri_context_t peri_context[kTopEarlgreyGateableClocksLast + 1] = {
+peri_context_t peri_context[kOpentitanGateableClocksLast + 1] = {
     {uart0_csr_access,
-     TOP_EARLGREY_UART0_BASE_ADDR + UART_INTR_ENABLE_REG_OFFSET},
+     OPENTITAN_UART0_BASE_ADDR + UART_INTR_ENABLE_REG_OFFSET},
     {spi_host1_csr_access,
-     TOP_EARLGREY_SPI_HOST1_BASE_ADDR + SPI_HOST_INTR_ENABLE_REG_OFFSET},
+     OPENTITAN_SPI_HOST1_BASE_ADDR + SPI_HOST_INTR_ENABLE_REG_OFFSET},
     {spi_host0_csr_access,
-     TOP_EARLGREY_SPI_HOST0_BASE_ADDR + SPI_HOST_INTR_ENABLE_REG_OFFSET},
+     OPENTITAN_SPI_HOST0_BASE_ADDR + SPI_HOST_INTR_ENABLE_REG_OFFSET},
     {usbdev_csr_access,
-     TOP_EARLGREY_USBDEV_BASE_ADDR + USBDEV_INTR_ENABLE_REG_OFFSET}};
+     OPENTITAN_USBDEV_BASE_ADDR + USBDEV_INTR_ENABLE_REG_OFFSET}};
 
 /**
  * Test that disabling a 'gateable' unit's clock causes the unit to become
@@ -153,31 +153,31 @@ bool test_main(void) {
   dif_rstmgr_t rstmgr;
 
   CHECK_DIF_OK(dif_rstmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR), &rstmgr));
+      mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR), &rstmgr));
 
   CHECK_DIF_OK(dif_clkmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_CLKMGR_AON_BASE_ADDR), &clkmgr));
+      mmio_region_from_addr(OPENTITAN_CLKMGR_AON_BASE_ADDR), &clkmgr));
 
   CHECK_DIF_OK(dif_pwrmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_PWRMGR_AON_BASE_ADDR), &pwrmgr));
+      mmio_region_from_addr(OPENTITAN_PWRMGR_AON_BASE_ADDR), &pwrmgr));
 
   CHECK_DIF_OK(dif_flash_ctrl_init_state(
       &flash_ctrl,
-      mmio_region_from_addr(TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR)));
+      mmio_region_from_addr(OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR)));
 
   // Initialize aon timer.
   CHECK_DIF_OK(dif_aon_timer_init(
-      mmio_region_from_addr(TOP_EARLGREY_AON_TIMER_AON_BASE_ADDR), &aon_timer));
+      mmio_region_from_addr(OPENTITAN_AON_TIMER_AON_BASE_ADDR), &aon_timer));
 
   // Initialize peripherals.
   CHECK_DIF_OK(dif_uart_init(
-      mmio_region_from_addr(TOP_EARLGREY_UART0_BASE_ADDR), &uart0));
+      mmio_region_from_addr(OPENTITAN_UART0_BASE_ADDR), &uart0));
   CHECK_DIF_OK(dif_spi_host_init(
-      mmio_region_from_addr(TOP_EARLGREY_SPI_HOST0_BASE_ADDR), &spi_host0));
+      mmio_region_from_addr(OPENTITAN_SPI_HOST0_BASE_ADDR), &spi_host0));
   CHECK_DIF_OK(dif_spi_host_init(
-      mmio_region_from_addr(TOP_EARLGREY_SPI_HOST1_BASE_ADDR), &spi_host1));
+      mmio_region_from_addr(OPENTITAN_SPI_HOST1_BASE_ADDR), &spi_host1));
   CHECK_DIF_OK(dif_usbdev_init(
-      mmio_region_from_addr(TOP_EARLGREY_USBDEV_BASE_ADDR), &usbdev));
+      mmio_region_from_addr(OPENTITAN_USBDEV_BASE_ADDR), &usbdev));
 
   // Enable cpu dump capture.
   CHECK_DIF_OK(dif_rstmgr_cpu_info_set_enabled(&rstmgr, kDifToggleEnabled));
@@ -195,7 +195,7 @@ bool test_main(void) {
     rstmgr_testutils_pre_reset(&rstmgr);
 
     // Starting clock.
-    dif_clkmgr_gateable_clock_t clock = kTopEarlgreyGateableClocksIoDiv4Peri;
+    dif_clkmgr_gateable_clock_t clock = kOpentitanGateableClocksIoDiv4Peri;
     LOG_INFO("Next clock to test %d", flash_ctrl_testutils_counter_get(0));
 
     test_gateable_clocks_off(&clkmgr, &pwrmgr, clock);
@@ -231,7 +231,7 @@ bool test_main(void) {
     // Mark this clock as tested.
     flash_ctrl_testutils_counter_increment(&flash_ctrl, 0);
 
-    if (clock < kTopEarlgreyGateableClocksLast) {
+    if (clock < kOpentitanGateableClocksLast) {
       clock = flash_ctrl_testutils_counter_get(0);
       LOG_INFO("Next clock to test %d", clock);
 

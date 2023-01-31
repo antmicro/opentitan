@@ -421,7 +421,7 @@ static void aes_serial_fvsr_key_batch_encrypt(const uint8_t *data,
  */
 static void init_aes(void) {
   SS_CHECK_DIF_OK(
-      dif_aes_init(mmio_region_from_addr(TOP_EARLGREY_AES_BASE_ADDR), &aes));
+      dif_aes_init(mmio_region_from_addr(OPENTITAN_AES_BASE_ADDR), &aes));
   SS_CHECK_DIF_OK(dif_aes_reset(&aes));
 }
 

@@ -58,7 +58,7 @@ uint32_t pinmux_testutils_get_testable_gpios_mask(void);
  */
 uint32_t pinmux_testutils_read_strap_pin(dif_pinmux_t *pinmux, dif_gpio_t *gpio,
                                          dif_gpio_pin_t io,
-                                         top_earlgrey_muxed_pads_t pad);
+                                         opentitan_muxed_pads_t pad);
 
 /**
  * Reads the OpenTitan sw strap pins for the strap configuration value.

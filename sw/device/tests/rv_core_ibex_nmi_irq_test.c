@@ -80,7 +80,7 @@ static void alert_handler_config(void) {
       .crashdump_escalation_phase = kDifAlertHandlerClassStatePhase3,
   }};
 
-  dif_alert_handler_alert_t alerts[] = {kTopEarlgreyAlertIdPwrmgrAonFatalFault};
+  dif_alert_handler_alert_t alerts[] = {kOpentitanAlertIdPwrmgrAonFatalFault};
   dif_alert_handler_class_t alert_classes[] = {kDifAlertHandlerClassA};
   dif_alert_handler_class_t classes[] = {kDifAlertHandlerClassA};
   dif_alert_handler_config_t config = {
@@ -248,16 +248,16 @@ void ottf_external_isr(void) { ext_irq_fired = true; }
  */
 void init_peripherals(void) {
   mmio_region_t addr =
-      mmio_region_from_addr(TOP_EARLGREY_RV_CORE_IBEX_CFG_BASE_ADDR);
+      mmio_region_from_addr(OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR);
   CHECK_DIF_OK(dif_rv_core_ibex_init(addr, &rv_core_ibex));
 
-  addr = mmio_region_from_addr(TOP_EARLGREY_AON_TIMER_AON_BASE_ADDR);
+  addr = mmio_region_from_addr(OPENTITAN_AON_TIMER_AON_BASE_ADDR);
   CHECK_DIF_OK(dif_aon_timer_init(addr, &aon_timer));
 
-  addr = mmio_region_from_addr(TOP_EARLGREY_ALERT_HANDLER_BASE_ADDR);
+  addr = mmio_region_from_addr(OPENTITAN_ALERT_HANDLER_BASE_ADDR);
   CHECK_DIF_OK(dif_alert_handler_init(addr, &alert_handler));
 
-  addr = mmio_region_from_addr(TOP_EARLGREY_PWRMGR_AON_BASE_ADDR);
+  addr = mmio_region_from_addr(OPENTITAN_PWRMGR_AON_BASE_ADDR);
   CHECK_DIF_OK(dif_pwrmgr_init(addr, &pwrmgr));
 }
 /**

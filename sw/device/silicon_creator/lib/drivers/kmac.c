@@ -16,7 +16,7 @@ enum {
   /**
    * Base address of the KMAC hardware MMIO interface.
    */
-  kBase = TOP_EARLGREY_KMAC_BASE_ADDR,
+  kBase = OPENTITAN_KMAC_BASE_ADDR,
   /**
    * Keccak capacity for SHAKE256.
    *

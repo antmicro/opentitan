@@ -62,14 +62,14 @@ static void config_sysrst(const dif_pwrmgr_t *pwrmgr,
   // Configure pinmux
   dif_pinmux_t pinmux;
   CHECK_DIF_OK(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
 
   CHECK_DIF_OK(dif_sysrst_ctrl_input_change_detect_configure(
       sysrst_ctrl_aon, sysrst_ctrl_input_change_config));
 
   CHECK_DIF_OK(dif_pinmux_input_select(
-      &pinmux, kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonKey0In,
-      kTopEarlgreyPinmuxInselIor13));
+      &pinmux, kOpentitanPinmuxPeripheralInSysrstCtrlAonKey0In,
+      kOpentitanPinmuxInselIor13));
 
   // Wait for sysrst.
   busy_spin_micros(10 * 1000);
@@ -133,28 +133,28 @@ bool test_main(void) {
   // Initialize pwrmgr.
   dif_pwrmgr_t pwrmgr;
   CHECK_DIF_OK(dif_pwrmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_PWRMGR_AON_BASE_ADDR), &pwrmgr));
+      mmio_region_from_addr(OPENTITAN_PWRMGR_AON_BASE_ADDR), &pwrmgr));
 
   // Initialize sysrst_ctrl.
   dif_sysrst_ctrl_t sysrst_ctrl_aon;
   CHECK_DIF_OK(dif_sysrst_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_SYSRST_CTRL_AON_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_SYSRST_CTRL_AON_BASE_ADDR),
       &sysrst_ctrl_aon));
 
   // Initialize rstmgr to check the reset reason.
   dif_rstmgr_t rstmgr;
   CHECK_DIF_OK(dif_rstmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR), &rstmgr));
+      mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR), &rstmgr));
 
   // Initialize aon timer to use the wdog.
   dif_aon_timer_t aon_timer;
   CHECK_DIF_OK(dif_aon_timer_init(
-      mmio_region_from_addr(TOP_EARLGREY_AON_TIMER_AON_BASE_ADDR), &aon_timer));
+      mmio_region_from_addr(OPENTITAN_AON_TIMER_AON_BASE_ADDR), &aon_timer));
 
   // Initialize flash_ctrl
   CHECK_DIF_OK(dif_flash_ctrl_init_state(
       &flash_ctrl,
-      mmio_region_from_addr(TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR)));
+      mmio_region_from_addr(OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR)));
 
   // First check the flash stored value
   uint32_t event_idx = flash_ctrl_testutils_counter_get(0);

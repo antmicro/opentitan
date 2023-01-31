@@ -229,7 +229,7 @@ rom_error_t test_rnd(void) {
 
 bool test_main(void) {
   CHECK_DIF_OK(dif_entropy_src_init(
-      mmio_region_from_addr(TOP_EARLGREY_ENTROPY_SRC_BASE_ADDR), &entropy_src));
+      mmio_region_from_addr(OPENTITAN_ENTROPY_SRC_BASE_ADDR), &entropy_src));
 
   rom_error_t result = kErrorOk;
   EXECUTE_TEST(result, test_rnd);

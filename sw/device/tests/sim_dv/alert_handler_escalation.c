@@ -88,7 +88,7 @@ void ottf_external_nmi_handler(void) {
 
   // Now intentionally hang the device
   CHECK_DIF_OK(dif_clkmgr_gateable_clock_set_enabled(
-      &clkmgr, kTopEarlgreyGateableClocksIoDiv4Peri, kDifToggleDisabled));
+      &clkmgr, kOpentitanGateableClocksIoDiv4Peri, kDifToggleDisabled));
 
   // access uart after clocks have been disabled
   CHECK_DIF_OK(dif_uart_disable_rx_timeout(&uart));
@@ -97,24 +97,24 @@ void ottf_external_nmi_handler(void) {
 
 bool test_main(void) {
   CHECK_DIF_OK(dif_clkmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_CLKMGR_AON_BASE_ADDR), &clkmgr));
+      mmio_region_from_addr(OPENTITAN_CLKMGR_AON_BASE_ADDR), &clkmgr));
 
   CHECK_DIF_OK(dif_rstmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR), &rstmgr));
+      mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR), &rstmgr));
 
   CHECK_DIF_OK(dif_alert_handler_init(
-      mmio_region_from_addr(TOP_EARLGREY_ALERT_HANDLER_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_ALERT_HANDLER_BASE_ADDR),
       &alert_handler));
 
   CHECK_DIF_OK(dif_rv_core_ibex_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_CORE_IBEX_CFG_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR),
       &rv_core_ibex));
 
   CHECK_DIF_OK(dif_uart_init(
-      mmio_region_from_addr(TOP_EARLGREY_UART0_BASE_ADDR), &uart));
+      mmio_region_from_addr(OPENTITAN_UART0_BASE_ADDR), &uart));
 
   CHECK_DIF_OK(dif_keymgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_KEYMGR_BASE_ADDR), &keymgr));
+      mmio_region_from_addr(OPENTITAN_KEYMGR_BASE_ADDR), &keymgr));
 
   // Check if there was a HW reset caused by the escalation.
   dif_rstmgr_reset_info_bitfield_t rst_info;
@@ -124,7 +124,7 @@ bool test_main(void) {
   if (rst_info & kDifRstmgrResetInfoPor) {
     // set the alert we care about to class A
     CHECK_DIF_OK(dif_alert_handler_configure_alert(
-        &alert_handler, kTopEarlgreyAlertIdRvCoreIbexRecovSwErr,
+        &alert_handler, kOpentitanAlertIdRvCoreIbexRecovSwErr,
         kDifAlertHandlerClassA, /*enabled=*/kDifToggleEnabled,
         /*locked=*/kDifToggleEnabled));
 

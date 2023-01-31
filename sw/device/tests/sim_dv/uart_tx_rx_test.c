@@ -147,7 +147,7 @@ static void pinmux_connect_uart_to_pads(uint32_t rx_pin_in_idx,
                                         uint32_t tx_pin_out_idx,
                                         uint32_t tx_uart_idx) {
   mmio_region_t reg32 = mmio_region_from_addr(
-      TOP_EARLGREY_PINMUX_AON_BASE_ADDR + PINMUX_MIO_PERIPH_INSEL_0_REG_OFFSET);
+      OPENTITAN_PINMUX_AON_BASE_ADDR + PINMUX_MIO_PERIPH_INSEL_0_REG_OFFSET);
   uint32_t reg_value = rx_pin_in_idx;
   // We've got one insel configuration field per register. Hence, we have to
   // convert the enumeration index into a byte address using << 2.
@@ -155,7 +155,7 @@ static void pinmux_connect_uart_to_pads(uint32_t rx_pin_in_idx,
   uint32_t mask = PINMUX_MIO_PERIPH_INSEL_0_IN_0_MASK;
   mmio_region_write32(reg32, reg_offset, reg_value & mask);
 
-  reg32 = mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR +
+  reg32 = mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR +
                                 PINMUX_MIO_OUTSEL_0_REG_OFFSET);
   reg_value = tx_uart_idx;
   // We've got one insel configuration field per register. Hence, we have to
@@ -168,56 +168,56 @@ static void pinmux_connect_uart_to_pads(uint32_t rx_pin_in_idx,
 void update_uart_base_addr_and_irq_id(void) {
   switch (kUartIdx) {
     case 0:
-      uart_base_addr = TOP_EARLGREY_UART0_BASE_ADDR;
-      uart_peripheral_id = kTopEarlgreyPlicPeripheralUart0;
-      uart_irq_tx_watermartk_id = kTopEarlgreyPlicIrqIdUart0TxWatermark;
-      uart_irq_rx_watermartk_id = kTopEarlgreyPlicIrqIdUart0RxWatermark;
-      uart_irq_tx_empty_id = kTopEarlgreyPlicIrqIdUart0TxEmpty;
-      uart_irq_rx_overflow_id = kTopEarlgreyPlicIrqIdUart0RxOverflow;
-      uart_irq_rx_frame_err_id = kTopEarlgreyPlicIrqIdUart0RxFrameErr;
-      uart_irq_rx_frame_err_id = kTopEarlgreyPlicIrqIdUart0RxFrameErr;
-      uart_irq_rx_break_err_id = kTopEarlgreyPlicIrqIdUart0RxBreakErr;
-      uart_irq_rx_timeout_id = kTopEarlgreyPlicIrqIdUart0RxTimeout;
-      uart_irq_rx_parity_err_id = kTopEarlgreyPlicIrqIdUart0RxParityErr;
+      uart_base_addr = OPENTITAN_UART0_BASE_ADDR;
+      uart_peripheral_id = kOpentitanPlicPeripheralUart0;
+      uart_irq_tx_watermartk_id = kOpentitanPlicIrqIdUart0TxWatermark;
+      uart_irq_rx_watermartk_id = kOpentitanPlicIrqIdUart0RxWatermark;
+      uart_irq_tx_empty_id = kOpentitanPlicIrqIdUart0TxEmpty;
+      uart_irq_rx_overflow_id = kOpentitanPlicIrqIdUart0RxOverflow;
+      uart_irq_rx_frame_err_id = kOpentitanPlicIrqIdUart0RxFrameErr;
+      uart_irq_rx_frame_err_id = kOpentitanPlicIrqIdUart0RxFrameErr;
+      uart_irq_rx_break_err_id = kOpentitanPlicIrqIdUart0RxBreakErr;
+      uart_irq_rx_timeout_id = kOpentitanPlicIrqIdUart0RxTimeout;
+      uart_irq_rx_parity_err_id = kOpentitanPlicIrqIdUart0RxParityErr;
       break;
     case 1:
-      uart_base_addr = TOP_EARLGREY_UART1_BASE_ADDR;
-      uart_peripheral_id = kTopEarlgreyPlicPeripheralUart1;
-      uart_irq_tx_watermartk_id = kTopEarlgreyPlicIrqIdUart1TxWatermark;
-      uart_irq_rx_watermartk_id = kTopEarlgreyPlicIrqIdUart1RxWatermark;
-      uart_irq_tx_empty_id = kTopEarlgreyPlicIrqIdUart1TxEmpty;
-      uart_irq_rx_overflow_id = kTopEarlgreyPlicIrqIdUart1RxOverflow;
-      uart_irq_rx_frame_err_id = kTopEarlgreyPlicIrqIdUart1RxFrameErr;
-      uart_irq_rx_frame_err_id = kTopEarlgreyPlicIrqIdUart1RxFrameErr;
-      uart_irq_rx_break_err_id = kTopEarlgreyPlicIrqIdUart1RxBreakErr;
-      uart_irq_rx_timeout_id = kTopEarlgreyPlicIrqIdUart1RxTimeout;
-      uart_irq_rx_parity_err_id = kTopEarlgreyPlicIrqIdUart1RxParityErr;
+      uart_base_addr = OPENTITAN_UART1_BASE_ADDR;
+      uart_peripheral_id = kOpentitanPlicPeripheralUart1;
+      uart_irq_tx_watermartk_id = kOpentitanPlicIrqIdUart1TxWatermark;
+      uart_irq_rx_watermartk_id = kOpentitanPlicIrqIdUart1RxWatermark;
+      uart_irq_tx_empty_id = kOpentitanPlicIrqIdUart1TxEmpty;
+      uart_irq_rx_overflow_id = kOpentitanPlicIrqIdUart1RxOverflow;
+      uart_irq_rx_frame_err_id = kOpentitanPlicIrqIdUart1RxFrameErr;
+      uart_irq_rx_frame_err_id = kOpentitanPlicIrqIdUart1RxFrameErr;
+      uart_irq_rx_break_err_id = kOpentitanPlicIrqIdUart1RxBreakErr;
+      uart_irq_rx_timeout_id = kOpentitanPlicIrqIdUart1RxTimeout;
+      uart_irq_rx_parity_err_id = kOpentitanPlicIrqIdUart1RxParityErr;
       break;
     case 2:
-      uart_base_addr = TOP_EARLGREY_UART2_BASE_ADDR;
-      uart_peripheral_id = kTopEarlgreyPlicPeripheralUart2;
-      uart_irq_tx_watermartk_id = kTopEarlgreyPlicIrqIdUart2TxWatermark;
-      uart_irq_rx_watermartk_id = kTopEarlgreyPlicIrqIdUart2RxWatermark;
-      uart_irq_tx_empty_id = kTopEarlgreyPlicIrqIdUart2TxEmpty;
-      uart_irq_rx_overflow_id = kTopEarlgreyPlicIrqIdUart2RxOverflow;
-      uart_irq_rx_frame_err_id = kTopEarlgreyPlicIrqIdUart2RxFrameErr;
-      uart_irq_rx_frame_err_id = kTopEarlgreyPlicIrqIdUart2RxFrameErr;
-      uart_irq_rx_break_err_id = kTopEarlgreyPlicIrqIdUart2RxBreakErr;
-      uart_irq_rx_timeout_id = kTopEarlgreyPlicIrqIdUart2RxTimeout;
-      uart_irq_rx_parity_err_id = kTopEarlgreyPlicIrqIdUart2RxParityErr;
+      uart_base_addr = OPENTITAN_UART2_BASE_ADDR;
+      uart_peripheral_id = kOpentitanPlicPeripheralUart2;
+      uart_irq_tx_watermartk_id = kOpentitanPlicIrqIdUart2TxWatermark;
+      uart_irq_rx_watermartk_id = kOpentitanPlicIrqIdUart2RxWatermark;
+      uart_irq_tx_empty_id = kOpentitanPlicIrqIdUart2TxEmpty;
+      uart_irq_rx_overflow_id = kOpentitanPlicIrqIdUart2RxOverflow;
+      uart_irq_rx_frame_err_id = kOpentitanPlicIrqIdUart2RxFrameErr;
+      uart_irq_rx_frame_err_id = kOpentitanPlicIrqIdUart2RxFrameErr;
+      uart_irq_rx_break_err_id = kOpentitanPlicIrqIdUart2RxBreakErr;
+      uart_irq_rx_timeout_id = kOpentitanPlicIrqIdUart2RxTimeout;
+      uart_irq_rx_parity_err_id = kOpentitanPlicIrqIdUart2RxParityErr;
       break;
     case 3:
-      uart_base_addr = TOP_EARLGREY_UART3_BASE_ADDR;
-      uart_peripheral_id = kTopEarlgreyPlicPeripheralUart3;
-      uart_irq_tx_watermartk_id = kTopEarlgreyPlicIrqIdUart3TxWatermark;
-      uart_irq_rx_watermartk_id = kTopEarlgreyPlicIrqIdUart3RxWatermark;
-      uart_irq_tx_empty_id = kTopEarlgreyPlicIrqIdUart3TxEmpty;
-      uart_irq_rx_overflow_id = kTopEarlgreyPlicIrqIdUart3RxOverflow;
-      uart_irq_rx_frame_err_id = kTopEarlgreyPlicIrqIdUart3RxFrameErr;
-      uart_irq_rx_frame_err_id = kTopEarlgreyPlicIrqIdUart3RxFrameErr;
-      uart_irq_rx_break_err_id = kTopEarlgreyPlicIrqIdUart3RxBreakErr;
-      uart_irq_rx_timeout_id = kTopEarlgreyPlicIrqIdUart3RxTimeout;
-      uart_irq_rx_parity_err_id = kTopEarlgreyPlicIrqIdUart3RxParityErr;
+      uart_base_addr = OPENTITAN_UART3_BASE_ADDR;
+      uart_peripheral_id = kOpentitanPlicPeripheralUart3;
+      uart_irq_tx_watermartk_id = kOpentitanPlicIrqIdUart3TxWatermark;
+      uart_irq_rx_watermartk_id = kOpentitanPlicIrqIdUart3RxWatermark;
+      uart_irq_tx_empty_id = kOpentitanPlicIrqIdUart3TxEmpty;
+      uart_irq_rx_overflow_id = kOpentitanPlicIrqIdUart3RxOverflow;
+      uart_irq_rx_frame_err_id = kOpentitanPlicIrqIdUart3RxFrameErr;
+      uart_irq_rx_frame_err_id = kOpentitanPlicIrqIdUart3RxFrameErr;
+      uart_irq_rx_break_err_id = kOpentitanPlicIrqIdUart3RxBreakErr;
+      uart_irq_rx_timeout_id = kOpentitanPlicIrqIdUart3RxTimeout;
+      uart_irq_rx_parity_err_id = kOpentitanPlicIrqIdUart3RxParityErr;
       break;
     default:
       LOG_FATAL("Unsupported uart ID %x", kUartIdx);
@@ -232,11 +232,11 @@ void ottf_external_isr(void) {
   // Find which interrupt fired at PLIC by claiming it.
   dif_rv_plic_irq_id_t plic_irq_id;
   CHECK_DIF_OK(
-      dif_rv_plic_irq_claim(&plic, kTopEarlgreyPlicTargetIbex0, &plic_irq_id));
+      dif_rv_plic_irq_claim(&plic, kOpentitanPlicTargetIbex0, &plic_irq_id));
 
   // Check if it is the right peripheral.
-  top_earlgrey_plic_peripheral_t peripheral = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  opentitan_plic_peripheral_t peripheral = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
   CHECK(peripheral == uart_peripheral_id,
         "Interurpt from unexpected peripheral: %d", peripheral);
 
@@ -276,7 +276,7 @@ void ottf_external_isr(void) {
   CHECK_DIF_OK(dif_uart_irq_acknowledge(&uart, uart_irq));
 
   // Complete the IRQ at PLIC.
-  CHECK_DIF_OK(dif_rv_plic_irq_complete(&plic, kTopEarlgreyPlicTargetIbex0,
+  CHECK_DIF_OK(dif_rv_plic_irq_complete(&plic, kOpentitanPlicTargetIbex0,
                                         plic_irq_id));
 }
 
@@ -339,39 +339,39 @@ static void plic_init_with_irqs(mmio_region_t base_addr, dif_rv_plic_t *plic) {
 
   // Set the threshold for the Ibex to 0.
   CHECK_DIF_OK(
-      dif_rv_plic_target_set_threshold(plic, kTopEarlgreyPlicTargetIbex0, 0x0));
+      dif_rv_plic_target_set_threshold(plic, kOpentitanPlicTargetIbex0, 0x0));
 
   // Enable all UART interrupts at the PLIC.
   CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(plic, uart_irq_tx_watermartk_id,
-                                           kTopEarlgreyPlicTargetIbex0,
+                                           kOpentitanPlicTargetIbex0,
                                            kDifToggleEnabled));
 
   CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(plic, uart_irq_rx_watermartk_id,
-                                           kTopEarlgreyPlicTargetIbex0,
+                                           kOpentitanPlicTargetIbex0,
                                            kDifToggleEnabled));
 
   CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(plic, uart_irq_tx_empty_id,
-                                           kTopEarlgreyPlicTargetIbex0,
+                                           kOpentitanPlicTargetIbex0,
                                            kDifToggleEnabled));
 
   CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(plic, uart_irq_rx_overflow_id,
-                                           kTopEarlgreyPlicTargetIbex0,
+                                           kOpentitanPlicTargetIbex0,
                                            kDifToggleEnabled));
 
   CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(plic, uart_irq_rx_frame_err_id,
-                                           kTopEarlgreyPlicTargetIbex0,
+                                           kOpentitanPlicTargetIbex0,
                                            kDifToggleEnabled));
 
   CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(plic, uart_irq_rx_break_err_id,
-                                           kTopEarlgreyPlicTargetIbex0,
+                                           kOpentitanPlicTargetIbex0,
                                            kDifToggleEnabled));
 
   CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(plic, uart_irq_rx_timeout_id,
-                                           kTopEarlgreyPlicTargetIbex0,
+                                           kOpentitanPlicTargetIbex0,
                                            kDifToggleEnabled));
 
   CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(plic, uart_irq_rx_parity_err_id,
-                                           kTopEarlgreyPlicTargetIbex0,
+                                           kOpentitanPlicTargetIbex0,
                                            kDifToggleEnabled));
 }
 
@@ -508,7 +508,7 @@ static void execute_test(const dif_uart_t *uart) {
 void config_external_clock(const dif_clkmgr_t *clkmgr) {
   dif_lc_ctrl_t lc;
   mmio_region_t lc_ctrl_base_addr =
-      mmio_region_from_addr(TOP_EARLGREY_LC_CTRL_BASE_ADDR);
+      mmio_region_from_addr(OPENTITAN_LC_CTRL_BASE_ADDR);
   CHECK_DIF_OK(dif_lc_ctrl_init(lc_ctrl_base_addr, &lc));
 
   LOG_INFO("Read and check LC state.");
@@ -526,7 +526,7 @@ OTTF_DEFINE_TEST_CONFIG();
 bool test_main(void) {
   dif_clkmgr_t clkmgr;
   mmio_region_t clkmgr_base_addr =
-      mmio_region_from_addr(TOP_EARLGREY_CLKMGR_AON_BASE_ADDR);
+      mmio_region_from_addr(OPENTITAN_CLKMGR_AON_BASE_ADDR);
   CHECK_DIF_OK(dif_clkmgr_init(clkmgr_base_addr, &clkmgr));
 
   update_uart_base_addr_and_irq_id();
@@ -534,18 +534,18 @@ bool test_main(void) {
   LOG_INFO("Test UART%d with base_addr: %08x", kUartIdx, uart_base_addr);
 
   pinmux_connect_uart_to_pads(
-      kTopEarlgreyPinmuxInselIoc3, kTopEarlgreyPinmuxPeripheralInUart0Rx,
-      kTopEarlgreyPinmuxMioOutIoc4, kTopEarlgreyPinmuxOutselUart0Tx);
+      kOpentitanPinmuxInselIoc3, kOpentitanPinmuxPeripheralInUart0Rx,
+      kOpentitanPinmuxMioOutIoc4, kOpentitanPinmuxOutselUart0Tx);
   pinmux_connect_uart_to_pads(
-      kTopEarlgreyPinmuxInselIob4, kTopEarlgreyPinmuxPeripheralInUart1Rx,
-      kTopEarlgreyPinmuxMioOutIob5, kTopEarlgreyPinmuxOutselUart1Tx);
+      kOpentitanPinmuxInselIob4, kOpentitanPinmuxPeripheralInUart1Rx,
+      kOpentitanPinmuxMioOutIob5, kOpentitanPinmuxOutselUart1Tx);
   // TODO: the UARTs below still need to be mapped to the correct location.
   pinmux_connect_uart_to_pads(
-      kTopEarlgreyPinmuxInselIoa4, kTopEarlgreyPinmuxPeripheralInUart2Rx,
-      kTopEarlgreyPinmuxMioOutIoa5, kTopEarlgreyPinmuxOutselUart2Tx);
+      kOpentitanPinmuxInselIoa4, kOpentitanPinmuxPeripheralInUart2Rx,
+      kOpentitanPinmuxMioOutIoa5, kOpentitanPinmuxOutselUart2Tx);
   pinmux_connect_uart_to_pads(
-      kTopEarlgreyPinmuxInselIoa0, kTopEarlgreyPinmuxPeripheralInUart3Rx,
-      kTopEarlgreyPinmuxMioOutIoa1, kTopEarlgreyPinmuxOutselUart3Tx);
+      kOpentitanPinmuxInselIoa0, kOpentitanPinmuxPeripheralInUart3Rx,
+      kOpentitanPinmuxMioOutIoa1, kOpentitanPinmuxOutselUart3Tx);
 
   if (kUseExtClk) {
     config_external_clock(&clkmgr);
@@ -559,7 +559,7 @@ bool test_main(void) {
 
   // Initialize the PLIC.
   mmio_region_t plic_base_addr =
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR);
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR);
   plic_init_with_irqs(plic_base_addr, &plic);
 
   // Enable the external IRQ at Ibex.

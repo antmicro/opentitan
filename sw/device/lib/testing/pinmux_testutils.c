@@ -18,30 +18,30 @@
 void pinmux_testutils_init(dif_pinmux_t *pinmux) {
   // Set up SW straps on IOC0-IOC2, for GPIOs 22-24
   CHECK_DIF_OK(dif_pinmux_input_select(pinmux,
-                                       kTopEarlgreyPinmuxPeripheralInGpioGpio22,
-                                       kTopEarlgreyPinmuxInselIoc0));
+                                       kOpentitanPinmuxPeripheralInGpioGpio22,
+                                       kOpentitanPinmuxInselIoc0));
   CHECK_DIF_OK(dif_pinmux_input_select(pinmux,
-                                       kTopEarlgreyPinmuxPeripheralInGpioGpio23,
-                                       kTopEarlgreyPinmuxInselIoc1));
+                                       kOpentitanPinmuxPeripheralInGpioGpio23,
+                                       kOpentitanPinmuxInselIoc1));
   CHECK_DIF_OK(dif_pinmux_input_select(pinmux,
-                                       kTopEarlgreyPinmuxPeripheralInGpioGpio24,
-                                       kTopEarlgreyPinmuxInselIoc2));
-  CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kTopEarlgreyPinmuxMioOutIoc0,
-                                        kTopEarlgreyPinmuxOutselGpioGpio22));
-  CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kTopEarlgreyPinmuxMioOutIoc1,
-                                        kTopEarlgreyPinmuxOutselGpioGpio23));
-  CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kTopEarlgreyPinmuxMioOutIoc2,
-                                        kTopEarlgreyPinmuxOutselGpioGpio24));
+                                       kOpentitanPinmuxPeripheralInGpioGpio24,
+                                       kOpentitanPinmuxInselIoc2));
+  CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kOpentitanPinmuxMioOutIoc0,
+                                        kOpentitanPinmuxOutselGpioGpio22));
+  CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kOpentitanPinmuxMioOutIoc1,
+                                        kOpentitanPinmuxOutselGpioGpio23));
+  CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kOpentitanPinmuxMioOutIoc2,
+                                        kOpentitanPinmuxOutselGpioGpio24));
 
   // Configure UART0 RX input to connect to MIO pad IOC3
   CHECK_DIF_OK(dif_pinmux_input_select(pinmux,
-                                       kTopEarlgreyPinmuxPeripheralInUart0Rx,
-                                       kTopEarlgreyPinmuxInselIoc3));
-  CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kTopEarlgreyPinmuxMioOutIoc3,
-                                        kTopEarlgreyPinmuxOutselConstantHighZ));
+                                       kOpentitanPinmuxPeripheralInUart0Rx,
+                                       kOpentitanPinmuxInselIoc3));
+  CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kOpentitanPinmuxMioOutIoc3,
+                                        kOpentitanPinmuxOutselConstantHighZ));
   // Configure UART0 TX output to connect to MIO pad IOC4
-  CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kTopEarlgreyPinmuxMioOutIoc4,
-                                        kTopEarlgreyPinmuxOutselUart0Tx));
+  CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kOpentitanPinmuxMioOutIoc4,
+                                        kOpentitanPinmuxOutselUart0Tx));
 
 #if !OT_IS_ENGLISH_BREAKFAST
   // Enable pull-ups on UART0 RX
@@ -54,25 +54,25 @@ void pinmux_testutils_init(dif_pinmux_t *pinmux) {
         .flags = kDifPinmuxPadAttrPullResistorEnable |
                  kDifPinmuxPadAttrPullResistorUp};
 
-    CHECK_DIF_OK(dif_pinmux_pad_write_attrs(pinmux, kTopEarlgreyMuxedPadsIoc3,
+    CHECK_DIF_OK(dif_pinmux_pad_write_attrs(pinmux, kOpentitanMuxedPadsIoc3,
                                             kDifPinmuxPadKindMio, in_attr,
                                             &out_attr));
   };
 
   // Configure UART1 RX input to connect to MIO pad IOB4
   CHECK_DIF_OK(dif_pinmux_input_select(pinmux,
-                                       kTopEarlgreyPinmuxPeripheralInUart1Rx,
-                                       kTopEarlgreyPinmuxInselIob4));
-  CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kTopEarlgreyPinmuxMioOutIob4,
-                                        kTopEarlgreyPinmuxOutselConstantHighZ));
+                                       kOpentitanPinmuxPeripheralInUart1Rx,
+                                       kOpentitanPinmuxInselIob4));
+  CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kOpentitanPinmuxMioOutIob4,
+                                        kOpentitanPinmuxOutselConstantHighZ));
   // Configure UART1 TX output to connect to MIO pad IOB5
-  CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kTopEarlgreyPinmuxMioOutIob5,
-                                        kTopEarlgreyPinmuxOutselUart1Tx));
+  CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kOpentitanPinmuxMioOutIob5,
+                                        kOpentitanPinmuxOutselUart1Tx));
 #endif
 
   // Configure USBDEV SENSE outputs to be high-Z (IOC7)
-  CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kTopEarlgreyPinmuxMioOutIoc7,
-                                        kTopEarlgreyPinmuxOutselConstantHighZ));
+  CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kOpentitanPinmuxMioOutIoc7,
+                                        kOpentitanPinmuxOutselConstantHighZ));
 }
 
 // Mapping of Chip IOs to the GPIO peripheral.
@@ -86,40 +86,40 @@ void pinmux_testutils_init(dif_pinmux_t *pinmux) {
 // The pinout spreadsheet allocates fewer pins to GPIOs than what the GPIO IP
 // supports. This oversubscription is intentional to maximize testing.
 const dif_pinmux_index_t kPinmuxTestutilsGpioInselPins[kDifGpioNumPins] = {
-    kTopEarlgreyPinmuxInselIoa0,  kTopEarlgreyPinmuxInselIoa1,
-    kTopEarlgreyPinmuxInselIoa2,  kTopEarlgreyPinmuxInselIoa3,
-    kTopEarlgreyPinmuxInselIoa4,  kTopEarlgreyPinmuxInselIoa5,
-    kTopEarlgreyPinmuxInselIoa6,  kTopEarlgreyPinmuxInselIoa7,
-    kTopEarlgreyPinmuxInselIoa8,  kTopEarlgreyPinmuxInselIob6,
-    kTopEarlgreyPinmuxInselIob7,  kTopEarlgreyPinmuxInselIob8,
-    kTopEarlgreyPinmuxInselIob9,  kTopEarlgreyPinmuxInselIob10,
-    kTopEarlgreyPinmuxInselIob11, kTopEarlgreyPinmuxInselIob12,
-    kTopEarlgreyPinmuxInselIoc9,  kTopEarlgreyPinmuxInselIoc10,
-    kTopEarlgreyPinmuxInselIoc11, kTopEarlgreyPinmuxInselIoc12,
-    kTopEarlgreyPinmuxInselIor0,  kTopEarlgreyPinmuxInselIor1,
-    kTopEarlgreyPinmuxInselIor2,  kTopEarlgreyPinmuxInselIor3,
-    kTopEarlgreyPinmuxInselIor4,  kTopEarlgreyPinmuxInselIor5,
-    kTopEarlgreyPinmuxInselIor6,  kTopEarlgreyPinmuxInselIor7,
-    kTopEarlgreyPinmuxInselIor10, kTopEarlgreyPinmuxInselIor11,
-    kTopEarlgreyPinmuxInselIor12, kTopEarlgreyPinmuxInselIor13};
+    kOpentitanPinmuxInselIoa0,  kOpentitanPinmuxInselIoa1,
+    kOpentitanPinmuxInselIoa2,  kOpentitanPinmuxInselIoa3,
+    kOpentitanPinmuxInselIoa4,  kOpentitanPinmuxInselIoa5,
+    kOpentitanPinmuxInselIoa6,  kOpentitanPinmuxInselIoa7,
+    kOpentitanPinmuxInselIoa8,  kOpentitanPinmuxInselIob6,
+    kOpentitanPinmuxInselIob7,  kOpentitanPinmuxInselIob8,
+    kOpentitanPinmuxInselIob9,  kOpentitanPinmuxInselIob10,
+    kOpentitanPinmuxInselIob11, kOpentitanPinmuxInselIob12,
+    kOpentitanPinmuxInselIoc9,  kOpentitanPinmuxInselIoc10,
+    kOpentitanPinmuxInselIoc11, kOpentitanPinmuxInselIoc12,
+    kOpentitanPinmuxInselIor0,  kOpentitanPinmuxInselIor1,
+    kOpentitanPinmuxInselIor2,  kOpentitanPinmuxInselIor3,
+    kOpentitanPinmuxInselIor4,  kOpentitanPinmuxInselIor5,
+    kOpentitanPinmuxInselIor6,  kOpentitanPinmuxInselIor7,
+    kOpentitanPinmuxInselIor10, kOpentitanPinmuxInselIor11,
+    kOpentitanPinmuxInselIor12, kOpentitanPinmuxInselIor13};
 
 const dif_pinmux_index_t kPinmuxTestutilsGpioMioOutPins[kDifGpioNumPins] = {
-    kTopEarlgreyPinmuxMioOutIoa0,  kTopEarlgreyPinmuxMioOutIoa1,
-    kTopEarlgreyPinmuxMioOutIoa2,  kTopEarlgreyPinmuxMioOutIoa3,
-    kTopEarlgreyPinmuxMioOutIoa4,  kTopEarlgreyPinmuxMioOutIoa5,
-    kTopEarlgreyPinmuxMioOutIoa6,  kTopEarlgreyPinmuxMioOutIoa7,
-    kTopEarlgreyPinmuxMioOutIoa8,  kTopEarlgreyPinmuxMioOutIob6,
-    kTopEarlgreyPinmuxMioOutIob7,  kTopEarlgreyPinmuxMioOutIob8,
-    kTopEarlgreyPinmuxMioOutIob9,  kTopEarlgreyPinmuxMioOutIob10,
-    kTopEarlgreyPinmuxMioOutIob11, kTopEarlgreyPinmuxMioOutIob12,
-    kTopEarlgreyPinmuxMioOutIoc9,  kTopEarlgreyPinmuxMioOutIoc10,
-    kTopEarlgreyPinmuxMioOutIoc11, kTopEarlgreyPinmuxMioOutIoc12,
-    kTopEarlgreyPinmuxMioOutIor0,  kTopEarlgreyPinmuxMioOutIor1,
-    kTopEarlgreyPinmuxMioOutIor2,  kTopEarlgreyPinmuxMioOutIor3,
-    kTopEarlgreyPinmuxMioOutIor4,  kTopEarlgreyPinmuxMioOutIor5,
-    kTopEarlgreyPinmuxMioOutIor6,  kTopEarlgreyPinmuxMioOutIor7,
-    kTopEarlgreyPinmuxMioOutIor10, kTopEarlgreyPinmuxMioOutIor11,
-    kTopEarlgreyPinmuxMioOutIor12, kTopEarlgreyPinmuxMioOutIor13};
+    kOpentitanPinmuxMioOutIoa0,  kOpentitanPinmuxMioOutIoa1,
+    kOpentitanPinmuxMioOutIoa2,  kOpentitanPinmuxMioOutIoa3,
+    kOpentitanPinmuxMioOutIoa4,  kOpentitanPinmuxMioOutIoa5,
+    kOpentitanPinmuxMioOutIoa6,  kOpentitanPinmuxMioOutIoa7,
+    kOpentitanPinmuxMioOutIoa8,  kOpentitanPinmuxMioOutIob6,
+    kOpentitanPinmuxMioOutIob7,  kOpentitanPinmuxMioOutIob8,
+    kOpentitanPinmuxMioOutIob9,  kOpentitanPinmuxMioOutIob10,
+    kOpentitanPinmuxMioOutIob11, kOpentitanPinmuxMioOutIob12,
+    kOpentitanPinmuxMioOutIoc9,  kOpentitanPinmuxMioOutIoc10,
+    kOpentitanPinmuxMioOutIoc11, kOpentitanPinmuxMioOutIoc12,
+    kOpentitanPinmuxMioOutIor0,  kOpentitanPinmuxMioOutIor1,
+    kOpentitanPinmuxMioOutIor2,  kOpentitanPinmuxMioOutIor3,
+    kOpentitanPinmuxMioOutIor4,  kOpentitanPinmuxMioOutIor5,
+    kOpentitanPinmuxMioOutIor6,  kOpentitanPinmuxMioOutIor7,
+    kOpentitanPinmuxMioOutIor10, kOpentitanPinmuxMioOutIor11,
+    kOpentitanPinmuxMioOutIor12, kOpentitanPinmuxMioOutIor13};
 
 uint32_t pinmux_testutils_get_testable_gpios_mask(void) {
   if (kDeviceType == kDeviceFpgaCw310) {
@@ -132,7 +132,7 @@ uint32_t pinmux_testutils_get_testable_gpios_mask(void) {
 
 uint32_t pinmux_testutils_read_strap_pin(dif_pinmux_t *pinmux, dif_gpio_t *gpio,
                                          dif_gpio_pin_t io,
-                                         top_earlgrey_muxed_pads_t pad) {
+                                         opentitan_muxed_pads_t pad) {
   // Turn off the pull enable on the pad and read the IO.
   dif_pinmux_pad_attr_t attr = {.flags = 0};
   dif_pinmux_pad_attr_t attr_out;
@@ -162,12 +162,12 @@ uint32_t pinmux_testutils_read_strap_pin(dif_pinmux_t *pinmux, dif_gpio_t *gpio,
 uint32_t pinmux_testutils_read_straps(dif_pinmux_t *pinmux, dif_gpio_t *gpio) {
   uint32_t strap = 0;
   strap |= pinmux_testutils_read_strap_pin(pinmux, gpio, 22,
-                                           kTopEarlgreyMuxedPadsIoc0);
+                                           kOpentitanMuxedPadsIoc0);
   strap |= pinmux_testutils_read_strap_pin(pinmux, gpio, 23,
-                                           kTopEarlgreyMuxedPadsIoc1)
+                                           kOpentitanMuxedPadsIoc1)
            << 2;
   strap |= pinmux_testutils_read_strap_pin(pinmux, gpio, 24,
-                                           kTopEarlgreyMuxedPadsIoc2)
+                                           kOpentitanMuxedPadsIoc2)
            << 4;
   return strap;
 }

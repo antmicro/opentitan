@@ -25,7 +25,7 @@ extern dif_uart_t *ottf_console(void);
 #define FLOW_CONTROL_LOW_WATERMARK 4
 #define FLOW_CONTROL_HIGH_WATERMARK 8
 #define FLOW_CONRTOL_WATERMARK_CONFIG kDifUartWatermarkByte8
-const uint32_t kPlicTarget = kTopEarlgreyPlicTargetIbex0;
+const uint32_t kPlicTarget = kOpentitanPlicTargetIbex0;
 
 // The flow_control_state and ottf_flow_control_intr varibles are shared between
 // the interrupt service handler and user code.
@@ -34,7 +34,7 @@ volatile uint32_t ottf_flow_control_intr;
 
 void ottf_flow_control_enable(void) {
   CHECK_DIF_OK(dif_rv_plic_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR), &ottf_plic));
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR), &ottf_plic));
 
   dif_uart_t *uart = ottf_console();
   CHECK_DIF_OK(dif_uart_watermark_rx_set(uart, FLOW_CONRTOL_WATERMARK_CONFIG));
@@ -43,14 +43,14 @@ void ottf_flow_control_enable(void) {
 
   // Set IRQ priorities to MAX
   CHECK_DIF_OK(dif_rv_plic_irq_set_priority(
-      &ottf_plic, kTopEarlgreyPlicIrqIdUart0RxWatermark,
+      &ottf_plic, kOpentitanPlicIrqIdUart0RxWatermark,
       kDifRvPlicMaxPriority));
   // Set Ibex IRQ priority threshold level
   CHECK_DIF_OK(dif_rv_plic_target_set_threshold(&ottf_plic, kPlicTarget,
                                                 kDifRvPlicMinPriority));
   // Enable IRQs in PLIC
   CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(
-      &ottf_plic, kTopEarlgreyPlicIrqIdUart0RxWatermark, kPlicTarget,
+      &ottf_plic, kOpentitanPlicIrqIdUart0RxWatermark, kPlicTarget,
       kDifToggleEnabled));
 
   flow_control_state = kFlowControlAuto;

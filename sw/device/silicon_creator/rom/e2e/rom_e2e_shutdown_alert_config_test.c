@@ -17,7 +17,7 @@ enum {
   /**
    * Base address of uart.
    */
-  kBaseUart = TOP_EARLGREY_UART0_BASE_ADDR,
+  kBaseUart = OPENTITAN_UART0_BASE_ADDR,
 };
 
 static void uart_alert_trigger(void) {

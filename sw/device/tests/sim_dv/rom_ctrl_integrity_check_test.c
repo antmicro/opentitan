@@ -27,10 +27,10 @@ OTTF_DEFINE_TEST_CONFIG();
 // not expect a successful boot with the failed integrity check.
 
 bool test_main(void) {
-  mmio_region_t lc_reg = mmio_region_from_addr(TOP_EARLGREY_LC_CTRL_BASE_ADDR);
+  mmio_region_t lc_reg = mmio_region_from_addr(OPENTITAN_LC_CTRL_BASE_ADDR);
   CHECK_DIF_OK(dif_lc_ctrl_init(lc_reg, &lc));
   mmio_region_t rom_ctrl_reg =
-      mmio_region_from_addr(TOP_EARLGREY_ROM_CTRL_REGS_BASE_ADDR);
+      mmio_region_from_addr(OPENTITAN_ROM_CTRL_REGS_BASE_ADDR);
   CHECK_DIF_OK(dif_rom_ctrl_init(rom_ctrl_reg, &rom_ctrl));
 
   // Check that the LC_STATE is not PROD as the boot is not

@@ -9,5 +9,5 @@
 #include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
 
 bool test_main() {
-  return execute_off_trans_test(kTopEarlgreyHintableClocksMainKmac);
+  return execute_off_trans_test(kOpentitanHintableClocksMainKmac);
 }

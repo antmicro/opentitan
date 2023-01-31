@@ -54,7 +54,7 @@ class OtbnTest : public rom_test::RomTest {
     }
   }
 
-  uint32_t base_ = TOP_EARLGREY_OTBN_BASE_ADDR;
+  uint32_t base_ = OPENTITAN_OTBN_BASE_ADDR;
   uint32_t err_bits_ok_ = 0;
   rom_test::MockAbsMmio abs_mmio_;
   rom_test::MockRnd rnd_;

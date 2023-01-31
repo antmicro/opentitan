@@ -106,17 +106,17 @@ static uint8_t kMioPads[NUM_MIO_PADS] = {0};
 static uint8_t kDioPads[NUM_DIO_PADS] = {0};
 
 // PLIC structures
-static const uint32_t kPlicTarget = kTopEarlgreyPlicTargetIbex0;
+static const uint32_t kPlicTarget = kOpentitanPlicTargetIbex0;
 static dif_pwrmgr_t pwrmgr;
 static dif_pinmux_t pinmux;
 static dif_rv_plic_t plic;
 
 static plic_isr_ctx_t plic_ctx = {.rv_plic = &plic,
-                                  .hart_id = kTopEarlgreyPlicTargetIbex0};
+                                  .hart_id = kOpentitanPlicTargetIbex0};
 
 static pwrmgr_isr_ctx_t pwrmgr_isr_ctx = {
     .pwrmgr = &pwrmgr,
-    .plic_pwrmgr_start_irq_id = kTopEarlgreyPlicIrqIdPwrmgrAonWakeup,
+    .plic_pwrmgr_start_irq_id = kOpentitanPlicIrqIdPwrmgrAonWakeup,
     .expected_irq = kDifPwrmgrIrqWakeup,
     .is_only_irq = true};
 
@@ -125,12 +125,12 @@ static pwrmgr_isr_ctx_t pwrmgr_isr_ctx = {
  */
 void ottf_external_isr(void) {
   dif_pwrmgr_irq_t irq_id;
-  top_earlgrey_plic_peripheral_t peripheral;
+  opentitan_plic_peripheral_t peripheral;
 
   isr_testutils_pwrmgr_isr(plic_ctx, pwrmgr_isr_ctx, &peripheral, &irq_id);
 
   // Check that both the peripheral and the irq id is correct
-  CHECK(peripheral == kTopEarlgreyPlicPeripheralPwrmgrAon,
+  CHECK(peripheral == kOpentitanPlicPeripheralPwrmgrAon,
         "IRQ peripheral: %d is incorrect", peripheral);
   CHECK(irq_id == kDifPwrmgrIrqWakeup, "IRQ ID: %d is incorrect", irq_id);
 }
@@ -242,11 +242,11 @@ bool test_main(void) {
   irq_external_ctrl(true);
 
   CHECK_DIF_OK(dif_pwrmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_PWRMGR_AON_BASE_ADDR), &pwrmgr));
+      mmio_region_from_addr(OPENTITAN_PWRMGR_AON_BASE_ADDR), &pwrmgr));
   CHECK_DIF_OK(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
   CHECK_DIF_OK(dif_rv_plic_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR), &plic));
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR), &plic));
 
   if (pwrmgr_testutils_is_wakeup_reason(&pwrmgr, 0)) {
     uint32_t deep_powerdown_en = rand_testutils_gen32_range(0, 1);
@@ -256,15 +256,15 @@ bool test_main(void) {
     // disabled for this test. Remove this later.
     dif_pinmux_pad_attr_t out_attr;
     dif_pinmux_pad_attr_t in_attr = {0};
-    CHECK_DIF_OK(dif_pinmux_pad_write_attrs(&pinmux, kTopEarlgreyMuxedPadsIoc3,
+    CHECK_DIF_OK(dif_pinmux_pad_write_attrs(&pinmux, kOpentitanMuxedPadsIoc3,
                                             kDifPinmuxPadKindMio, in_attr,
                                             &out_attr));
 
     if (!deepsleep) {
       // Enable all the AON interrupts used in this test.
-      rv_plic_testutils_irq_range_enable(&plic, kTopEarlgreyPlicTargetIbex0,
-                                         kTopEarlgreyPlicIrqIdPwrmgrAonWakeup,
-                                         kTopEarlgreyPlicIrqIdPwrmgrAonWakeup);
+      rv_plic_testutils_irq_range_enable(&plic, kOpentitanPlicTargetIbex0,
+                                         kOpentitanPlicIrqIdPwrmgrAonWakeup,
+                                         kOpentitanPlicIrqIdPwrmgrAonWakeup);
       // Enable pwrmgr interrupt
       CHECK_DIF_OK(dif_pwrmgr_irq_set_enabled(&pwrmgr, 0, kDifToggleEnabled));
     }

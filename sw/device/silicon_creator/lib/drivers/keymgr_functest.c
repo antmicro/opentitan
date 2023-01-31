@@ -102,7 +102,7 @@ static void init_flash(void) {
   dif_flash_ctrl_state_t flash;
 
   CHECK_DIF_OK(dif_flash_ctrl_init_state(
-      &flash, mmio_region_from_addr(TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR)));
+      &flash, mmio_region_from_addr(OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR)));
 
   // Initialize flash secrets.
   keymgr_testutils_flash_init(&flash, &kCreatorSecret, &kOwnerSecret);
@@ -112,7 +112,7 @@ static void init_flash(void) {
 static void init_kmac_for_keymgr(void) {
   dif_kmac_t kmac;
   CHECK_DIF_OK(
-      dif_kmac_init(mmio_region_from_addr(TOP_EARLGREY_KMAC_BASE_ADDR), &kmac));
+      dif_kmac_init(mmio_region_from_addr(OPENTITAN_KMAC_BASE_ADDR), &kmac));
 
   // Configure KMAC hardware using software entropy.
   dif_kmac_config_t config = (dif_kmac_config_t){
@@ -199,12 +199,12 @@ bool test_main(void) {
         "The test is configured to run in RMA mode.");
 
   CHECK_DIF_OK(dif_rstmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR), &rstmgr));
+      mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR), &rstmgr));
   info = rstmgr_testutils_reason_get();
 
   dif_otp_ctrl_t otp;
   CHECK_DIF_OK(dif_otp_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_OTP_CTRL_CORE_BASE_ADDR), &otp));
+      mmio_region_from_addr(OPENTITAN_OTP_CTRL_CORE_BASE_ADDR), &otp));
 
   if (info & kDifRstmgrResetInfoPor) {
     LOG_INFO("Powered up for the first time, program flash");

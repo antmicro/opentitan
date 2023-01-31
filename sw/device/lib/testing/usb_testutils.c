@@ -9,7 +9,7 @@
 
 #include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
 
-#define USBDEV_BASE_ADDR TOP_EARLGREY_USBDEV_BASE_ADDR
+#define USBDEV_BASE_ADDR OPENTITAN_USBDEV_BASE_ADDR
 
 static dif_usbdev_t usbdev;
 static dif_usbdev_buffer_pool_t buffer_pool;

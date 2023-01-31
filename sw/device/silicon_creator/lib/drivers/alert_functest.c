@@ -26,9 +26,9 @@
 #include "rstmgr_regs.h"
 
 enum {
-  kAlertBase = TOP_EARLGREY_ALERT_HANDLER_BASE_ADDR,
-  kOtpCoreBase = TOP_EARLGREY_OTP_CTRL_CORE_BASE_ADDR,
-  kFlashBase = TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR,
+  kAlertBase = OPENTITAN_ALERT_HANDLER_BASE_ADDR,
+  kOtpCoreBase = OPENTITAN_OTP_CTRL_CORE_BASE_ADDR,
+  kFlashBase = OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR,
 };
 
 rom_error_t alert_no_escalate_test(void) {
@@ -41,7 +41,7 @@ rom_error_t alert_no_escalate_test(void) {
       .phase_cycles = {1, 10, 100, 1000},
   };
   LOG_INFO("Configure OtpCtrlFatalMacroError as class B");
-  RETURN_IF_ERROR(alert_configure(kTopEarlgreyAlertIdOtpCtrlFatalMacroError,
+  RETURN_IF_ERROR(alert_configure(kOpentitanAlertIdOtpCtrlFatalMacroError,
                                   kAlertClassB, kAlertEnableLocked));
   LOG_INFO("Configure class B alerts");
   RETURN_IF_ERROR(alert_class_configure(kAlertClassB, &config));
@@ -64,7 +64,7 @@ rom_error_t alert_escalate_test(void) {
   };
 
   LOG_INFO("Configure FlashCtrlFatalErr as class A");
-  RETURN_IF_ERROR(alert_configure(kTopEarlgreyAlertIdFlashCtrlFatalErr,
+  RETURN_IF_ERROR(alert_configure(kOpentitanAlertIdFlashCtrlFatalErr,
                                   kAlertClassA, kAlertEnableEnabled));
   LOG_INFO("Configure class A alerts");
   RETURN_IF_ERROR(alert_class_configure(kAlertClassA, &config));

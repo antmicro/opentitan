@@ -21,7 +21,7 @@ static dif_uart_t uart0;
 
 int opentitan_compliance_main(int argc, char **argv) {
   CHECK_DIF_OK(dif_uart_init(
-      mmio_region_from_addr(TOP_EARLGREY_UART0_BASE_ADDR), &uart0));
+      mmio_region_from_addr(OPENTITAN_UART0_BASE_ADDR), &uart0));
   CHECK_DIF_OK(
       dif_uart_configure(&uart0, (dif_uart_config_t){
                                      .baudrate = kUartBaudrate,

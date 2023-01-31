@@ -49,7 +49,7 @@ static dif_i2c_t i2c1;
 static dif_i2c_t i2c2;
 static dif_rv_core_ibex_t ibex;
 static dif_flash_ctrl_state_t flash_ctrl;
-static const uint32_t kPlicTarget = kTopEarlgreyPlicTargetIbex0;
+static const uint32_t kPlicTarget = kOpentitanPlicTargetIbex0;
 
 static plic_isr_ctx_t plic_ctx = {
     .rv_plic = &plic,
@@ -62,7 +62,7 @@ static plic_isr_ctx_t plic_ctx = {
 // triggered.
 static alert_handler_isr_ctx_t alert_handler_ctx = {
     .alert_handler = &alert_handler,
-    .plic_alert_handler_start_irq_id = kTopEarlgreyPlicIrqIdAlertHandlerClassa,
+    .plic_alert_handler_start_irq_id = kOpentitanPlicIrqIdAlertHandlerClassa,
     .expected_irq = kDifAlertHandlerIrqClassb,
     .is_only_irq = false,
 };
@@ -72,61 +72,61 @@ static alert_handler_isr_ctx_t alert_handler_ctx = {
  */
 static void init_peripherals(void) {
   mmio_region_t base_addr =
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR);
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR);
   CHECK_DIF_OK(dif_rv_plic_init(base_addr, &plic));
 
-  base_addr = mmio_region_from_addr(TOP_EARLGREY_ALERT_HANDLER_BASE_ADDR);
+  base_addr = mmio_region_from_addr(OPENTITAN_ALERT_HANDLER_BASE_ADDR);
   CHECK_DIF_OK(dif_alert_handler_init(base_addr, &alert_handler));
 
   CHECK_DIF_OK(dif_rstmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR), &rstmgr));
+      mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR), &rstmgr));
 
   CHECK_DIF_OK(dif_usbdev_init(
-      mmio_region_from_addr(TOP_EARLGREY_USBDEV_BASE_ADDR), &usbdev));
+      mmio_region_from_addr(OPENTITAN_USBDEV_BASE_ADDR), &usbdev));
 
   CHECK_DIF_OK(dif_spi_device_init(
-      mmio_region_from_addr(TOP_EARLGREY_SPI_DEVICE_BASE_ADDR), &spi_dev.dev));
+      mmio_region_from_addr(OPENTITAN_SPI_DEVICE_BASE_ADDR), &spi_dev.dev));
 
   CHECK_DIF_OK(dif_spi_host_init(
-      mmio_region_from_addr(TOP_EARLGREY_SPI_HOST0_BASE_ADDR), &spi_host0));
+      mmio_region_from_addr(OPENTITAN_SPI_HOST0_BASE_ADDR), &spi_host0));
 
   CHECK_DIF_OK(dif_spi_host_init(
-      mmio_region_from_addr(TOP_EARLGREY_SPI_HOST1_BASE_ADDR), &spi_host1));
+      mmio_region_from_addr(OPENTITAN_SPI_HOST1_BASE_ADDR), &spi_host1));
 
   CHECK_DIF_OK(
-      dif_i2c_init(mmio_region_from_addr(TOP_EARLGREY_I2C0_BASE_ADDR), &i2c0));
+      dif_i2c_init(mmio_region_from_addr(OPENTITAN_I2C0_BASE_ADDR), &i2c0));
 
   CHECK_DIF_OK(
-      dif_i2c_init(mmio_region_from_addr(TOP_EARLGREY_I2C1_BASE_ADDR), &i2c1));
+      dif_i2c_init(mmio_region_from_addr(OPENTITAN_I2C1_BASE_ADDR), &i2c1));
 
   CHECK_DIF_OK(
-      dif_i2c_init(mmio_region_from_addr(TOP_EARLGREY_I2C2_BASE_ADDR), &i2c2));
+      dif_i2c_init(mmio_region_from_addr(OPENTITAN_I2C2_BASE_ADDR), &i2c2));
 
   mmio_region_t ibex_addr =
-      mmio_region_from_addr(TOP_EARLGREY_RV_CORE_IBEX_CFG_BASE_ADDR);
+      mmio_region_from_addr(OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR);
   CHECK_DIF_OK(dif_rv_core_ibex_init(ibex_addr, &ibex));
 
   CHECK_DIF_OK(dif_flash_ctrl_init_state(
       &flash_ctrl,
-      mmio_region_from_addr(TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR)));
+      mmio_region_from_addr(OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR)));
 
   // Enable all the alert_handler interrupts used in this test.
   rv_plic_testutils_irq_range_enable(&plic, kPlicTarget,
-                                     kTopEarlgreyPlicIrqIdAlertHandlerClassa,
-                                     kTopEarlgreyPlicIrqIdAlertHandlerClassd);
+                                     kOpentitanPlicIrqIdAlertHandlerClassa,
+                                     kOpentitanPlicIrqIdAlertHandlerClassd);
 }
 
 // List of alerts
 static const uint32_t spidev_alerts[] = {
-    kTopEarlgreyAlertIdSpiDeviceFatalFault};
+    kOpentitanAlertIdSpiDeviceFatalFault};
 static const uint32_t spihost0_alerts[] = {
-    kTopEarlgreyAlertIdSpiHost0FatalFault};
+    kOpentitanAlertIdSpiHost0FatalFault};
 static const uint32_t spihost1_alerts[] = {
-    kTopEarlgreyAlertIdSpiHost1FatalFault};
-static const uint32_t usbdev_alerts[] = {kTopEarlgreyAlertIdUsbdevFatalFault};
-static const uint32_t i2c0_alerts[] = {kTopEarlgreyAlertIdI2c0FatalFault};
-static const uint32_t i2c1_alerts[] = {kTopEarlgreyAlertIdI2c1FatalFault};
-static const uint32_t i2c2_alerts[] = {kTopEarlgreyAlertIdI2c2FatalFault};
+    kOpentitanAlertIdSpiHost1FatalFault};
+static const uint32_t usbdev_alerts[] = {kOpentitanAlertIdUsbdevFatalFault};
+static const uint32_t i2c0_alerts[] = {kOpentitanAlertIdI2c0FatalFault};
+static const uint32_t i2c1_alerts[] = {kOpentitanAlertIdI2c1FatalFault};
+static const uint32_t i2c2_alerts[] = {kOpentitanAlertIdI2c2FatalFault};
 
 static const uint32_t num_spihost0_alerts = ARRAYSIZE(spihost0_alerts);
 static const uint32_t num_spihost1_alerts = ARRAYSIZE(spihost1_alerts);
@@ -174,59 +174,59 @@ typedef struct test {
 static const test_t kPeripherals[] = {
     {
         .name = "SPI_HOST0",
-        .base = TOP_EARLGREY_SPI_HOST0_BASE_ADDR,
+        .base = OPENTITAN_SPI_HOST0_BASE_ADDR,
         .dif = &spi_host0,
         .alert_ids = spihost0_alerts,
         .num_alert_peri = num_spihost0_alerts,
-        .reset_index = kTopEarlgreyResetManagerSwResetsSpiHost0,
+        .reset_index = kOpentitanResetManagerSwResetsSpiHost0,
     },
     {
         .name = "SPI_HOST1",
-        .base = TOP_EARLGREY_SPI_HOST1_BASE_ADDR,
+        .base = OPENTITAN_SPI_HOST1_BASE_ADDR,
         .dif = &spi_host1,
         .alert_ids = spihost1_alerts,
         .num_alert_peri = num_spihost1_alerts,
-        .reset_index = kTopEarlgreyResetManagerSwResetsSpiHost1,
+        .reset_index = kOpentitanResetManagerSwResetsSpiHost1,
     },
     {
         .name = "USB",
-        .base = TOP_EARLGREY_USBDEV_BASE_ADDR,
+        .base = OPENTITAN_USBDEV_BASE_ADDR,
         .dif = &usbdev,
         .alert_ids = usbdev_alerts,
         .num_alert_peri = num_usbdev_alerts,
-        .reset_index = kTopEarlgreyResetManagerSwResetsUsb,
+        .reset_index = kOpentitanResetManagerSwResetsUsb,
     },
     {
         .name = "SPI_DEVICE",
-        .base = TOP_EARLGREY_SPI_DEVICE_BASE_ADDR,
+        .base = OPENTITAN_SPI_DEVICE_BASE_ADDR,
         .dif = &spi_dev.dev,
         .alert_ids = spidev_alerts,
         .num_alert_peri = num_spidev_alerts,
-        .reset_index = kTopEarlgreyResetManagerSwResetsSpiDevice,
+        .reset_index = kOpentitanResetManagerSwResetsSpiDevice,
     },
     {
         .name = "I2C0",
-        .base = TOP_EARLGREY_I2C0_BASE_ADDR,
+        .base = OPENTITAN_I2C0_BASE_ADDR,
         .dif = &i2c0,
         .alert_ids = i2c0_alerts,
         .num_alert_peri = num_i2c0_alerts,
-        .reset_index = kTopEarlgreyResetManagerSwResetsI2c0,
+        .reset_index = kOpentitanResetManagerSwResetsI2c0,
     },
     {
         .name = "I2C1",
-        .base = TOP_EARLGREY_I2C1_BASE_ADDR,
+        .base = OPENTITAN_I2C1_BASE_ADDR,
         .dif = &i2c1,
         .alert_ids = i2c1_alerts,
         .num_alert_peri = num_i2c1_alerts,
-        .reset_index = kTopEarlgreyResetManagerSwResetsI2c1,
+        .reset_index = kOpentitanResetManagerSwResetsI2c1,
     },
     {
         .name = "I2C2",
-        .base = TOP_EARLGREY_I2C2_BASE_ADDR,
+        .base = OPENTITAN_I2C2_BASE_ADDR,
         .dif = &i2c2,
         .alert_ids = i2c2_alerts,
         .num_alert_peri = num_i2c2_alerts,
-        .reset_index = kTopEarlgreyResetManagerSwResetsI2c2,
+        .reset_index = kOpentitanResetManagerSwResetsI2c2,
     },
 };
 
@@ -379,11 +379,11 @@ void ottf_external_isr(void) {
   // We don't expect any interrupt to be fired.
   // If an interrupt is fired, the test will be ended.
   CHECK(false, "Unexpected external interrupt triggered.");
-  // top_earlgrey_plic_peripheral_t peripheral_serviced;
+  // opentitan_plic_peripheral_t peripheral_serviced;
   // dif_alert_handler_irq_t irq_serviced;
   // isr_testutils_alert_handler_isr(plic_ctx, alert_handler_ctx,
   //                                 &peripheral_serviced, &irq_serviced);
-  // CHECK(peripheral_serviced == kTopEarlgreyPlicPeripheralAlertHandler,
+  // CHECK(peripheral_serviced == kOpentitanPlicPeripheralAlertHandler,
   //       "Interurpt from unexpected peripheral: %d", peripheral_serviced);
 }
 

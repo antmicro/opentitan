@@ -75,7 +75,7 @@ void keymgr_testutils_startup(dif_keymgr_t *keymgr, dif_kmac_t *kmac) {
   dif_rstmgr_reset_info_bitfield_t info;
 
   CHECK_DIF_OK(dif_rstmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR), &rstmgr));
+      mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR), &rstmgr));
   info = rstmgr_testutils_reason_get();
 
   // Check the last word of the retention SRAM creator area to determine the
@@ -90,14 +90,14 @@ void keymgr_testutils_startup(dif_keymgr_t *keymgr, dif_kmac_t *kmac) {
     LOG_INFO("Powered up for the first time, program flash");
 
     CHECK_DIF_OK(dif_flash_ctrl_init_state(
-        &flash, mmio_region_from_addr(TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR)));
+        &flash, mmio_region_from_addr(OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR)));
 
     keymgr_testutils_flash_init(&flash, &kCreatorSecret, &kOwnerSecret);
 
     // Lock otp secret partition.
     dif_otp_ctrl_t otp;
     CHECK_DIF_OK(dif_otp_ctrl_init(
-        mmio_region_from_addr(TOP_EARLGREY_OTP_CTRL_CORE_BASE_ADDR), &otp));
+        mmio_region_from_addr(OPENTITAN_OTP_CTRL_CORE_BASE_ADDR), &otp));
     otp_ctrl_testutils_lock_partition(&otp, kDifOtpCtrlPartitionSecret2, 0);
 
     // Reboot device.
@@ -114,7 +114,7 @@ void keymgr_testutils_startup(dif_keymgr_t *keymgr, dif_kmac_t *kmac) {
 
     // Initialize KMAC in preparation for keymgr use.
     CHECK_DIF_OK(dif_kmac_init(
-        mmio_region_from_addr(TOP_EARLGREY_KMAC_BASE_ADDR), kmac));
+        mmio_region_from_addr(OPENTITAN_KMAC_BASE_ADDR), kmac));
 
     // We shouldn't use the KMAC block's default entropy setting for keymgr, so
     // configure it to use software entropy (and a sideloaded key, although it
@@ -123,7 +123,7 @@ void keymgr_testutils_startup(dif_keymgr_t *keymgr, dif_kmac_t *kmac) {
 
     // Initialize keymgr context.
     CHECK_DIF_OK(dif_keymgr_init(
-        mmio_region_from_addr(TOP_EARLGREY_KEYMGR_BASE_ADDR), keymgr));
+        mmio_region_from_addr(OPENTITAN_KEYMGR_BASE_ADDR), keymgr));
 
     // Advance to Initialized state.
     keymgr_testutils_check_state(keymgr, kDifKeymgrStateReset);

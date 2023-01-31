@@ -23,7 +23,7 @@ const std::vector<uint8_t> kBytesArray = {
 
 class UartTest : public rom_test::RomTest {
  protected:
-  uint32_t base_ = TOP_EARLGREY_UART0_BASE_ADDR;
+  uint32_t base_ = OPENTITAN_UART0_BASE_ADDR;
   rom_test::MockAbsMmio mmio_;
 
   void ExpectDeviceReset() {

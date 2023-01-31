@@ -52,7 +52,7 @@ typedef enum kmac_key_length {
 
 enum {
   kKmacPrefixRegCount = 4 * KMAC_PREFIX_MULTIREG_COUNT,
-  kKmacBaseAddr = TOP_EARLGREY_KMAC_BASE_ADDR,
+  kKmacBaseAddr = OPENTITAN_KMAC_BASE_ADDR,
   kKmacCfgAddr = kKmacBaseAddr + KMAC_CFG_SHADOWED_REG_OFFSET,
   kKmacKeyShare0Addr = kKmacBaseAddr + KMAC_KEY_SHARE0_0_REG_OFFSET,
   kKmacKeyShare1Addr = kKmacBaseAddr + KMAC_KEY_SHARE1_0_REG_OFFSET,

@@ -25,12 +25,12 @@ static dif_flash_ctrl_t flash_ctrl;
 
 static plic_isr_ctx_t plic_ctx = {
     .rv_plic = &plic0,
-    .hart_id = kTopEarlgreyPlicTargetIbex0,
+    .hart_id = kOpentitanPlicTargetIbex0,
 };
 
 static flash_ctrl_isr_ctx_t flash_ctx = {
     .flash_ctrl = &flash_ctrl,
-    .plic_flash_ctrl_start_irq_id = kTopEarlgreyPlicIrqIdFlashCtrlProgEmpty,
+    .plic_flash_ctrl_start_irq_id = kOpentitanPlicIrqIdFlashCtrlProgEmpty,
     .is_only_irq = false,
 };
 
@@ -96,11 +96,11 @@ static volatile bool fired_irqs[FLASH_CTRL_NUM_IRQS];
  * This function overrides the default OTTF external ISR.
  */
 void ottf_external_isr(void) {
-  top_earlgrey_plic_peripheral_t peripheral_serviced;
+  opentitan_plic_peripheral_t peripheral_serviced;
   dif_flash_ctrl_irq_t irq_serviced;
   isr_testutils_flash_ctrl_isr(plic_ctx, flash_ctx, &peripheral_serviced,
                                &irq_serviced);
-  CHECK(peripheral_serviced == kTopEarlgreyPlicPeripheralFlashCtrl,
+  CHECK(peripheral_serviced == kOpentitanPlicPeripheralFlashCtrl,
         "Interurpt from unexpected peripheral: %d", peripheral_serviced);
   fired_irqs[irq_serviced] = true;
 }
@@ -146,7 +146,7 @@ static void compare_and_clear_irq_variables(void) {
  */
 static void read_and_check_host_if(uint32_t addr, const uint32_t *check_data) {
   mmio_region_t flash_addr =
-      mmio_region_from_addr(TOP_EARLGREY_EFLASH_BASE_ADDR + addr);
+      mmio_region_from_addr(OPENTITAN_EFLASH_BASE_ADDR + addr);
   uint32_t host_data[kDataSize];
   for (int i = 0; i < kDataSize; ++i) {
     host_data[i] = mmio_region_read32(flash_addr, i * sizeof(uint32_t));
@@ -325,14 +325,14 @@ static void do_bank1_data_partition_test(void) {
 
 bool test_main(void) {
   CHECK_DIF_OK(dif_rv_plic_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR), &plic0));
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR), &plic0));
 
   flash_ctrl_init_with_irqs(
-      mmio_region_from_addr(TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR),
       &flash_state, &flash_ctrl);
   rv_plic_testutils_irq_range_enable(&plic0, plic_ctx.hart_id,
-                                     kTopEarlgreyPlicIrqIdFlashCtrlProgEmpty,
-                                     kTopEarlgreyPlicIrqIdFlashCtrlOpDone);
+                                     kOpentitanPlicIrqIdFlashCtrlProgEmpty,
+                                     kOpentitanPlicIrqIdFlashCtrlOpDone);
 
   // Enable the external IRQ at Ibex.
   irq_global_ctrl(true);

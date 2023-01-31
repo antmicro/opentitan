@@ -37,9 +37,9 @@ static volatile bool exception_observed;
 /**
  * Main SRAM start and end addresses (inclusive).
  */
-static const uint32_t kRamStartAddr = TOP_EARLGREY_SRAM_CTRL_MAIN_RAM_BASE_ADDR;
-static const uint32_t kRamEndAddr = TOP_EARLGREY_SRAM_CTRL_MAIN_RAM_BASE_ADDR +
-                                    TOP_EARLGREY_SRAM_CTRL_MAIN_RAM_SIZE_BYTES -
+static const uint32_t kRamStartAddr = OPENTITAN_SRAM_CTRL_MAIN_RAM_BASE_ADDR;
+static const uint32_t kRamEndAddr = OPENTITAN_SRAM_CTRL_MAIN_RAM_BASE_ADDR +
+                                    OPENTITAN_SRAM_CTRL_MAIN_RAM_SIZE_BYTES -
                                     1;
 
 /**
@@ -65,7 +65,7 @@ void execute_code_in_sram(void) { asm volatile("jalr zero, 0(ra)"); }
 static bool otp_ifetch_enabled(void) {
   dif_otp_ctrl_t otp;
   CHECK_DIF_OK(dif_otp_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_OTP_CTRL_CORE_BASE_ADDR), &otp));
+      mmio_region_from_addr(OPENTITAN_OTP_CTRL_CORE_BASE_ADDR), &otp));
 
   dif_otp_ctrl_config_t config = {
       .check_timeout = 100000,
@@ -200,7 +200,7 @@ bool test_main(void) {
         func_address);
 
   CHECK_DIF_OK(dif_sram_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_SRAM_CTRL_MAIN_REGS_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_SRAM_CTRL_MAIN_REGS_BASE_ADDR),
       &sram_ctrl));
 
   bool locked;
@@ -210,7 +210,7 @@ bool test_main(void) {
 
   dif_lc_ctrl_t lc;
   CHECK_DIF_OK(dif_lc_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_LC_CTRL_BASE_ADDR), &lc));
+      mmio_region_from_addr(OPENTITAN_LC_CTRL_BASE_ADDR), &lc));
 
   // For the current configuration (set by the testbench)
   // check that execution exceptions are as expected.

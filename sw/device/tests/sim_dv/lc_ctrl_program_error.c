@@ -50,13 +50,13 @@ static const dif_alert_handler_class_config_t kConfigProfiles[] = {{
 
 bool test_main(void) {
   CHECK_DIF_OK(dif_lc_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_LC_CTRL_BASE_ADDR), &lc_ctrl));
+      mmio_region_from_addr(OPENTITAN_LC_CTRL_BASE_ADDR), &lc_ctrl));
 
   CHECK_DIF_OK(dif_rstmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR), &rstmgr));
+      mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR), &rstmgr));
 
   CHECK_DIF_OK(dif_alert_handler_init(
-      mmio_region_from_addr(TOP_EARLGREY_ALERT_HANDLER_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_ALERT_HANDLER_BASE_ADDR),
       &alert_handler));
 
   // Check if there was a HW reset caused by the escalation.
@@ -66,7 +66,7 @@ bool test_main(void) {
   if (rst_info & kDifRstmgrResetInfoPor) {
     // set the alert we care about to class A
     CHECK_DIF_OK(dif_alert_handler_configure_alert(
-        &alert_handler, kTopEarlgreyAlertIdLcCtrlFatalProgError,
+        &alert_handler, kOpentitanAlertIdLcCtrlFatalProgError,
         kDifAlertHandlerClassA, /*enabled=*/kDifToggleEnabled,
         /*locked=*/kDifToggleEnabled));
 

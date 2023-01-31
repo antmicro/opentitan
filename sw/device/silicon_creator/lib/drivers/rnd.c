@@ -16,8 +16,8 @@
 #include "rv_core_ibex_regs.h"
 
 enum {
-  kBaseEntropySrc = TOP_EARLGREY_ENTROPY_SRC_BASE_ADDR,
-  kBaseIbex = TOP_EARLGREY_RV_CORE_IBEX_CFG_BASE_ADDR,
+  kBaseEntropySrc = OPENTITAN_ENTROPY_SRC_BASE_ADDR,
+  kBaseIbex = OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR,
 
   // This covers the health threshold registers which are contiguous. The alert
   // threshold register is not included here.

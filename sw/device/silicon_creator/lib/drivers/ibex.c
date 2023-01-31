@@ -12,7 +12,7 @@
 #include "rv_core_ibex_regs.h"
 
 enum {
-  kBase = TOP_EARLGREY_RV_CORE_IBEX_CFG_BASE_ADDR,
+  kBase = OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR,
 };
 
 uint32_t ibex_fpga_version(void) {

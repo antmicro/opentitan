@@ -52,7 +52,7 @@ class BootstrapTest : public rom_test::RomTest {
     if (!requested) {
       pins = ~pins;
     }
-    EXPECT_ABS_READ32(TOP_EARLGREY_GPIO_BASE_ADDR + GPIO_DATA_IN_REG_OFFSET,
+    EXPECT_ABS_READ32(OPENTITAN_GPIO_BASE_ADDR + GPIO_DATA_IN_REG_OFFSET,
                       pins);
   }
 
@@ -167,13 +167,13 @@ TEST_F(BootstrapTest, RequestedDisabled) {
 TEST_F(BootstrapTest, RequestedEnabled) {
   EXPECT_CALL(otp_, read32(OTP_CTRL_PARAM_OWNER_SW_CFG_ROM_BOOTSTRAP_EN_OFFSET))
       .WillOnce(Return(kHardenedBoolTrue));
-  EXPECT_ABS_READ32(TOP_EARLGREY_GPIO_BASE_ADDR + GPIO_DATA_IN_REG_OFFSET,
+  EXPECT_ABS_READ32(OPENTITAN_GPIO_BASE_ADDR + GPIO_DATA_IN_REG_OFFSET,
                     SW_STRAP_BOOTSTRAP);
   EXPECT_EQ(bootstrap_requested(), kHardenedBoolTrue);
 
   EXPECT_CALL(otp_, read32(OTP_CTRL_PARAM_OWNER_SW_CFG_ROM_BOOTSTRAP_EN_OFFSET))
       .WillOnce(Return(kHardenedBoolTrue));
-  EXPECT_ABS_READ32(TOP_EARLGREY_GPIO_BASE_ADDR + GPIO_DATA_IN_REG_OFFSET,
+  EXPECT_ABS_READ32(OPENTITAN_GPIO_BASE_ADDR + GPIO_DATA_IN_REG_OFFSET,
                     ~SW_STRAP_BOOTSTRAP);
   EXPECT_EQ(bootstrap_requested(), kHardenedBoolFalse);
 }

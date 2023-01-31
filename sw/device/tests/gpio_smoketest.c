@@ -58,20 +58,20 @@ static void test_gpio_write(uint32_t write_val, uint32_t compare_mask) {
 bool test_main(void) {
   uint32_t gpio_mask = pinmux_testutils_get_testable_gpios_mask();
   CHECK_DIF_OK(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
   // Assign GPIOs in the pinmux
   for (size_t i = 0; i < kDifGpioNumPins; ++i) {
     if (gpio_mask & (1u << i)) {
       dif_pinmux_index_t mio = kPinmuxTestutilsGpioMioOutPins[i];
-      dif_pinmux_index_t gpio_out = kTopEarlgreyPinmuxOutselGpioGpio0 + i;
+      dif_pinmux_index_t gpio_out = kOpentitanPinmuxOutselGpioGpio0 + i;
       CHECK_DIF_OK(dif_pinmux_output_select(&pinmux, mio, gpio_out));
       mio = kPinmuxTestutilsGpioInselPins[i];
-      dif_pinmux_index_t gpio_in = kTopEarlgreyPinmuxPeripheralInGpioGpio0 + i;
+      dif_pinmux_index_t gpio_in = kOpentitanPinmuxPeripheralInGpioGpio0 + i;
       CHECK_DIF_OK(dif_pinmux_input_select(&pinmux, gpio_in, mio));
     }
   }
   CHECK_DIF_OK(
-      dif_gpio_init(mmio_region_from_addr(TOP_EARLGREY_GPIO_BASE_ADDR), &gpio));
+      dif_gpio_init(mmio_region_from_addr(OPENTITAN_GPIO_BASE_ADDR), &gpio));
   CHECK_DIF_OK(dif_gpio_output_set_enabled_all(&gpio, gpio_mask));
 
   for (uint8_t i = 0; i < ARRAYSIZE(kGpioVals); ++i) {

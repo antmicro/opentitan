@@ -12,7 +12,7 @@
 #include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
 
 enum {
-  kBaseCsrng = TOP_EARLGREY_CSRNG_BASE_ADDR,
+  kBaseCsrng = OPENTITAN_CSRNG_BASE_ADDR,
 
   /**
    * CSRNG genbits buffer size in uint32_t words.

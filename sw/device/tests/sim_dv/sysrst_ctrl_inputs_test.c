@@ -28,18 +28,18 @@ enum {
 };
 
 static const dif_pinmux_index_t kPeripheralInputs[] = {
-    kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonKey0In,
-    kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonKey1In,
-    kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonKey2In,
-    kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonPwrbIn,
-    kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonAcPresent,
-    kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonLidOpen,
+    kOpentitanPinmuxPeripheralInSysrstCtrlAonKey0In,
+    kOpentitanPinmuxPeripheralInSysrstCtrlAonKey1In,
+    kOpentitanPinmuxPeripheralInSysrstCtrlAonKey2In,
+    kOpentitanPinmuxPeripheralInSysrstCtrlAonPwrbIn,
+    kOpentitanPinmuxPeripheralInSysrstCtrlAonAcPresent,
+    kOpentitanPinmuxPeripheralInSysrstCtrlAonLidOpen,
 };
 
 static const dif_pinmux_index_t kInputPads[] = {
-    kTopEarlgreyPinmuxInselIob3, kTopEarlgreyPinmuxInselIob6,
-    kTopEarlgreyPinmuxInselIob8, kTopEarlgreyPinmuxInselIor13,
-    kTopEarlgreyPinmuxInselIoc7, kTopEarlgreyPinmuxInselIoc9,
+    kOpentitanPinmuxInselIob3, kOpentitanPinmuxInselIob6,
+    kOpentitanPinmuxInselIob8, kOpentitanPinmuxInselIor13,
+    kOpentitanPinmuxInselIoc7, kOpentitanPinmuxInselIoc9,
 };
 
 static const dif_sysrst_ctrl_pin_t kSysrstCtrlInputs[] = {
@@ -62,12 +62,12 @@ static uint8_t read_input_pins(void) {
 
 bool test_main(void) {
   CHECK_DIF_OK(dif_sysrst_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_SYSRST_CTRL_AON_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_SYSRST_CTRL_AON_BASE_ADDR),
       &sysrst_ctrl));
 
   dif_pinmux_t pinmux;
   CHECK_DIF_OK(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
 
   for (int i = 0; i < kOutputNunMioPads; ++i) {
     CHECK_DIF_OK(

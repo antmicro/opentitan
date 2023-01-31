@@ -65,17 +65,17 @@ static volatile bool irq_flags[kTestIrqFlagCount];
  */
 static void init_peripherals(void) {
   CHECK_DIF_OK(dif_csrng_init(
-      mmio_region_from_addr(TOP_EARLGREY_CSRNG_BASE_ADDR), &csrng));
+      mmio_region_from_addr(OPENTITAN_CSRNG_BASE_ADDR), &csrng));
   CHECK_DIF_OK(
-      dif_edn_init(mmio_region_from_addr(TOP_EARLGREY_EDN0_BASE_ADDR), &edn0));
+      dif_edn_init(mmio_region_from_addr(OPENTITAN_EDN0_BASE_ADDR), &edn0));
   CHECK_DIF_OK(
-      dif_edn_init(mmio_region_from_addr(TOP_EARLGREY_EDN1_BASE_ADDR), &edn1));
+      dif_edn_init(mmio_region_from_addr(OPENTITAN_EDN1_BASE_ADDR), &edn1));
   CHECK_DIF_OK(dif_entropy_src_init(
-      mmio_region_from_addr(TOP_EARLGREY_ENTROPY_SRC_BASE_ADDR), &entropy_src));
+      mmio_region_from_addr(OPENTITAN_ENTROPY_SRC_BASE_ADDR), &entropy_src));
   CHECK_DIF_OK(
-      dif_otbn_init(mmio_region_from_addr(TOP_EARLGREY_OTBN_BASE_ADDR), &otbn));
+      dif_otbn_init(mmio_region_from_addr(OPENTITAN_OTBN_BASE_ADDR), &otbn));
   CHECK_DIF_OK(dif_rv_plic_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR), &plic));
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR), &plic));
 }
 
 /**
@@ -89,18 +89,18 @@ static void plic_interrupts_enable(void) {
     irq_flags[i] = false;
   }
 
-  dif_rv_plic_irq_id_t irq_ids[] = {kTopEarlgreyPlicIrqIdCsrngCsEntropyReq,
-                                    kTopEarlgreyPlicIrqIdEdn0EdnCmdReqDone,
-                                    kTopEarlgreyPlicIrqIdEdn1EdnCmdReqDone};
+  dif_rv_plic_irq_id_t irq_ids[] = {kOpentitanPlicIrqIdCsrngCsEntropyReq,
+                                    kOpentitanPlicIrqIdEdn0EdnCmdReqDone,
+                                    kOpentitanPlicIrqIdEdn1EdnCmdReqDone};
   for (size_t i = 0; i < ARRAYSIZE(irq_ids); ++i) {
     CHECK_DIF_OK(
         dif_rv_plic_irq_set_priority(&plic, irq_ids[i], /*priority=*/1u));
     CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(
-        &plic, irq_ids[i], kTopEarlgreyPlicTargetIbex0, kDifToggleEnabled));
+        &plic, irq_ids[i], kOpentitanPlicTargetIbex0, kDifToggleEnabled));
   }
 
   CHECK_DIF_OK(dif_rv_plic_target_set_threshold(
-      &plic, kTopEarlgreyPlicTargetIbex0, /*threshold=*/0u));
+      &plic, kOpentitanPlicTargetIbex0, /*threshold=*/0u));
 
   CHECK_DIF_OK(dif_csrng_irq_set_enabled(&csrng, kDifCsrngIrqCsEntropyReq,
                                          kDifToggleEnabled));
@@ -311,36 +311,36 @@ void ottf_external_isr(void) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
   CHECK_DIF_OK(
-      dif_rv_plic_irq_claim(&plic, kTopEarlgreyPlicTargetIbex0, &plic_irq_id));
+      dif_rv_plic_irq_claim(&plic, kOpentitanPlicTargetIbex0, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  top_earlgrey_plic_peripheral_t peripheral_serviced =
-      (top_earlgrey_plic_peripheral_t)
-          top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  opentitan_plic_peripheral_t peripheral_serviced =
+      (opentitan_plic_peripheral_t)
+          opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID and set the corresponding
   // `irq_flags`.
-  if (peripheral_serviced == kTopEarlgreyPlicPeripheralCsrng) {
+  if (peripheral_serviced == kOpentitanPlicPeripheralCsrng) {
     dif_csrng_irq_t irq =
-        (dif_csrng_irq_t)(plic_irq_id - kTopEarlgreyPlicIrqIdCsrngCsCmdReqDone);
+        (dif_csrng_irq_t)(plic_irq_id - kOpentitanPlicIrqIdCsrngCsCmdReqDone);
     CHECK(irq == kDifCsrngIrqCsEntropyReq, "Unexpected irq: 0x%x", irq);
     CHECK_DIF_OK(dif_csrng_irq_acknowledge(&csrng, irq));
     irq_flags[kTestIrqFlagIdCsrngEntropyReq] = true;
-  } else if (peripheral_serviced == kTopEarlgreyPlicPeripheralEdn0) {
+  } else if (peripheral_serviced == kOpentitanPlicPeripheralEdn0) {
     dif_edn_irq_t irq =
-        (dif_edn_irq_t)(plic_irq_id - kTopEarlgreyPlicIrqIdEdn0EdnCmdReqDone);
+        (dif_edn_irq_t)(plic_irq_id - kOpentitanPlicIrqIdEdn0EdnCmdReqDone);
     CHECK(irq == kDifEdnIrqEdnCmdReqDone, "Unexpected irq: 0x%x", irq);
     CHECK_DIF_OK(dif_edn_irq_acknowledge(&edn0, irq));
     irq_flags[kTestIrqFlagIdEdn0CmdDone] = true;
-  } else if (peripheral_serviced == kTopEarlgreyPlicPeripheralEdn1) {
+  } else if (peripheral_serviced == kOpentitanPlicPeripheralEdn1) {
     dif_edn_irq_t irq =
-        (dif_edn_irq_t)(plic_irq_id - kTopEarlgreyPlicIrqIdEdn1EdnCmdReqDone);
+        (dif_edn_irq_t)(plic_irq_id - kOpentitanPlicIrqIdEdn1EdnCmdReqDone);
     CHECK(irq == kDifEdnIrqEdnCmdReqDone, "Unexpected irq: 0x%x", irq);
     CHECK_DIF_OK(dif_edn_irq_acknowledge(&edn1, irq));
     irq_flags[kTestIrqFlagIdEdn1CmdDone] = true;
   }
 
-  CHECK_DIF_OK(dif_rv_plic_irq_complete(&plic, kTopEarlgreyPlicTargetIbex0,
+  CHECK_DIF_OK(dif_rv_plic_irq_complete(&plic, kOpentitanPlicTargetIbex0,
                                         plic_irq_id));
 }
 

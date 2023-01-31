@@ -38,7 +38,7 @@
 
 void isr_testutils_adc_ctrl_isr(
     plic_isr_ctx_t plic_ctx, adc_ctrl_isr_ctx_t adc_ctrl_ctx,
-    top_earlgrey_plic_peripheral_t *peripheral_serviced,
+    opentitan_plic_peripheral_t *peripheral_serviced,
     dif_adc_ctrl_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -46,8 +46,8 @@ void isr_testutils_adc_ctrl_isr(
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_adc_ctrl_irq_t irq =
@@ -84,7 +84,7 @@ void isr_testutils_adc_ctrl_isr(
 
 void isr_testutils_alert_handler_isr(
     plic_isr_ctx_t plic_ctx, alert_handler_isr_ctx_t alert_handler_ctx,
-    top_earlgrey_plic_peripheral_t *peripheral_serviced,
+    opentitan_plic_peripheral_t *peripheral_serviced,
     dif_alert_handler_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -92,8 +92,8 @@ void isr_testutils_alert_handler_isr(
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_alert_handler_irq_t irq =
@@ -128,7 +128,7 @@ void isr_testutils_alert_handler_isr(
 
 void isr_testutils_aon_timer_isr(
     plic_isr_ctx_t plic_ctx, aon_timer_isr_ctx_t aon_timer_ctx,
-    top_earlgrey_plic_peripheral_t *peripheral_serviced,
+    opentitan_plic_peripheral_t *peripheral_serviced,
     dif_aon_timer_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -136,8 +136,8 @@ void isr_testutils_aon_timer_isr(
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_aon_timer_irq_t irq =
@@ -169,7 +169,7 @@ void isr_testutils_aon_timer_isr(
 
 void isr_testutils_csrng_isr(
     plic_isr_ctx_t plic_ctx, csrng_isr_ctx_t csrng_ctx,
-    top_earlgrey_plic_peripheral_t *peripheral_serviced,
+    opentitan_plic_peripheral_t *peripheral_serviced,
     dif_csrng_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -177,8 +177,8 @@ void isr_testutils_csrng_isr(
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_csrng_irq_t irq =
@@ -207,7 +207,7 @@ void isr_testutils_csrng_isr(
 }
 
 void isr_testutils_edn_isr(plic_isr_ctx_t plic_ctx, edn_isr_ctx_t edn_ctx,
-                           top_earlgrey_plic_peripheral_t *peripheral_serviced,
+                           opentitan_plic_peripheral_t *peripheral_serviced,
                            dif_edn_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -215,8 +215,8 @@ void isr_testutils_edn_isr(plic_isr_ctx_t plic_ctx, edn_isr_ctx_t edn_ctx,
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_edn_irq_t irq =
@@ -246,7 +246,7 @@ void isr_testutils_edn_isr(plic_isr_ctx_t plic_ctx, edn_isr_ctx_t edn_ctx,
 
 void isr_testutils_entropy_src_isr(
     plic_isr_ctx_t plic_ctx, entropy_src_isr_ctx_t entropy_src_ctx,
-    top_earlgrey_plic_peripheral_t *peripheral_serviced,
+    opentitan_plic_peripheral_t *peripheral_serviced,
     dif_entropy_src_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -254,8 +254,8 @@ void isr_testutils_entropy_src_isr(
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_entropy_src_irq_t irq =
@@ -289,7 +289,7 @@ void isr_testutils_entropy_src_isr(
 
 void isr_testutils_flash_ctrl_isr(
     plic_isr_ctx_t plic_ctx, flash_ctrl_isr_ctx_t flash_ctrl_ctx,
-    top_earlgrey_plic_peripheral_t *peripheral_serviced,
+    opentitan_plic_peripheral_t *peripheral_serviced,
     dif_flash_ctrl_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -297,8 +297,8 @@ void isr_testutils_flash_ctrl_isr(
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_flash_ctrl_irq_t irq =
@@ -331,7 +331,7 @@ void isr_testutils_flash_ctrl_isr(
 }
 
 void isr_testutils_gpio_isr(plic_isr_ctx_t plic_ctx, gpio_isr_ctx_t gpio_ctx,
-                            top_earlgrey_plic_peripheral_t *peripheral_serviced,
+                            opentitan_plic_peripheral_t *peripheral_serviced,
                             dif_gpio_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -339,8 +339,8 @@ void isr_testutils_gpio_isr(plic_isr_ctx_t plic_ctx, gpio_isr_ctx_t gpio_ctx,
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_gpio_irq_t irq =
@@ -369,7 +369,7 @@ void isr_testutils_gpio_isr(plic_isr_ctx_t plic_ctx, gpio_isr_ctx_t gpio_ctx,
 }
 
 void isr_testutils_hmac_isr(plic_isr_ctx_t plic_ctx, hmac_isr_ctx_t hmac_ctx,
-                            top_earlgrey_plic_peripheral_t *peripheral_serviced,
+                            opentitan_plic_peripheral_t *peripheral_serviced,
                             dif_hmac_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -377,8 +377,8 @@ void isr_testutils_hmac_isr(plic_isr_ctx_t plic_ctx, hmac_isr_ctx_t hmac_ctx,
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_hmac_irq_t irq =
@@ -407,7 +407,7 @@ void isr_testutils_hmac_isr(plic_isr_ctx_t plic_ctx, hmac_isr_ctx_t hmac_ctx,
 }
 
 void isr_testutils_i2c_isr(plic_isr_ctx_t plic_ctx, i2c_isr_ctx_t i2c_ctx,
-                           top_earlgrey_plic_peripheral_t *peripheral_serviced,
+                           opentitan_plic_peripheral_t *peripheral_serviced,
                            dif_i2c_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -415,8 +415,8 @@ void isr_testutils_i2c_isr(plic_isr_ctx_t plic_ctx, i2c_isr_ctx_t i2c_ctx,
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_i2c_irq_t irq =
@@ -446,7 +446,7 @@ void isr_testutils_i2c_isr(plic_isr_ctx_t plic_ctx, i2c_isr_ctx_t i2c_ctx,
 
 void isr_testutils_keymgr_isr(
     plic_isr_ctx_t plic_ctx, keymgr_isr_ctx_t keymgr_ctx,
-    top_earlgrey_plic_peripheral_t *peripheral_serviced,
+    opentitan_plic_peripheral_t *peripheral_serviced,
     dif_keymgr_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -454,8 +454,8 @@ void isr_testutils_keymgr_isr(
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_keymgr_irq_t irq =
@@ -484,7 +484,7 @@ void isr_testutils_keymgr_isr(
 }
 
 void isr_testutils_kmac_isr(plic_isr_ctx_t plic_ctx, kmac_isr_ctx_t kmac_ctx,
-                            top_earlgrey_plic_peripheral_t *peripheral_serviced,
+                            opentitan_plic_peripheral_t *peripheral_serviced,
                             dif_kmac_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -492,8 +492,8 @@ void isr_testutils_kmac_isr(plic_isr_ctx_t plic_ctx, kmac_isr_ctx_t kmac_ctx,
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_kmac_irq_t irq =
@@ -522,7 +522,7 @@ void isr_testutils_kmac_isr(plic_isr_ctx_t plic_ctx, kmac_isr_ctx_t kmac_ctx,
 }
 
 void isr_testutils_otbn_isr(plic_isr_ctx_t plic_ctx, otbn_isr_ctx_t otbn_ctx,
-                            top_earlgrey_plic_peripheral_t *peripheral_serviced,
+                            opentitan_plic_peripheral_t *peripheral_serviced,
                             dif_otbn_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -530,8 +530,8 @@ void isr_testutils_otbn_isr(plic_isr_ctx_t plic_ctx, otbn_isr_ctx_t otbn_ctx,
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_otbn_irq_t irq =
@@ -561,7 +561,7 @@ void isr_testutils_otbn_isr(plic_isr_ctx_t plic_ctx, otbn_isr_ctx_t otbn_ctx,
 
 void isr_testutils_otp_ctrl_isr(
     plic_isr_ctx_t plic_ctx, otp_ctrl_isr_ctx_t otp_ctrl_ctx,
-    top_earlgrey_plic_peripheral_t *peripheral_serviced,
+    opentitan_plic_peripheral_t *peripheral_serviced,
     dif_otp_ctrl_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -569,8 +569,8 @@ void isr_testutils_otp_ctrl_isr(
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_otp_ctrl_irq_t irq =
@@ -601,7 +601,7 @@ void isr_testutils_otp_ctrl_isr(
 
 void isr_testutils_pattgen_isr(
     plic_isr_ctx_t plic_ctx, pattgen_isr_ctx_t pattgen_ctx,
-    top_earlgrey_plic_peripheral_t *peripheral_serviced,
+    opentitan_plic_peripheral_t *peripheral_serviced,
     dif_pattgen_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -609,8 +609,8 @@ void isr_testutils_pattgen_isr(
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_pattgen_irq_t irq =
@@ -640,7 +640,7 @@ void isr_testutils_pattgen_isr(
 
 void isr_testutils_pwrmgr_isr(
     plic_isr_ctx_t plic_ctx, pwrmgr_isr_ctx_t pwrmgr_ctx,
-    top_earlgrey_plic_peripheral_t *peripheral_serviced,
+    opentitan_plic_peripheral_t *peripheral_serviced,
     dif_pwrmgr_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -648,8 +648,8 @@ void isr_testutils_pwrmgr_isr(
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_pwrmgr_irq_t irq =
@@ -679,7 +679,7 @@ void isr_testutils_pwrmgr_isr(
 
 void isr_testutils_rv_timer_isr(
     plic_isr_ctx_t plic_ctx, rv_timer_isr_ctx_t rv_timer_ctx,
-    top_earlgrey_plic_peripheral_t *peripheral_serviced,
+    opentitan_plic_peripheral_t *peripheral_serviced,
     dif_rv_timer_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -687,8 +687,8 @@ void isr_testutils_rv_timer_isr(
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_rv_timer_irq_t irq =
@@ -720,7 +720,7 @@ void isr_testutils_rv_timer_isr(
 
 void isr_testutils_sensor_ctrl_isr(
     plic_isr_ctx_t plic_ctx, sensor_ctrl_isr_ctx_t sensor_ctrl_ctx,
-    top_earlgrey_plic_peripheral_t *peripheral_serviced,
+    opentitan_plic_peripheral_t *peripheral_serviced,
     dif_sensor_ctrl_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -728,8 +728,8 @@ void isr_testutils_sensor_ctrl_isr(
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_sensor_ctrl_irq_t irq =
@@ -763,7 +763,7 @@ void isr_testutils_sensor_ctrl_isr(
 
 void isr_testutils_spi_device_isr(
     plic_isr_ctx_t plic_ctx, spi_device_isr_ctx_t spi_device_ctx,
-    top_earlgrey_plic_peripheral_t *peripheral_serviced,
+    opentitan_plic_peripheral_t *peripheral_serviced,
     dif_spi_device_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -771,8 +771,8 @@ void isr_testutils_spi_device_isr(
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_spi_device_irq_t irq =
@@ -806,7 +806,7 @@ void isr_testutils_spi_device_isr(
 
 void isr_testutils_spi_host_isr(
     plic_isr_ctx_t plic_ctx, spi_host_isr_ctx_t spi_host_ctx,
-    top_earlgrey_plic_peripheral_t *peripheral_serviced,
+    opentitan_plic_peripheral_t *peripheral_serviced,
     dif_spi_host_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -814,8 +814,8 @@ void isr_testutils_spi_host_isr(
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_spi_host_irq_t irq =
@@ -846,7 +846,7 @@ void isr_testutils_spi_host_isr(
 
 void isr_testutils_sysrst_ctrl_isr(
     plic_isr_ctx_t plic_ctx, sysrst_ctrl_isr_ctx_t sysrst_ctrl_ctx,
-    top_earlgrey_plic_peripheral_t *peripheral_serviced,
+    opentitan_plic_peripheral_t *peripheral_serviced,
     dif_sysrst_ctrl_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -854,8 +854,8 @@ void isr_testutils_sysrst_ctrl_isr(
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_sysrst_ctrl_irq_t irq =
@@ -888,7 +888,7 @@ void isr_testutils_sysrst_ctrl_isr(
 }
 
 void isr_testutils_uart_isr(plic_isr_ctx_t plic_ctx, uart_isr_ctx_t uart_ctx,
-                            top_earlgrey_plic_peripheral_t *peripheral_serviced,
+                            opentitan_plic_peripheral_t *peripheral_serviced,
                             dif_uart_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -896,8 +896,8 @@ void isr_testutils_uart_isr(plic_isr_ctx_t plic_ctx, uart_isr_ctx_t uart_ctx,
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_uart_irq_t irq =
@@ -927,7 +927,7 @@ void isr_testutils_uart_isr(plic_isr_ctx_t plic_ctx, uart_isr_ctx_t uart_ctx,
 
 void isr_testutils_usbdev_isr(
     plic_isr_ctx_t plic_ctx, usbdev_isr_ctx_t usbdev_ctx,
-    top_earlgrey_plic_peripheral_t *peripheral_serviced,
+    opentitan_plic_peripheral_t *peripheral_serviced,
     dif_usbdev_irq_t *irq_serviced) {
   // Claim the IRQ at the PLIC.
   dif_rv_plic_irq_id_t plic_irq_id;
@@ -935,8 +935,8 @@ void isr_testutils_usbdev_isr(
       dif_rv_plic_irq_claim(plic_ctx.rv_plic, plic_ctx.hart_id, &plic_irq_id));
 
   // Get the peripheral the IRQ belongs to.
-  *peripheral_serviced = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  *peripheral_serviced = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
 
   // Get the IRQ that was fired from the PLIC IRQ ID.
   dif_usbdev_irq_t irq =

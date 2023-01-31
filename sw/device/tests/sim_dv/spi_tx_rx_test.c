@@ -69,40 +69,40 @@ void ottf_external_isr(void) {
   // Find which interrupt fired at PLIC by claiming it.
   dif_rv_plic_irq_id_t plic_irq_id;
   CHECK_DIF_OK(
-      dif_rv_plic_irq_claim(&plic0, kTopEarlgreyPlicTargetIbex0, &plic_irq_id));
+      dif_rv_plic_irq_claim(&plic0, kOpentitanPlicTargetIbex0, &plic_irq_id));
 
   // Check if it is the right peripheral.
-  top_earlgrey_plic_peripheral_t peripheral = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
-  CHECK(peripheral == kTopEarlgreyPlicPeripheralSpiDevice,
+  opentitan_plic_peripheral_t peripheral = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
+  CHECK(peripheral == kOpentitanPlicPeripheralSpiDevice,
         "Interurpt from unexpected peripheral: %d", peripheral);
 
   // Correlate the interrupt fired at PLIC with SPI DEVICE.
   dif_spi_device_irq_t spi_device_irq = 0;
   switch (plic_irq_id) {
-    case kTopEarlgreyPlicIrqIdSpiDeviceGenericRxFull:
+    case kOpentitanPlicIrqIdSpiDeviceGenericRxFull:
       spi_device_irq = kDifSpiDeviceIrqGenericRxFull;
       CHECK(expected_irqs[spi_device_irq], "Unexpected RX full interrupt");
       break;
-    case kTopEarlgreyPlicIrqIdSpiDeviceGenericRxWatermark:
+    case kOpentitanPlicIrqIdSpiDeviceGenericRxWatermark:
       spi_device_irq = kDifSpiDeviceIrqGenericRxWatermark;
       CHECK(expected_irqs[spi_device_irq],
             "Unexpected RX above level interrupt");
       break;
-    case kTopEarlgreyPlicIrqIdSpiDeviceGenericTxWatermark:
+    case kOpentitanPlicIrqIdSpiDeviceGenericTxWatermark:
       spi_device_irq = kDifSpiDeviceIrqGenericTxWatermark;
       CHECK(expected_irqs[spi_device_irq],
             "Unexpected TX below level interrupt");
       break;
-    case kTopEarlgreyPlicIrqIdSpiDeviceGenericRxError:
+    case kOpentitanPlicIrqIdSpiDeviceGenericRxError:
       spi_device_irq = kDifSpiDeviceIrqGenericRxError;
       CHECK(expected_irqs[spi_device_irq], "Unexpected RX error interrupt");
       break;
-    case kTopEarlgreyPlicIrqIdSpiDeviceGenericRxOverflow:
+    case kOpentitanPlicIrqIdSpiDeviceGenericRxOverflow:
       spi_device_irq = kDifSpiDeviceIrqGenericRxOverflow;
       CHECK(expected_irqs[spi_device_irq], "Unexpected RX overflow interrupt");
       break;
-    case kTopEarlgreyPlicIrqIdSpiDeviceGenericTxUnderflow:
+    case kOpentitanPlicIrqIdSpiDeviceGenericTxUnderflow:
       spi_device_irq = kDifSpiDeviceIrqGenericTxUnderflow;
       CHECK(expected_irqs[spi_device_irq], "Unexpected TX underflow interrupt");
       // TxUnderflow keeps firing as TX fifo is empty but TB controls host to
@@ -131,7 +131,7 @@ void ottf_external_isr(void) {
   CHECK_DIF_OK(dif_spi_device_irq_acknowledge(&spi_device.dev, spi_device_irq));
 
   // Complete the IRQ at PLIC.
-  CHECK_DIF_OK(dif_rv_plic_irq_complete(&plic0, kTopEarlgreyPlicTargetIbex0,
+  CHECK_DIF_OK(dif_rv_plic_irq_complete(&plic0, kOpentitanPlicTargetIbex0,
                                         plic_irq_id));
 }
 
@@ -176,51 +176,51 @@ static void plic_init_with_irqs(mmio_region_t base_addr, dif_rv_plic_t *plic) {
   // Set the priority of SPI DEVICE interrupts at PLIC to be >=1 (so ensure the
   // target does get interrupted).
   CHECK_DIF_OK(dif_rv_plic_irq_set_priority(
-      plic, kTopEarlgreyPlicIrqIdSpiDeviceGenericRxFull,
+      plic, kOpentitanPlicIrqIdSpiDeviceGenericRxFull,
       kDifRvPlicMaxPriority));
   CHECK_DIF_OK(dif_rv_plic_irq_set_priority(
-      plic, kTopEarlgreyPlicIrqIdSpiDeviceGenericRxWatermark,
+      plic, kOpentitanPlicIrqIdSpiDeviceGenericRxWatermark,
       kDifRvPlicMaxPriority));
   CHECK_DIF_OK(dif_rv_plic_irq_set_priority(
-      plic, kTopEarlgreyPlicIrqIdSpiDeviceGenericTxWatermark,
+      plic, kOpentitanPlicIrqIdSpiDeviceGenericTxWatermark,
       kDifRvPlicMaxPriority));
   CHECK_DIF_OK(dif_rv_plic_irq_set_priority(
-      plic, kTopEarlgreyPlicIrqIdSpiDeviceGenericRxError,
+      plic, kOpentitanPlicIrqIdSpiDeviceGenericRxError,
       kDifRvPlicMaxPriority));
   CHECK_DIF_OK(dif_rv_plic_irq_set_priority(
-      plic, kTopEarlgreyPlicIrqIdSpiDeviceGenericRxOverflow,
+      plic, kOpentitanPlicIrqIdSpiDeviceGenericRxOverflow,
       kDifRvPlicMaxPriority));
   CHECK_DIF_OK(dif_rv_plic_irq_set_priority(
-      plic, kTopEarlgreyPlicIrqIdSpiDeviceGenericTxUnderflow,
+      plic, kOpentitanPlicIrqIdSpiDeviceGenericTxUnderflow,
       kDifRvPlicMaxPriority));
 
   // Set the threshold for the Ibex to 0.
   CHECK_DIF_OK(
-      dif_rv_plic_target_set_threshold(plic, kTopEarlgreyPlicTargetIbex0, 0x0));
+      dif_rv_plic_target_set_threshold(plic, kOpentitanPlicTargetIbex0, 0x0));
 
   CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(
-      plic, kTopEarlgreyPlicIrqIdSpiDeviceGenericRxFull,
-      kTopEarlgreyPlicTargetIbex0, kDifToggleEnabled));
+      plic, kOpentitanPlicIrqIdSpiDeviceGenericRxFull,
+      kOpentitanPlicTargetIbex0, kDifToggleEnabled));
 
   CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(
-      plic, kTopEarlgreyPlicIrqIdSpiDeviceGenericRxWatermark,
-      kTopEarlgreyPlicTargetIbex0, kDifToggleEnabled));
+      plic, kOpentitanPlicIrqIdSpiDeviceGenericRxWatermark,
+      kOpentitanPlicTargetIbex0, kDifToggleEnabled));
 
   CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(
-      plic, kTopEarlgreyPlicIrqIdSpiDeviceGenericTxWatermark,
-      kTopEarlgreyPlicTargetIbex0, kDifToggleEnabled));
+      plic, kOpentitanPlicIrqIdSpiDeviceGenericTxWatermark,
+      kOpentitanPlicTargetIbex0, kDifToggleEnabled));
 
   CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(
-      plic, kTopEarlgreyPlicIrqIdSpiDeviceGenericRxError,
-      kTopEarlgreyPlicTargetIbex0, kDifToggleEnabled));
+      plic, kOpentitanPlicIrqIdSpiDeviceGenericRxError,
+      kOpentitanPlicTargetIbex0, kDifToggleEnabled));
 
   CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(
-      plic, kTopEarlgreyPlicIrqIdSpiDeviceGenericRxOverflow,
-      kTopEarlgreyPlicTargetIbex0, kDifToggleEnabled));
+      plic, kOpentitanPlicIrqIdSpiDeviceGenericRxOverflow,
+      kOpentitanPlicTargetIbex0, kDifToggleEnabled));
 
   CHECK_DIF_OK(dif_rv_plic_irq_set_enabled(
-      plic, kTopEarlgreyPlicIrqIdSpiDeviceGenericTxUnderflow,
-      kTopEarlgreyPlicTargetIbex0, kDifToggleEnabled));
+      plic, kOpentitanPlicIrqIdSpiDeviceGenericTxUnderflow,
+      kOpentitanPlicTargetIbex0, kDifToggleEnabled));
 }
 
 static bool exp_irqs_fired(void) {
@@ -328,7 +328,7 @@ OTTF_DEFINE_TEST_CONFIG();
 
 bool test_main(void) {
   mmio_region_t spi_device_base_addr =
-      mmio_region_from_addr(TOP_EARLGREY_SPI_DEVICE_BASE_ADDR);
+      mmio_region_from_addr(OPENTITAN_SPI_DEVICE_BASE_ADDR);
   dif_spi_device_config_t spi_device_config = {
       .clock_polarity = kDifSpiDeviceEdgePositive,
       .data_phase = kDifSpiDeviceEdgeNegative,
@@ -351,7 +351,7 @@ bool test_main(void) {
                             spi_device_config);
 
   mmio_region_t plic_base_addr =
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR);
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR);
   // Initialize the PLIC
   plic_init_with_irqs(plic_base_addr, &plic0);
 

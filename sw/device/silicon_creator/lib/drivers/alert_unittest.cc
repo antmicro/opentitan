@@ -23,7 +23,7 @@ using ::testing::Return;
 
 class AlertTest : public rom_test::RomTest {
  protected:
-  uint32_t base_ = TOP_EARLGREY_ALERT_HANDLER_BASE_ADDR;
+  uint32_t base_ = OPENTITAN_ALERT_HANDLER_BASE_ADDR;
   rom_test::MockCrc32 crc32_;
   rom_test::MockAbsMmio abs_mmio_;
   rom_test::MockOtp otp_;

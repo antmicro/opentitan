@@ -174,7 +174,7 @@ bool test_main(void) {
   // Get ibex core handle.
   dif_rv_core_ibex_t ibex_core;
   CHECK_DIF_OK(dif_rv_core_ibex_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_CORE_IBEX_CFG_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR),
       &ibex_core));
 
   // Map virtual address space to make_lower_case() using slot 1.

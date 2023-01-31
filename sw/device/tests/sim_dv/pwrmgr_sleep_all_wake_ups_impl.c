@@ -44,8 +44,8 @@ static void prgm_sysrst_ctrl_wakeup(void *dif) {
   };
   CHECK_DIF_OK(dif_sysrst_ctrl_input_change_detect_configure(dif, config));
   CHECK_DIF_OK(dif_pinmux_input_select(
-      &pinmux, kTopEarlgreyPinmuxPeripheralInSysrstCtrlAonPwrbIn,
-      kTopEarlgreyPinmuxInselIor13));
+      &pinmux, kOpentitanPinmuxPeripheralInSysrstCtrlAonPwrbIn,
+      kOpentitanPinmuxInselIor13));
 }
 
 /**
@@ -89,7 +89,7 @@ static void prgm_pinmux_wakeup(void *dif) {
   dif_pinmux_wakeup_config_t detector_cfg = {
       .signal_filter = kDifToggleDisabled,
       .pad_type = kDifPinmuxPadKindMio,
-      .pad_select = kTopEarlgreyPinmuxInselIob7,
+      .pad_select = kOpentitanPinmuxInselIob7,
       .mode = kDifPinmuxWakeupModePositiveEdge,
       .counter_threshold = 0 /* Don't need for posedge detection */,
   };
@@ -175,25 +175,25 @@ const test_wakeup_sources_t kTestWakeupSources[PWRMGR_PARAM_NUM_WKUPS] = {
 
 void init_units() {
   CHECK_DIF_OK(dif_adc_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_ADC_CTRL_AON_BASE_ADDR), &adc_ctrl));
+      mmio_region_from_addr(OPENTITAN_ADC_CTRL_AON_BASE_ADDR), &adc_ctrl));
   CHECK_DIF_OK(dif_aon_timer_init(
-      mmio_region_from_addr(TOP_EARLGREY_AON_TIMER_AON_BASE_ADDR), &aon_timer));
+      mmio_region_from_addr(OPENTITAN_AON_TIMER_AON_BASE_ADDR), &aon_timer));
   CHECK_DIF_OK(dif_flash_ctrl_init_state(
       &flash_ctrl,
-      mmio_region_from_addr(TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR)));
+      mmio_region_from_addr(OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR)));
   CHECK_DIF_OK(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
   CHECK_DIF_OK(dif_pwrmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_PWRMGR_AON_BASE_ADDR), &pwrmgr));
+      mmio_region_from_addr(OPENTITAN_PWRMGR_AON_BASE_ADDR), &pwrmgr));
   CHECK_DIF_OK(dif_rv_plic_init(
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR), &rv_plic));
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR), &rv_plic));
   CHECK_DIF_OK(dif_sysrst_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_SYSRST_CTRL_AON_BASE_ADDR),
+      mmio_region_from_addr(OPENTITAN_SYSRST_CTRL_AON_BASE_ADDR),
       &sysrst_ctrl));
   CHECK_DIF_OK(dif_sensor_ctrl_init(
-      mmio_region_from_addr(TOP_EARLGREY_SENSOR_CTRL_BASE_ADDR), &sensor_ctrl));
+      mmio_region_from_addr(OPENTITAN_SENSOR_CTRL_BASE_ADDR), &sensor_ctrl));
   CHECK_DIF_OK(dif_usbdev_init(
-      mmio_region_from_addr(TOP_EARLGREY_USBDEV_BASE_ADDR), &usbdev));
+      mmio_region_from_addr(OPENTITAN_USBDEV_BASE_ADDR), &usbdev));
 }
 
 void execute_test(uint32_t wakeup_source, bool deep_sleep) {
@@ -268,11 +268,11 @@ void cleanup(uint32_t test_idx) {
   CHECK_DIF_OK(dif_pwrmgr_wakeup_reason_clear(&pwrmgr));
 }
 static plic_isr_ctx_t plic_ctx = {.rv_plic = &rv_plic,
-                                  .hart_id = kTopEarlgreyPlicTargetIbex0};
+                                  .hart_id = kOpentitanPlicTargetIbex0};
 
 static pwrmgr_isr_ctx_t pwrmgr_isr_ctx = {
     .pwrmgr = &pwrmgr,
-    .plic_pwrmgr_start_irq_id = kTopEarlgreyPlicIrqIdPwrmgrAonWakeup,
+    .plic_pwrmgr_start_irq_id = kOpentitanPlicIrqIdPwrmgrAonWakeup,
     .expected_irq = kDifPwrmgrIrqWakeup,
     .is_only_irq = true};
 
@@ -281,12 +281,12 @@ static pwrmgr_isr_ctx_t pwrmgr_isr_ctx = {
  */
 void ottf_external_isr(void) {
   dif_pwrmgr_irq_t irq_id;
-  top_earlgrey_plic_peripheral_t peripheral;
+  opentitan_plic_peripheral_t peripheral;
 
   isr_testutils_pwrmgr_isr(plic_ctx, pwrmgr_isr_ctx, &peripheral, &irq_id);
 
   // Check that both the peripheral and the irq id is correct
-  CHECK(peripheral == kTopEarlgreyPlicPeripheralPwrmgrAon,
+  CHECK(peripheral == kOpentitanPlicPeripheralPwrmgrAon,
         "IRQ peripheral: %d is incorrect", peripheral);
   CHECK(irq_id == kDifPwrmgrIrqWakeup, "IRQ ID: %d is incorrect", irq_id);
 }

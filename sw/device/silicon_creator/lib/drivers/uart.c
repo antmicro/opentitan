@@ -16,21 +16,21 @@
 #include "uart_regs.h"  // Generated.
 
 static void uart_reset(void) {
-  abs_mmio_write32(TOP_EARLGREY_UART0_BASE_ADDR + UART_CTRL_REG_OFFSET, 0u);
+  abs_mmio_write32(OPENTITAN_UART0_BASE_ADDR + UART_CTRL_REG_OFFSET, 0u);
 
   // Write to the relevant bits clears the FIFOs.
   uint32_t reg = 0;
   reg = bitfield_bit32_write(reg, UART_FIFO_CTRL_RXRST_BIT, true);
   reg = bitfield_bit32_write(reg, UART_FIFO_CTRL_TXRST_BIT, true);
-  abs_mmio_write32(TOP_EARLGREY_UART0_BASE_ADDR + UART_FIFO_CTRL_REG_OFFSET,
+  abs_mmio_write32(OPENTITAN_UART0_BASE_ADDR + UART_FIFO_CTRL_REG_OFFSET,
                    reg);
 
-  abs_mmio_write32(TOP_EARLGREY_UART0_BASE_ADDR + UART_OVRD_REG_OFFSET, 0u);
-  abs_mmio_write32(TOP_EARLGREY_UART0_BASE_ADDR + UART_TIMEOUT_CTRL_REG_OFFSET,
+  abs_mmio_write32(OPENTITAN_UART0_BASE_ADDR + UART_OVRD_REG_OFFSET, 0u);
+  abs_mmio_write32(OPENTITAN_UART0_BASE_ADDR + UART_TIMEOUT_CTRL_REG_OFFSET,
                    0u);
-  abs_mmio_write32(TOP_EARLGREY_UART0_BASE_ADDR + UART_INTR_ENABLE_REG_OFFSET,
+  abs_mmio_write32(OPENTITAN_UART0_BASE_ADDR + UART_INTR_ENABLE_REG_OFFSET,
                    0u);
-  abs_mmio_write32(TOP_EARLGREY_UART0_BASE_ADDR + UART_INTR_STATE_REG_OFFSET,
+  abs_mmio_write32(OPENTITAN_UART0_BASE_ADDR + UART_INTR_STATE_REG_OFFSET,
                    UINT32_MAX);
 }
 
@@ -43,23 +43,23 @@ rom_error_t uart_init(uint32_t precalculated_nco) {
   reg = bitfield_field32_write(reg, UART_CTRL_NCO_FIELD, precalculated_nco);
   reg = bitfield_bit32_write(reg, UART_CTRL_TX_BIT, true);
   reg = bitfield_bit32_write(reg, UART_CTRL_PARITY_EN_BIT, false);
-  abs_mmio_write32(TOP_EARLGREY_UART0_BASE_ADDR + UART_CTRL_REG_OFFSET, reg);
+  abs_mmio_write32(OPENTITAN_UART0_BASE_ADDR + UART_CTRL_REG_OFFSET, reg);
 
   // Disable interrupts.
-  abs_mmio_write32(TOP_EARLGREY_UART0_BASE_ADDR + UART_INTR_ENABLE_REG_OFFSET,
+  abs_mmio_write32(OPENTITAN_UART0_BASE_ADDR + UART_INTR_ENABLE_REG_OFFSET,
                    0u);
   return kErrorOk;
 }
 
 static bool uart_tx_full(void) {
   uint32_t reg =
-      abs_mmio_read32(TOP_EARLGREY_UART0_BASE_ADDR + UART_STATUS_REG_OFFSET);
+      abs_mmio_read32(OPENTITAN_UART0_BASE_ADDR + UART_STATUS_REG_OFFSET);
   return bitfield_bit32_read(reg, UART_STATUS_TXFULL_BIT);
 }
 
 static bool uart_tx_idle(void) {
   uint32_t reg =
-      abs_mmio_read32(TOP_EARLGREY_UART0_BASE_ADDR + UART_STATUS_REG_OFFSET);
+      abs_mmio_read32(OPENTITAN_UART0_BASE_ADDR + UART_STATUS_REG_OFFSET);
   return bitfield_bit32_read(reg, UART_STATUS_TXIDLE_BIT);
 }
 
@@ -68,7 +68,7 @@ void uart_putchar(uint8_t byte) {
   while (uart_tx_full()) {
   }
   uint32_t reg = bitfield_field32_write(0, UART_WDATA_WDATA_FIELD, byte);
-  abs_mmio_write32(TOP_EARLGREY_UART0_BASE_ADDR + UART_WDATA_REG_OFFSET, reg);
+  abs_mmio_write32(OPENTITAN_UART0_BASE_ADDR + UART_WDATA_REG_OFFSET, reg);
 
   // If the transmitter is active, wait.
   while (!uart_tx_idle()) {

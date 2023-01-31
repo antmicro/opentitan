@@ -19,7 +19,7 @@ namespace {
 
 class AddressTranslationTest : public rom_test::RomTest {
  protected:
-  uint32_t base_ = TOP_EARLGREY_RV_CORE_IBEX_CFG_BASE_ADDR;
+  uint32_t base_ = OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR;
   rom_test::MockSecMmio sec_;
 };
 

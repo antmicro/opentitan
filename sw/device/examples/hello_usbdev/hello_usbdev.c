@@ -24,7 +24,7 @@
 #include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"  // Generated.
 
 // These just for the '/' printout
-#define USBDEV_BASE_ADDR TOP_EARLGREY_USBDEV_BASE_ADDR
+#define USBDEV_BASE_ADDR OPENTITAN_USBDEV_BASE_ADDR
 #include "usbdev_regs.h"  // Generated.
 
 #define REG32(add) *((volatile uint32_t *)(add))
@@ -113,40 +113,40 @@ static const uint32_t kDiffXcvrMask = (1 << 9);
 static const uint32_t kUPhyMask = (1 << 10);
 
 static dif_pinmux_index_t leds[] = {
-    kTopEarlgreyPinmuxMioOutIor10,
-    kTopEarlgreyPinmuxMioOutIor11,
-    kTopEarlgreyPinmuxMioOutIor12,
-    kTopEarlgreyPinmuxMioOutIor13,
+    kOpentitanPinmuxMioOutIor10,
+    kOpentitanPinmuxMioOutIor11,
+    kOpentitanPinmuxMioOutIor12,
+    kOpentitanPinmuxMioOutIor13,
 };
 
 static dif_pinmux_index_t switches[] = {
-    kTopEarlgreyPinmuxInselIob6,
-    kTopEarlgreyPinmuxInselIob7,
-    kTopEarlgreyPinmuxInselIob8,
-    kTopEarlgreyPinmuxInselIob9,
+    kOpentitanPinmuxInselIob6,
+    kOpentitanPinmuxInselIob7,
+    kOpentitanPinmuxInselIob8,
+    kOpentitanPinmuxInselIob9,
 };
 
 void configure_pinmux(void) {
   pinmux_testutils_init(&pinmux);
   // Hook up some LEDs.
   for (size_t i = 0; i < ARRAYSIZE(leds); ++i) {
-    dif_pinmux_index_t gpio = kTopEarlgreyPinmuxOutselGpioGpio0 + i;
+    dif_pinmux_index_t gpio = kOpentitanPinmuxOutselGpioGpio0 + i;
     CHECK_DIF_OK(dif_pinmux_output_select(&pinmux, leds[i], gpio));
   }
   // Hook up DIP switches.
   for (size_t i = 0; i < ARRAYSIZE(switches); ++i) {
-    dif_pinmux_index_t gpio = kTopEarlgreyPinmuxPeripheralInGpioGpio8 + i;
+    dif_pinmux_index_t gpio = kOpentitanPinmuxPeripheralInGpioGpio8 + i;
     CHECK_DIF_OK(dif_pinmux_input_select(&pinmux, gpio, switches[i]));
   }
 }
 
 void _ottf_main(void) {
   CHECK_DIF_OK(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
   configure_pinmux();
 
   CHECK_DIF_OK(dif_uart_init(
-      mmio_region_from_addr(TOP_EARLGREY_UART0_BASE_ADDR), &uart));
+      mmio_region_from_addr(OPENTITAN_UART0_BASE_ADDR), &uart));
   CHECK_DIF_OK(
       dif_uart_configure(&uart, (dif_uart_config_t){
                                     .baudrate = kUartBaudrate,
@@ -159,7 +159,7 @@ void _ottf_main(void) {
   base_uart_stdout(&uart);
 
   CHECK_DIF_OK(dif_spi_device_init_handle(
-      mmio_region_from_addr(TOP_EARLGREY_SPI_DEVICE_BASE_ADDR), &spi));
+      mmio_region_from_addr(OPENTITAN_SPI_DEVICE_BASE_ADDR), &spi));
   dif_spi_device_config_t spi_config = {
       .clock_polarity = kDifSpiDeviceEdgePositive,
       .data_phase = kDifSpiDeviceEdgeNegative,
@@ -179,7 +179,7 @@ void _ottf_main(void) {
   CHECK_DIF_OK(dif_spi_device_configure(&spi, spi_config));
 
   CHECK_DIF_OK(
-      dif_gpio_init(mmio_region_from_addr(TOP_EARLGREY_GPIO_BASE_ADDR), &gpio));
+      dif_gpio_init(mmio_region_from_addr(OPENTITAN_GPIO_BASE_ADDR), &gpio));
   // Enable GPIO: 0-7 and 16 is input; 8-15 is output.
   CHECK_DIF_OK(dif_gpio_output_set_enabled_all(&gpio, 0x000ff));
 
@@ -201,12 +201,12 @@ void _ottf_main(void) {
   // Connect correct VBUS detection pin
   if (uphy) {
     CHECK_DIF_OK(dif_pinmux_input_select(
-        &pinmux, kTopEarlgreyPinmuxPeripheralInUsbdevSense,
-        kTopEarlgreyPinmuxInselIoc7));
+        &pinmux, kOpentitanPinmuxPeripheralInUsbdevSense,
+        kOpentitanPinmuxInselIoc7));
   } else {
     CHECK_DIF_OK(dif_pinmux_input_select(
-        &pinmux, kTopEarlgreyPinmuxPeripheralInUsbdevSense,
-        kTopEarlgreyPinmuxInselConstantOne));
+        &pinmux, kOpentitanPinmuxPeripheralInUsbdevSense,
+        kOpentitanPinmuxInselConstantOne));
   }
   CHECK_DIF_OK(dif_spi_device_send(&spi, "SPI!", 4, /*bytes_sent=*/NULL));
 

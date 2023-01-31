@@ -23,14 +23,14 @@ bool rom_test_main(void) {
   // has been reached, even though this test is also in the "boot ROM".
   test_status_set(kTestStatusInTest);
   CHECK_DIF_OK(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
   pinmux_testutils_init(&pinmux);
 
   // We need to initialize the UART regardless if we LOG any messages, since
   // Verilator and FPGA platforms use the UART to communicate the test results.
   if (kDeviceType != kDeviceSimDV) {
     CHECK_DIF_OK(dif_uart_init(
-        mmio_region_from_addr(TOP_EARLGREY_UART0_BASE_ADDR), &uart0));
+        mmio_region_from_addr(OPENTITAN_UART0_BASE_ADDR), &uart0));
     CHECK_DIF_OK(
         dif_uart_configure(&uart0, (dif_uart_config_t){
                                        .baudrate = kUartBaudrate,

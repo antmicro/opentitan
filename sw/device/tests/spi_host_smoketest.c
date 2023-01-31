@@ -67,7 +67,7 @@ void read_sfdp(dif_spi_host_t *spi_host) {
 bool test_main(void) {
   dif_spi_host_t spi_host;
   CHECK_DIF_OK(dif_spi_host_init(
-      mmio_region_from_addr(TOP_EARLGREY_SPI_HOST0_BASE_ADDR), &spi_host));
+      mmio_region_from_addr(OPENTITAN_SPI_HOST0_BASE_ADDR), &spi_host));
 
   CHECK_DIF_OK(dif_spi_host_configure(
                    &spi_host,

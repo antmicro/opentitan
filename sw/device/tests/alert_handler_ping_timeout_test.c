@@ -27,7 +27,7 @@ OTTF_DEFINE_TEST_CONFIG();
 
 static dif_rv_plic_t plic;
 static dif_alert_handler_t alert_handler;
-static const uint32_t kPlicTarget = kTopEarlgreyPlicTargetIbex0;
+static const uint32_t kPlicTarget = kOpentitanPlicTargetIbex0;
 
 static plic_isr_ctx_t plic_ctx = {
     .rv_plic = &plic,
@@ -40,7 +40,7 @@ static plic_isr_ctx_t plic_ctx = {
 // triggered.
 static alert_handler_isr_ctx_t alert_handler_ctx = {
     .alert_handler = &alert_handler,
-    .plic_alert_handler_start_irq_id = kTopEarlgreyPlicIrqIdAlertHandlerClassa,
+    .plic_alert_handler_start_irq_id = kOpentitanPlicIrqIdAlertHandlerClassa,
     .expected_irq = kDifAlertHandlerIrqClassb,
     .is_only_irq = false,
 };
@@ -50,16 +50,16 @@ static alert_handler_isr_ctx_t alert_handler_ctx = {
  */
 static void init_peripherals(void) {
   mmio_region_t base_addr =
-      mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR);
+      mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR);
   CHECK_DIF_OK(dif_rv_plic_init(base_addr, &plic));
 
-  base_addr = mmio_region_from_addr(TOP_EARLGREY_ALERT_HANDLER_BASE_ADDR);
+  base_addr = mmio_region_from_addr(OPENTITAN_ALERT_HANDLER_BASE_ADDR);
   CHECK_DIF_OK(dif_alert_handler_init(base_addr, &alert_handler));
 
   // Enable all the alert_handler interrupts used in this test.
   rv_plic_testutils_irq_range_enable(&plic, kPlicTarget,
-                                     kTopEarlgreyPlicIrqIdAlertHandlerClassa,
-                                     kTopEarlgreyPlicIrqIdAlertHandlerClassd);
+                                     kOpentitanPlicIrqIdAlertHandlerClassa,
+                                     kOpentitanPlicIrqIdAlertHandlerClassd);
 }
 
 /**
@@ -130,11 +130,11 @@ static void alert_handler_config(void) {
  * overrides the default OTTF implementation.
  */
 void ottf_external_isr(void) {
-  top_earlgrey_plic_peripheral_t peripheral_serviced;
+  opentitan_plic_peripheral_t peripheral_serviced;
   dif_alert_handler_irq_t irq_serviced;
   isr_testutils_alert_handler_isr(plic_ctx, alert_handler_ctx,
                                   &peripheral_serviced, &irq_serviced);
-  CHECK(peripheral_serviced == kTopEarlgreyPlicPeripheralAlertHandler,
+  CHECK(peripheral_serviced == kOpentitanPlicPeripheralAlertHandler,
         "Interrupt from unexpected peripheral: %d", peripheral_serviced);
 
   // Only interrupts from class B alerts are expected for this test. Report the

@@ -54,8 +54,8 @@ class WatchdogTest : public rom_test::RomTest {
     EXPECT_ABS_WRITE32(pwrmgr_ + PWRMGR_CFG_CDC_SYNC_REG_OFFSET, 1);
   }
 
-  uint32_t pwrmgr_ = TOP_EARLGREY_PWRMGR_AON_BASE_ADDR;
-  uint32_t wdog_ = TOP_EARLGREY_AON_TIMER_AON_BASE_ADDR;
+  uint32_t pwrmgr_ = OPENTITAN_PWRMGR_AON_BASE_ADDR;
+  uint32_t wdog_ = OPENTITAN_AON_TIMER_AON_BASE_ADDR;
   rom_test::MockAbsMmio abs_;
   rom_test::MockSecMmio sec_;
   rom_test::MockOtp otp_;

@@ -25,7 +25,7 @@ enum {
   /**
    * Base address of the flash_ctrl registers.
    */
-  kBase = TOP_EARLGREY_FLASH_CTRL_CORE_BASE_ADDR,
+  kBase = OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR,
 };
 
 typedef struct flash_cfg_reg {

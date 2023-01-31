@@ -15,7 +15,7 @@
 #include "otp_ctrl_regs.h"
 
 enum {
-  kBase = TOP_EARLGREY_ALERT_HANDLER_BASE_ADDR,
+  kBase = OPENTITAN_ALERT_HANDLER_BASE_ADDR,
 };
 
 rom_error_t alert_configure(size_t index, alert_class_t cls,

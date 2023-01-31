@@ -25,7 +25,7 @@ using ::testing::SetArgPointee;
 
 class SpiDeviceTest : public rom_test::RomTest {
  protected:
-  uint32_t base_ = TOP_EARLGREY_SPI_DEVICE_BASE_ADDR;
+  uint32_t base_ = OPENTITAN_SPI_DEVICE_BASE_ADDR;
   rom_test::MockAbsMmio mmio_;
   rom_test::MockLifecycle lifecycle_;
 };

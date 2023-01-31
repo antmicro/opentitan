@@ -32,7 +32,7 @@ bool test_main(void) {
 
   // Initialise AES.
   CHECK_DIF_OK(
-      dif_aes_init(mmio_region_from_addr(TOP_EARLGREY_AES_BASE_ADDR), &aes));
+      dif_aes_init(mmio_region_from_addr(OPENTITAN_AES_BASE_ADDR), &aes));
   CHECK_DIF_OK(dif_aes_reset(&aes));
 
   // Mask the key. Note that this should not be done manually. Software is

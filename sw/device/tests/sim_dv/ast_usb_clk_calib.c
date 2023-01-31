@@ -50,13 +50,13 @@ static void enable_usb_meas_get_code(dif_clkmgr_t *clkmgr,
 
 bool test_main(void) {
   CHECK_DIF_OK(dif_clkmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_CLKMGR_AON_BASE_ADDR), &clkmgr));
+      mmio_region_from_addr(OPENTITAN_CLKMGR_AON_BASE_ADDR), &clkmgr));
 
   CHECK_DIF_OK(dif_usbdev_init(
-      mmio_region_from_addr(TOP_EARLGREY_USBDEV_BASE_ADDR), &usbdev));
+      mmio_region_from_addr(OPENTITAN_USBDEV_BASE_ADDR), &usbdev));
 
   CHECK_DIF_OK(dif_pinmux_init(
-      mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+      mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
 
   aon_clk_period_us =
       cast_safely(udiv64_slow(1000 * 1000, kClockFreqAonHz, NULL));
@@ -68,8 +68,8 @@ bool test_main(void) {
   // First, connect usb.
   LOG_INFO("Enable usb");
   CHECK_DIF_OK(dif_pinmux_input_select(
-      &pinmux, kTopEarlgreyPinmuxPeripheralInUsbdevSense,
-      kTopEarlgreyPinmuxInselConstantOne));
+      &pinmux, kOpentitanPinmuxPeripheralInUsbdevSense,
+      kOpentitanPinmuxInselConstantOne));
 
   CHECK_DIF_OK(dif_usbdev_interface_enable(&usbdev, kDifToggleEnabled));
 

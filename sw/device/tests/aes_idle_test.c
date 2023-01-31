@@ -30,7 +30,7 @@ static const uint8_t kKeyShare1[] = {
 OTTF_DEFINE_TEST_CONFIG();
 static dif_clkmgr_t clkmgr;
 static const dif_clkmgr_hintable_clock_t kAesClock =
-    kTopEarlgreyHintableClocksMainAes;
+    kOpentitanHintableClocksMainAes;
 
 static bool is_hintable_clock_enabled(const dif_clkmgr_t *clkmgr,
                                       dif_clkmgr_hintable_clock_t clock) {
@@ -41,7 +41,7 @@ static bool is_hintable_clock_enabled(const dif_clkmgr_t *clkmgr,
 }
 
 static void initialize_clkmgr(void) {
-  mmio_region_t addr = mmio_region_from_addr(TOP_EARLGREY_CLKMGR_AON_BASE_ADDR);
+  mmio_region_t addr = mmio_region_from_addr(OPENTITAN_CLKMGR_AON_BASE_ADDR);
   CHECK_DIF_OK(dif_clkmgr_init(addr, &clkmgr));
 
   // Get initial hint and enable for AES clock and check both are enabled.
@@ -59,7 +59,7 @@ bool test_main(void) {
 
   // Initialise AES.
   CHECK_DIF_OK(
-      dif_aes_init(mmio_region_from_addr(TOP_EARLGREY_AES_BASE_ADDR), &aes));
+      dif_aes_init(mmio_region_from_addr(OPENTITAN_AES_BASE_ADDR), &aes));
   CHECK_DIF_OK(dif_aes_reset(&aes));
 
   // Mask the key. Note that this should not be done manually. Software is

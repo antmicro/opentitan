@@ -344,7 +344,7 @@ hardened_bool_t bootstrap_requested(void) {
   // pins.
   res ^= SW_STRAP_BOOTSTRAP;
   res ^=
-      abs_mmio_read32(TOP_EARLGREY_GPIO_BASE_ADDR + GPIO_DATA_IN_REG_OFFSET) &
+      abs_mmio_read32(OPENTITAN_GPIO_BASE_ADDR + GPIO_DATA_IN_REG_OFFSET) &
       SW_STRAP_MASK;
   if (launder32(res) != kHardenedBoolTrue) {
     return kHardenedBoolFalse;

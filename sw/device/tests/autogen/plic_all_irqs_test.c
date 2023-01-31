@@ -75,7 +75,7 @@ static dif_uart_t uart2;
 static dif_uart_t uart3;
 static dif_usbdev_t usbdev;
 static dif_rv_plic_t plic;
-static const top_earlgrey_plic_target_t kHart = kTopEarlgreyPlicTargetIbex0;
+static const opentitan_plic_target_t kHart = kOpentitanPlicTargetIbex0;
 
 /**
  * Flag indicating which peripheral is under test.
@@ -83,7 +83,7 @@ static const top_earlgrey_plic_target_t kHart = kTopEarlgreyPlicTargetIbex0;
  * Declared volatile because it is referenced in the main program flow as well
  * as the ISR.
  */
-static volatile top_earlgrey_plic_peripheral_t peripheral_expected;
+static volatile opentitan_plic_peripheral_t peripheral_expected;
 
 /**
  * Flags indicating the IRQ expected to have triggered and serviced within the
@@ -156,8 +156,8 @@ void ottf_external_isr(void) {
   dif_rv_plic_irq_id_t plic_irq_id;
   CHECK_DIF_OK(dif_rv_plic_irq_claim(&plic, kHart, &plic_irq_id));
 
-  top_earlgrey_plic_peripheral_t peripheral = (top_earlgrey_plic_peripheral_t)
-      top_earlgrey_plic_interrupt_for_peripheral[plic_irq_id];
+  opentitan_plic_peripheral_t peripheral = (opentitan_plic_peripheral_t)
+      opentitan_plic_interrupt_for_peripheral[plic_irq_id];
   CHECK(peripheral == peripheral_expected,
         "Interrupt from incorrect peripheral: exp = %d, obs = %d",
         peripheral_expected, peripheral);
@@ -559,6 +559,8 @@ void ottf_external_isr(void) {
       break;
     }
 
+=======
+>>>>>>> 5fe0edae1 (Adjusted all the software to the new generalized naming scheme)
     case kOpentitanPlicPeripheralPwrmgrAon: {
       dif_pwrmgr_irq_t irq = (dif_pwrmgr_irq_t)(
           plic_irq_id -
@@ -928,7 +930,7 @@ static void peripherals_init(void) {
   base_addr = mmio_region_from_addr(OPENTITAN_USBDEV_BASE_ADDR);
   CHECK_DIF_OK(dif_usbdev_init(base_addr, &usbdev));
 
-  base_addr = mmio_region_from_addr(TOP_EARLGREY_RV_PLIC_BASE_ADDR);
+  base_addr = mmio_region_from_addr(OPENTITAN_RV_PLIC_BASE_ADDR);
   CHECK_DIF_OK(dif_rv_plic_init(base_addr, &plic));
 }
 
@@ -1523,7 +1525,7 @@ bool test_main(void) {
   peripherals_init();
   check_hart_id((uint32_t)kHart);
   rv_plic_testutils_irq_range_enable(
-      &plic, kHart, kTopEarlgreyPlicIrqIdNone + 1, kTopEarlgreyPlicIrqIdLast);
+      &plic, kHart, kOpentitanPlicIrqIdNone + 1, kOpentitanPlicIrqIdLast);
   peripheral_irqs_clear();
   peripheral_irqs_enable();
   peripheral_irqs_trigger();

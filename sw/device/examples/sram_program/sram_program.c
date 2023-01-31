@@ -19,21 +19,21 @@ static dif_uart_t uart0;
 static dif_pinmux_t pinmux;
 
 enum {
-  kSramStart = TOP_EARLGREY_SRAM_CTRL_MAIN_RAM_BASE_ADDR,
-  kSramEnd = TOP_EARLGREY_SRAM_CTRL_MAIN_RAM_BASE_ADDR +
-             TOP_EARLGREY_SRAM_CTRL_MAIN_RAM_SIZE_BYTES,
+  kSramStart = OPENTITAN_SRAM_CTRL_MAIN_RAM_BASE_ADDR,
+  kSramEnd = OPENTITAN_SRAM_CTRL_MAIN_RAM_BASE_ADDR +
+             OPENTITAN_SRAM_CTRL_MAIN_RAM_SIZE_BYTES,
 };
 
 void sram_main() {
   if (kDeviceType != kDeviceSimDV) {
     // Configure the pinmux.
     CHECK_DIF_OK(dif_pinmux_init(
-        mmio_region_from_addr(TOP_EARLGREY_PINMUX_AON_BASE_ADDR), &pinmux));
+        mmio_region_from_addr(OPENTITAN_PINMUX_AON_BASE_ADDR), &pinmux));
     pinmux_testutils_init(&pinmux);
 
     // Initialize UART.
     CHECK_DIF_OK(dif_uart_init(
-        mmio_region_from_addr(TOP_EARLGREY_UART0_BASE_ADDR), &uart0));
+        mmio_region_from_addr(OPENTITAN_UART0_BASE_ADDR), &uart0));
     CHECK_DIF_OK(
         dif_uart_configure(&uart0, (dif_uart_config_t){
                                        .baudrate = kUartBaudrate,

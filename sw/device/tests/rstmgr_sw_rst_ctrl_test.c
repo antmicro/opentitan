@@ -189,72 +189,72 @@ typedef struct test {
 static const test_t kPeripherals[] = {
     {
         .name = "SPI_DEVICE",
-        .base = TOP_EARLGREY_SPI_DEVICE_BASE_ADDR,
+        .base = OPENTITAN_SPI_DEVICE_BASE_ADDR,
         .offset = SPI_DEVICE_CFG_REG_OFFSET,
         .dif = &spi_dev.dev,
         .init = spi_device_init,
         .config = spi_device_config,
         .program_val = 0x3f0c,
-        .reset_index = kTopEarlgreyResetManagerSwResetsSpiDevice,
+        .reset_index = kOpentitanResetManagerSwResetsSpiDevice,
     },
     {
         .name = "SPI_HOST0",
-        .base = TOP_EARLGREY_SPI_HOST0_BASE_ADDR,
+        .base = OPENTITAN_SPI_HOST0_BASE_ADDR,
         .offset = SPI_HOST_CONFIGOPTS_REG_OFFSET,
         .dif = &spi_host0,
         .init = spi_host_init,
         .config = spi_host0_config,
         .program_val = 0x3210000,
-        .reset_index = kTopEarlgreyResetManagerSwResetsSpiHost0,
+        .reset_index = kOpentitanResetManagerSwResetsSpiHost0,
     },
     {
         .name = "SPI_HOST1",
-        .base = TOP_EARLGREY_SPI_HOST1_BASE_ADDR,
+        .base = OPENTITAN_SPI_HOST1_BASE_ADDR,
         .offset = SPI_HOST_CONFIGOPTS_REG_OFFSET,
         .dif = &spi_host1,
         .init = spi_host_init,
         .config = spi_host1_config,
         .program_val = 0x6540000,
-        .reset_index = kTopEarlgreyResetManagerSwResetsSpiHost1,
+        .reset_index = kOpentitanResetManagerSwResetsSpiHost1,
     },
     {
         .name = "USB",
-        .base = TOP_EARLGREY_USBDEV_BASE_ADDR,
+        .base = OPENTITAN_USBDEV_BASE_ADDR,
         .offset = USBDEV_EP_OUT_ENABLE_REG_OFFSET,
         .dif = &usbdev,
         .init = usbdev_init,
         .program_val = 0xc3,
-        .reset_index = kTopEarlgreyResetManagerSwResetsUsb,
+        .reset_index = kOpentitanResetManagerSwResetsUsb,
     },
     {
         .name = "I2C0",
-        .base = TOP_EARLGREY_I2C0_BASE_ADDR,
+        .base = OPENTITAN_I2C0_BASE_ADDR,
         .offset = I2C_TIMING0_REG_OFFSET,
         .dif = &i2c0,
         .init = i2c_init,
         .config = i2c0_config,
         .program_val = 0x8b00cfe,
-        .reset_index = kTopEarlgreyResetManagerSwResetsI2c0,
+        .reset_index = kOpentitanResetManagerSwResetsI2c0,
     },
     {
         .name = "I2C1",
-        .base = TOP_EARLGREY_I2C1_BASE_ADDR,
+        .base = OPENTITAN_I2C1_BASE_ADDR,
         .offset = I2C_TIMING1_REG_OFFSET,
         .dif = &i2c1,
         .init = i2c_init,
         .config = i2c1_config,
         .program_val = 0x114010d8,
-        .reset_index = kTopEarlgreyResetManagerSwResetsI2c1,
+        .reset_index = kOpentitanResetManagerSwResetsI2c1,
     },
     {
         .name = "I2C2",
-        .base = TOP_EARLGREY_I2C2_BASE_ADDR,
+        .base = OPENTITAN_I2C2_BASE_ADDR,
         .offset = I2C_TIMING2_REG_OFFSET,
         .dif = &i2c2,
         .init = i2c_init,
         .config = i2c2_config,
         .program_val = 0x19ec1595,
-        .reset_index = kTopEarlgreyResetManagerSwResetsI2c2,
+        .reset_index = kOpentitanResetManagerSwResetsI2c2,
     },
 };
 
@@ -268,7 +268,7 @@ static uint32_t read_test_reg(const test_t *test) {
 bool test_main(void) {
   dif_rstmgr_t rstmgr;
   CHECK_DIF_OK(dif_rstmgr_init(
-      mmio_region_from_addr(TOP_EARLGREY_RSTMGR_AON_BASE_ADDR), &rstmgr));
+      mmio_region_from_addr(OPENTITAN_RSTMGR_AON_BASE_ADDR), &rstmgr));
 
   uint32_t reset_vals[ARRAYSIZE(kPeripherals)];
   for (size_t i = 0; i < ARRAYSIZE(kPeripherals); ++i) {
