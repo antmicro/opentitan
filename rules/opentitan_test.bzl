@@ -366,7 +366,7 @@ def opentitan_functest(
         opentitan_rom_binary(
             name = name,
             suffix = "_rom_prog",
-            soc_configs = [soc_config],
+            soc_config = soc_config,
             deps = deps,
             devices = devices_to_build_for,
             testonly = True,
