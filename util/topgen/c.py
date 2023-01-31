@@ -105,7 +105,7 @@ class CArrayMapping(object):
 class TopGenC:
     def __init__(self, top_info, name_to_block: Dict[str, IpBlock]):
         self.top = top_info
-        self._top_name = Name(["top"]) + Name.from_snake_case(top_info["name"])
+        self._top_name = Name.from_snake_case("OPENTITAN")
         self._name_to_block = name_to_block
 
         # The .c file needs the .h file's relative path, store it here
