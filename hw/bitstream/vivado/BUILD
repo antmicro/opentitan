@@ -17,7 +17,7 @@ package(default_visibility = ["//visibility:public"])
 # relative $(location ...) resolved labels is up 10 subdirectories.
 _PREFIX = "../../../../../../../../../.."
 
-_FPGA_CW310_TESTROM = "//sw/device/lib/testing/test_rom:test_rom_fpga_cw310_scr_vmem"
+_FPGA_CW310_TESTROM = "//sw/device/lib/testing/test_rom:test_rom_earlgrey_fpga_cw310_scr_vmem"
 
 _FPGA_CW310_OTP_RMA = "//hw/ip/otp_ctrl/data:img_rma"
 
@@ -25,7 +25,7 @@ _FPGA_CW310_TESTROM_PATH = "{}/$(location {})".format(_PREFIX, _FPGA_CW310_TESTR
 
 _FPGA_CW310_OTP_RMA_PATH = "{}/$(location {})".format(_PREFIX, _FPGA_CW310_OTP_RMA)
 
-_FPGA_ARTY_A35T_TESTROM = "//sw/device/lib/testing/test_rom:test_rom_fpga_arty_a35t_scr_vmem"
+_FPGA_ARTY_A35T_TESTROM = "//sw/device/lib/testing/test_rom:test_rom_custom_gf12_fpga_arty_a35t_scr_vmem"
 
 _FPGA_ARTY_A35T_OTP_RMA = "//hw/ip/otp_ctrl/data:img_rma"
 

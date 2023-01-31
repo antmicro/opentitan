@@ -687,7 +687,7 @@ def opentitan_binary(
 def opentitan_rom_binary(
         name,
         suffix = None,
-        soc_configs = ['earlgrey'],
+        soc_configs = ['earlgrey', 'custom_gf12'],
         devices = PER_DEVICE_DEPS.keys(),
         platform = OPENTITAN_PLATFORM,
         testonly = True,
