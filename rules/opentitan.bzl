@@ -18,6 +18,7 @@ load(
     _OPENTITAN_PLATFORM = "OPENTITAN_PLATFORM",
     _opentitan_transition = "opentitan_transition",
 )
+load("@lowrisc_opentitan//rules:cross_platform.bzl", "dual_cc_library")
 
 """Rules to build OpenTitan for the RISC-V target"""
 
@@ -560,6 +561,52 @@ assemble_flash_image = rv_rule(
         ),
     },
 )
+
+def opentitan_library(
+        soc_config,
+        **kwargs):
+    """A helper macro for generating OpenTitan binary library artifacts.
+
+    A wrapper for cc_library that allows to inject macro definition which
+    distinguishes between differend SoC configuration variants
+
+    Args:
+      @param soc_config: The name of the SoC config. Used to determine
+                         compilation guard names only.
+    """
+    soc_def = "OT_IS_" + soc_config.upper()
+
+    copts = kwargs.pop("copts", []) + [
+        "-D{}=1".format(soc_def),
+    ]
+
+    native.cc_library(
+        copts = copts,
+        **kwargs
+    )
+
+def opentitan_dual_library(
+        soc_config,
+        **kwargs):
+    """A helper macro for generating OpenTitan binary library artifacts.
+
+    A wrapper for dual_cc_library that allows to inject macro definition which
+    distinguishes between differend SoC configuration variants
+
+    Args:
+      @param soc_config: The name of the SoC config. Used to determine
+                         compilation guard names only.
+    """
+    soc_def = "OT_IS_" + soc_config.upper()
+
+    copts = kwargs.pop("copts", []) + [
+        "-D{}=1".format(soc_def),
+    ]
+
+    dual_cc_library(
+        copts = copts,
+        **kwargs
+    )
 
 def opentitan_binary(
         name,
