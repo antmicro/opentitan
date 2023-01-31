@@ -79,10 +79,7 @@
       flash_ctrl.core
       flash_ctrl.prim
       flash_ctrl.mem
-      edn0
-      edn1
       rv_plic
-      otbn
       sram_ctrl_main.regs
       rv_core_ibex.cfg
     ]
@@ -98,10 +95,7 @@
       flash_ctrl.core
       flash_ctrl.prim
       flash_ctrl.mem
-      edn0
-      edn1
       rv_plic
-      otbn
       sram_ctrl_main.regs
       rv_core_ibex.cfg
     ]
@@ -311,45 +305,7 @@
       [
         {
           base_addr: 0x20000000
-          size_byte: 0x100000
-        }
-      ]
-      xbar: false
-      stub: false
-      pipeline: true
-    }
-    {
-      name: edn0
-      type: device
-      clock: clk_main_i
-      reset: rst_main_ni
-      req_fifo_pass: false
-      rsp_fifo_pass: false
-      inst_type: edn
-      addr_range:
-      [
-        {
-          base_addr: 0x41170000
-          size_byte: 0x80
-        }
-      ]
-      xbar: false
-      stub: false
-      pipeline: true
-    }
-    {
-      name: edn1
-      type: device
-      clock: clk_main_i
-      reset: rst_main_ni
-      req_fifo_pass: false
-      rsp_fifo_pass: false
-      inst_type: edn
-      addr_range:
-      [
-        {
-          base_addr: 0x41180000
-          size_byte: 0x80
+          size_byte: 0x40000
         }
       ]
       xbar: false
@@ -369,25 +325,6 @@
         {
           base_addr: 0x48000000
           size_byte: 0x8000000
-        }
-      ]
-      xbar: false
-      stub: false
-      pipeline: true
-    }
-    {
-      name: otbn
-      type: device
-      clock: clk_main_i
-      reset: rst_main_ni
-      req_fifo_pass: false
-      rsp_fifo_pass: false
-      inst_type: otbn
-      addr_range:
-      [
-        {
-          base_addr: 0x41130000
-          size_byte: 0x10000
         }
       ]
       xbar: false

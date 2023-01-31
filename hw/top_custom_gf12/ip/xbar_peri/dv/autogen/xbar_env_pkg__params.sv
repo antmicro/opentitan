@@ -13,9 +13,6 @@ tl_device_t xbar_devices[$] = '{
     '{"i2c0", '{
         '{32'h40080000, 32'h4008007f}
     }},
-    '{"pattgen", '{
-        '{32'h400e0000, 32'h400e003f}
-    }},
     '{"gpio", '{
         '{32'h40040000, 32'h4004003f}
     }},
@@ -47,7 +44,7 @@ tl_device_t xbar_devices[$] = '{
         '{32'h40490000, 32'h4049003f}
     }},
     '{"alert_handler", '{
-        '{32'h40150000, 32'h401507ff}
+        '{32'h40150000, 32'h401503ff}
     }},
     '{"sram_ctrl_ret_aon__regs", '{
         '{32'h40500000, 32'h4050001f}
@@ -70,7 +67,6 @@ tl_host_t xbar_hosts[$] = '{
     '{"main", 0, '{
         "uart0",
         "i2c0",
-        "pattgen",
         "gpio",
         "rv_timer",
         "pwrmgr_aon",

@@ -31,9 +31,6 @@ module flash_ctrl_region_cfg
   input sw_info_cfg_t [NumInfos0-1:0] bank0_info0_cfg_i,
   input sw_info_cfg_t [NumInfos1-1:0] bank0_info1_cfg_i,
   input sw_info_cfg_t [NumInfos2-1:0] bank0_info2_cfg_i,
-  input sw_info_cfg_t [NumInfos0-1:0] bank1_info0_cfg_i,
-  input sw_info_cfg_t [NumInfos1-1:0] bank1_info1_cfg_i,
-  input sw_info_cfg_t [NumInfos2-1:0] bank1_info2_cfg_i,
 
   output bank_cfg_t [NumBanks-1:0] bank_cfg_o,
   output mp_region_cfg_t [MpRegions:0] region_cfgs_o,
@@ -134,9 +131,6 @@ module flash_ctrl_region_cfg
   assign sw_info_cfgs[0][0] = InfoBits'(bank0_info0_cfg_i);
   assign sw_info_cfgs[0][1] = InfoBits'(bank0_info1_cfg_i);
   assign sw_info_cfgs[0][2] = InfoBits'(bank0_info2_cfg_i);
-  assign sw_info_cfgs[1][0] = InfoBits'(bank1_info0_cfg_i);
-  assign sw_info_cfgs[1][1] = InfoBits'(bank1_info1_cfg_i);
-  assign sw_info_cfgs[1][2] = InfoBits'(bank1_info2_cfg_i);
 
   // strip error indications
   for (genvar i = 0; i < NumBanks; i++) begin : gen_info_cfg_bank

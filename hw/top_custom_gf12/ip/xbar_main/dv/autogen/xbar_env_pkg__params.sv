@@ -33,19 +33,10 @@ tl_device_t xbar_devices[$] = '{
         '{32'h41008000, 32'h4100807f}
     }},
     '{"flash_ctrl__mem", '{
-        '{32'h20000000, 32'h200fffff}
-    }},
-    '{"edn0", '{
-        '{32'h41170000, 32'h4117007f}
-    }},
-    '{"edn1", '{
-        '{32'h41180000, 32'h4118007f}
+        '{32'h20000000, 32'h2003ffff}
     }},
     '{"rv_plic", '{
         '{32'h48000000, 32'h4fffffff}
-    }},
-    '{"otbn", '{
-        '{32'h41130000, 32'h4113ffff}
     }},
     '{"rv_core_ibex__cfg", '{
         '{32'h411f0000, 32'h411f00ff}
@@ -76,10 +67,7 @@ tl_host_t xbar_hosts[$] = '{
         "flash_ctrl__core",
         "flash_ctrl__prim",
         "flash_ctrl__mem",
-        "edn0",
-        "edn1",
         "rv_plic",
-        "otbn",
         "sram_ctrl_main__regs",
         "rv_core_ibex__cfg"}}
     ,
@@ -94,10 +82,7 @@ tl_host_t xbar_hosts[$] = '{
         "flash_ctrl__core",
         "flash_ctrl__prim",
         "flash_ctrl__mem",
-        "edn0",
-        "edn1",
         "rv_plic",
-        "otbn",
         "sram_ctrl_main__regs",
         "rv_core_ibex__cfg"}}
 };

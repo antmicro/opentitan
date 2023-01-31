@@ -11,7 +11,7 @@
  * `top_custom_gf12_plic_peripheral_t`.
  */
 const top_custom_gf12_plic_peripheral_t
-    top_custom_gf12_plic_interrupt_for_peripheral[84] = {
+    top_custom_gf12_plic_interrupt_for_peripheral[77] = {
   [kTopCustomGf12PlicIrqIdNone] = kTopCustomGf12PlicPeripheralUnknown,
   [kTopCustomGf12PlicIrqIdUart0TxWatermark] = kTopCustomGf12PlicPeripheralUart0,
   [kTopCustomGf12PlicIrqIdUart0RxWatermark] = kTopCustomGf12PlicPeripheralUart0,
@@ -68,8 +68,6 @@ const top_custom_gf12_plic_peripheral_t
   [kTopCustomGf12PlicIrqIdI2c0AcqFull] = kTopCustomGf12PlicPeripheralI2c0,
   [kTopCustomGf12PlicIrqIdI2c0UnexpStop] = kTopCustomGf12PlicPeripheralI2c0,
   [kTopCustomGf12PlicIrqIdI2c0HostTimeout] = kTopCustomGf12PlicPeripheralI2c0,
-  [kTopCustomGf12PlicIrqIdPattgenDoneCh0] = kTopCustomGf12PlicPeripheralPattgen,
-  [kTopCustomGf12PlicIrqIdPattgenDoneCh1] = kTopCustomGf12PlicPeripheralPattgen,
   [kTopCustomGf12PlicIrqIdRvTimerTimerExpiredHart0Timer0] = kTopCustomGf12PlicPeripheralRvTimer,
   [kTopCustomGf12PlicIrqIdOtpCtrlOtpOperationDone] = kTopCustomGf12PlicPeripheralOtpCtrl,
   [kTopCustomGf12PlicIrqIdOtpCtrlOtpError] = kTopCustomGf12PlicPeripheralOtpCtrl,
@@ -91,11 +89,6 @@ const top_custom_gf12_plic_peripheral_t
   [kTopCustomGf12PlicIrqIdFlashCtrlRdLvl] = kTopCustomGf12PlicPeripheralFlashCtrl,
   [kTopCustomGf12PlicIrqIdFlashCtrlOpDone] = kTopCustomGf12PlicPeripheralFlashCtrl,
   [kTopCustomGf12PlicIrqIdFlashCtrlCorrErr] = kTopCustomGf12PlicPeripheralFlashCtrl,
-  [kTopCustomGf12PlicIrqIdOtbnDone] = kTopCustomGf12PlicPeripheralOtbn,
-  [kTopCustomGf12PlicIrqIdEdn0EdnCmdReqDone] = kTopCustomGf12PlicPeripheralEdn0,
-  [kTopCustomGf12PlicIrqIdEdn0EdnFatalErr] = kTopCustomGf12PlicPeripheralEdn0,
-  [kTopCustomGf12PlicIrqIdEdn1EdnCmdReqDone] = kTopCustomGf12PlicPeripheralEdn1,
-  [kTopCustomGf12PlicIrqIdEdn1EdnFatalErr] = kTopCustomGf12PlicPeripheralEdn1,
 };
 
 
@@ -106,11 +99,10 @@ const top_custom_gf12_plic_peripheral_t
  * `top_custom_gf12_alert_peripheral_t`.
  */
 const top_custom_gf12_alert_peripheral_t
-    top_custom_gf12_alert_for_peripheral[44] = {
+    top_custom_gf12_alert_for_peripheral[37] = {
   [kTopCustomGf12AlertIdUart0FatalFault] = kTopCustomGf12AlertPeripheralUart0,
   [kTopCustomGf12AlertIdGpioFatalFault] = kTopCustomGf12AlertPeripheralGpio,
   [kTopCustomGf12AlertIdI2c0FatalFault] = kTopCustomGf12AlertPeripheralI2c0,
-  [kTopCustomGf12AlertIdPattgenFatalFault] = kTopCustomGf12AlertPeripheralPattgen,
   [kTopCustomGf12AlertIdRvTimerFatalFault] = kTopCustomGf12AlertPeripheralRvTimer,
   [kTopCustomGf12AlertIdOtpCtrlFatalMacroError] = kTopCustomGf12AlertPeripheralOtpCtrl,
   [kTopCustomGf12AlertIdOtpCtrlFatalCheckError] = kTopCustomGf12AlertPeripheralOtpCtrl,
@@ -139,12 +131,6 @@ const top_custom_gf12_alert_peripheral_t
   [kTopCustomGf12AlertIdFlashCtrlRecovPrimFlashAlert] = kTopCustomGf12AlertPeripheralFlashCtrl,
   [kTopCustomGf12AlertIdRvDmFatalFault] = kTopCustomGf12AlertPeripheralRvDm,
   [kTopCustomGf12AlertIdRvPlicFatalFault] = kTopCustomGf12AlertPeripheralRvPlic,
-  [kTopCustomGf12AlertIdOtbnFatal] = kTopCustomGf12AlertPeripheralOtbn,
-  [kTopCustomGf12AlertIdOtbnRecov] = kTopCustomGf12AlertPeripheralOtbn,
-  [kTopCustomGf12AlertIdEdn0RecovAlert] = kTopCustomGf12AlertPeripheralEdn0,
-  [kTopCustomGf12AlertIdEdn0FatalAlert] = kTopCustomGf12AlertPeripheralEdn0,
-  [kTopCustomGf12AlertIdEdn1RecovAlert] = kTopCustomGf12AlertPeripheralEdn1,
-  [kTopCustomGf12AlertIdEdn1FatalAlert] = kTopCustomGf12AlertPeripheralEdn1,
   [kTopCustomGf12AlertIdSramCtrlMainFatalError] = kTopCustomGf12AlertPeripheralSramCtrlMain,
   [kTopCustomGf12AlertIdRomCtrlFatal] = kTopCustomGf12AlertPeripheralRomCtrl,
   [kTopCustomGf12AlertIdRvCoreIbexFatalSwErr] = kTopCustomGf12AlertPeripheralRvCoreIbex,

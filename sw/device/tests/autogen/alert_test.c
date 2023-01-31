@@ -12,14 +12,11 @@
 #include "sw/device/lib/dif/dif_alert_handler.h"
 #include "sw/device/lib/dif/dif_aon_timer.h"
 #include "sw/device/lib/dif/dif_clkmgr.h"
-#include "sw/device/lib/dif/dif_edn.h"
 #include "sw/device/lib/dif/dif_flash_ctrl.h"
 #include "sw/device/lib/dif/dif_gpio.h"
 #include "sw/device/lib/dif/dif_i2c.h"
 #include "sw/device/lib/dif/dif_lc_ctrl.h"
-#include "sw/device/lib/dif/dif_otbn.h"
 #include "sw/device/lib/dif/dif_otp_ctrl.h"
-#include "sw/device/lib/dif/dif_pattgen.h"
 #include "sw/device/lib/dif/dif_pinmux.h"
 #include "sw/device/lib/dif/dif_pwrmgr.h"
 #include "sw/device/lib/dif/dif_rom_ctrl.h"
@@ -45,15 +42,11 @@ OTTF_DEFINE_TEST_CONFIG();
 static dif_alert_handler_t alert_handler;
 static dif_aon_timer_t aon_timer_aon;
 static dif_clkmgr_t clkmgr_aon;
-static dif_edn_t edn0;
-static dif_edn_t edn1;
 static dif_flash_ctrl_t flash_ctrl;
 static dif_gpio_t gpio;
 static dif_i2c_t i2c0;
 static dif_lc_ctrl_t lc_ctrl;
-static dif_otbn_t otbn;
 static dif_otp_ctrl_t otp_ctrl;
-static dif_pattgen_t pattgen;
 static dif_pinmux_t pinmux_aon;
 static dif_pwrmgr_t pwrmgr_aon;
 static dif_rom_ctrl_t rom_ctrl;
@@ -82,12 +75,6 @@ static void init_peripherals(void) {
   base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_CLKMGR_AON_BASE_ADDR);
   CHECK_DIF_OK(dif_clkmgr_init(base_addr, &clkmgr_aon));
 
-  base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_EDN0_BASE_ADDR);
-  CHECK_DIF_OK(dif_edn_init(base_addr, &edn0));
-
-  base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_EDN1_BASE_ADDR);
-  CHECK_DIF_OK(dif_edn_init(base_addr, &edn1));
-
   base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_FLASH_CTRL_CORE_BASE_ADDR);
   CHECK_DIF_OK(dif_flash_ctrl_init(base_addr, &flash_ctrl));
 
@@ -100,14 +87,8 @@ static void init_peripherals(void) {
   base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_LC_CTRL_BASE_ADDR);
   CHECK_DIF_OK(dif_lc_ctrl_init(base_addr, &lc_ctrl));
 
-  base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_OTBN_BASE_ADDR);
-  CHECK_DIF_OK(dif_otbn_init(base_addr, &otbn));
-
   base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_OTP_CTRL_CORE_BASE_ADDR);
   CHECK_DIF_OK(dif_otp_ctrl_init(base_addr, &otp_ctrl));
-
-  base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_PATTGEN_BASE_ADDR);
-  CHECK_DIF_OK(dif_pattgen_init(base_addr, &pattgen));
 
   base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_PINMUX_AON_BASE_ADDR);
   CHECK_DIF_OK(dif_pinmux_init(base_addr, &pinmux_aon));
@@ -236,36 +217,6 @@ static void trigger_alert_test(void) {
         &alert_handler, exp_alert));
   }
 
-  // Write edn's alert_test reg and check alert_cause.
-  for (int i = 0; i < 2; ++i) {
-    CHECK_DIF_OK(dif_edn_alert_force(&edn0, kDifEdnAlertRecovAlert + i));
-
-    // Verify that alert handler received it.
-    exp_alert = kTopCustomGf12AlertIdEdn0RecovAlert + i;
-    CHECK_DIF_OK(dif_alert_handler_alert_is_cause(
-        &alert_handler, exp_alert, &is_cause));
-    CHECK(is_cause, "Expect alert %d!", exp_alert);
-
-    // Clear alert cause register
-    CHECK_DIF_OK(dif_alert_handler_alert_acknowledge(
-        &alert_handler, exp_alert));
-  }
-
-  // Write edn's alert_test reg and check alert_cause.
-  for (int i = 0; i < 2; ++i) {
-    CHECK_DIF_OK(dif_edn_alert_force(&edn1, kDifEdnAlertRecovAlert + i));
-
-    // Verify that alert handler received it.
-    exp_alert = kTopCustomGf12AlertIdEdn1RecovAlert + i;
-    CHECK_DIF_OK(dif_alert_handler_alert_is_cause(
-        &alert_handler, exp_alert, &is_cause));
-    CHECK(is_cause, "Expect alert %d!", exp_alert);
-
-    // Clear alert cause register
-    CHECK_DIF_OK(dif_alert_handler_alert_acknowledge(
-        &alert_handler, exp_alert));
-  }
-
   // Write flash_ctrl's alert_test reg and check alert_cause.
   for (int i = 0; i < 5; ++i) {
     CHECK_DIF_OK(dif_flash_ctrl_alert_force(&flash_ctrl, kDifFlashCtrlAlertRecovErr + i));
@@ -326,42 +277,12 @@ static void trigger_alert_test(void) {
         &alert_handler, exp_alert));
   }
 
-  // Write otbn's alert_test reg and check alert_cause.
-  for (int i = 0; i < 2; ++i) {
-    CHECK_DIF_OK(dif_otbn_alert_force(&otbn, kDifOtbnAlertFatal + i));
-
-    // Verify that alert handler received it.
-    exp_alert = kTopCustomGf12AlertIdOtbnFatal + i;
-    CHECK_DIF_OK(dif_alert_handler_alert_is_cause(
-        &alert_handler, exp_alert, &is_cause));
-    CHECK(is_cause, "Expect alert %d!", exp_alert);
-
-    // Clear alert cause register
-    CHECK_DIF_OK(dif_alert_handler_alert_acknowledge(
-        &alert_handler, exp_alert));
-  }
-
   // Write otp_ctrl's alert_test reg and check alert_cause.
   for (int i = 0; i < 5; ++i) {
     CHECK_DIF_OK(dif_otp_ctrl_alert_force(&otp_ctrl, kDifOtpCtrlAlertFatalMacroError + i));
 
     // Verify that alert handler received it.
     exp_alert = kTopCustomGf12AlertIdOtpCtrlFatalMacroError + i;
-    CHECK_DIF_OK(dif_alert_handler_alert_is_cause(
-        &alert_handler, exp_alert, &is_cause));
-    CHECK(is_cause, "Expect alert %d!", exp_alert);
-
-    // Clear alert cause register
-    CHECK_DIF_OK(dif_alert_handler_alert_acknowledge(
-        &alert_handler, exp_alert));
-  }
-
-  // Write pattgen's alert_test reg and check alert_cause.
-  for (int i = 0; i < 1; ++i) {
-    CHECK_DIF_OK(dif_pattgen_alert_force(&pattgen, kDifPattgenAlertFatalFault + i));
-
-    // Verify that alert handler received it.
-    exp_alert = kTopCustomGf12AlertIdPattgenFatalFault + i;
     CHECK_DIF_OK(dif_alert_handler_alert_is_cause(
         &alert_handler, exp_alert, &is_cause));
     CHECK(is_cause, "Expect alert %d!", exp_alert);

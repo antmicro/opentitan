@@ -49,16 +49,12 @@ tl_if spi_host0_tl_if(clk_io, rst_n);
 tl_if flash_ctrl__core_tl_if(clk_main, rst_n);
 tl_if flash_ctrl__prim_tl_if(clk_main, rst_n);
 tl_if flash_ctrl__mem_tl_if(clk_main, rst_n);
-tl_if edn0_tl_if(clk_main, rst_n);
-tl_if edn1_tl_if(clk_main, rst_n);
 tl_if rv_plic_tl_if(clk_main, rst_n);
-tl_if otbn_tl_if(clk_main, rst_n);
 tl_if rv_core_ibex__cfg_tl_if(clk_main, rst_n);
 tl_if sram_ctrl_main__regs_tl_if(clk_main, rst_n);
 tl_if sram_ctrl_main__ram_tl_if(clk_main, rst_n);
 tl_if uart0_tl_if(clk_io_div4, rst_n);
 tl_if i2c0_tl_if(clk_io_div4, rst_n);
-tl_if pattgen_tl_if(clk_io_div4, rst_n);
 tl_if gpio_tl_if(clk_io_div4, rst_n);
 tl_if rv_timer_tl_if(clk_io_div4, rst_n);
 tl_if pwrmgr_aon_tl_if(clk_io_div4, rst_n);
@@ -122,16 +118,12 @@ initial begin
     `DRIVE_CHIP_TL_DEVICE_IF(flash_ctrl__core, flash_ctrl, core_tl)
     `DRIVE_CHIP_TL_DEVICE_IF(flash_ctrl__prim, flash_ctrl, prim_tl)
     `DRIVE_CHIP_TL_DEVICE_IF(flash_ctrl__mem, flash_ctrl, mem_tl)
-    `DRIVE_CHIP_TL_DEVICE_IF(edn0, edn0, tl)
-    `DRIVE_CHIP_TL_DEVICE_IF(edn1, edn1, tl)
     `DRIVE_CHIP_TL_DEVICE_IF(rv_plic, rv_plic, tl)
-    `DRIVE_CHIP_TL_DEVICE_IF(otbn, otbn, tl)
     `DRIVE_CHIP_TL_DEVICE_IF(rv_core_ibex__cfg, rv_core_ibex, cfg_tl_d)
     `DRIVE_CHIP_TL_DEVICE_IF(sram_ctrl_main__regs, sram_ctrl_main, regs_tl)
     `DRIVE_CHIP_TL_DEVICE_IF(sram_ctrl_main__ram, sram_ctrl_main, ram_tl)
     `DRIVE_CHIP_TL_DEVICE_IF(uart0, uart0, tl)
     `DRIVE_CHIP_TL_DEVICE_IF(i2c0, i2c0, tl)
-    `DRIVE_CHIP_TL_DEVICE_IF(pattgen, pattgen, tl)
     `DRIVE_CHIP_TL_DEVICE_IF(gpio, gpio, tl)
     `DRIVE_CHIP_TL_DEVICE_IF(rv_timer, rv_timer, tl)
     `DRIVE_CHIP_TL_DEVICE_IF(pwrmgr_aon, pwrmgr_aon, tl)

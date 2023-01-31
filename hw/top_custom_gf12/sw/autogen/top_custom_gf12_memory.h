@@ -39,7 +39,7 @@
 /**
  * Memory size for flash_ctrl_eflash in top custom_gf12.
  */
-#define TOP_CUSTOM_GF12_EFLASH_SIZE_BYTES 0x100000
+#define TOP_CUSTOM_GF12_EFLASH_SIZE_BYTES 0x40000
 
 /**
  * Memory base for sram_ctrl_main_ram_main in top custom_gf12.
@@ -114,23 +114,6 @@
  * `TOP_CUSTOM_GF12_I2C0_BASE_ADDR + TOP_CUSTOM_GF12_I2C0_SIZE_BYTES`.
  */
 #define TOP_CUSTOM_GF12_I2C0_SIZE_BYTES 0x80
-/**
- * Peripheral base address for pattgen in top custom_gf12.
- *
- * This should be used with #mmio_region_from_addr to access the memory-mapped
- * registers associated with the peripheral (usually via a DIF).
- */
-#define TOP_CUSTOM_GF12_PATTGEN_BASE_ADDR 0x400E0000
-
-/**
- * Peripheral size for pattgen in top custom_gf12.
- *
- * This is the size (in bytes) of the peripheral's reserved memory area. All
- * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_PATTGEN_BASE_ADDR and
- * `TOP_CUSTOM_GF12_PATTGEN_BASE_ADDR + TOP_CUSTOM_GF12_PATTGEN_SIZE_BYTES`.
- */
-#define TOP_CUSTOM_GF12_PATTGEN_SIZE_BYTES 0x40
 /**
  * Peripheral base address for rv_timer in top custom_gf12.
  *
@@ -215,7 +198,7 @@
  * address between #TOP_CUSTOM_GF12_ALERT_HANDLER_BASE_ADDR and
  * `TOP_CUSTOM_GF12_ALERT_HANDLER_BASE_ADDR + TOP_CUSTOM_GF12_ALERT_HANDLER_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_ALERT_HANDLER_SIZE_BYTES 0x800
+#define TOP_CUSTOM_GF12_ALERT_HANDLER_SIZE_BYTES 0x400
 /**
  * Peripheral base address for spi_host0 in top custom_gf12.
  *
@@ -453,7 +436,7 @@
  * address between #TOP_CUSTOM_GF12_FLASH_CTRL_MEM_BASE_ADDR and
  * `TOP_CUSTOM_GF12_FLASH_CTRL_MEM_BASE_ADDR + TOP_CUSTOM_GF12_FLASH_CTRL_MEM_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_FLASH_CTRL_MEM_SIZE_BYTES 0x100000
+#define TOP_CUSTOM_GF12_FLASH_CTRL_MEM_SIZE_BYTES 0x40000
 /**
  * Peripheral base address for regs device on rv_dm in top custom_gf12.
  *
@@ -522,57 +505,6 @@
  * `TOP_CUSTOM_GF12_KMAC_BASE_ADDR + TOP_CUSTOM_GF12_KMAC_SIZE_BYTES`.
  */
 #define TOP_CUSTOM_GF12_KMAC_SIZE_BYTES 0x2
-/**
- * Peripheral base address for otbn in top custom_gf12.
- *
- * This should be used with #mmio_region_from_addr to access the memory-mapped
- * registers associated with the peripheral (usually via a DIF).
- */
-#define TOP_CUSTOM_GF12_OTBN_BASE_ADDR 0x41130000
-
-/**
- * Peripheral size for otbn in top custom_gf12.
- *
- * This is the size (in bytes) of the peripheral's reserved memory area. All
- * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_OTBN_BASE_ADDR and
- * `TOP_CUSTOM_GF12_OTBN_BASE_ADDR + TOP_CUSTOM_GF12_OTBN_SIZE_BYTES`.
- */
-#define TOP_CUSTOM_GF12_OTBN_SIZE_BYTES 0x10000
-/**
- * Peripheral base address for edn0 in top custom_gf12.
- *
- * This should be used with #mmio_region_from_addr to access the memory-mapped
- * registers associated with the peripheral (usually via a DIF).
- */
-#define TOP_CUSTOM_GF12_EDN0_BASE_ADDR 0x41170000
-
-/**
- * Peripheral size for edn0 in top custom_gf12.
- *
- * This is the size (in bytes) of the peripheral's reserved memory area. All
- * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_EDN0_BASE_ADDR and
- * `TOP_CUSTOM_GF12_EDN0_BASE_ADDR + TOP_CUSTOM_GF12_EDN0_SIZE_BYTES`.
- */
-#define TOP_CUSTOM_GF12_EDN0_SIZE_BYTES 0x80
-/**
- * Peripheral base address for edn1 in top custom_gf12.
- *
- * This should be used with #mmio_region_from_addr to access the memory-mapped
- * registers associated with the peripheral (usually via a DIF).
- */
-#define TOP_CUSTOM_GF12_EDN1_BASE_ADDR 0x41180000
-
-/**
- * Peripheral size for edn1 in top custom_gf12.
- *
- * This is the size (in bytes) of the peripheral's reserved memory area. All
- * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_EDN1_BASE_ADDR and
- * `TOP_CUSTOM_GF12_EDN1_BASE_ADDR + TOP_CUSTOM_GF12_EDN1_SIZE_BYTES`.
- */
-#define TOP_CUSTOM_GF12_EDN1_SIZE_BYTES 0x80
 /**
  * Peripheral base address for regs device on sram_ctrl_main in top custom_gf12.
  *

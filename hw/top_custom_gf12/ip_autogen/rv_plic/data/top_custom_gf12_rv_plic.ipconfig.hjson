@@ -5,7 +5,7 @@
   instance_name: top_custom_gf12_rv_plic
   param_values:
   {
-    src: 84
+    src: 77
     target: 1
     prio: 3
   }

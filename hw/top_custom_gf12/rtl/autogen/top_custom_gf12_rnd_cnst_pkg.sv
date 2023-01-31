@@ -122,44 +122,26 @@ package top_custom_gf12_rnd_cnst_pkg;
   };
 
   ////////////////////////////////////////////
-  // otbn
-  ////////////////////////////////////////////
-  // Default seed of the PRNG used for URND.
-  parameter otbn_pkg::urnd_prng_seed_t RndCnstOtbnUrndPrngSeed = {
-    256'h12ABAABB_52B47943_1C17FAD4_B660C0B0_4C740768_E1C6A7DB_83D6D00B_39FF9E2A
-  };
-
-  // Compile-time random reset value for IMem/DMem scrambling key.
-  parameter otp_ctrl_pkg::otbn_key_t RndCnstOtbnOtbnKey = {
-    128'h4D855C63_AE26BF2A_F4357CA3_1DBC14CD
-  };
-
-  // Compile-time random reset value for IMem/DMem scrambling nonce.
-  parameter otp_ctrl_pkg::otbn_nonce_t RndCnstOtbnOtbnNonce = {
-    64'h9BC6E394_CFE6DAF6
-  };
-
-  ////////////////////////////////////////////
   // sram_ctrl_main
   ////////////////////////////////////////////
   // Compile-time random reset value for SRAM scrambling key.
   parameter otp_ctrl_pkg::sram_key_t RndCnstSramCtrlMainSramKey = {
-    128'hCDC49E54_1B6D449B_1EA2AA80_67692DDF
+    128'h4C740768_E1C6A7DB_83D6D00B_39FF9E2A
   };
 
   // Compile-time random reset value for SRAM scrambling nonce.
   parameter otp_ctrl_pkg::sram_nonce_t RndCnstSramCtrlMainSramNonce = {
-    128'h3296F7D1_9B8EE495_869F7B22_D3D6A14B
+    128'h12ABAABB_52B47943_1C17FAD4_B660C0B0
   };
 
   // Compile-time random bits for initial LFSR seed
   parameter sram_ctrl_pkg::lfsr_seed_t RndCnstSramCtrlMainLfsrSeed = {
-    32'hC19123D4
+    32'h1DBC14CD
   };
 
   // Compile-time random permutation for LFSR output
   parameter sram_ctrl_pkg::lfsr_perm_t RndCnstSramCtrlMainLfsrPerm = {
-    160'h74965C3D_B137B4CB_0B77FF07_0A26A822_B2101E7D
+    160'h2EA824DB_928A1B55_E1E45040_7BB8DD87_B6367F33
   };
 
   ////////////////////////////////////////////
@@ -167,12 +149,12 @@ package top_custom_gf12_rnd_cnst_pkg;
   ////////////////////////////////////////////
   // Fixed nonce used for address / data scrambling
   parameter bit [63:0] RndCnstRomCtrlScrNonce = {
-    64'h3EB81F5C_A8584E45
+    64'h9F455139_9D636A33
   };
 
   // Randomised constant used as a scrambling key for ROM data
   parameter bit [127:0] RndCnstRomCtrlScrKey = {
-    128'h8757EA53_EEFDA37D_5CE24CEB_4F56CB38
+    128'h08B9740D_60CC41C3_7718F68C_AAF1250F
   };
 
   ////////////////////////////////////////////
@@ -180,22 +162,22 @@ package top_custom_gf12_rnd_cnst_pkg;
   ////////////////////////////////////////////
   // Default seed of the PRNG used for random instructions.
   parameter ibex_pkg::lfsr_seed_t RndCnstRvCoreIbexLfsrSeed = {
-    32'h8E9D0C59
+    32'h57679861
   };
 
   // Permutation applied to the LFSR of the PRNG used for random instructions.
   parameter ibex_pkg::lfsr_perm_t RndCnstRvCoreIbexLfsrPerm = {
-    160'hFE4AEBF5_B502B6B0_B1FAE621_2892C748_868A4FC6
+    160'hC14C102A_EDB79F46_11DA9207_1FAF87AF_7224EE70
   };
 
   // Default icache scrambling key
   parameter logic [ibex_pkg::SCRAMBLE_KEY_W-1:0] RndCnstRvCoreIbexIbexKeyDefault = {
-    128'h4BA9DCDF_F0245E84_D6F5F03E_CAEF7217
+    128'hA0DE44A7_C20680CF_F8A4B975_FDEDDF18
   };
 
   // Default icache scrambling nonce
   parameter logic [ibex_pkg::SCRAMBLE_NONCE_W-1:0] RndCnstRvCoreIbexIbexNonceDefault = {
-    64'h1BED7DB0_D6E49C54
+    64'h4B78DCDE_FC6381DA
   };
 
 endpackage : top_custom_gf12_rnd_cnst_pkg

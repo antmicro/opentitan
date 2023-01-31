@@ -8,7 +8,6 @@ parameter string LIST_OF_ALERTS[] = {
   "uart0_fatal_fault",
   "gpio_fatal_fault",
   "i2c0_fatal_fault",
-  "pattgen_fatal_fault",
   "rv_timer_fatal_fault",
   "otp_ctrl_fatal_macro_error",
   "otp_ctrl_fatal_check_error",
@@ -37,12 +36,6 @@ parameter string LIST_OF_ALERTS[] = {
   "flash_ctrl_recov_prim_flash_alert",
   "rv_dm_fatal_fault",
   "rv_plic_fatal_fault",
-  "otbn_fatal",
-  "otbn_recov",
-  "edn0_recov_alert",
-  "edn0_fatal_alert",
-  "edn1_recov_alert",
-  "edn1_fatal_alert",
   "sram_ctrl_main_fatal_error",
   "rom_ctrl_fatal",
   "rv_core_ibex_fatal_sw_err",
@@ -51,4 +44,4 @@ parameter string LIST_OF_ALERTS[] = {
   "rv_core_ibex_recov_hw_err"
 };
 
-parameter uint NUM_ALERTS = 44;
+parameter uint NUM_ALERTS = 37;

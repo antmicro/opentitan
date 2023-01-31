@@ -41,16 +41,6 @@ package top_custom_gf12_pkg;
   parameter int unsigned TOP_CUSTOM_GF12_I2C0_SIZE_BYTES = 32'h80;
 
   /**
-   * Peripheral base address for pattgen in top custom_gf12.
-   */
-  parameter int unsigned TOP_CUSTOM_GF12_PATTGEN_BASE_ADDR = 32'h400E0000;
-
-  /**
-   * Peripheral size in bytes for pattgen in top custom_gf12.
-   */
-  parameter int unsigned TOP_CUSTOM_GF12_PATTGEN_SIZE_BYTES = 32'h40;
-
-  /**
    * Peripheral base address for rv_timer in top custom_gf12.
    */
   parameter int unsigned TOP_CUSTOM_GF12_RV_TIMER_BASE_ADDR = 32'h40100000;
@@ -98,7 +88,7 @@ package top_custom_gf12_pkg;
   /**
    * Peripheral size in bytes for alert_handler in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_ALERT_HANDLER_SIZE_BYTES = 32'h800;
+  parameter int unsigned TOP_CUSTOM_GF12_ALERT_HANDLER_SIZE_BYTES = 32'h400;
 
   /**
    * Peripheral base address for spi_host0 in top custom_gf12.
@@ -238,7 +228,7 @@ package top_custom_gf12_pkg;
   /**
    * Peripheral size in bytes for mem device on flash_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_FLASH_CTRL_MEM_SIZE_BYTES = 32'h100000;
+  parameter int unsigned TOP_CUSTOM_GF12_FLASH_CTRL_MEM_SIZE_BYTES = 32'h40000;
 
   /**
    * Peripheral base address for regs device on rv_dm in top custom_gf12.
@@ -279,36 +269,6 @@ package top_custom_gf12_pkg;
    * Peripheral size in bytes for kmac in top custom_gf12.
    */
   parameter int unsigned TOP_CUSTOM_GF12_KMAC_SIZE_BYTES = 32'h2;
-
-  /**
-   * Peripheral base address for otbn in top custom_gf12.
-   */
-  parameter int unsigned TOP_CUSTOM_GF12_OTBN_BASE_ADDR = 32'h41130000;
-
-  /**
-   * Peripheral size in bytes for otbn in top custom_gf12.
-   */
-  parameter int unsigned TOP_CUSTOM_GF12_OTBN_SIZE_BYTES = 32'h10000;
-
-  /**
-   * Peripheral base address for edn0 in top custom_gf12.
-   */
-  parameter int unsigned TOP_CUSTOM_GF12_EDN0_BASE_ADDR = 32'h41170000;
-
-  /**
-   * Peripheral size in bytes for edn0 in top custom_gf12.
-   */
-  parameter int unsigned TOP_CUSTOM_GF12_EDN0_SIZE_BYTES = 32'h80;
-
-  /**
-   * Peripheral base address for edn1 in top custom_gf12.
-   */
-  parameter int unsigned TOP_CUSTOM_GF12_EDN1_BASE_ADDR = 32'h41180000;
-
-  /**
-   * Peripheral size in bytes for edn1 in top custom_gf12.
-   */
-  parameter int unsigned TOP_CUSTOM_GF12_EDN1_SIZE_BYTES = 32'h80;
 
   /**
    * Peripheral base address for regs device on sram_ctrl_main in top custom_gf12.
@@ -378,7 +338,7 @@ package top_custom_gf12_pkg;
   /**
    * Memory size for eflash in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_EFLASH_SIZE_BYTES = 32'h100000;
+  parameter int unsigned TOP_CUSTOM_GF12_EFLASH_SIZE_BYTES = 32'h40000;
 
   /**
    * Memory base address for ram_main in top custom_gf12.
@@ -406,28 +366,24 @@ package top_custom_gf12_pkg;
     TopCustomGf12AlertPeripheralUart0 = 0,
     TopCustomGf12AlertPeripheralGpio = 1,
     TopCustomGf12AlertPeripheralI2c0 = 2,
-    TopCustomGf12AlertPeripheralPattgen = 3,
-    TopCustomGf12AlertPeripheralRvTimer = 4,
-    TopCustomGf12AlertPeripheralOtpCtrl = 5,
-    TopCustomGf12AlertPeripheralLcCtrl = 6,
-    TopCustomGf12AlertPeripheralSpiHost0 = 7,
-    TopCustomGf12AlertPeripheralPwrmgrAon = 8,
-    TopCustomGf12AlertPeripheralRstmgrAon = 9,
-    TopCustomGf12AlertPeripheralClkmgrAon = 10,
-    TopCustomGf12AlertPeripheralSysrstCtrlAon = 11,
-    TopCustomGf12AlertPeripheralPinmuxAon = 12,
-    TopCustomGf12AlertPeripheralAonTimerAon = 13,
-    TopCustomGf12AlertPeripheralSensorCtrl = 14,
-    TopCustomGf12AlertPeripheralSramCtrlRetAon = 15,
-    TopCustomGf12AlertPeripheralFlashCtrl = 16,
-    TopCustomGf12AlertPeripheralRvDm = 17,
-    TopCustomGf12AlertPeripheralRvPlic = 18,
-    TopCustomGf12AlertPeripheralOtbn = 19,
-    TopCustomGf12AlertPeripheralEdn0 = 20,
-    TopCustomGf12AlertPeripheralEdn1 = 21,
-    TopCustomGf12AlertPeripheralSramCtrlMain = 22,
-    TopCustomGf12AlertPeripheralRomCtrl = 23,
-    TopCustomGf12AlertPeripheralRvCoreIbex = 24,
+    TopCustomGf12AlertPeripheralRvTimer = 3,
+    TopCustomGf12AlertPeripheralOtpCtrl = 4,
+    TopCustomGf12AlertPeripheralLcCtrl = 5,
+    TopCustomGf12AlertPeripheralSpiHost0 = 6,
+    TopCustomGf12AlertPeripheralPwrmgrAon = 7,
+    TopCustomGf12AlertPeripheralRstmgrAon = 8,
+    TopCustomGf12AlertPeripheralClkmgrAon = 9,
+    TopCustomGf12AlertPeripheralSysrstCtrlAon = 10,
+    TopCustomGf12AlertPeripheralPinmuxAon = 11,
+    TopCustomGf12AlertPeripheralAonTimerAon = 12,
+    TopCustomGf12AlertPeripheralSensorCtrl = 13,
+    TopCustomGf12AlertPeripheralSramCtrlRetAon = 14,
+    TopCustomGf12AlertPeripheralFlashCtrl = 15,
+    TopCustomGf12AlertPeripheralRvDm = 16,
+    TopCustomGf12AlertPeripheralRvPlic = 17,
+    TopCustomGf12AlertPeripheralSramCtrlMain = 18,
+    TopCustomGf12AlertPeripheralRomCtrl = 19,
+    TopCustomGf12AlertPeripheralRvCoreIbex = 20,
     TopEarlgreyAlertPeripheralCount
   } alert_peripheral_e;
 
@@ -436,47 +392,40 @@ package top_custom_gf12_pkg;
     TopCustomGf12AlertIdUart0FatalFault = 0,
     TopCustomGf12AlertIdGpioFatalFault = 1,
     TopCustomGf12AlertIdI2c0FatalFault = 2,
-    TopCustomGf12AlertIdPattgenFatalFault = 3,
-    TopCustomGf12AlertIdRvTimerFatalFault = 4,
-    TopCustomGf12AlertIdOtpCtrlFatalMacroError = 5,
-    TopCustomGf12AlertIdOtpCtrlFatalCheckError = 6,
-    TopCustomGf12AlertIdOtpCtrlFatalBusIntegError = 7,
-    TopCustomGf12AlertIdOtpCtrlFatalPrimOtpAlert = 8,
-    TopCustomGf12AlertIdOtpCtrlRecovPrimOtpAlert = 9,
-    TopCustomGf12AlertIdLcCtrlFatalProgError = 10,
-    TopCustomGf12AlertIdLcCtrlFatalStateError = 11,
-    TopCustomGf12AlertIdLcCtrlFatalBusIntegError = 12,
-    TopCustomGf12AlertIdSpiHost0FatalFault = 13,
-    TopCustomGf12AlertIdPwrmgrAonFatalFault = 14,
-    TopCustomGf12AlertIdRstmgrAonFatalFault = 15,
-    TopCustomGf12AlertIdRstmgrAonFatalCnstyFault = 16,
-    TopCustomGf12AlertIdClkmgrAonRecovFault = 17,
-    TopCustomGf12AlertIdClkmgrAonFatalFault = 18,
-    TopCustomGf12AlertIdSysrstCtrlAonFatalFault = 19,
-    TopCustomGf12AlertIdPinmuxAonFatalFault = 20,
-    TopCustomGf12AlertIdAonTimerAonFatalFault = 21,
-    TopCustomGf12AlertIdSensorCtrlRecovAlert = 22,
-    TopCustomGf12AlertIdSensorCtrlFatalAlert = 23,
-    TopCustomGf12AlertIdSramCtrlRetAonFatalError = 24,
-    TopCustomGf12AlertIdFlashCtrlRecovErr = 25,
-    TopCustomGf12AlertIdFlashCtrlFatalStdErr = 26,
-    TopCustomGf12AlertIdFlashCtrlFatalErr = 27,
-    TopCustomGf12AlertIdFlashCtrlFatalPrimFlashAlert = 28,
-    TopCustomGf12AlertIdFlashCtrlRecovPrimFlashAlert = 29,
-    TopCustomGf12AlertIdRvDmFatalFault = 30,
-    TopCustomGf12AlertIdRvPlicFatalFault = 31,
-    TopCustomGf12AlertIdOtbnFatal = 32,
-    TopCustomGf12AlertIdOtbnRecov = 33,
-    TopCustomGf12AlertIdEdn0RecovAlert = 34,
-    TopCustomGf12AlertIdEdn0FatalAlert = 35,
-    TopCustomGf12AlertIdEdn1RecovAlert = 36,
-    TopCustomGf12AlertIdEdn1FatalAlert = 37,
-    TopCustomGf12AlertIdSramCtrlMainFatalError = 38,
-    TopCustomGf12AlertIdRomCtrlFatal = 39,
-    TopCustomGf12AlertIdRvCoreIbexFatalSwErr = 40,
-    TopCustomGf12AlertIdRvCoreIbexRecovSwErr = 41,
-    TopCustomGf12AlertIdRvCoreIbexFatalHwErr = 42,
-    TopCustomGf12AlertIdRvCoreIbexRecovHwErr = 43,
+    TopCustomGf12AlertIdRvTimerFatalFault = 3,
+    TopCustomGf12AlertIdOtpCtrlFatalMacroError = 4,
+    TopCustomGf12AlertIdOtpCtrlFatalCheckError = 5,
+    TopCustomGf12AlertIdOtpCtrlFatalBusIntegError = 6,
+    TopCustomGf12AlertIdOtpCtrlFatalPrimOtpAlert = 7,
+    TopCustomGf12AlertIdOtpCtrlRecovPrimOtpAlert = 8,
+    TopCustomGf12AlertIdLcCtrlFatalProgError = 9,
+    TopCustomGf12AlertIdLcCtrlFatalStateError = 10,
+    TopCustomGf12AlertIdLcCtrlFatalBusIntegError = 11,
+    TopCustomGf12AlertIdSpiHost0FatalFault = 12,
+    TopCustomGf12AlertIdPwrmgrAonFatalFault = 13,
+    TopCustomGf12AlertIdRstmgrAonFatalFault = 14,
+    TopCustomGf12AlertIdRstmgrAonFatalCnstyFault = 15,
+    TopCustomGf12AlertIdClkmgrAonRecovFault = 16,
+    TopCustomGf12AlertIdClkmgrAonFatalFault = 17,
+    TopCustomGf12AlertIdSysrstCtrlAonFatalFault = 18,
+    TopCustomGf12AlertIdPinmuxAonFatalFault = 19,
+    TopCustomGf12AlertIdAonTimerAonFatalFault = 20,
+    TopCustomGf12AlertIdSensorCtrlRecovAlert = 21,
+    TopCustomGf12AlertIdSensorCtrlFatalAlert = 22,
+    TopCustomGf12AlertIdSramCtrlRetAonFatalError = 23,
+    TopCustomGf12AlertIdFlashCtrlRecovErr = 24,
+    TopCustomGf12AlertIdFlashCtrlFatalStdErr = 25,
+    TopCustomGf12AlertIdFlashCtrlFatalErr = 26,
+    TopCustomGf12AlertIdFlashCtrlFatalPrimFlashAlert = 27,
+    TopCustomGf12AlertIdFlashCtrlRecovPrimFlashAlert = 28,
+    TopCustomGf12AlertIdRvDmFatalFault = 29,
+    TopCustomGf12AlertIdRvPlicFatalFault = 30,
+    TopCustomGf12AlertIdSramCtrlMainFatalError = 31,
+    TopCustomGf12AlertIdRomCtrlFatal = 32,
+    TopCustomGf12AlertIdRvCoreIbexFatalSwErr = 33,
+    TopCustomGf12AlertIdRvCoreIbexRecovSwErr = 34,
+    TopCustomGf12AlertIdRvCoreIbexFatalHwErr = 35,
+    TopCustomGf12AlertIdRvCoreIbexRecovHwErr = 36,
     TopEarlgreyAlertIdCount
   } alert_id_e;
 
@@ -575,28 +524,24 @@ package top_custom_gf12_pkg;
     MioOutI2c0Sda = 32,
     MioOutI2c0Scl = 33,
     MioOutUart0Tx = 34,
-    MioOutPattgenPda0Tx = 35,
-    MioOutPattgenPcl0Tx = 36,
-    MioOutPattgenPda1Tx = 37,
-    MioOutPattgenPcl1Tx = 38,
-    MioOutFlashCtrlTdo = 39,
-    MioOutSensorCtrlAstDebugOut0 = 40,
-    MioOutSensorCtrlAstDebugOut1 = 41,
-    MioOutSensorCtrlAstDebugOut2 = 42,
-    MioOutSensorCtrlAstDebugOut3 = 43,
-    MioOutSensorCtrlAstDebugOut4 = 44,
-    MioOutSensorCtrlAstDebugOut5 = 45,
-    MioOutSensorCtrlAstDebugOut6 = 46,
-    MioOutSensorCtrlAstDebugOut7 = 47,
-    MioOutSensorCtrlAstDebugOut8 = 48,
-    MioOutOtpCtrlTest0 = 49,
-    MioOutSysrstCtrlAonBatDisable = 50,
-    MioOutSysrstCtrlAonKey0Out = 51,
-    MioOutSysrstCtrlAonKey1Out = 52,
-    MioOutSysrstCtrlAonKey2Out = 53,
-    MioOutSysrstCtrlAonPwrbOut = 54,
-    MioOutSysrstCtrlAonZ3Wakeup = 55,
-    MioOutCount = 56
+    MioOutFlashCtrlTdo = 35,
+    MioOutSensorCtrlAstDebugOut0 = 36,
+    MioOutSensorCtrlAstDebugOut1 = 37,
+    MioOutSensorCtrlAstDebugOut2 = 38,
+    MioOutSensorCtrlAstDebugOut3 = 39,
+    MioOutSensorCtrlAstDebugOut4 = 40,
+    MioOutSensorCtrlAstDebugOut5 = 41,
+    MioOutSensorCtrlAstDebugOut6 = 42,
+    MioOutSensorCtrlAstDebugOut7 = 43,
+    MioOutSensorCtrlAstDebugOut8 = 44,
+    MioOutOtpCtrlTest0 = 45,
+    MioOutSysrstCtrlAonBatDisable = 46,
+    MioOutSysrstCtrlAonKey0Out = 47,
+    MioOutSysrstCtrlAonKey1Out = 48,
+    MioOutSysrstCtrlAonKey2Out = 49,
+    MioOutSysrstCtrlAonPwrbOut = 50,
+    MioOutSysrstCtrlAonZ3Wakeup = 51,
+    MioOutCount = 52
   } mio_out_e;
 
   // Enumeration for DIO signals, used on both the top and chip-levels.
@@ -694,16 +639,12 @@ package top_custom_gf12_pkg;
     PeripheralAonTimerAon,
     PeripheralAst,
     PeripheralClkmgrAon,
-    PeripheralEdn0,
-    PeripheralEdn1,
     PeripheralFlashCtrl,
     PeripheralGpio,
     PeripheralI2c0,
     PeripheralKmac,
     PeripheralLcCtrl,
-    PeripheralOtbn,
     PeripheralOtpCtrl,
-    PeripheralPattgen,
     PeripheralPinmuxAon,
     PeripheralPwrmgrAon,
     PeripheralRomCtrl,

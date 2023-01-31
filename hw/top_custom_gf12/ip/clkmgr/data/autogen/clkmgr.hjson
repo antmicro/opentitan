@@ -60,7 +60,7 @@
     { name: "NumHintableClocks",
       desc: "Number of hintable clocks",
       type: "int",
-      default: "2",
+      default: "1",
       local: "true"
     },
   ],
@@ -158,12 +158,13 @@
       act:     "rsp",
     },
 
+
     { struct:  "mubi4",
       type:    "uni",
       name:    "idle",
       act:     "rcv",
       package: "prim_mubi_pkg",
-      width:   "2"
+      width:   "1"
     },
 
     { struct:  "mubi4",
@@ -424,15 +425,6 @@
             1 CLK_MAIN_KMAC is enabled.
           '''
         }
-        {
-          bits: "1",
-          name: "CLK_MAIN_OTBN_HINT",
-          resval: 1,
-          desc: '''
-            0 CLK_MAIN_OTBN can be disabled.
-            1 CLK_MAIN_OTBN is enabled.
-          '''
-        }
       ]
       // the CLK_HINT register cannot be written.
       // During top level randomized tests, it is possible to disable the clocks to transactional blocks
@@ -456,15 +448,6 @@
           desc: '''
             0 CLK_MAIN_KMAC is disabled.
             1 CLK_MAIN_KMAC is enabled.
-          '''
-        }
-        {
-          bits: "1",
-          name: "CLK_MAIN_OTBN_VAL",
-          resval: 1,
-          desc: '''
-            0 CLK_MAIN_OTBN is disabled.
-            1 CLK_MAIN_OTBN is enabled.
           '''
         }
       ]

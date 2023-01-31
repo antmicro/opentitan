@@ -13,13 +13,10 @@
 #include "sw/device/lib/base/mmio.h"
 #include "sw/device/lib/dif/dif_alert_handler.h"
 #include "sw/device/lib/dif/dif_aon_timer.h"
-#include "sw/device/lib/dif/dif_edn.h"
 #include "sw/device/lib/dif/dif_flash_ctrl.h"
 #include "sw/device/lib/dif/dif_gpio.h"
 #include "sw/device/lib/dif/dif_i2c.h"
-#include "sw/device/lib/dif/dif_otbn.h"
 #include "sw/device/lib/dif/dif_otp_ctrl.h"
-#include "sw/device/lib/dif/dif_pattgen.h"
 #include "sw/device/lib/dif/dif_pwrmgr.h"
 #include "sw/device/lib/dif/dif_rv_plic.h"
 #include "sw/device/lib/dif/dif_rv_timer.h"
@@ -38,14 +35,10 @@
 
 static dif_alert_handler_t alert_handler;
 static dif_aon_timer_t aon_timer_aon;
-static dif_edn_t edn0;
-static dif_edn_t edn1;
 static dif_flash_ctrl_t flash_ctrl;
 static dif_gpio_t gpio;
 static dif_i2c_t i2c0;
-static dif_otbn_t otbn;
 static dif_otp_ctrl_t otp_ctrl;
-static dif_pattgen_t pattgen;
 static dif_pwrmgr_t pwrmgr_aon;
 static dif_rv_timer_t rv_timer;
 static dif_sensor_ctrl_t sensor_ctrl;
@@ -74,20 +67,14 @@ static volatile dif_alert_handler_irq_t alert_handler_irq_expected;
 static volatile dif_alert_handler_irq_t alert_handler_irq_serviced;
 static volatile dif_aon_timer_irq_t aon_timer_irq_expected;
 static volatile dif_aon_timer_irq_t aon_timer_irq_serviced;
-static volatile dif_edn_irq_t edn_irq_expected;
-static volatile dif_edn_irq_t edn_irq_serviced;
 static volatile dif_flash_ctrl_irq_t flash_ctrl_irq_expected;
 static volatile dif_flash_ctrl_irq_t flash_ctrl_irq_serviced;
 static volatile dif_gpio_irq_t gpio_irq_expected;
 static volatile dif_gpio_irq_t gpio_irq_serviced;
 static volatile dif_i2c_irq_t i2c_irq_expected;
 static volatile dif_i2c_irq_t i2c_irq_serviced;
-static volatile dif_otbn_irq_t otbn_irq_expected;
-static volatile dif_otbn_irq_t otbn_irq_serviced;
 static volatile dif_otp_ctrl_irq_t otp_ctrl_irq_expected;
 static volatile dif_otp_ctrl_irq_t otp_ctrl_irq_serviced;
-static volatile dif_pattgen_irq_t pattgen_irq_expected;
-static volatile dif_pattgen_irq_t pattgen_irq_serviced;
 static volatile dif_pwrmgr_irq_t pwrmgr_irq_expected;
 static volatile dif_pwrmgr_irq_t pwrmgr_irq_serviced;
 static volatile dif_rv_timer_irq_t rv_timer_irq_expected;
@@ -169,50 +156,6 @@ void ottf_external_isr(void) {
       break;
     }
 
-    case kTopCustomGf12PlicPeripheralEdn0: {
-      dif_edn_irq_t irq = (dif_edn_irq_t)(
-          plic_irq_id -
-          (dif_rv_plic_irq_id_t)kTopCustomGf12PlicIrqIdEdn0EdnCmdReqDone);
-      CHECK(irq == edn_irq_expected,
-            "Incorrect edn0 IRQ triggered: exp = %d, obs = %d",
-            edn_irq_expected, irq);
-      edn_irq_serviced = irq;
-
-      dif_edn_irq_state_snapshot_t snapshot;
-      CHECK_DIF_OK(dif_edn_irq_get_state(&edn0, &snapshot));
-      CHECK(snapshot == (dif_edn_irq_state_snapshot_t)(1 << irq),
-            "Only edn0 IRQ %d expected to fire. Actual interrupt "
-            "status = %x",
-            irq, snapshot);
-
-      // TODO: Check Interrupt type then clear INTR_TEST if needed.
-      CHECK_DIF_OK(dif_edn_irq_force(&edn0, irq, false));
-      CHECK_DIF_OK(dif_edn_irq_acknowledge(&edn0, irq));
-      break;
-    }
-
-    case kTopCustomGf12PlicPeripheralEdn1: {
-      dif_edn_irq_t irq = (dif_edn_irq_t)(
-          plic_irq_id -
-          (dif_rv_plic_irq_id_t)kTopCustomGf12PlicIrqIdEdn1EdnCmdReqDone);
-      CHECK(irq == edn_irq_expected,
-            "Incorrect edn1 IRQ triggered: exp = %d, obs = %d",
-            edn_irq_expected, irq);
-      edn_irq_serviced = irq;
-
-      dif_edn_irq_state_snapshot_t snapshot;
-      CHECK_DIF_OK(dif_edn_irq_get_state(&edn1, &snapshot));
-      CHECK(snapshot == (dif_edn_irq_state_snapshot_t)(1 << irq),
-            "Only edn1 IRQ %d expected to fire. Actual interrupt "
-            "status = %x",
-            irq, snapshot);
-
-      // TODO: Check Interrupt type then clear INTR_TEST if needed.
-      CHECK_DIF_OK(dif_edn_irq_force(&edn1, irq, false));
-      CHECK_DIF_OK(dif_edn_irq_acknowledge(&edn1, irq));
-      break;
-    }
-
     case kTopCustomGf12PlicPeripheralFlashCtrl: {
       dif_flash_ctrl_irq_t irq = (dif_flash_ctrl_irq_t)(
           plic_irq_id -
@@ -279,98 +222,7 @@ void ottf_external_isr(void) {
       break;
     }
 
-    case kTopEarlgreyPlicPeripheralI2c1: {
-      dif_i2c_irq_t irq = (dif_i2c_irq_t)(
-          plic_irq_id -
-          (dif_rv_plic_irq_id_t)kTopEarlgreyPlicIrqIdI2c1FmtThreshold);
-      CHECK(irq == i2c_irq_expected,
-            "Incorrect i2c1 IRQ triggered: exp = %d, obs = %d",
-            i2c_irq_expected, irq);
-      i2c_irq_serviced = irq;
-
-      dif_i2c_irq_state_snapshot_t snapshot;
-      CHECK_DIF_OK(dif_i2c_irq_get_state(&i2c1, &snapshot));
-      CHECK(snapshot == (dif_i2c_irq_state_snapshot_t)(1 << irq),
-            "Only i2c1 IRQ %d expected to fire. Actual interrupt "
-            "status = %x",
-            irq, snapshot);
-
-      // TODO: Check Interrupt type then clear INTR_TEST if needed.
-      CHECK_DIF_OK(dif_i2c_irq_force(&i2c1, irq, false));
-      CHECK_DIF_OK(dif_i2c_irq_acknowledge(&i2c1, irq));
-      break;
-    }
-
-    case kTopEarlgreyPlicPeripheralI2c2: {
-      dif_i2c_irq_t irq = (dif_i2c_irq_t)(
-          plic_irq_id -
-          (dif_rv_plic_irq_id_t)kTopEarlgreyPlicIrqIdI2c2FmtThreshold);
-      CHECK(irq == i2c_irq_expected,
-            "Incorrect i2c2 IRQ triggered: exp = %d, obs = %d",
-            i2c_irq_expected, irq);
-      i2c_irq_serviced = irq;
-
-      dif_i2c_irq_state_snapshot_t snapshot;
-      CHECK_DIF_OK(dif_i2c_irq_get_state(&i2c2, &snapshot));
-      CHECK(snapshot == (dif_i2c_irq_state_snapshot_t)(1 << irq),
-            "Only i2c2 IRQ %d expected to fire. Actual interrupt "
-            "status = %x",
-            irq, snapshot);
-
-      // TODO: Check Interrupt type then clear INTR_TEST if needed.
-      CHECK_DIF_OK(dif_i2c_irq_force(&i2c2, irq, false));
-      CHECK_DIF_OK(dif_i2c_irq_acknowledge(&i2c2, irq));
-      break;
-    }
-
-    case kTopEarlgreyPlicPeripheralKeymgr: {
-      dif_keymgr_irq_t irq = (dif_keymgr_irq_t)(
-          plic_irq_id -
-          (dif_rv_plic_irq_id_t)kTopEarlgreyPlicIrqIdKeymgrOpDone);
-      CHECK(irq == keymgr_irq_expected,
-            "Incorrect keymgr IRQ triggered: exp = %d, obs = %d",
-            keymgr_irq_expected, irq);
-      keymgr_irq_serviced = irq;
-
-      dif_keymgr_irq_state_snapshot_t snapshot;
-      CHECK_DIF_OK(dif_keymgr_irq_get_state(&keymgr, &snapshot));
-      CHECK(snapshot == (dif_keymgr_irq_state_snapshot_t)(1 << irq),
-            "Only keymgr IRQ %d expected to fire. Actual interrupt "
-            "status = %x",
-            irq, snapshot);
-
-      // TODO: Check Interrupt type then clear INTR_TEST if needed.
-      CHECK_DIF_OK(dif_keymgr_irq_force(&keymgr, irq, false));
-      CHECK_DIF_OK(dif_keymgr_irq_acknowledge(&keymgr, irq));
-      break;
-    }
-
-    case kTopEarlgreyPlicPeripheralKmac: {
-      dif_kmac_irq_t irq = (dif_kmac_irq_t)(
-          plic_irq_id -
-          (dif_rv_plic_irq_id_t)kTopEarlgreyPlicIrqIdKmacKmacDone);
-      CHECK(irq == kmac_irq_expected,
-            "Incorrect kmac IRQ triggered: exp = %d, obs = %d",
-            kmac_irq_expected, irq);
-      kmac_irq_serviced = irq;
-
-      dif_kmac_irq_state_snapshot_t snapshot;
-      CHECK_DIF_OK(dif_kmac_irq_get_state(&kmac, &snapshot));
-      CHECK(snapshot == (dif_kmac_irq_state_snapshot_t)(1 << irq),
-            "Only kmac IRQ %d expected to fire. Actual interrupt "
-            "status = %x",
-            irq, snapshot);
-
-      // TODO: Check Interrupt type then clear INTR_TEST if needed.
-      CHECK_DIF_OK(dif_kmac_irq_force(&kmac, irq, false));
-      CHECK_DIF_OK(dif_kmac_irq_acknowledge(&kmac, irq));
-      break;
-    }
-
-    case kTopEarlgreyPlicPeripheralOtbn: {
-=======
     case kTopCustomGf12PlicPeripheralOtbn: {
->>>>>>> 4df77fb63 (add generated SoC files)
       dif_otbn_irq_t irq = (dif_otbn_irq_t)(
           plic_irq_id -
           (dif_rv_plic_irq_id_t)kTopCustomGf12PlicIrqIdOtbnDone);
@@ -411,28 +263,6 @@ void ottf_external_isr(void) {
       // TODO: Check Interrupt type then clear INTR_TEST if needed.
       CHECK_DIF_OK(dif_otp_ctrl_irq_force(&otp_ctrl, irq, false));
       CHECK_DIF_OK(dif_otp_ctrl_irq_acknowledge(&otp_ctrl, irq));
-      break;
-    }
-
-    case kTopCustomGf12PlicPeripheralPattgen: {
-      dif_pattgen_irq_t irq = (dif_pattgen_irq_t)(
-          plic_irq_id -
-          (dif_rv_plic_irq_id_t)kTopCustomGf12PlicIrqIdPattgenDoneCh0);
-      CHECK(irq == pattgen_irq_expected,
-            "Incorrect pattgen IRQ triggered: exp = %d, obs = %d",
-            pattgen_irq_expected, irq);
-      pattgen_irq_serviced = irq;
-
-      dif_pattgen_irq_state_snapshot_t snapshot;
-      CHECK_DIF_OK(dif_pattgen_irq_get_state(&pattgen, &snapshot));
-      CHECK(snapshot == (dif_pattgen_irq_state_snapshot_t)(1 << irq),
-            "Only pattgen IRQ %d expected to fire. Actual interrupt "
-            "status = %x",
-            irq, snapshot);
-
-      // TODO: Check Interrupt type then clear INTR_TEST if needed.
-      CHECK_DIF_OK(dif_pattgen_irq_force(&pattgen, irq, false));
-      CHECK_DIF_OK(dif_pattgen_irq_acknowledge(&pattgen, irq));
       break;
     }
 
@@ -589,12 +419,6 @@ static void peripherals_init(void) {
   base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_AON_TIMER_AON_BASE_ADDR);
   CHECK_DIF_OK(dif_aon_timer_init(base_addr, &aon_timer_aon));
 
-  base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_EDN0_BASE_ADDR);
-  CHECK_DIF_OK(dif_edn_init(base_addr, &edn0));
-
-  base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_EDN1_BASE_ADDR);
-  CHECK_DIF_OK(dif_edn_init(base_addr, &edn1));
-
   base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_FLASH_CTRL_CORE_BASE_ADDR);
   CHECK_DIF_OK(dif_flash_ctrl_init(base_addr, &flash_ctrl));
 
@@ -604,14 +428,8 @@ static void peripherals_init(void) {
   base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_I2C0_BASE_ADDR);
   CHECK_DIF_OK(dif_i2c_init(base_addr, &i2c0));
 
-  base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_OTBN_BASE_ADDR);
-  CHECK_DIF_OK(dif_otbn_init(base_addr, &otbn));
-
   base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_OTP_CTRL_CORE_BASE_ADDR);
   CHECK_DIF_OK(dif_otp_ctrl_init(base_addr, &otp_ctrl));
-
-  base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_PATTGEN_BASE_ADDR);
-  CHECK_DIF_OK(dif_pattgen_init(base_addr, &pattgen));
 
   base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_PWRMGR_AON_BASE_ADDR);
   CHECK_DIF_OK(dif_pwrmgr_init(base_addr, &pwrmgr_aon));
@@ -641,14 +459,10 @@ static void peripherals_init(void) {
 static void peripheral_irqs_clear(void) {
   CHECK_DIF_OK(dif_alert_handler_irq_acknowledge_all(&alert_handler));
   CHECK_DIF_OK(dif_aon_timer_irq_acknowledge_all(&aon_timer_aon));
-  CHECK_DIF_OK(dif_edn_irq_acknowledge_all(&edn0));
-  CHECK_DIF_OK(dif_edn_irq_acknowledge_all(&edn1));
   CHECK_DIF_OK(dif_flash_ctrl_irq_acknowledge_all(&flash_ctrl));
   CHECK_DIF_OK(dif_gpio_irq_acknowledge_all(&gpio));
   CHECK_DIF_OK(dif_i2c_irq_acknowledge_all(&i2c0));
-  CHECK_DIF_OK(dif_otbn_irq_acknowledge_all(&otbn));
   CHECK_DIF_OK(dif_otp_ctrl_irq_acknowledge_all(&otp_ctrl));
-  CHECK_DIF_OK(dif_pattgen_irq_acknowledge_all(&pattgen));
   CHECK_DIF_OK(dif_pwrmgr_irq_acknowledge_all(&pwrmgr_aon));
   CHECK_DIF_OK(dif_rv_timer_irq_acknowledge_all(&rv_timer, kHart));
   CHECK_DIF_OK(dif_sensor_ctrl_irq_acknowledge_all(&sensor_ctrl));
@@ -663,20 +477,14 @@ static void peripheral_irqs_clear(void) {
 static void peripheral_irqs_enable(void) {
   dif_alert_handler_irq_state_snapshot_t alert_handler_irqs =
       (dif_alert_handler_irq_state_snapshot_t)UINT_MAX;
-  dif_edn_irq_state_snapshot_t edn_irqs =
-      (dif_edn_irq_state_snapshot_t)UINT_MAX;
   dif_flash_ctrl_irq_state_snapshot_t flash_ctrl_irqs =
       (dif_flash_ctrl_irq_state_snapshot_t)UINT_MAX;
   dif_gpio_irq_state_snapshot_t gpio_irqs =
       (dif_gpio_irq_state_snapshot_t)UINT_MAX;
   dif_i2c_irq_state_snapshot_t i2c_irqs =
       (dif_i2c_irq_state_snapshot_t)UINT_MAX;
-  dif_otbn_irq_state_snapshot_t otbn_irqs =
-      (dif_otbn_irq_state_snapshot_t)UINT_MAX;
   dif_otp_ctrl_irq_state_snapshot_t otp_ctrl_irqs =
       (dif_otp_ctrl_irq_state_snapshot_t)UINT_MAX;
-  dif_pattgen_irq_state_snapshot_t pattgen_irqs =
-      (dif_pattgen_irq_state_snapshot_t)UINT_MAX;
   dif_pwrmgr_irq_state_snapshot_t pwrmgr_irqs =
       (dif_pwrmgr_irq_state_snapshot_t)UINT_MAX;
   dif_rv_timer_irq_state_snapshot_t rv_timer_irqs =
@@ -693,21 +501,13 @@ static void peripheral_irqs_enable(void) {
   CHECK_DIF_OK(
       dif_alert_handler_irq_restore_all(&alert_handler, &alert_handler_irqs));
   CHECK_DIF_OK(
-      dif_edn_irq_restore_all(&edn0, &edn_irqs));
-  CHECK_DIF_OK(
-      dif_edn_irq_restore_all(&edn1, &edn_irqs));
-  CHECK_DIF_OK(
       dif_flash_ctrl_irq_restore_all(&flash_ctrl, &flash_ctrl_irqs));
   CHECK_DIF_OK(
       dif_gpio_irq_restore_all(&gpio, &gpio_irqs));
   CHECK_DIF_OK(
       dif_i2c_irq_restore_all(&i2c0, &i2c_irqs));
   CHECK_DIF_OK(
-      dif_otbn_irq_restore_all(&otbn, &otbn_irqs));
-  CHECK_DIF_OK(
       dif_otp_ctrl_irq_restore_all(&otp_ctrl, &otp_ctrl_irqs));
-  CHECK_DIF_OK(
-      dif_pattgen_irq_restore_all(&pattgen, &pattgen_irqs));
   CHECK_DIF_OK(
       dif_pwrmgr_irq_restore_all(&pwrmgr_aon, &pwrmgr_irqs));
   CHECK_DIF_OK(
@@ -762,32 +562,6 @@ static void peripheral_irqs_trigger(void) {
     LOG_INFO("IRQ %d from aon_timer_aon is serviced.", irq);
   }
 
-  peripheral_expected = kTopCustomGf12PlicPeripheralEdn0;
-  for (dif_edn_irq_t irq = kDifEdnIrqEdnCmdReqDone;
-       irq <= kDifEdnIrqEdnFatalErr; ++irq) {
-    edn_irq_expected = irq;
-    LOG_INFO("Triggering edn0 IRQ %d.", irq);
-    CHECK_DIF_OK(dif_edn_irq_force(&edn0, irq, true));
-
-    // This avoids a race where *irq_serviced is read before
-    // entering the ISR.
-    IBEX_SPIN_FOR(edn_irq_serviced == irq, 1);
-    LOG_INFO("IRQ %d from edn0 is serviced.", irq);
-  }
-
-  peripheral_expected = kTopCustomGf12PlicPeripheralEdn1;
-  for (dif_edn_irq_t irq = kDifEdnIrqEdnCmdReqDone;
-       irq <= kDifEdnIrqEdnFatalErr; ++irq) {
-    edn_irq_expected = irq;
-    LOG_INFO("Triggering edn1 IRQ %d.", irq);
-    CHECK_DIF_OK(dif_edn_irq_force(&edn1, irq, true));
-
-    // This avoids a race where *irq_serviced is read before
-    // entering the ISR.
-    IBEX_SPIN_FOR(edn_irq_serviced == irq, 1);
-    LOG_INFO("IRQ %d from edn1 is serviced.", irq);
-  }
-
   peripheral_expected = kTopCustomGf12PlicPeripheralFlashCtrl;
   for (dif_flash_ctrl_irq_t irq = kDifFlashCtrlIrqProgEmpty;
        irq <= kDifFlashCtrlIrqCorrErr; ++irq) {
@@ -827,19 +601,6 @@ static void peripheral_irqs_trigger(void) {
     LOG_INFO("IRQ %d from i2c0 is serviced.", irq);
   }
 
-  peripheral_expected = kTopCustomGf12PlicPeripheralOtbn;
-  for (dif_otbn_irq_t irq = kDifOtbnIrqDone;
-       irq <= kDifOtbnIrqDone; ++irq) {
-    otbn_irq_expected = irq;
-    LOG_INFO("Triggering otbn IRQ %d.", irq);
-    CHECK_DIF_OK(dif_otbn_irq_force(&otbn, irq, true));
-
-    // This avoids a race where *irq_serviced is read before
-    // entering the ISR.
-    IBEX_SPIN_FOR(otbn_irq_serviced == irq, 1);
-    LOG_INFO("IRQ %d from otbn is serviced.", irq);
-  }
-
   peripheral_expected = kTopCustomGf12PlicPeripheralOtpCtrl;
   for (dif_otp_ctrl_irq_t irq = kDifOtpCtrlIrqOtpOperationDone;
        irq <= kDifOtpCtrlIrqOtpError; ++irq) {
@@ -851,19 +612,6 @@ static void peripheral_irqs_trigger(void) {
     // entering the ISR.
     IBEX_SPIN_FOR(otp_ctrl_irq_serviced == irq, 1);
     LOG_INFO("IRQ %d from otp_ctrl is serviced.", irq);
-  }
-
-  peripheral_expected = kTopCustomGf12PlicPeripheralPattgen;
-  for (dif_pattgen_irq_t irq = kDifPattgenIrqDoneCh0;
-       irq <= kDifPattgenIrqDoneCh1; ++irq) {
-    pattgen_irq_expected = irq;
-    LOG_INFO("Triggering pattgen IRQ %d.", irq);
-    CHECK_DIF_OK(dif_pattgen_irq_force(&pattgen, irq, true));
-
-    // This avoids a race where *irq_serviced is read before
-    // entering the ISR.
-    IBEX_SPIN_FOR(pattgen_irq_serviced == irq, 1);
-    LOG_INFO("IRQ %d from pattgen is serviced.", irq);
   }
 
   peripheral_expected = kTopCustomGf12PlicPeripheralPwrmgrAon;

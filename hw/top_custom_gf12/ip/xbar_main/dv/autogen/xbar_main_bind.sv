@@ -80,29 +80,11 @@ module xbar_main_bind;
     .h2d    (tl_flash_ctrl__mem_o),
     .d2h    (tl_flash_ctrl__mem_i)
   );
-  bind xbar_main tlul_assert #(.EndpointType("Host")) tlul_assert_device_edn0 (
-    .clk_i  (clk_main_i),
-    .rst_ni (rst_main_ni),
-    .h2d    (tl_edn0_o),
-    .d2h    (tl_edn0_i)
-  );
-  bind xbar_main tlul_assert #(.EndpointType("Host")) tlul_assert_device_edn1 (
-    .clk_i  (clk_main_i),
-    .rst_ni (rst_main_ni),
-    .h2d    (tl_edn1_o),
-    .d2h    (tl_edn1_i)
-  );
   bind xbar_main tlul_assert #(.EndpointType("Host")) tlul_assert_device_rv_plic (
     .clk_i  (clk_main_i),
     .rst_ni (rst_main_ni),
     .h2d    (tl_rv_plic_o),
     .d2h    (tl_rv_plic_i)
-  );
-  bind xbar_main tlul_assert #(.EndpointType("Host")) tlul_assert_device_otbn (
-    .clk_i  (clk_main_i),
-    .rst_ni (rst_main_ni),
-    .h2d    (tl_otbn_o),
-    .d2h    (tl_otbn_i)
   );
   bind xbar_main tlul_assert #(.EndpointType("Host")) tlul_assert_device_rv_core_ibex__cfg (
     .clk_i  (clk_main_i),

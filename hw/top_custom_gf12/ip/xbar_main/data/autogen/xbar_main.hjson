@@ -87,25 +87,7 @@
     }
     { struct: "tl"
       type:   "req_rsp"
-      name:   "tl_edn0"
-      act:    "req"
-      package: "tlul_pkg"
-    }
-    { struct: "tl"
-      type:   "req_rsp"
-      name:   "tl_edn1"
-      act:    "req"
-      package: "tlul_pkg"
-    }
-    { struct: "tl"
-      type:   "req_rsp"
       name:   "tl_rv_plic"
-      act:    "req"
-      package: "tlul_pkg"
-    }
-    { struct: "tl"
-      type:   "req_rsp"
-      name:   "tl_otbn"
       act:    "req"
       package: "tlul_pkg"
     }

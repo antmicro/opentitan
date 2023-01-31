@@ -80,24 +80,6 @@ extern "C" {
 #define TOP_CUSTOM_GF12_I2C0_SIZE_BYTES 0x80u
 
 /**
- * Peripheral base address for pattgen in top custom_gf12.
- *
- * This should be used with #mmio_region_from_addr to access the memory-mapped
- * registers associated with the peripheral (usually via a DIF).
- */
-#define TOP_CUSTOM_GF12_PATTGEN_BASE_ADDR 0x400E0000u
-
-/**
- * Peripheral size for pattgen in top custom_gf12.
- *
- * This is the size (in bytes) of the peripheral's reserved memory area. All
- * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_PATTGEN_BASE_ADDR and
- * `TOP_CUSTOM_GF12_PATTGEN_BASE_ADDR + TOP_CUSTOM_GF12_PATTGEN_SIZE_BYTES`.
- */
-#define TOP_CUSTOM_GF12_PATTGEN_SIZE_BYTES 0x40u
-
-/**
  * Peripheral base address for rv_timer in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
@@ -185,7 +167,7 @@ extern "C" {
  * address between #TOP_CUSTOM_GF12_ALERT_HANDLER_BASE_ADDR and
  * `TOP_CUSTOM_GF12_ALERT_HANDLER_BASE_ADDR + TOP_CUSTOM_GF12_ALERT_HANDLER_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_ALERT_HANDLER_SIZE_BYTES 0x800u
+#define TOP_CUSTOM_GF12_ALERT_HANDLER_SIZE_BYTES 0x400u
 
 /**
  * Peripheral base address for spi_host0 in top custom_gf12.
@@ -437,7 +419,7 @@ extern "C" {
  * address between #TOP_CUSTOM_GF12_FLASH_CTRL_MEM_BASE_ADDR and
  * `TOP_CUSTOM_GF12_FLASH_CTRL_MEM_BASE_ADDR + TOP_CUSTOM_GF12_FLASH_CTRL_MEM_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_FLASH_CTRL_MEM_SIZE_BYTES 0x100000u
+#define TOP_CUSTOM_GF12_FLASH_CTRL_MEM_SIZE_BYTES 0x40000u
 
 /**
  * Peripheral base address for regs device on rv_dm in top custom_gf12.
@@ -510,60 +492,6 @@ extern "C" {
  * `TOP_CUSTOM_GF12_KMAC_BASE_ADDR + TOP_CUSTOM_GF12_KMAC_SIZE_BYTES`.
  */
 #define TOP_CUSTOM_GF12_KMAC_SIZE_BYTES 0x2u
-
-/**
- * Peripheral base address for otbn in top custom_gf12.
- *
- * This should be used with #mmio_region_from_addr to access the memory-mapped
- * registers associated with the peripheral (usually via a DIF).
- */
-#define TOP_CUSTOM_GF12_OTBN_BASE_ADDR 0x41130000u
-
-/**
- * Peripheral size for otbn in top custom_gf12.
- *
- * This is the size (in bytes) of the peripheral's reserved memory area. All
- * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_OTBN_BASE_ADDR and
- * `TOP_CUSTOM_GF12_OTBN_BASE_ADDR + TOP_CUSTOM_GF12_OTBN_SIZE_BYTES`.
- */
-#define TOP_CUSTOM_GF12_OTBN_SIZE_BYTES 0x10000u
-
-/**
- * Peripheral base address for edn0 in top custom_gf12.
- *
- * This should be used with #mmio_region_from_addr to access the memory-mapped
- * registers associated with the peripheral (usually via a DIF).
- */
-#define TOP_CUSTOM_GF12_EDN0_BASE_ADDR 0x41170000u
-
-/**
- * Peripheral size for edn0 in top custom_gf12.
- *
- * This is the size (in bytes) of the peripheral's reserved memory area. All
- * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_EDN0_BASE_ADDR and
- * `TOP_CUSTOM_GF12_EDN0_BASE_ADDR + TOP_CUSTOM_GF12_EDN0_SIZE_BYTES`.
- */
-#define TOP_CUSTOM_GF12_EDN0_SIZE_BYTES 0x80u
-
-/**
- * Peripheral base address for edn1 in top custom_gf12.
- *
- * This should be used with #mmio_region_from_addr to access the memory-mapped
- * registers associated with the peripheral (usually via a DIF).
- */
-#define TOP_CUSTOM_GF12_EDN1_BASE_ADDR 0x41180000u
-
-/**
- * Peripheral size for edn1 in top custom_gf12.
- *
- * This is the size (in bytes) of the peripheral's reserved memory area. All
- * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_EDN1_BASE_ADDR and
- * `TOP_CUSTOM_GF12_EDN1_BASE_ADDR + TOP_CUSTOM_GF12_EDN1_SIZE_BYTES`.
- */
-#define TOP_CUSTOM_GF12_EDN1_SIZE_BYTES 0x80u
 
 /**
  * Peripheral base address for regs device on sram_ctrl_main in top custom_gf12.
@@ -674,7 +602,7 @@ extern "C" {
 /**
  * Memory size for eflash in top custom_gf12.
  */
-#define TOP_CUSTOM_GF12_EFLASH_SIZE_BYTES 0x100000u
+#define TOP_CUSTOM_GF12_EFLASH_SIZE_BYTES 0x40000u
 
 /**
  * Memory base address for ram_main in top custom_gf12.
@@ -708,20 +636,16 @@ typedef enum top_custom_gf12_plic_peripheral {
   kTopCustomGf12PlicPeripheralUart0 = 1, /**< uart0 */
   kTopCustomGf12PlicPeripheralGpio = 2, /**< gpio */
   kTopCustomGf12PlicPeripheralI2c0 = 3, /**< i2c0 */
-  kTopCustomGf12PlicPeripheralPattgen = 4, /**< pattgen */
-  kTopCustomGf12PlicPeripheralRvTimer = 5, /**< rv_timer */
-  kTopCustomGf12PlicPeripheralOtpCtrl = 6, /**< otp_ctrl */
-  kTopCustomGf12PlicPeripheralAlertHandler = 7, /**< alert_handler */
-  kTopCustomGf12PlicPeripheralSpiHost0 = 8, /**< spi_host0 */
-  kTopCustomGf12PlicPeripheralPwrmgrAon = 9, /**< pwrmgr_aon */
-  kTopCustomGf12PlicPeripheralSysrstCtrlAon = 10, /**< sysrst_ctrl_aon */
-  kTopCustomGf12PlicPeripheralAonTimerAon = 11, /**< aon_timer_aon */
-  kTopCustomGf12PlicPeripheralSensorCtrl = 12, /**< sensor_ctrl */
-  kTopCustomGf12PlicPeripheralFlashCtrl = 13, /**< flash_ctrl */
-  kTopCustomGf12PlicPeripheralOtbn = 14, /**< otbn */
-  kTopCustomGf12PlicPeripheralEdn0 = 15, /**< edn0 */
-  kTopCustomGf12PlicPeripheralEdn1 = 16, /**< edn1 */
-  kTopCustomGf12PlicPeripheralLast = 16, /**< \internal Final PLIC peripheral */
+  kTopCustomGf12PlicPeripheralRvTimer = 4, /**< rv_timer */
+  kTopCustomGf12PlicPeripheralOtpCtrl = 5, /**< otp_ctrl */
+  kTopCustomGf12PlicPeripheralAlertHandler = 6, /**< alert_handler */
+  kTopCustomGf12PlicPeripheralSpiHost0 = 7, /**< spi_host0 */
+  kTopCustomGf12PlicPeripheralPwrmgrAon = 8, /**< pwrmgr_aon */
+  kTopCustomGf12PlicPeripheralSysrstCtrlAon = 9, /**< sysrst_ctrl_aon */
+  kTopCustomGf12PlicPeripheralAonTimerAon = 10, /**< aon_timer_aon */
+  kTopCustomGf12PlicPeripheralSensorCtrl = 11, /**< sensor_ctrl */
+  kTopCustomGf12PlicPeripheralFlashCtrl = 12, /**< flash_ctrl */
+  kTopCustomGf12PlicPeripheralLast = 12, /**< \internal Final PLIC peripheral */
 } top_custom_gf12_plic_peripheral_t;
 
 /**
@@ -787,35 +711,28 @@ typedef enum top_custom_gf12_plic_irq_id {
   kTopCustomGf12PlicIrqIdI2c0AcqFull = 53, /**< i2c0_acq_full */
   kTopCustomGf12PlicIrqIdI2c0UnexpStop = 54, /**< i2c0_unexp_stop */
   kTopCustomGf12PlicIrqIdI2c0HostTimeout = 55, /**< i2c0_host_timeout */
-  kTopCustomGf12PlicIrqIdPattgenDoneCh0 = 56, /**< pattgen_done_ch0 */
-  kTopCustomGf12PlicIrqIdPattgenDoneCh1 = 57, /**< pattgen_done_ch1 */
-  kTopCustomGf12PlicIrqIdRvTimerTimerExpiredHart0Timer0 = 58, /**< rv_timer_timer_expired_hart0_timer0 */
-  kTopCustomGf12PlicIrqIdOtpCtrlOtpOperationDone = 59, /**< otp_ctrl_otp_operation_done */
-  kTopCustomGf12PlicIrqIdOtpCtrlOtpError = 60, /**< otp_ctrl_otp_error */
-  kTopCustomGf12PlicIrqIdAlertHandlerClassa = 61, /**< alert_handler_classa */
-  kTopCustomGf12PlicIrqIdAlertHandlerClassb = 62, /**< alert_handler_classb */
-  kTopCustomGf12PlicIrqIdAlertHandlerClassc = 63, /**< alert_handler_classc */
-  kTopCustomGf12PlicIrqIdAlertHandlerClassd = 64, /**< alert_handler_classd */
-  kTopCustomGf12PlicIrqIdSpiHost0Error = 65, /**< spi_host0_error */
-  kTopCustomGf12PlicIrqIdSpiHost0SpiEvent = 66, /**< spi_host0_spi_event */
-  kTopCustomGf12PlicIrqIdPwrmgrAonWakeup = 67, /**< pwrmgr_aon_wakeup */
-  kTopCustomGf12PlicIrqIdSysrstCtrlAonEventDetected = 68, /**< sysrst_ctrl_aon_event_detected */
-  kTopCustomGf12PlicIrqIdAonTimerAonWkupTimerExpired = 69, /**< aon_timer_aon_wkup_timer_expired */
-  kTopCustomGf12PlicIrqIdAonTimerAonWdogTimerBark = 70, /**< aon_timer_aon_wdog_timer_bark */
-  kTopCustomGf12PlicIrqIdSensorCtrlIoStatusChange = 71, /**< sensor_ctrl_io_status_change */
-  kTopCustomGf12PlicIrqIdSensorCtrlInitStatusChange = 72, /**< sensor_ctrl_init_status_change */
-  kTopCustomGf12PlicIrqIdFlashCtrlProgEmpty = 73, /**< flash_ctrl_prog_empty */
-  kTopCustomGf12PlicIrqIdFlashCtrlProgLvl = 74, /**< flash_ctrl_prog_lvl */
-  kTopCustomGf12PlicIrqIdFlashCtrlRdFull = 75, /**< flash_ctrl_rd_full */
-  kTopCustomGf12PlicIrqIdFlashCtrlRdLvl = 76, /**< flash_ctrl_rd_lvl */
-  kTopCustomGf12PlicIrqIdFlashCtrlOpDone = 77, /**< flash_ctrl_op_done */
-  kTopCustomGf12PlicIrqIdFlashCtrlCorrErr = 78, /**< flash_ctrl_corr_err */
-  kTopCustomGf12PlicIrqIdOtbnDone = 79, /**< otbn_done */
-  kTopCustomGf12PlicIrqIdEdn0EdnCmdReqDone = 80, /**< edn0_edn_cmd_req_done */
-  kTopCustomGf12PlicIrqIdEdn0EdnFatalErr = 81, /**< edn0_edn_fatal_err */
-  kTopCustomGf12PlicIrqIdEdn1EdnCmdReqDone = 82, /**< edn1_edn_cmd_req_done */
-  kTopCustomGf12PlicIrqIdEdn1EdnFatalErr = 83, /**< edn1_edn_fatal_err */
-  kTopCustomGf12PlicIrqIdLast = 83, /**< \internal The Last Valid Interrupt ID. */
+  kTopCustomGf12PlicIrqIdRvTimerTimerExpiredHart0Timer0 = 56, /**< rv_timer_timer_expired_hart0_timer0 */
+  kTopCustomGf12PlicIrqIdOtpCtrlOtpOperationDone = 57, /**< otp_ctrl_otp_operation_done */
+  kTopCustomGf12PlicIrqIdOtpCtrlOtpError = 58, /**< otp_ctrl_otp_error */
+  kTopCustomGf12PlicIrqIdAlertHandlerClassa = 59, /**< alert_handler_classa */
+  kTopCustomGf12PlicIrqIdAlertHandlerClassb = 60, /**< alert_handler_classb */
+  kTopCustomGf12PlicIrqIdAlertHandlerClassc = 61, /**< alert_handler_classc */
+  kTopCustomGf12PlicIrqIdAlertHandlerClassd = 62, /**< alert_handler_classd */
+  kTopCustomGf12PlicIrqIdSpiHost0Error = 63, /**< spi_host0_error */
+  kTopCustomGf12PlicIrqIdSpiHost0SpiEvent = 64, /**< spi_host0_spi_event */
+  kTopCustomGf12PlicIrqIdPwrmgrAonWakeup = 65, /**< pwrmgr_aon_wakeup */
+  kTopCustomGf12PlicIrqIdSysrstCtrlAonEventDetected = 66, /**< sysrst_ctrl_aon_event_detected */
+  kTopCustomGf12PlicIrqIdAonTimerAonWkupTimerExpired = 67, /**< aon_timer_aon_wkup_timer_expired */
+  kTopCustomGf12PlicIrqIdAonTimerAonWdogTimerBark = 68, /**< aon_timer_aon_wdog_timer_bark */
+  kTopCustomGf12PlicIrqIdSensorCtrlIoStatusChange = 69, /**< sensor_ctrl_io_status_change */
+  kTopCustomGf12PlicIrqIdSensorCtrlInitStatusChange = 70, /**< sensor_ctrl_init_status_change */
+  kTopCustomGf12PlicIrqIdFlashCtrlProgEmpty = 71, /**< flash_ctrl_prog_empty */
+  kTopCustomGf12PlicIrqIdFlashCtrlProgLvl = 72, /**< flash_ctrl_prog_lvl */
+  kTopCustomGf12PlicIrqIdFlashCtrlRdFull = 73, /**< flash_ctrl_rd_full */
+  kTopCustomGf12PlicIrqIdFlashCtrlRdLvl = 74, /**< flash_ctrl_rd_lvl */
+  kTopCustomGf12PlicIrqIdFlashCtrlOpDone = 75, /**< flash_ctrl_op_done */
+  kTopCustomGf12PlicIrqIdFlashCtrlCorrErr = 76, /**< flash_ctrl_corr_err */
+  kTopCustomGf12PlicIrqIdLast = 76, /**< \internal The Last Valid Interrupt ID. */
 } top_custom_gf12_plic_irq_id_t;
 
 /**
@@ -825,7 +742,7 @@ typedef enum top_custom_gf12_plic_irq_id {
  * `top_custom_gf12_plic_peripheral_t`.
  */
 extern const top_custom_gf12_plic_peripheral_t
-    top_custom_gf12_plic_interrupt_for_peripheral[84];
+    top_custom_gf12_plic_interrupt_for_peripheral[77];
 
 /**
  * PLIC Interrupt Target.
@@ -848,29 +765,25 @@ typedef enum top_custom_gf12_alert_peripheral {
   kTopCustomGf12AlertPeripheralUart0 = 0, /**< uart0 */
   kTopCustomGf12AlertPeripheralGpio = 1, /**< gpio */
   kTopCustomGf12AlertPeripheralI2c0 = 2, /**< i2c0 */
-  kTopCustomGf12AlertPeripheralPattgen = 3, /**< pattgen */
-  kTopCustomGf12AlertPeripheralRvTimer = 4, /**< rv_timer */
-  kTopCustomGf12AlertPeripheralOtpCtrl = 5, /**< otp_ctrl */
-  kTopCustomGf12AlertPeripheralLcCtrl = 6, /**< lc_ctrl */
-  kTopCustomGf12AlertPeripheralSpiHost0 = 7, /**< spi_host0 */
-  kTopCustomGf12AlertPeripheralPwrmgrAon = 8, /**< pwrmgr_aon */
-  kTopCustomGf12AlertPeripheralRstmgrAon = 9, /**< rstmgr_aon */
-  kTopCustomGf12AlertPeripheralClkmgrAon = 10, /**< clkmgr_aon */
-  kTopCustomGf12AlertPeripheralSysrstCtrlAon = 11, /**< sysrst_ctrl_aon */
-  kTopCustomGf12AlertPeripheralPinmuxAon = 12, /**< pinmux_aon */
-  kTopCustomGf12AlertPeripheralAonTimerAon = 13, /**< aon_timer_aon */
-  kTopCustomGf12AlertPeripheralSensorCtrl = 14, /**< sensor_ctrl */
-  kTopCustomGf12AlertPeripheralSramCtrlRetAon = 15, /**< sram_ctrl_ret_aon */
-  kTopCustomGf12AlertPeripheralFlashCtrl = 16, /**< flash_ctrl */
-  kTopCustomGf12AlertPeripheralRvDm = 17, /**< rv_dm */
-  kTopCustomGf12AlertPeripheralRvPlic = 18, /**< rv_plic */
-  kTopCustomGf12AlertPeripheralOtbn = 19, /**< otbn */
-  kTopCustomGf12AlertPeripheralEdn0 = 20, /**< edn0 */
-  kTopCustomGf12AlertPeripheralEdn1 = 21, /**< edn1 */
-  kTopCustomGf12AlertPeripheralSramCtrlMain = 22, /**< sram_ctrl_main */
-  kTopCustomGf12AlertPeripheralRomCtrl = 23, /**< rom_ctrl */
-  kTopCustomGf12AlertPeripheralRvCoreIbex = 24, /**< rv_core_ibex */
-  kTopCustomGf12AlertPeripheralLast = 24, /**< \internal Final Alert peripheral */
+  kTopCustomGf12AlertPeripheralRvTimer = 3, /**< rv_timer */
+  kTopCustomGf12AlertPeripheralOtpCtrl = 4, /**< otp_ctrl */
+  kTopCustomGf12AlertPeripheralLcCtrl = 5, /**< lc_ctrl */
+  kTopCustomGf12AlertPeripheralSpiHost0 = 6, /**< spi_host0 */
+  kTopCustomGf12AlertPeripheralPwrmgrAon = 7, /**< pwrmgr_aon */
+  kTopCustomGf12AlertPeripheralRstmgrAon = 8, /**< rstmgr_aon */
+  kTopCustomGf12AlertPeripheralClkmgrAon = 9, /**< clkmgr_aon */
+  kTopCustomGf12AlertPeripheralSysrstCtrlAon = 10, /**< sysrst_ctrl_aon */
+  kTopCustomGf12AlertPeripheralPinmuxAon = 11, /**< pinmux_aon */
+  kTopCustomGf12AlertPeripheralAonTimerAon = 12, /**< aon_timer_aon */
+  kTopCustomGf12AlertPeripheralSensorCtrl = 13, /**< sensor_ctrl */
+  kTopCustomGf12AlertPeripheralSramCtrlRetAon = 14, /**< sram_ctrl_ret_aon */
+  kTopCustomGf12AlertPeripheralFlashCtrl = 15, /**< flash_ctrl */
+  kTopCustomGf12AlertPeripheralRvDm = 16, /**< rv_dm */
+  kTopCustomGf12AlertPeripheralRvPlic = 17, /**< rv_plic */
+  kTopCustomGf12AlertPeripheralSramCtrlMain = 18, /**< sram_ctrl_main */
+  kTopCustomGf12AlertPeripheralRomCtrl = 19, /**< rom_ctrl */
+  kTopCustomGf12AlertPeripheralRvCoreIbex = 20, /**< rv_core_ibex */
+  kTopCustomGf12AlertPeripheralLast = 20, /**< \internal Final Alert peripheral */
 } top_custom_gf12_alert_peripheral_t;
 
 /**
@@ -883,48 +796,41 @@ typedef enum top_custom_gf12_alert_id {
   kTopCustomGf12AlertIdUart0FatalFault = 0, /**< uart0_fatal_fault */
   kTopCustomGf12AlertIdGpioFatalFault = 1, /**< gpio_fatal_fault */
   kTopCustomGf12AlertIdI2c0FatalFault = 2, /**< i2c0_fatal_fault */
-  kTopCustomGf12AlertIdPattgenFatalFault = 3, /**< pattgen_fatal_fault */
-  kTopCustomGf12AlertIdRvTimerFatalFault = 4, /**< rv_timer_fatal_fault */
-  kTopCustomGf12AlertIdOtpCtrlFatalMacroError = 5, /**< otp_ctrl_fatal_macro_error */
-  kTopCustomGf12AlertIdOtpCtrlFatalCheckError = 6, /**< otp_ctrl_fatal_check_error */
-  kTopCustomGf12AlertIdOtpCtrlFatalBusIntegError = 7, /**< otp_ctrl_fatal_bus_integ_error */
-  kTopCustomGf12AlertIdOtpCtrlFatalPrimOtpAlert = 8, /**< otp_ctrl_fatal_prim_otp_alert */
-  kTopCustomGf12AlertIdOtpCtrlRecovPrimOtpAlert = 9, /**< otp_ctrl_recov_prim_otp_alert */
-  kTopCustomGf12AlertIdLcCtrlFatalProgError = 10, /**< lc_ctrl_fatal_prog_error */
-  kTopCustomGf12AlertIdLcCtrlFatalStateError = 11, /**< lc_ctrl_fatal_state_error */
-  kTopCustomGf12AlertIdLcCtrlFatalBusIntegError = 12, /**< lc_ctrl_fatal_bus_integ_error */
-  kTopCustomGf12AlertIdSpiHost0FatalFault = 13, /**< spi_host0_fatal_fault */
-  kTopCustomGf12AlertIdPwrmgrAonFatalFault = 14, /**< pwrmgr_aon_fatal_fault */
-  kTopCustomGf12AlertIdRstmgrAonFatalFault = 15, /**< rstmgr_aon_fatal_fault */
-  kTopCustomGf12AlertIdRstmgrAonFatalCnstyFault = 16, /**< rstmgr_aon_fatal_cnsty_fault */
-  kTopCustomGf12AlertIdClkmgrAonRecovFault = 17, /**< clkmgr_aon_recov_fault */
-  kTopCustomGf12AlertIdClkmgrAonFatalFault = 18, /**< clkmgr_aon_fatal_fault */
-  kTopCustomGf12AlertIdSysrstCtrlAonFatalFault = 19, /**< sysrst_ctrl_aon_fatal_fault */
-  kTopCustomGf12AlertIdPinmuxAonFatalFault = 20, /**< pinmux_aon_fatal_fault */
-  kTopCustomGf12AlertIdAonTimerAonFatalFault = 21, /**< aon_timer_aon_fatal_fault */
-  kTopCustomGf12AlertIdSensorCtrlRecovAlert = 22, /**< sensor_ctrl_recov_alert */
-  kTopCustomGf12AlertIdSensorCtrlFatalAlert = 23, /**< sensor_ctrl_fatal_alert */
-  kTopCustomGf12AlertIdSramCtrlRetAonFatalError = 24, /**< sram_ctrl_ret_aon_fatal_error */
-  kTopCustomGf12AlertIdFlashCtrlRecovErr = 25, /**< flash_ctrl_recov_err */
-  kTopCustomGf12AlertIdFlashCtrlFatalStdErr = 26, /**< flash_ctrl_fatal_std_err */
-  kTopCustomGf12AlertIdFlashCtrlFatalErr = 27, /**< flash_ctrl_fatal_err */
-  kTopCustomGf12AlertIdFlashCtrlFatalPrimFlashAlert = 28, /**< flash_ctrl_fatal_prim_flash_alert */
-  kTopCustomGf12AlertIdFlashCtrlRecovPrimFlashAlert = 29, /**< flash_ctrl_recov_prim_flash_alert */
-  kTopCustomGf12AlertIdRvDmFatalFault = 30, /**< rv_dm_fatal_fault */
-  kTopCustomGf12AlertIdRvPlicFatalFault = 31, /**< rv_plic_fatal_fault */
-  kTopCustomGf12AlertIdOtbnFatal = 32, /**< otbn_fatal */
-  kTopCustomGf12AlertIdOtbnRecov = 33, /**< otbn_recov */
-  kTopCustomGf12AlertIdEdn0RecovAlert = 34, /**< edn0_recov_alert */
-  kTopCustomGf12AlertIdEdn0FatalAlert = 35, /**< edn0_fatal_alert */
-  kTopCustomGf12AlertIdEdn1RecovAlert = 36, /**< edn1_recov_alert */
-  kTopCustomGf12AlertIdEdn1FatalAlert = 37, /**< edn1_fatal_alert */
-  kTopCustomGf12AlertIdSramCtrlMainFatalError = 38, /**< sram_ctrl_main_fatal_error */
-  kTopCustomGf12AlertIdRomCtrlFatal = 39, /**< rom_ctrl_fatal */
-  kTopCustomGf12AlertIdRvCoreIbexFatalSwErr = 40, /**< rv_core_ibex_fatal_sw_err */
-  kTopCustomGf12AlertIdRvCoreIbexRecovSwErr = 41, /**< rv_core_ibex_recov_sw_err */
-  kTopCustomGf12AlertIdRvCoreIbexFatalHwErr = 42, /**< rv_core_ibex_fatal_hw_err */
-  kTopCustomGf12AlertIdRvCoreIbexRecovHwErr = 43, /**< rv_core_ibex_recov_hw_err */
-  kTopCustomGf12AlertIdLast = 43, /**< \internal The Last Valid Alert ID. */
+  kTopCustomGf12AlertIdRvTimerFatalFault = 3, /**< rv_timer_fatal_fault */
+  kTopCustomGf12AlertIdOtpCtrlFatalMacroError = 4, /**< otp_ctrl_fatal_macro_error */
+  kTopCustomGf12AlertIdOtpCtrlFatalCheckError = 5, /**< otp_ctrl_fatal_check_error */
+  kTopCustomGf12AlertIdOtpCtrlFatalBusIntegError = 6, /**< otp_ctrl_fatal_bus_integ_error */
+  kTopCustomGf12AlertIdOtpCtrlFatalPrimOtpAlert = 7, /**< otp_ctrl_fatal_prim_otp_alert */
+  kTopCustomGf12AlertIdOtpCtrlRecovPrimOtpAlert = 8, /**< otp_ctrl_recov_prim_otp_alert */
+  kTopCustomGf12AlertIdLcCtrlFatalProgError = 9, /**< lc_ctrl_fatal_prog_error */
+  kTopCustomGf12AlertIdLcCtrlFatalStateError = 10, /**< lc_ctrl_fatal_state_error */
+  kTopCustomGf12AlertIdLcCtrlFatalBusIntegError = 11, /**< lc_ctrl_fatal_bus_integ_error */
+  kTopCustomGf12AlertIdSpiHost0FatalFault = 12, /**< spi_host0_fatal_fault */
+  kTopCustomGf12AlertIdPwrmgrAonFatalFault = 13, /**< pwrmgr_aon_fatal_fault */
+  kTopCustomGf12AlertIdRstmgrAonFatalFault = 14, /**< rstmgr_aon_fatal_fault */
+  kTopCustomGf12AlertIdRstmgrAonFatalCnstyFault = 15, /**< rstmgr_aon_fatal_cnsty_fault */
+  kTopCustomGf12AlertIdClkmgrAonRecovFault = 16, /**< clkmgr_aon_recov_fault */
+  kTopCustomGf12AlertIdClkmgrAonFatalFault = 17, /**< clkmgr_aon_fatal_fault */
+  kTopCustomGf12AlertIdSysrstCtrlAonFatalFault = 18, /**< sysrst_ctrl_aon_fatal_fault */
+  kTopCustomGf12AlertIdPinmuxAonFatalFault = 19, /**< pinmux_aon_fatal_fault */
+  kTopCustomGf12AlertIdAonTimerAonFatalFault = 20, /**< aon_timer_aon_fatal_fault */
+  kTopCustomGf12AlertIdSensorCtrlRecovAlert = 21, /**< sensor_ctrl_recov_alert */
+  kTopCustomGf12AlertIdSensorCtrlFatalAlert = 22, /**< sensor_ctrl_fatal_alert */
+  kTopCustomGf12AlertIdSramCtrlRetAonFatalError = 23, /**< sram_ctrl_ret_aon_fatal_error */
+  kTopCustomGf12AlertIdFlashCtrlRecovErr = 24, /**< flash_ctrl_recov_err */
+  kTopCustomGf12AlertIdFlashCtrlFatalStdErr = 25, /**< flash_ctrl_fatal_std_err */
+  kTopCustomGf12AlertIdFlashCtrlFatalErr = 26, /**< flash_ctrl_fatal_err */
+  kTopCustomGf12AlertIdFlashCtrlFatalPrimFlashAlert = 27, /**< flash_ctrl_fatal_prim_flash_alert */
+  kTopCustomGf12AlertIdFlashCtrlRecovPrimFlashAlert = 28, /**< flash_ctrl_recov_prim_flash_alert */
+  kTopCustomGf12AlertIdRvDmFatalFault = 29, /**< rv_dm_fatal_fault */
+  kTopCustomGf12AlertIdRvPlicFatalFault = 30, /**< rv_plic_fatal_fault */
+  kTopCustomGf12AlertIdSramCtrlMainFatalError = 31, /**< sram_ctrl_main_fatal_error */
+  kTopCustomGf12AlertIdRomCtrlFatal = 32, /**< rom_ctrl_fatal */
+  kTopCustomGf12AlertIdRvCoreIbexFatalSwErr = 33, /**< rv_core_ibex_fatal_sw_err */
+  kTopCustomGf12AlertIdRvCoreIbexRecovSwErr = 34, /**< rv_core_ibex_recov_sw_err */
+  kTopCustomGf12AlertIdRvCoreIbexFatalHwErr = 35, /**< rv_core_ibex_fatal_hw_err */
+  kTopCustomGf12AlertIdRvCoreIbexRecovHwErr = 36, /**< rv_core_ibex_recov_hw_err */
+  kTopCustomGf12AlertIdLast = 36, /**< \internal The Last Valid Alert ID. */
 } top_custom_gf12_alert_id_t;
 
 /**
@@ -934,7 +840,7 @@ typedef enum top_custom_gf12_alert_id {
  * `top_custom_gf12_alert_peripheral_t`.
  */
 extern const top_custom_gf12_alert_peripheral_t
-    top_custom_gf12_alert_for_peripheral[44];
+    top_custom_gf12_alert_for_peripheral[37];
 
 #define PINMUX_MIO_PERIPH_INSEL_IDX_OFFSET 2
 
@@ -1138,28 +1044,24 @@ typedef enum top_custom_gf12_pinmux_outsel {
   kTopCustomGf12PinmuxOutselI2c0Sda = 35, /**< Peripheral Output 32 */
   kTopCustomGf12PinmuxOutselI2c0Scl = 36, /**< Peripheral Output 33 */
   kTopCustomGf12PinmuxOutselUart0Tx = 37, /**< Peripheral Output 34 */
-  kTopCustomGf12PinmuxOutselPattgenPda0Tx = 38, /**< Peripheral Output 35 */
-  kTopCustomGf12PinmuxOutselPattgenPcl0Tx = 39, /**< Peripheral Output 36 */
-  kTopCustomGf12PinmuxOutselPattgenPda1Tx = 40, /**< Peripheral Output 37 */
-  kTopCustomGf12PinmuxOutselPattgenPcl1Tx = 41, /**< Peripheral Output 38 */
-  kTopCustomGf12PinmuxOutselFlashCtrlTdo = 42, /**< Peripheral Output 39 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut0 = 43, /**< Peripheral Output 40 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut1 = 44, /**< Peripheral Output 41 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut2 = 45, /**< Peripheral Output 42 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut3 = 46, /**< Peripheral Output 43 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut4 = 47, /**< Peripheral Output 44 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut5 = 48, /**< Peripheral Output 45 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut6 = 49, /**< Peripheral Output 46 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut7 = 50, /**< Peripheral Output 47 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut8 = 51, /**< Peripheral Output 48 */
-  kTopCustomGf12PinmuxOutselOtpCtrlTest0 = 52, /**< Peripheral Output 49 */
-  kTopCustomGf12PinmuxOutselSysrstCtrlAonBatDisable = 53, /**< Peripheral Output 50 */
-  kTopCustomGf12PinmuxOutselSysrstCtrlAonKey0Out = 54, /**< Peripheral Output 51 */
-  kTopCustomGf12PinmuxOutselSysrstCtrlAonKey1Out = 55, /**< Peripheral Output 52 */
-  kTopCustomGf12PinmuxOutselSysrstCtrlAonKey2Out = 56, /**< Peripheral Output 53 */
-  kTopCustomGf12PinmuxOutselSysrstCtrlAonPwrbOut = 57, /**< Peripheral Output 54 */
-  kTopCustomGf12PinmuxOutselSysrstCtrlAonZ3Wakeup = 58, /**< Peripheral Output 55 */
-  kTopCustomGf12PinmuxOutselLast = 58, /**< \internal Last valid outsel value */
+  kTopCustomGf12PinmuxOutselFlashCtrlTdo = 38, /**< Peripheral Output 35 */
+  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut0 = 39, /**< Peripheral Output 36 */
+  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut1 = 40, /**< Peripheral Output 37 */
+  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut2 = 41, /**< Peripheral Output 38 */
+  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut3 = 42, /**< Peripheral Output 39 */
+  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut4 = 43, /**< Peripheral Output 40 */
+  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut5 = 44, /**< Peripheral Output 41 */
+  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut6 = 45, /**< Peripheral Output 42 */
+  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut7 = 46, /**< Peripheral Output 43 */
+  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut8 = 47, /**< Peripheral Output 44 */
+  kTopCustomGf12PinmuxOutselOtpCtrlTest0 = 48, /**< Peripheral Output 45 */
+  kTopCustomGf12PinmuxOutselSysrstCtrlAonBatDisable = 49, /**< Peripheral Output 46 */
+  kTopCustomGf12PinmuxOutselSysrstCtrlAonKey0Out = 50, /**< Peripheral Output 47 */
+  kTopCustomGf12PinmuxOutselSysrstCtrlAonKey1Out = 51, /**< Peripheral Output 48 */
+  kTopCustomGf12PinmuxOutselSysrstCtrlAonKey2Out = 52, /**< Peripheral Output 49 */
+  kTopCustomGf12PinmuxOutselSysrstCtrlAonPwrbOut = 53, /**< Peripheral Output 50 */
+  kTopCustomGf12PinmuxOutselSysrstCtrlAonZ3Wakeup = 54, /**< Peripheral Output 51 */
+  kTopCustomGf12PinmuxOutselLast = 54, /**< \internal Last valid outsel value */
 } top_custom_gf12_pinmux_outsel_t;
 
 /**
@@ -1278,8 +1180,7 @@ typedef enum top_custom_gf12_gateable_clocks {
  */
 typedef enum top_custom_gf12_hintable_clocks {
   kTopCustomGf12HintableClocksMainKmac = 0, /**< Clock clk_main_kmac in group trans */
-  kTopCustomGf12HintableClocksMainOtbn = 1, /**< Clock clk_main_otbn in group trans */
-  kTopCustomGf12HintableClocksLast = 1, /**< \internal Last Valid Hintable Clock */
+  kTopCustomGf12HintableClocksLast = 0, /**< \internal Last Valid Hintable Clock */
 } top_custom_gf12_hintable_clocks_t;
 
 /**
