@@ -9,13 +9,13 @@
 //                -o hw/top_custom_gf12/ \
 //                --rnd_cnst_seed 4881560218908238235
 
-module chip_custom_gf12_arty_a35t #(
+module chip_custom_gf12_nexysvideo #(
   // Path to a VMEM file containing the contents of the boot ROM, which will be
   // baked into the FPGA bitstream.
-  parameter BootRomInitFile = "test_rom_fpga_arty_a35t.32.vmem",
+  parameter BootRomInitFile = "test_rom_fpga_nexysvideo.32.vmem",
   // Path to a VMEM file containing the contents of the emulated OTP, which will be
   // baked into the FPGA bitstream.
-  parameter OtpCtrlMemInitFile = "otp_img_fpga_arty_a35t.vmem"
+  parameter OtpCtrlMemInitFile = "otp_img_fpga_nexysvideo.vmem"
 ) (
   // Dedicated Pads
   inout POR_N, // Manual Pad
@@ -844,4 +844,4 @@ module chip_custom_gf12_arty_a35t #(
   );
 
 
-endmodule : chip_custom_gf12_arty_a35t
+endmodule : chip_custom_gf12_nexysvideo
