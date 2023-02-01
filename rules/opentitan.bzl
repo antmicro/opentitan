@@ -18,7 +18,11 @@ load(
     _OPENTITAN_PLATFORM = "OPENTITAN_PLATFORM",
     _opentitan_transition = "opentitan_transition",
 )
-load("@lowrisc_opentitan//rules:cross_platform.bzl", "dual_cc_library")
+load(
+    "@lowrisc_opentitan//rules:cross_platform.bzl",
+    "dual_cc_library",
+    "dual_inputs"
+)
 
 """Rules to build OpenTitan for the RISC-V target"""
 
@@ -562,51 +566,65 @@ assemble_flash_image = rv_rule(
     },
 )
 
-def opentitan_library(
-        soc_config,
+def opentitan_cc_library(
+        soc_configs = ['earlgrey'],
         **kwargs):
     """A helper macro for generating OpenTitan binary library artifacts.
 
-    A wrapper for cc_library that allows to inject macro definition which
-    distinguishes between differend SoC configuration variants
-
-    Args:
-      @param soc_config: The name of the SoC config. Used to determine
-                         compilation guard names only.
+    TODO: Fill docs
     """
-    soc_def = "OT_IS_" + soc_config.upper()
 
-    copts = kwargs.pop("copts", []) + [
-        "-D{}=1".format(soc_def),
-    ]
+    base_name  = kwargs.pop("name")
+    base_deps  = kwargs.pop("deps",  [])
+    base_copts = kwargs.pop("copts", [])
 
-    native.cc_library(
-        copts = copts,
-        **kwargs
-    )
+    for soc_config in soc_configs:
+        name = base_name + "_" + soc_config
+        deps = [d.format(soc_config=soc_config) for d in base_deps]
 
-def opentitan_dual_library(
-        soc_config,
+        soc_def = "OT_IS_" + soc_config.upper()
+        copts   = base_copts + ["-D{}=1".format(soc_def),]
+
+        native.cc_library(
+            name  = name,
+            deps  = deps,
+            copts = copts,
+            **kwargs
+        )
+
+def opentitan_dual_cc_library(
+        soc_configs = ['earlgrey'],
         **kwargs):
     """A helper macro for generating OpenTitan binary library artifacts.
 
-    A wrapper for dual_cc_library that allows to inject macro definition which
-    distinguishes between differend SoC configuration variants
-
-    Args:
-      @param soc_config: The name of the SoC config. Used to determine
-                         compilation guard names only.
+    TODO: Fill docs
     """
-    soc_def = "OT_IS_" + soc_config.upper()
 
-    copts = kwargs.pop("copts", []) + [
-        "-D{}=1".format(soc_def),
-    ]
+    base_name  = kwargs.pop("name")
+    base_deps  = kwargs.pop("deps",  [])
+    base_copts = kwargs.pop("copts", [])
 
-    dual_cc_library(
-        copts = copts,
-        **kwargs
-    )
+    for soc_config in soc_configs:
+        name = base_name + "_" + soc_config
+
+        if type(base_deps) == "list":
+            deps = [d.format(soc_config=soc_config) for d in base_deps]
+        else:
+            deps = dual_inputs(
+                shared = [d.format(soc_config=soc_config) for d in base_deps.shared],
+                device = [d.format(soc_config=soc_config) for d in base_deps.device],
+                host   = [d.format(soc_config=soc_config) for d in base_deps.host],
+            )
+
+        soc_def = "OT_IS_" + soc_config.upper()
+        copts   = base_copts + ["-D{}=1".format(soc_def)]
+
+        dual_cc_library(
+            name  = name,
+            deps  = deps,
+            copts = copts,
+            **kwargs
+        )
 
 def opentitan_binary(
         name,
