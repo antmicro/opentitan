@@ -10,7 +10,7 @@
 #include "sw/device/silicon_creator/lib/base/chip.h"
 #include "sw/device/silicon_creator/lib/drivers/otp.h"
 
-#include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
+#include "sw/device/include/opentitan.h"
 #include "otp_ctrl_regs.h"
 #include "pinmux_regs.h"
 

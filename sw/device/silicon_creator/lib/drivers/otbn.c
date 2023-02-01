@@ -14,7 +14,7 @@
 #include "sw/device/silicon_creator/lib/drivers/rnd.h"
 #include "sw/device/silicon_creator/lib/error.h"
 
-#include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
+#include "sw/device/include/opentitan.h"
 #include "otbn_regs.h"  // Generated.
 
 enum {

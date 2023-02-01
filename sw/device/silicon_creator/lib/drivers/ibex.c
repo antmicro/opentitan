@@ -8,7 +8,7 @@
 #include "sw/device/lib/runtime/hart.h"
 #include "sw/device/silicon_creator/lib/base/sec_mmio.h"
 
-#include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
+#include "sw/device/include/opentitan.h"
 #include "rv_core_ibex_regs.h"
 
 enum {

@@ -16,7 +16,7 @@
 #include "sw/device/silicon_creator/lib/error.h"
 
 #include "flash_ctrl_regs.h"
-#include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
+#include "sw/device/include/opentitan.h"
 #include "otp_ctrl_regs.h"
 
 // Values of `flash_ctrl_partition_t` constants must be distinct from each

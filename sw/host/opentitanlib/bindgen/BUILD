@@ -23,7 +23,7 @@ rust_bindgen_library(
         "--allowlist-type=AlertEnable",
         "--allowlist-type=AlertEscalate",
     ],
-    cc_lib = "//sw/device/silicon_creator/lib/drivers:alert",
+    cc_lib = "//sw/device/silicon_creator/lib/drivers:alert_earlgrey",
     header = "//sw/device/silicon_creator/lib/drivers:alert.h",
     rustc_flags = [
         "--allow=non_snake_case",

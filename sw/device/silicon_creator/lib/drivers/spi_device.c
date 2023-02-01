@@ -11,7 +11,7 @@
 #include "sw/device/silicon_creator/lib/error.h"
 
 #include "flash_ctrl_regs.h"
-#include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
+#include "sw/device/include/opentitan.h"
 #include "spi_device_regs.h"
 
 enum {

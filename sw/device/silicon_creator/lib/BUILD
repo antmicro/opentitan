@@ -34,10 +34,10 @@ dual_cc_library(
         shared = [
             ":error",
             "//sw/device/lib/base:macros",
-            "//sw/device/silicon_creator/lib/drivers:flash_ctrl",
-            "//sw/device/silicon_creator/lib/drivers:hmac",
-            "//sw/device/silicon_creator/lib/drivers:lifecycle",
-            "//sw/device/silicon_creator/lib/drivers:otp",
+            "//sw/device/silicon_creator/lib/drivers:flash_ctrl_earlgrey",
+            "//sw/device/silicon_creator/lib/drivers:hmac_earlgrey",
+            "//sw/device/silicon_creator/lib/drivers:lifecycle_earlgrey",
+            "//sw/device/silicon_creator/lib/drivers:otp_earlgrey",
         ],
     ),
 )
@@ -64,7 +64,7 @@ opentitan_functest(
         ":test_main",
         "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/testing/test_framework:ottf_main",
-        "//sw/device/silicon_creator/lib/drivers:flash_ctrl",
+        "//sw/device/silicon_creator/lib/drivers:flash_ctrl_earlgrey",
     ],
 )
 
@@ -168,9 +168,9 @@ opentitan_functest(
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/testing:rstmgr_testutils",
         "//sw/device/lib/testing/test_framework:ottf_main",
-        "//sw/device/silicon_creator/lib/drivers:retention_sram",
-        "//sw/device/silicon_creator/lib/drivers:rstmgr",
-        "//sw/device/silicon_creator/lib/drivers:watchdog",
+        "//sw/device/silicon_creator/lib/drivers:retention_sram_earlgrey",
+        "//sw/device/silicon_creator/lib/drivers:rstmgr_earlgrey",
+        "//sw/device/silicon_creator/lib/drivers:watchdog_earlgrey",
     ],
 )
 
@@ -185,7 +185,7 @@ cc_library(
     hdrs = ["rom_print.h"],
     deps = [
         ":error",
-        "//sw/device/silicon_creator/lib/drivers:uart",
+        "//sw/device/silicon_creator/lib/drivers:uart_earlgrey",
     ],
 )
 
@@ -195,7 +195,7 @@ cc_test(
     deps = [
         ":error",
         ":rom_print",
-        "//sw/device/silicon_creator/lib/drivers:uart",
+        "//sw/device/silicon_creator/lib/drivers:uart_earlgrey",
         "@googletest//:gtest_main",
     ],
 )
@@ -224,7 +224,7 @@ dual_cc_library(
             ":error",
             ":keymgr_binding",
             "//sw/device/lib/base:macros",
-            "//sw/device/silicon_creator/lib/drivers:lifecycle",
+            "//sw/device/silicon_creator/lib/drivers:lifecycle_earlgrey",
             "//sw/device/silicon_creator/lib/sigverify:rsa_key",
             "//sw/device/silicon_creator/lib/base:chip",
         ],
@@ -294,7 +294,7 @@ dual_cc_library(
             ":epmp_defs",
             "//sw/device/lib/base:hardened",
             "//sw/device/lib/base:macros",
-            "//sw/device/silicon_creator/lib/drivers:lifecycle",
+            "//sw/device/silicon_creator/lib/drivers:lifecycle_earlgrey",
             "//hw/ip/keymgr/data:keymgr_regs",
             "//hw/ip/lc_ctrl/data:lc_ctrl_regs",
             "//hw/ip/otp_ctrl/data:otp_ctrl_regs",
@@ -312,8 +312,8 @@ dual_cc_library(
             "//sw/device/lib/base:memory",
             "//sw/device/lib/base:multibits",
             "//sw/device/lib/base:stdasm",
-            "//sw/device/silicon_creator/lib/drivers:alert",
-            "//sw/device/silicon_creator/lib/drivers:otp",
+            "//sw/device/silicon_creator/lib/drivers:alert_earlgrey",
+            "//sw/device/silicon_creator/lib/drivers:otp_earlgrey",
         ],
     ),
 )

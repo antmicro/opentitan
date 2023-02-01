@@ -10,7 +10,7 @@
 #include "sw/device/silicon_creator/lib/base/sec_mmio.h"
 #include "sw/device/silicon_creator/lib/error.h"
 
-#include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
+#include "sw/device/include/opentitan.h"
 #include "otp_ctrl_regs.h"  // Generated.
 
 enum { kBase = OPENTITAN_OTP_CTRL_CORE_BASE_ADDR };

@@ -2,6 +2,7 @@
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
 
+load("//rules:opentitan.bzl", "opentitan_cc_library", "opentitan_dual_cc_library")
 load("//rules:opentitan_test.bzl", "cw310_params", "opentitan_functest", "verilator_params")
 load("//rules:cross_platform.bzl", "dual_cc_device_library_of", "dual_cc_library", "dual_inputs")
 
@@ -20,8 +21,9 @@ filegroup(
     ],
 )
 
-dual_cc_library(
+opentitan_dual_cc_library(
     name = "alert",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = dual_inputs(
         device = ["alert.c"],
         host = ["mock_alert.cc"],
@@ -32,9 +34,10 @@ dual_cc_library(
     ),
     deps = dual_inputs(
         device = [
+            "//sw/device/include:opentitan",
             "//hw/ip/otp_ctrl/data:otp_ctrl_regs",
-            "//hw/top_earlgrey:alert_handler_regs",
-            "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+            "//hw/top_{soc_config}:alert_handler_regs",
+            "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         ],
         host = [
             "//sw/device/lib/base:global_mock",
@@ -42,8 +45,8 @@ dual_cc_library(
             "@googletest//:gtest",
         ],
         shared = [
-            ":lifecycle",
-            ":otp",
+            ":lifecycle_{soc_config}",
+            ":otp_{soc_config}",
             "//sw/device/lib/base:abs_mmio",
             "//sw/device/lib/base:macros",
             "//sw/device/lib/base:memory",
@@ -57,7 +60,7 @@ cc_test(
     name = "alert_unittest",
     srcs = ["alert_unittest.cc"],
     deps = [
-        dual_cc_device_library_of(":alert"),
+        dual_cc_device_library_of(":alert_earlgrey"),
         "//hw/top_earlgrey:alert_handler_regs",
         "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "@googletest//:gtest_main",
@@ -71,8 +74,8 @@ opentitan_functest(
         timeout = "long",
     ),
     deps = [
-        ":alert",
-        ":rstmgr",
+        ":alert_earlgrey",
+        ":rstmgr_earlgrey",
         "//hw/ip/otp_ctrl/data:otp_ctrl_regs",
         "//hw/top_earlgrey:alert_handler_regs",
         "//hw/top_earlgrey/ip/flash_ctrl/data/autogen:flash_ctrl_regs",
@@ -85,16 +88,18 @@ opentitan_functest(
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "ast",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = ["ast.c"],
     hdrs = ["ast.h"],
     deps = [
-        ":lifecycle",
-        ":otp",
+        "//sw/device/include:opentitan",
+        ":lifecycle_{soc_config}",
+        ":otp_{soc_config}",
         "//hw/ip/otp_ctrl/data:otp_ctrl_regs",
-        "//hw/top_earlgrey/ip/sensor_ctrl/data:sensor_ctrl_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//hw/top_{soc_config}/ip/sensor_ctrl/data:sensor_ctrl_regs",
+        "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         "//sw/device/lib/arch:device",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:bitfield",
@@ -110,14 +115,15 @@ cc_test(
     name = "ast_unittest",
     srcs = ["ast_unittest.cc"],
     deps = [
-        ":ast",
+        ":ast_earlgrey",
         "//sw/device/silicon_creator/testing:rom_test",
         "@googletest//:gtest_main",
     ],
 )
 
-dual_cc_library(
+opentitan_dual_cc_library(
     name = "flash_ctrl",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = dual_inputs(
         device = ["flash_ctrl.c"],
         host = ["mock_flash_ctrl.cc"],
@@ -128,9 +134,10 @@ dual_cc_library(
     ),
     deps = dual_inputs(
         device = [
-            "//hw/top_earlgrey/ip/flash_ctrl/data/autogen:flash_ctrl_regs",
+            "//sw/device/include:opentitan",
+            "//hw/top_{soc_config}/ip/flash_ctrl/data/autogen:flash_ctrl_regs",
             "//hw/ip/otp_ctrl/data:otp_ctrl_regs",
-            "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+            "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         ],
         host = [
             "//sw/device/lib/base:global_mock",
@@ -145,7 +152,7 @@ dual_cc_library(
             "//sw/device/lib/base:multibits",
             "//sw/device/silicon_creator/lib:error",
             "//sw/device/silicon_creator/lib/base:sec_mmio",
-            "//sw/device/silicon_creator/lib/drivers:otp",
+            ":otp_{soc_config}",
         ],
     ),
 )
@@ -154,13 +161,14 @@ cc_test(
     name = "flash_ctrl_unittest",
     srcs = ["flash_ctrl_unittest.cc"],
     deps = [
-        dual_cc_device_library_of(":flash_ctrl"),
+        dual_cc_device_library_of(":flash_ctrl_earlgrey"),
         "@googletest//:gtest_main",
     ],
 )
 
-dual_cc_library(
+opentitan_dual_cc_library(
     name = "hmac",
+    soc_configs = ['earlgrey'],
     srcs = dual_inputs(
         device = ["hmac.c"],
         host = ["mock_hmac.cc"],
@@ -171,8 +179,9 @@ dual_cc_library(
     ),
     deps = dual_inputs(
         device = [
+            "//sw/device/include:opentitan",
             "//hw/ip/hmac/data:hmac_regs",
-            "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+            "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         ],
         host = [
             "//sw/device/lib/base:global_mock",
@@ -193,7 +202,7 @@ cc_test(
     name = "hmac_unittest",
     srcs = ["hmac_unittest.cc"],
     deps = [
-        dual_cc_device_library_of(":hmac"),
+        dual_cc_device_library_of(":hmac_earlgrey"),
         "//hw/ip/hmac/data:hmac_regs",
         "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
@@ -215,13 +224,15 @@ opentitan_functest(
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "ibex",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = ["ibex.c"],
     hdrs = ["ibex.h"],
     deps = [
+        "//sw/device/include:opentitan",
         "//hw/ip/rv_core_ibex/data:rv_core_ibex_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/runtime:hart",
         "//sw/device/silicon_creator/lib/base:sec_mmio",
@@ -232,19 +243,21 @@ cc_test(
     name = "ibex_unittest",
     srcs = ["ibex_unittest.cc"],
     deps = [
-        ":ibex",
+        ":ibex_earlgrey",
         "//sw/device/silicon_creator/testing:rom_test",
         "@googletest//:gtest_main",
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "keymgr",
+    soc_configs = ['earlgrey'],
     srcs = ["keymgr.c"],
     hdrs = ["keymgr.h"],
     deps = [
+        "//sw/device/include:opentitan",
         "//hw/ip/keymgr/data:keymgr_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:macros",
         "//sw/device/silicon_creator/lib:error",
@@ -257,7 +270,7 @@ cc_test(
     name = "keymgr_unittest",
     srcs = ["keymgr_unittest.cc"],
     deps = [
-        ":keymgr",
+        ":keymgr_earlgrey",
         "//sw/device/silicon_creator/testing:rom_test",
         "@googletest//:gtest_main",
     ],
@@ -270,7 +283,7 @@ opentitan_functest(
         timeout = "long",
     ),
     deps = [
-        ":keymgr",
+        ":keymgr_earlgrey",
         ":lifecycle",
         ":retention_sram",
         "//hw/ip/kmac/data:kmac_regs",
@@ -293,8 +306,9 @@ opentitan_functest(
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "kmac",
+    soc_configs = ['earlgrey'],
     srcs = ["kmac.c"],
     hdrs = ["kmac.h"],
     deps = [
@@ -332,8 +346,9 @@ opentitan_functest(
     ],
 )
 
-dual_cc_library(
+opentitan_dual_cc_library(
     name = "lifecycle",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = dual_inputs(
         device = ["lifecycle.c"],
         host = ["mock_lifecycle.cc"],
@@ -344,8 +359,9 @@ dual_cc_library(
     ),
     deps = dual_inputs(
         device = [
+            "//sw/device/include:opentitan",
             "//hw/ip/lc_ctrl/data:lc_ctrl_regs",
-            "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+            "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         ],
         host = [
             "//sw/device/lib/base:global_mock",
@@ -365,7 +381,7 @@ cc_test(
     name = "lifecycle_unittest",
     srcs = ["lifecycle_unittest.cc"],
     deps = [
-        dual_cc_device_library_of(":lifecycle"),
+        dual_cc_device_library_of(":lifecycle_earlgrey"),
         "//hw/ip/lc_ctrl/data:lc_ctrl_regs",
         "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/silicon_creator/testing:rom_test",
@@ -373,13 +389,15 @@ cc_test(
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "otbn",
+    soc_configs = ['earlgrey'],
     srcs = ["otbn.c"],
     hdrs = ["otbn.h"],
     deps = [
+        "//sw/device/include:opentitan",
         "//hw/ip/otbn/data:otbn_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:bitfield",
         "//sw/device/silicon_creator/lib:error",
@@ -392,14 +410,15 @@ cc_test(
     name = "otbn_unittest",
     srcs = ["otbn_unittest.cc"],
     deps = [
-        ":otbn",
+        ":otbn_earlgrey",
         "//sw/device/silicon_creator/testing:rom_test",
         "@googletest//:gtest_main",
     ],
 )
 
-dual_cc_library(
+opentitan_dual_cc_library(
     name = "otp",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = dual_inputs(
         device = ["otp.c"],
         host = ["mock_otp.cc"],
@@ -410,8 +429,9 @@ dual_cc_library(
     ),
     deps = dual_inputs(
         device = [
+            "//sw/device/include:opentitan",
             "//hw/ip/otp_ctrl/data:otp_ctrl_regs",
-            "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+            "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         ],
         host = [
             "//sw/device/lib/base:global_mock",
@@ -430,20 +450,22 @@ cc_test(
     name = "otp_unittest",
     srcs = ["otp_unittest.cc"],
     deps = [
-        dual_cc_device_library_of(":otp"),
+        dual_cc_device_library_of(":otp_earlgrey"),
         "//sw/device/silicon_creator/testing:rom_test",
         "@googletest//:gtest_main",
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "pinmux",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = ["pinmux.c"],
     hdrs = ["pinmux.h"],
     deps = [
+        "//sw/device/include:opentitan",
         "//hw/ip/otp_ctrl/data:otp_ctrl_regs",
-        "//hw/top_earlgrey/ip/pinmux/data/autogen:pinmux_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//hw/top_{soc_config}/ip/pinmux/data/autogen:pinmux_regs",
+        "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:hardened",
         "//sw/device/lib/base:macros",
@@ -456,7 +478,7 @@ cc_test(
     name = "pinmux_unittest",
     srcs = ["pinmux_unittest.cc"],
     deps = [
-        ":pinmux",
+        ":pinmux_earlgrey",
         "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:macros",
@@ -465,13 +487,15 @@ cc_test(
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "retention_sram",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = ["retention_sram.c"],
     hdrs = ["retention_sram.h"],
     deps = [
+        "//sw/device/include:opentitan",
         "//hw/ip/sram_ctrl/data:sram_ctrl_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:macros",
         "//sw/device/lib/base:memory",
@@ -483,7 +507,7 @@ cc_test(
     name = "retention_sram_unittest",
     srcs = ["retention_sram_unittest.cc"],
     deps = [
-        ":retention_sram",
+        ":retention_sram_earlgrey",
         "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/silicon_creator/testing:rom_test",
@@ -498,7 +522,7 @@ opentitan_functest(
         timeout = "long",
     ),
     deps = [
-        ":retention_sram",
+        ":retention_sram_earlgrey",
         "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:macros",
         "//sw/device/lib/base:memory",
@@ -508,8 +532,9 @@ opentitan_functest(
     ],
 )
 
-dual_cc_library(
+opentitan_dual_cc_library(
     name = "rnd",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = dual_inputs(
         device = ["rnd.c"],
         host = ["mock_rnd.cc"],
@@ -520,14 +545,15 @@ dual_cc_library(
     ),
     deps = dual_inputs(
         device = [
-            ":otp",
+            "//sw/device/include:opentitan",
+            ":otp_{soc_config}",
             "//sw/device/lib/base:csr",
             "//sw/device/lib/base:abs_mmio",
             "//sw/device/lib/base:hardened",
             "//hw/ip/entropy_src/data:entropy_src_regs",
             "//hw/ip/otp_ctrl/data:otp_ctrl_regs",
             "//hw/ip/rv_core_ibex/data:rv_core_ibex_regs",
-            "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+            "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
             "//sw/device/silicon_creator/lib:crc32",
         ],
         host = [
@@ -547,7 +573,7 @@ cc_test(
     name = "rnd_unittest",
     srcs = ["rnd_unittest.cc"],
     deps = [
-        dual_cc_device_library_of(":rnd"),
+        dual_cc_device_library_of(":rnd_earlgrey"),
         ":otp",
         "//hw/ip/otp_ctrl/data:otp_ctrl_regs",
         "//hw/ip/rv_core_ibex/data:rv_core_ibex_regs",
@@ -577,8 +603,9 @@ opentitan_functest(
     ],
 )
 
-dual_cc_library(
+opentitan_dual_cc_library(
     name = "rstmgr",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = dual_inputs(
         device = ["rstmgr.c"],
         host = ["mock_rstmgr.cc"],
@@ -589,8 +616,9 @@ dual_cc_library(
     ),
     deps = dual_inputs(
         device = [
-            "//hw/top_earlgrey/ip/rstmgr/data/autogen:rstmgr_regs",
-            "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+            "//sw/device/include:opentitan",
+            "//hw/top_{soc_config}/ip/rstmgr/data/autogen:rstmgr_regs",
+            "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         ],
         host = [
             "//sw/device/lib/base:global_mock",
@@ -612,7 +640,7 @@ cc_test(
     name = "rstmgr_unittest",
     srcs = ["rstmgr_unittest.cc"],
     deps = [
-        dual_cc_device_library_of(":rstmgr"),
+        dual_cc_device_library_of(":rstmgr_earlgrey"),
         "//sw/device/silicon_creator/testing:rom_test",
         "@googletest//:gtest_main",
     ],
@@ -625,19 +653,21 @@ opentitan_functest(
         timeout = "long",
     ),
     deps = [
-        ":rstmgr",
+        ":rstmgr_earlgrey",
         "//sw/device/lib/testing:rstmgr_testutils",
         "//sw/device/silicon_creator/lib:test_main",
     ],
 )
 
-cc_library(
+opentitan_cc_library(
+    soc_configs = ['earlgrey', 'custom_gf12'],
     name = "uart",
     srcs = ["uart.c"],
     hdrs = ["uart.h"],
     deps = [
+        "//sw/device/include:opentitan",
         "//hw/ip/uart/data:uart_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         "//sw/device/lib/arch:device",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:bitfield",
@@ -649,7 +679,7 @@ cc_test(
     name = "uart_unittest",
     srcs = ["uart_unittest.cc"],
     deps = [
-        ":uart",
+        ":uart_earlgrey",
         "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/silicon_creator/testing:rom_test",
@@ -661,7 +691,7 @@ opentitan_functest(
     name = "uart_functest",
     srcs = ["uart_functest.c"],
     deps = [
-        ":uart",
+        ":uart_earlgrey",
         "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/testing/test_framework:ottf_main",
         "//sw/device/silicon_creator/lib:error",
@@ -669,15 +699,17 @@ opentitan_functest(
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "watchdog",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = ["watchdog.c"],
     hdrs = ["watchdog.h"],
     deps = [
+        "//sw/device/include:opentitan",
         "//hw/ip/aon_timer/data:aon_timer_regs",
         "//hw/ip/otp_ctrl/data:otp_ctrl_regs",
-        "//hw/top_earlgrey/ip/pwrmgr/data/autogen:pwrmgr_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//hw/top_{soc_config}/ip/pwrmgr/data/autogen:pwrmgr_regs",
+        "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/silicon_creator/lib/base:sec_mmio",
         "//sw/device/silicon_creator/lib/drivers:lifecycle",
@@ -689,7 +721,7 @@ cc_test(
     name = "watchdog_unittest",
     srcs = ["watchdog_unittest.cc"],
     deps = [
-        ":watchdog",
+        ":watchdog_earlgrey",
         "//hw/ip/aon_timer/data:aon_timer_regs",
         "//hw/ip/otp_ctrl/data:otp_ctrl_regs",
         "//hw/top_earlgrey/sw/autogen:top_earlgrey",
@@ -708,9 +740,9 @@ opentitan_functest(
         timeout = "long",
     ),
     deps = [
-        ":retention_sram",
-        ":rstmgr",
-        ":watchdog",
+        ":retention_sram_earlgrey",
+        ":rstmgr_earlgrey",
+        ":watchdog_earlgrey",
         "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/testing:rstmgr_testutils",
@@ -721,8 +753,9 @@ opentitan_functest(
     ],
 )
 
-dual_cc_library(
+opentitan_dual_cc_library(
     name = "spi_device",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = dual_inputs(
         device = ["spi_device.c"],
         host = ["mock_spi_device.cc"],
@@ -733,9 +766,10 @@ dual_cc_library(
     ),
     deps = dual_inputs(
         device = [
-            "//hw/top_earlgrey/ip/flash_ctrl/data/autogen:flash_ctrl_regs",
+            "//sw/device/include:opentitan",
+            "//hw/top_{soc_config}/ip/flash_ctrl/data/autogen:flash_ctrl_regs",
             "//hw/ip/spi_device/data:spi_device_regs",
-            "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+            "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         ],
         host = [
             "//sw/device/lib/base:global_mock",
@@ -743,7 +777,7 @@ dual_cc_library(
             "@googletest//:gtest",
         ],
         shared = [
-            ":lifecycle",
+            ":lifecycle_{soc_config}",
             "//sw/device/lib/base:abs_mmio",
             "//sw/device/lib/base:memory",
             "//sw/device/silicon_creator/lib:error",
@@ -757,7 +791,7 @@ cc_test(
         "spi_device_unittest.cc",
     ],
     deps = [
-        dual_cc_device_library_of(":spi_device"),
+        dual_cc_device_library_of(":spi_device_earlgrey"),
         "//hw/ip/spi_device/data:spi_device_regs",
         "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/base:abs_mmio",

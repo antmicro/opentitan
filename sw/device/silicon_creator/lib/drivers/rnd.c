@@ -9,9 +9,8 @@
 #include "sw/device/lib/base/macros.h"
 #include "sw/device/silicon_creator/lib/crc32.h"
 #include "sw/device/silicon_creator/lib/drivers/otp.h"
-
 #include "entropy_src_regs.h"
-#include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
+#include "sw/device/include/opentitan.h"
 #include "otp_ctrl_regs.h"
 #include "rv_core_ibex_regs.h"
 
