@@ -571,7 +571,16 @@ def opentitan_cc_library(
         **kwargs):
     """A helper macro for generating OpenTitan binary library artifacts.
 
-    TODO: Fill docs
+    This macro generates multiple targets using 'cc_library' for each
+    SoC configuration variant provided by the 'soc_configs' parameter. Targets
+    are suffixed with '_<soc_config>'.
+
+    Additionally for each dependency the placeholder '{soc_config}' is replaced
+    with the actual SoC config name. This allows to specify generalized
+    dependency list.
+
+    Args:
+      @param soc_config: A list of strings with names of SoC configurations.
     """
 
     base_name  = kwargs.pop("name")
@@ -597,7 +606,16 @@ def opentitan_dual_cc_library(
         **kwargs):
     """A helper macro for generating OpenTitan binary library artifacts.
 
-    TODO: Fill docs
+    This macro generates multiple targets using 'dual_cc_library' for each
+    SoC configuration variant provided by the 'soc_configs' parameter. Targets
+    are suffixed with '_<soc_config>'.
+
+    Additionally for each dependency the placeholder '{soc_config}' is replaced
+    with the actual SoC config name. This allows to specify generalized
+    dependency list.
+
+    Args:
+      @param soc_config: A list of strings with names of SoC configurations.
     """
 
     base_name  = kwargs.pop("name")
