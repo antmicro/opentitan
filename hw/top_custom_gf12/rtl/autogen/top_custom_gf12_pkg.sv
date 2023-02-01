@@ -13,352 +13,352 @@ package top_custom_gf12_pkg;
   /**
    * Peripheral base address for uart0 in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_UART0_BASE_ADDR = 32'h40000000;
+  parameter int unsigned OPENTITAN_UART0_BASE_ADDR = 32'h40000000;
 
   /**
    * Peripheral size in bytes for uart0 in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_UART0_SIZE_BYTES = 32'h40;
+  parameter int unsigned OPENTITAN_UART0_SIZE_BYTES = 32'h40;
 
   /**
    * Peripheral base address for gpio in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_GPIO_BASE_ADDR = 32'h40040000;
+  parameter int unsigned OPENTITAN_GPIO_BASE_ADDR = 32'h40040000;
 
   /**
    * Peripheral size in bytes for gpio in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_GPIO_SIZE_BYTES = 32'h40;
+  parameter int unsigned OPENTITAN_GPIO_SIZE_BYTES = 32'h40;
 
   /**
    * Peripheral base address for i2c0 in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_I2C0_BASE_ADDR = 32'h40080000;
+  parameter int unsigned OPENTITAN_I2C0_BASE_ADDR = 32'h40080000;
 
   /**
    * Peripheral size in bytes for i2c0 in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_I2C0_SIZE_BYTES = 32'h80;
+  parameter int unsigned OPENTITAN_I2C0_SIZE_BYTES = 32'h80;
 
   /**
    * Peripheral base address for rv_timer in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_RV_TIMER_BASE_ADDR = 32'h40100000;
+  parameter int unsigned OPENTITAN_RV_TIMER_BASE_ADDR = 32'h40100000;
 
   /**
    * Peripheral size in bytes for rv_timer in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_RV_TIMER_SIZE_BYTES = 32'h200;
+  parameter int unsigned OPENTITAN_RV_TIMER_SIZE_BYTES = 32'h200;
 
   /**
    * Peripheral base address for core device on otp_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_OTP_CTRL_CORE_BASE_ADDR = 32'h40130000;
+  parameter int unsigned OPENTITAN_OTP_CTRL_CORE_BASE_ADDR = 32'h40130000;
 
   /**
    * Peripheral size in bytes for core device on otp_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_OTP_CTRL_CORE_SIZE_BYTES = 32'h2000;
+  parameter int unsigned OPENTITAN_OTP_CTRL_CORE_SIZE_BYTES = 32'h2000;
 
   /**
    * Peripheral base address for prim device on otp_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_OTP_CTRL_PRIM_BASE_ADDR = 32'h40132000;
+  parameter int unsigned OPENTITAN_OTP_CTRL_PRIM_BASE_ADDR = 32'h40132000;
 
   /**
    * Peripheral size in bytes for prim device on otp_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_OTP_CTRL_PRIM_SIZE_BYTES = 32'h20;
+  parameter int unsigned OPENTITAN_OTP_CTRL_PRIM_SIZE_BYTES = 32'h20;
 
   /**
    * Peripheral base address for lc_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_LC_CTRL_BASE_ADDR = 32'h40140000;
+  parameter int unsigned OPENTITAN_LC_CTRL_BASE_ADDR = 32'h40140000;
 
   /**
    * Peripheral size in bytes for lc_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_LC_CTRL_SIZE_BYTES = 32'h100;
+  parameter int unsigned OPENTITAN_LC_CTRL_SIZE_BYTES = 32'h100;
 
   /**
    * Peripheral base address for alert_handler in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_ALERT_HANDLER_BASE_ADDR = 32'h40150000;
+  parameter int unsigned OPENTITAN_ALERT_HANDLER_BASE_ADDR = 32'h40150000;
 
   /**
    * Peripheral size in bytes for alert_handler in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_ALERT_HANDLER_SIZE_BYTES = 32'h400;
+  parameter int unsigned OPENTITAN_ALERT_HANDLER_SIZE_BYTES = 32'h400;
 
   /**
    * Peripheral base address for spi_host0 in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_SPI_HOST0_BASE_ADDR = 32'h40300000;
+  parameter int unsigned OPENTITAN_SPI_HOST0_BASE_ADDR = 32'h40300000;
 
   /**
    * Peripheral size in bytes for spi_host0 in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_SPI_HOST0_SIZE_BYTES = 32'h40;
+  parameter int unsigned OPENTITAN_SPI_HOST0_SIZE_BYTES = 32'h40;
 
   /**
    * Peripheral base address for pwrmgr_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_PWRMGR_AON_BASE_ADDR = 32'h40400000;
+  parameter int unsigned OPENTITAN_PWRMGR_AON_BASE_ADDR = 32'h40400000;
 
   /**
    * Peripheral size in bytes for pwrmgr_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_PWRMGR_AON_SIZE_BYTES = 32'h80;
+  parameter int unsigned OPENTITAN_PWRMGR_AON_SIZE_BYTES = 32'h80;
 
   /**
    * Peripheral base address for rstmgr_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_RSTMGR_AON_BASE_ADDR = 32'h40410000;
+  parameter int unsigned OPENTITAN_RSTMGR_AON_BASE_ADDR = 32'h40410000;
 
   /**
    * Peripheral size in bytes for rstmgr_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_RSTMGR_AON_SIZE_BYTES = 32'h80;
+  parameter int unsigned OPENTITAN_RSTMGR_AON_SIZE_BYTES = 32'h80;
 
   /**
    * Peripheral base address for clkmgr_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_CLKMGR_AON_BASE_ADDR = 32'h40420000;
+  parameter int unsigned OPENTITAN_CLKMGR_AON_BASE_ADDR = 32'h40420000;
 
   /**
    * Peripheral size in bytes for clkmgr_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_CLKMGR_AON_SIZE_BYTES = 32'h80;
+  parameter int unsigned OPENTITAN_CLKMGR_AON_SIZE_BYTES = 32'h80;
 
   /**
    * Peripheral base address for sysrst_ctrl_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_SYSRST_CTRL_AON_BASE_ADDR = 32'h40430000;
+  parameter int unsigned OPENTITAN_SYSRST_CTRL_AON_BASE_ADDR = 32'h40430000;
 
   /**
    * Peripheral size in bytes for sysrst_ctrl_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_SYSRST_CTRL_AON_SIZE_BYTES = 32'h100;
+  parameter int unsigned OPENTITAN_SYSRST_CTRL_AON_SIZE_BYTES = 32'h100;
 
   /**
    * Peripheral base address for pinmux_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_PINMUX_AON_BASE_ADDR = 32'h40460000;
+  parameter int unsigned OPENTITAN_PINMUX_AON_BASE_ADDR = 32'h40460000;
 
   /**
    * Peripheral size in bytes for pinmux_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_PINMUX_AON_SIZE_BYTES = 32'h800;
+  parameter int unsigned OPENTITAN_PINMUX_AON_SIZE_BYTES = 32'h800;
 
   /**
    * Peripheral base address for aon_timer_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_AON_TIMER_AON_BASE_ADDR = 32'h40470000;
+  parameter int unsigned OPENTITAN_AON_TIMER_AON_BASE_ADDR = 32'h40470000;
 
   /**
    * Peripheral size in bytes for aon_timer_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_AON_TIMER_AON_SIZE_BYTES = 32'h40;
+  parameter int unsigned OPENTITAN_AON_TIMER_AON_SIZE_BYTES = 32'h40;
 
   /**
    * Peripheral base address for ast in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_AST_BASE_ADDR = 32'h40480000;
+  parameter int unsigned OPENTITAN_AST_BASE_ADDR = 32'h40480000;
 
   /**
    * Peripheral size in bytes for ast in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_AST_SIZE_BYTES = 32'h400;
+  parameter int unsigned OPENTITAN_AST_SIZE_BYTES = 32'h400;
 
   /**
    * Peripheral base address for sensor_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_SENSOR_CTRL_BASE_ADDR = 32'h40490000;
+  parameter int unsigned OPENTITAN_SENSOR_CTRL_BASE_ADDR = 32'h40490000;
 
   /**
    * Peripheral size in bytes for sensor_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_SENSOR_CTRL_SIZE_BYTES = 32'h40;
+  parameter int unsigned OPENTITAN_SENSOR_CTRL_SIZE_BYTES = 32'h40;
 
   /**
    * Peripheral base address for regs device on sram_ctrl_ret_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_REGS_BASE_ADDR = 32'h40500000;
+  parameter int unsigned OPENTITAN_SRAM_CTRL_RET_AON_REGS_BASE_ADDR = 32'h40500000;
 
   /**
    * Peripheral size in bytes for regs device on sram_ctrl_ret_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_REGS_SIZE_BYTES = 32'h20;
+  parameter int unsigned OPENTITAN_SRAM_CTRL_RET_AON_REGS_SIZE_BYTES = 32'h20;
 
   /**
    * Peripheral base address for ram device on sram_ctrl_ret_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_RAM_BASE_ADDR = 32'h40600000;
+  parameter int unsigned OPENTITAN_SRAM_CTRL_RET_AON_RAM_BASE_ADDR = 32'h40600000;
 
   /**
    * Peripheral size in bytes for ram device on sram_ctrl_ret_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_RAM_SIZE_BYTES = 32'h1000;
+  parameter int unsigned OPENTITAN_SRAM_CTRL_RET_AON_RAM_SIZE_BYTES = 32'h1000;
 
   /**
    * Peripheral base address for core device on flash_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_FLASH_CTRL_CORE_BASE_ADDR = 32'h41000000;
+  parameter int unsigned OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR = 32'h41000000;
 
   /**
    * Peripheral size in bytes for core device on flash_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_FLASH_CTRL_CORE_SIZE_BYTES = 32'h200;
+  parameter int unsigned OPENTITAN_FLASH_CTRL_CORE_SIZE_BYTES = 32'h200;
 
   /**
    * Peripheral base address for prim device on flash_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_FLASH_CTRL_PRIM_BASE_ADDR = 32'h41008000;
+  parameter int unsigned OPENTITAN_FLASH_CTRL_PRIM_BASE_ADDR = 32'h41008000;
 
   /**
    * Peripheral size in bytes for prim device on flash_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_FLASH_CTRL_PRIM_SIZE_BYTES = 32'h80;
+  parameter int unsigned OPENTITAN_FLASH_CTRL_PRIM_SIZE_BYTES = 32'h80;
 
   /**
    * Peripheral base address for mem device on flash_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_FLASH_CTRL_MEM_BASE_ADDR = 32'h20000000;
+  parameter int unsigned OPENTITAN_FLASH_CTRL_MEM_BASE_ADDR = 32'h20000000;
 
   /**
    * Peripheral size in bytes for mem device on flash_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_FLASH_CTRL_MEM_SIZE_BYTES = 32'h40000;
+  parameter int unsigned OPENTITAN_FLASH_CTRL_MEM_SIZE_BYTES = 32'h40000;
 
   /**
    * Peripheral base address for regs device on rv_dm in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_RV_DM_REGS_BASE_ADDR = 32'h41200000;
+  parameter int unsigned OPENTITAN_RV_DM_REGS_BASE_ADDR = 32'h41200000;
 
   /**
    * Peripheral size in bytes for regs device on rv_dm in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_RV_DM_REGS_SIZE_BYTES = 32'h4;
+  parameter int unsigned OPENTITAN_RV_DM_REGS_SIZE_BYTES = 32'h4;
 
   /**
    * Peripheral base address for mem device on rv_dm in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_RV_DM_MEM_BASE_ADDR = 32'h10000;
+  parameter int unsigned OPENTITAN_RV_DM_MEM_BASE_ADDR = 32'h10000;
 
   /**
    * Peripheral size in bytes for mem device on rv_dm in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_RV_DM_MEM_SIZE_BYTES = 32'h1000;
+  parameter int unsigned OPENTITAN_RV_DM_MEM_SIZE_BYTES = 32'h1000;
 
   /**
    * Peripheral base address for rv_plic in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_RV_PLIC_BASE_ADDR = 32'h48000000;
+  parameter int unsigned OPENTITAN_RV_PLIC_BASE_ADDR = 32'h48000000;
 
   /**
    * Peripheral size in bytes for rv_plic in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_RV_PLIC_SIZE_BYTES = 32'h8000000;
+  parameter int unsigned OPENTITAN_RV_PLIC_SIZE_BYTES = 32'h8000000;
 
   /**
    * Peripheral base address for kmac in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_KMAC_BASE_ADDR = 32'h41120000;
+  parameter int unsigned OPENTITAN_KMAC_BASE_ADDR = 32'h41120000;
 
   /**
    * Peripheral size in bytes for kmac in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_KMAC_SIZE_BYTES = 32'h2;
+  parameter int unsigned OPENTITAN_KMAC_SIZE_BYTES = 32'h2;
 
   /**
    * Peripheral base address for regs device on sram_ctrl_main in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_REGS_BASE_ADDR = 32'h411C0000;
+  parameter int unsigned OPENTITAN_SRAM_CTRL_MAIN_REGS_BASE_ADDR = 32'h411C0000;
 
   /**
    * Peripheral size in bytes for regs device on sram_ctrl_main in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_REGS_SIZE_BYTES = 32'h20;
+  parameter int unsigned OPENTITAN_SRAM_CTRL_MAIN_REGS_SIZE_BYTES = 32'h20;
 
   /**
    * Peripheral base address for ram device on sram_ctrl_main in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_RAM_BASE_ADDR = 32'h10000000;
+  parameter int unsigned OPENTITAN_SRAM_CTRL_MAIN_RAM_BASE_ADDR = 32'h10000000;
 
   /**
    * Peripheral size in bytes for ram device on sram_ctrl_main in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_RAM_SIZE_BYTES = 32'h20000;
+  parameter int unsigned OPENTITAN_SRAM_CTRL_MAIN_RAM_SIZE_BYTES = 32'h20000;
 
   /**
    * Peripheral base address for regs device on rom_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_ROM_CTRL_REGS_BASE_ADDR = 32'h411E0000;
+  parameter int unsigned OPENTITAN_ROM_CTRL_REGS_BASE_ADDR = 32'h411E0000;
 
   /**
    * Peripheral size in bytes for regs device on rom_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_ROM_CTRL_REGS_SIZE_BYTES = 32'h80;
+  parameter int unsigned OPENTITAN_ROM_CTRL_REGS_SIZE_BYTES = 32'h80;
 
   /**
    * Peripheral base address for rom device on rom_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_ROM_CTRL_ROM_BASE_ADDR = 32'h8000;
+  parameter int unsigned OPENTITAN_ROM_CTRL_ROM_BASE_ADDR = 32'h8000;
 
   /**
    * Peripheral size in bytes for rom device on rom_ctrl in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_ROM_CTRL_ROM_SIZE_BYTES = 32'h8000;
+  parameter int unsigned OPENTITAN_ROM_CTRL_ROM_SIZE_BYTES = 32'h8000;
 
   /**
    * Peripheral base address for cfg device on rv_core_ibex in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_RV_CORE_IBEX_CFG_BASE_ADDR = 32'h411F0000;
+  parameter int unsigned OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR = 32'h411F0000;
 
   /**
    * Peripheral size in bytes for cfg device on rv_core_ibex in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_RV_CORE_IBEX_CFG_SIZE_BYTES = 32'h100;
+  parameter int unsigned OPENTITAN_RV_CORE_IBEX_CFG_SIZE_BYTES = 32'h100;
 
   /**
    * Memory base address for ram_ret_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_RAM_RET_AON_BASE_ADDR = 32'h40600000;
+  parameter int unsigned OPENTITAN_RAM_RET_AON_BASE_ADDR = 32'h40600000;
 
   /**
    * Memory size for ram_ret_aon in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_RAM_RET_AON_SIZE_BYTES = 32'h1000;
+  parameter int unsigned OPENTITAN_RAM_RET_AON_SIZE_BYTES = 32'h1000;
 
   /**
    * Memory base address for eflash in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_EFLASH_BASE_ADDR = 32'h20000000;
+  parameter int unsigned OPENTITAN_EFLASH_BASE_ADDR = 32'h20000000;
 
   /**
    * Memory size for eflash in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_EFLASH_SIZE_BYTES = 32'h40000;
+  parameter int unsigned OPENTITAN_EFLASH_SIZE_BYTES = 32'h40000;
 
   /**
    * Memory base address for ram_main in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_RAM_MAIN_BASE_ADDR = 32'h10000000;
+  parameter int unsigned OPENTITAN_RAM_MAIN_BASE_ADDR = 32'h10000000;
 
   /**
    * Memory size for ram_main in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_RAM_MAIN_SIZE_BYTES = 32'h20000;
+  parameter int unsigned OPENTITAN_RAM_MAIN_SIZE_BYTES = 32'h20000;
 
   /**
    * Memory base address for rom in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_ROM_BASE_ADDR = 32'h8000;
+  parameter int unsigned OPENTITAN_ROM_BASE_ADDR = 32'h8000;
 
   /**
    * Memory size for rom in top custom_gf12.
    */
-  parameter int unsigned TOP_CUSTOM_GF12_ROM_SIZE_BYTES = 32'h8000;
+  parameter int unsigned OPENTITAN_ROM_SIZE_BYTES = 32'h8000;
 
 
   // Enumeration of alert modules

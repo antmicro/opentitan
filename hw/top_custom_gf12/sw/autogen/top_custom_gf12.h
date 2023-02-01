@@ -31,17 +31,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_UART0_BASE_ADDR 0x40000000u
+#define OPENTITAN_UART0_BASE_ADDR 0x40000000u
 
 /**
  * Peripheral size for uart0 in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_UART0_BASE_ADDR and
- * `TOP_CUSTOM_GF12_UART0_BASE_ADDR + TOP_CUSTOM_GF12_UART0_SIZE_BYTES`.
+ * address between #OPENTITAN_UART0_BASE_ADDR and
+ * `OPENTITAN_UART0_BASE_ADDR + OPENTITAN_UART0_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_UART0_SIZE_BYTES 0x40u
+#define OPENTITAN_UART0_SIZE_BYTES 0x40u
 
 /**
  * Peripheral base address for gpio in top custom_gf12.
@@ -49,17 +49,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_GPIO_BASE_ADDR 0x40040000u
+#define OPENTITAN_GPIO_BASE_ADDR 0x40040000u
 
 /**
  * Peripheral size for gpio in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_GPIO_BASE_ADDR and
- * `TOP_CUSTOM_GF12_GPIO_BASE_ADDR + TOP_CUSTOM_GF12_GPIO_SIZE_BYTES`.
+ * address between #OPENTITAN_GPIO_BASE_ADDR and
+ * `OPENTITAN_GPIO_BASE_ADDR + OPENTITAN_GPIO_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_GPIO_SIZE_BYTES 0x40u
+#define OPENTITAN_GPIO_SIZE_BYTES 0x40u
 
 /**
  * Peripheral base address for i2c0 in top custom_gf12.
@@ -67,17 +67,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_I2C0_BASE_ADDR 0x40080000u
+#define OPENTITAN_I2C0_BASE_ADDR 0x40080000u
 
 /**
  * Peripheral size for i2c0 in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_I2C0_BASE_ADDR and
- * `TOP_CUSTOM_GF12_I2C0_BASE_ADDR + TOP_CUSTOM_GF12_I2C0_SIZE_BYTES`.
+ * address between #OPENTITAN_I2C0_BASE_ADDR and
+ * `OPENTITAN_I2C0_BASE_ADDR + OPENTITAN_I2C0_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_I2C0_SIZE_BYTES 0x80u
+#define OPENTITAN_I2C0_SIZE_BYTES 0x80u
 
 /**
  * Peripheral base address for rv_timer in top custom_gf12.
@@ -85,17 +85,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_RV_TIMER_BASE_ADDR 0x40100000u
+#define OPENTITAN_RV_TIMER_BASE_ADDR 0x40100000u
 
 /**
  * Peripheral size for rv_timer in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_RV_TIMER_BASE_ADDR and
- * `TOP_CUSTOM_GF12_RV_TIMER_BASE_ADDR + TOP_CUSTOM_GF12_RV_TIMER_SIZE_BYTES`.
+ * address between #OPENTITAN_RV_TIMER_BASE_ADDR and
+ * `OPENTITAN_RV_TIMER_BASE_ADDR + OPENTITAN_RV_TIMER_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_RV_TIMER_SIZE_BYTES 0x200u
+#define OPENTITAN_RV_TIMER_SIZE_BYTES 0x200u
 
 /**
  * Peripheral base address for core device on otp_ctrl in top custom_gf12.
@@ -103,17 +103,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_OTP_CTRL_CORE_BASE_ADDR 0x40130000u
+#define OPENTITAN_OTP_CTRL_CORE_BASE_ADDR 0x40130000u
 
 /**
  * Peripheral size for core device on otp_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_OTP_CTRL_CORE_BASE_ADDR and
- * `TOP_CUSTOM_GF12_OTP_CTRL_CORE_BASE_ADDR + TOP_CUSTOM_GF12_OTP_CTRL_CORE_SIZE_BYTES`.
+ * address between #OPENTITAN_OTP_CTRL_CORE_BASE_ADDR and
+ * `OPENTITAN_OTP_CTRL_CORE_BASE_ADDR + OPENTITAN_OTP_CTRL_CORE_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_OTP_CTRL_CORE_SIZE_BYTES 0x2000u
+#define OPENTITAN_OTP_CTRL_CORE_SIZE_BYTES 0x2000u
 
 /**
  * Peripheral base address for prim device on otp_ctrl in top custom_gf12.
@@ -121,17 +121,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_OTP_CTRL_PRIM_BASE_ADDR 0x40132000u
+#define OPENTITAN_OTP_CTRL_PRIM_BASE_ADDR 0x40132000u
 
 /**
  * Peripheral size for prim device on otp_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_OTP_CTRL_PRIM_BASE_ADDR and
- * `TOP_CUSTOM_GF12_OTP_CTRL_PRIM_BASE_ADDR + TOP_CUSTOM_GF12_OTP_CTRL_PRIM_SIZE_BYTES`.
+ * address between #OPENTITAN_OTP_CTRL_PRIM_BASE_ADDR and
+ * `OPENTITAN_OTP_CTRL_PRIM_BASE_ADDR + OPENTITAN_OTP_CTRL_PRIM_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_OTP_CTRL_PRIM_SIZE_BYTES 0x20u
+#define OPENTITAN_OTP_CTRL_PRIM_SIZE_BYTES 0x20u
 
 /**
  * Peripheral base address for lc_ctrl in top custom_gf12.
@@ -139,17 +139,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_LC_CTRL_BASE_ADDR 0x40140000u
+#define OPENTITAN_LC_CTRL_BASE_ADDR 0x40140000u
 
 /**
  * Peripheral size for lc_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_LC_CTRL_BASE_ADDR and
- * `TOP_CUSTOM_GF12_LC_CTRL_BASE_ADDR + TOP_CUSTOM_GF12_LC_CTRL_SIZE_BYTES`.
+ * address between #OPENTITAN_LC_CTRL_BASE_ADDR and
+ * `OPENTITAN_LC_CTRL_BASE_ADDR + OPENTITAN_LC_CTRL_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_LC_CTRL_SIZE_BYTES 0x100u
+#define OPENTITAN_LC_CTRL_SIZE_BYTES 0x100u
 
 /**
  * Peripheral base address for alert_handler in top custom_gf12.
@@ -157,17 +157,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_ALERT_HANDLER_BASE_ADDR 0x40150000u
+#define OPENTITAN_ALERT_HANDLER_BASE_ADDR 0x40150000u
 
 /**
  * Peripheral size for alert_handler in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_ALERT_HANDLER_BASE_ADDR and
- * `TOP_CUSTOM_GF12_ALERT_HANDLER_BASE_ADDR + TOP_CUSTOM_GF12_ALERT_HANDLER_SIZE_BYTES`.
+ * address between #OPENTITAN_ALERT_HANDLER_BASE_ADDR and
+ * `OPENTITAN_ALERT_HANDLER_BASE_ADDR + OPENTITAN_ALERT_HANDLER_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_ALERT_HANDLER_SIZE_BYTES 0x400u
+#define OPENTITAN_ALERT_HANDLER_SIZE_BYTES 0x400u
 
 /**
  * Peripheral base address for spi_host0 in top custom_gf12.
@@ -175,17 +175,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_SPI_HOST0_BASE_ADDR 0x40300000u
+#define OPENTITAN_SPI_HOST0_BASE_ADDR 0x40300000u
 
 /**
  * Peripheral size for spi_host0 in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_SPI_HOST0_BASE_ADDR and
- * `TOP_CUSTOM_GF12_SPI_HOST0_BASE_ADDR + TOP_CUSTOM_GF12_SPI_HOST0_SIZE_BYTES`.
+ * address between #OPENTITAN_SPI_HOST0_BASE_ADDR and
+ * `OPENTITAN_SPI_HOST0_BASE_ADDR + OPENTITAN_SPI_HOST0_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_SPI_HOST0_SIZE_BYTES 0x40u
+#define OPENTITAN_SPI_HOST0_SIZE_BYTES 0x40u
 
 /**
  * Peripheral base address for pwrmgr_aon in top custom_gf12.
@@ -193,17 +193,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_PWRMGR_AON_BASE_ADDR 0x40400000u
+#define OPENTITAN_PWRMGR_AON_BASE_ADDR 0x40400000u
 
 /**
  * Peripheral size for pwrmgr_aon in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_PWRMGR_AON_BASE_ADDR and
- * `TOP_CUSTOM_GF12_PWRMGR_AON_BASE_ADDR + TOP_CUSTOM_GF12_PWRMGR_AON_SIZE_BYTES`.
+ * address between #OPENTITAN_PWRMGR_AON_BASE_ADDR and
+ * `OPENTITAN_PWRMGR_AON_BASE_ADDR + OPENTITAN_PWRMGR_AON_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_PWRMGR_AON_SIZE_BYTES 0x80u
+#define OPENTITAN_PWRMGR_AON_SIZE_BYTES 0x80u
 
 /**
  * Peripheral base address for rstmgr_aon in top custom_gf12.
@@ -211,17 +211,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_RSTMGR_AON_BASE_ADDR 0x40410000u
+#define OPENTITAN_RSTMGR_AON_BASE_ADDR 0x40410000u
 
 /**
  * Peripheral size for rstmgr_aon in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_RSTMGR_AON_BASE_ADDR and
- * `TOP_CUSTOM_GF12_RSTMGR_AON_BASE_ADDR + TOP_CUSTOM_GF12_RSTMGR_AON_SIZE_BYTES`.
+ * address between #OPENTITAN_RSTMGR_AON_BASE_ADDR and
+ * `OPENTITAN_RSTMGR_AON_BASE_ADDR + OPENTITAN_RSTMGR_AON_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_RSTMGR_AON_SIZE_BYTES 0x80u
+#define OPENTITAN_RSTMGR_AON_SIZE_BYTES 0x80u
 
 /**
  * Peripheral base address for clkmgr_aon in top custom_gf12.
@@ -229,17 +229,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_CLKMGR_AON_BASE_ADDR 0x40420000u
+#define OPENTITAN_CLKMGR_AON_BASE_ADDR 0x40420000u
 
 /**
  * Peripheral size for clkmgr_aon in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_CLKMGR_AON_BASE_ADDR and
- * `TOP_CUSTOM_GF12_CLKMGR_AON_BASE_ADDR + TOP_CUSTOM_GF12_CLKMGR_AON_SIZE_BYTES`.
+ * address between #OPENTITAN_CLKMGR_AON_BASE_ADDR and
+ * `OPENTITAN_CLKMGR_AON_BASE_ADDR + OPENTITAN_CLKMGR_AON_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_CLKMGR_AON_SIZE_BYTES 0x80u
+#define OPENTITAN_CLKMGR_AON_SIZE_BYTES 0x80u
 
 /**
  * Peripheral base address for sysrst_ctrl_aon in top custom_gf12.
@@ -247,17 +247,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_SYSRST_CTRL_AON_BASE_ADDR 0x40430000u
+#define OPENTITAN_SYSRST_CTRL_AON_BASE_ADDR 0x40430000u
 
 /**
  * Peripheral size for sysrst_ctrl_aon in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_SYSRST_CTRL_AON_BASE_ADDR and
- * `TOP_CUSTOM_GF12_SYSRST_CTRL_AON_BASE_ADDR + TOP_CUSTOM_GF12_SYSRST_CTRL_AON_SIZE_BYTES`.
+ * address between #OPENTITAN_SYSRST_CTRL_AON_BASE_ADDR and
+ * `OPENTITAN_SYSRST_CTRL_AON_BASE_ADDR + OPENTITAN_SYSRST_CTRL_AON_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_SYSRST_CTRL_AON_SIZE_BYTES 0x100u
+#define OPENTITAN_SYSRST_CTRL_AON_SIZE_BYTES 0x100u
 
 /**
  * Peripheral base address for pinmux_aon in top custom_gf12.
@@ -265,17 +265,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_PINMUX_AON_BASE_ADDR 0x40460000u
+#define OPENTITAN_PINMUX_AON_BASE_ADDR 0x40460000u
 
 /**
  * Peripheral size for pinmux_aon in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_PINMUX_AON_BASE_ADDR and
- * `TOP_CUSTOM_GF12_PINMUX_AON_BASE_ADDR + TOP_CUSTOM_GF12_PINMUX_AON_SIZE_BYTES`.
+ * address between #OPENTITAN_PINMUX_AON_BASE_ADDR and
+ * `OPENTITAN_PINMUX_AON_BASE_ADDR + OPENTITAN_PINMUX_AON_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_PINMUX_AON_SIZE_BYTES 0x800u
+#define OPENTITAN_PINMUX_AON_SIZE_BYTES 0x800u
 
 /**
  * Peripheral base address for aon_timer_aon in top custom_gf12.
@@ -283,17 +283,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_AON_TIMER_AON_BASE_ADDR 0x40470000u
+#define OPENTITAN_AON_TIMER_AON_BASE_ADDR 0x40470000u
 
 /**
  * Peripheral size for aon_timer_aon in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_AON_TIMER_AON_BASE_ADDR and
- * `TOP_CUSTOM_GF12_AON_TIMER_AON_BASE_ADDR + TOP_CUSTOM_GF12_AON_TIMER_AON_SIZE_BYTES`.
+ * address between #OPENTITAN_AON_TIMER_AON_BASE_ADDR and
+ * `OPENTITAN_AON_TIMER_AON_BASE_ADDR + OPENTITAN_AON_TIMER_AON_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_AON_TIMER_AON_SIZE_BYTES 0x40u
+#define OPENTITAN_AON_TIMER_AON_SIZE_BYTES 0x40u
 
 /**
  * Peripheral base address for ast in top custom_gf12.
@@ -301,17 +301,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_AST_BASE_ADDR 0x40480000u
+#define OPENTITAN_AST_BASE_ADDR 0x40480000u
 
 /**
  * Peripheral size for ast in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_AST_BASE_ADDR and
- * `TOP_CUSTOM_GF12_AST_BASE_ADDR + TOP_CUSTOM_GF12_AST_SIZE_BYTES`.
+ * address between #OPENTITAN_AST_BASE_ADDR and
+ * `OPENTITAN_AST_BASE_ADDR + OPENTITAN_AST_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_AST_SIZE_BYTES 0x400u
+#define OPENTITAN_AST_SIZE_BYTES 0x400u
 
 /**
  * Peripheral base address for sensor_ctrl in top custom_gf12.
@@ -319,17 +319,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_SENSOR_CTRL_BASE_ADDR 0x40490000u
+#define OPENTITAN_SENSOR_CTRL_BASE_ADDR 0x40490000u
 
 /**
  * Peripheral size for sensor_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_SENSOR_CTRL_BASE_ADDR and
- * `TOP_CUSTOM_GF12_SENSOR_CTRL_BASE_ADDR + TOP_CUSTOM_GF12_SENSOR_CTRL_SIZE_BYTES`.
+ * address between #OPENTITAN_SENSOR_CTRL_BASE_ADDR and
+ * `OPENTITAN_SENSOR_CTRL_BASE_ADDR + OPENTITAN_SENSOR_CTRL_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_SENSOR_CTRL_SIZE_BYTES 0x40u
+#define OPENTITAN_SENSOR_CTRL_SIZE_BYTES 0x40u
 
 /**
  * Peripheral base address for regs device on sram_ctrl_ret_aon in top custom_gf12.
@@ -337,17 +337,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_REGS_BASE_ADDR 0x40500000u
+#define OPENTITAN_SRAM_CTRL_RET_AON_REGS_BASE_ADDR 0x40500000u
 
 /**
  * Peripheral size for regs device on sram_ctrl_ret_aon in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_REGS_BASE_ADDR and
- * `TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_REGS_BASE_ADDR + TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_REGS_SIZE_BYTES`.
+ * address between #OPENTITAN_SRAM_CTRL_RET_AON_REGS_BASE_ADDR and
+ * `OPENTITAN_SRAM_CTRL_RET_AON_REGS_BASE_ADDR + OPENTITAN_SRAM_CTRL_RET_AON_REGS_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_REGS_SIZE_BYTES 0x20u
+#define OPENTITAN_SRAM_CTRL_RET_AON_REGS_SIZE_BYTES 0x20u
 
 /**
  * Peripheral base address for ram device on sram_ctrl_ret_aon in top custom_gf12.
@@ -355,17 +355,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_RAM_BASE_ADDR 0x40600000u
+#define OPENTITAN_SRAM_CTRL_RET_AON_RAM_BASE_ADDR 0x40600000u
 
 /**
  * Peripheral size for ram device on sram_ctrl_ret_aon in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_RAM_BASE_ADDR and
- * `TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_RAM_BASE_ADDR + TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_RAM_SIZE_BYTES`.
+ * address between #OPENTITAN_SRAM_CTRL_RET_AON_RAM_BASE_ADDR and
+ * `OPENTITAN_SRAM_CTRL_RET_AON_RAM_BASE_ADDR + OPENTITAN_SRAM_CTRL_RET_AON_RAM_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_RAM_SIZE_BYTES 0x1000u
+#define OPENTITAN_SRAM_CTRL_RET_AON_RAM_SIZE_BYTES 0x1000u
 
 /**
  * Peripheral base address for core device on flash_ctrl in top custom_gf12.
@@ -373,17 +373,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_FLASH_CTRL_CORE_BASE_ADDR 0x41000000u
+#define OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR 0x41000000u
 
 /**
  * Peripheral size for core device on flash_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_FLASH_CTRL_CORE_BASE_ADDR and
- * `TOP_CUSTOM_GF12_FLASH_CTRL_CORE_BASE_ADDR + TOP_CUSTOM_GF12_FLASH_CTRL_CORE_SIZE_BYTES`.
+ * address between #OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR and
+ * `OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR + OPENTITAN_FLASH_CTRL_CORE_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_FLASH_CTRL_CORE_SIZE_BYTES 0x200u
+#define OPENTITAN_FLASH_CTRL_CORE_SIZE_BYTES 0x200u
 
 /**
  * Peripheral base address for prim device on flash_ctrl in top custom_gf12.
@@ -391,17 +391,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_FLASH_CTRL_PRIM_BASE_ADDR 0x41008000u
+#define OPENTITAN_FLASH_CTRL_PRIM_BASE_ADDR 0x41008000u
 
 /**
  * Peripheral size for prim device on flash_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_FLASH_CTRL_PRIM_BASE_ADDR and
- * `TOP_CUSTOM_GF12_FLASH_CTRL_PRIM_BASE_ADDR + TOP_CUSTOM_GF12_FLASH_CTRL_PRIM_SIZE_BYTES`.
+ * address between #OPENTITAN_FLASH_CTRL_PRIM_BASE_ADDR and
+ * `OPENTITAN_FLASH_CTRL_PRIM_BASE_ADDR + OPENTITAN_FLASH_CTRL_PRIM_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_FLASH_CTRL_PRIM_SIZE_BYTES 0x80u
+#define OPENTITAN_FLASH_CTRL_PRIM_SIZE_BYTES 0x80u
 
 /**
  * Peripheral base address for mem device on flash_ctrl in top custom_gf12.
@@ -409,17 +409,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_FLASH_CTRL_MEM_BASE_ADDR 0x20000000u
+#define OPENTITAN_FLASH_CTRL_MEM_BASE_ADDR 0x20000000u
 
 /**
  * Peripheral size for mem device on flash_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_FLASH_CTRL_MEM_BASE_ADDR and
- * `TOP_CUSTOM_GF12_FLASH_CTRL_MEM_BASE_ADDR + TOP_CUSTOM_GF12_FLASH_CTRL_MEM_SIZE_BYTES`.
+ * address between #OPENTITAN_FLASH_CTRL_MEM_BASE_ADDR and
+ * `OPENTITAN_FLASH_CTRL_MEM_BASE_ADDR + OPENTITAN_FLASH_CTRL_MEM_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_FLASH_CTRL_MEM_SIZE_BYTES 0x40000u
+#define OPENTITAN_FLASH_CTRL_MEM_SIZE_BYTES 0x40000u
 
 /**
  * Peripheral base address for regs device on rv_dm in top custom_gf12.
@@ -427,17 +427,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_RV_DM_REGS_BASE_ADDR 0x41200000u
+#define OPENTITAN_RV_DM_REGS_BASE_ADDR 0x41200000u
 
 /**
  * Peripheral size for regs device on rv_dm in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_RV_DM_REGS_BASE_ADDR and
- * `TOP_CUSTOM_GF12_RV_DM_REGS_BASE_ADDR + TOP_CUSTOM_GF12_RV_DM_REGS_SIZE_BYTES`.
+ * address between #OPENTITAN_RV_DM_REGS_BASE_ADDR and
+ * `OPENTITAN_RV_DM_REGS_BASE_ADDR + OPENTITAN_RV_DM_REGS_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_RV_DM_REGS_SIZE_BYTES 0x4u
+#define OPENTITAN_RV_DM_REGS_SIZE_BYTES 0x4u
 
 /**
  * Peripheral base address for mem device on rv_dm in top custom_gf12.
@@ -445,17 +445,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_RV_DM_MEM_BASE_ADDR 0x10000u
+#define OPENTITAN_RV_DM_MEM_BASE_ADDR 0x10000u
 
 /**
  * Peripheral size for mem device on rv_dm in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_RV_DM_MEM_BASE_ADDR and
- * `TOP_CUSTOM_GF12_RV_DM_MEM_BASE_ADDR + TOP_CUSTOM_GF12_RV_DM_MEM_SIZE_BYTES`.
+ * address between #OPENTITAN_RV_DM_MEM_BASE_ADDR and
+ * `OPENTITAN_RV_DM_MEM_BASE_ADDR + OPENTITAN_RV_DM_MEM_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_RV_DM_MEM_SIZE_BYTES 0x1000u
+#define OPENTITAN_RV_DM_MEM_SIZE_BYTES 0x1000u
 
 /**
  * Peripheral base address for rv_plic in top custom_gf12.
@@ -463,17 +463,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_RV_PLIC_BASE_ADDR 0x48000000u
+#define OPENTITAN_RV_PLIC_BASE_ADDR 0x48000000u
 
 /**
  * Peripheral size for rv_plic in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_RV_PLIC_BASE_ADDR and
- * `TOP_CUSTOM_GF12_RV_PLIC_BASE_ADDR + TOP_CUSTOM_GF12_RV_PLIC_SIZE_BYTES`.
+ * address between #OPENTITAN_RV_PLIC_BASE_ADDR and
+ * `OPENTITAN_RV_PLIC_BASE_ADDR + OPENTITAN_RV_PLIC_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_RV_PLIC_SIZE_BYTES 0x8000000u
+#define OPENTITAN_RV_PLIC_SIZE_BYTES 0x8000000u
 
 /**
  * Peripheral base address for kmac in top custom_gf12.
@@ -481,17 +481,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_KMAC_BASE_ADDR 0x41120000u
+#define OPENTITAN_KMAC_BASE_ADDR 0x41120000u
 
 /**
  * Peripheral size for kmac in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_KMAC_BASE_ADDR and
- * `TOP_CUSTOM_GF12_KMAC_BASE_ADDR + TOP_CUSTOM_GF12_KMAC_SIZE_BYTES`.
+ * address between #OPENTITAN_KMAC_BASE_ADDR and
+ * `OPENTITAN_KMAC_BASE_ADDR + OPENTITAN_KMAC_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_KMAC_SIZE_BYTES 0x2u
+#define OPENTITAN_KMAC_SIZE_BYTES 0x2u
 
 /**
  * Peripheral base address for regs device on sram_ctrl_main in top custom_gf12.
@@ -499,17 +499,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_REGS_BASE_ADDR 0x411C0000u
+#define OPENTITAN_SRAM_CTRL_MAIN_REGS_BASE_ADDR 0x411C0000u
 
 /**
  * Peripheral size for regs device on sram_ctrl_main in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_REGS_BASE_ADDR and
- * `TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_REGS_BASE_ADDR + TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_REGS_SIZE_BYTES`.
+ * address between #OPENTITAN_SRAM_CTRL_MAIN_REGS_BASE_ADDR and
+ * `OPENTITAN_SRAM_CTRL_MAIN_REGS_BASE_ADDR + OPENTITAN_SRAM_CTRL_MAIN_REGS_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_REGS_SIZE_BYTES 0x20u
+#define OPENTITAN_SRAM_CTRL_MAIN_REGS_SIZE_BYTES 0x20u
 
 /**
  * Peripheral base address for ram device on sram_ctrl_main in top custom_gf12.
@@ -517,17 +517,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_RAM_BASE_ADDR 0x10000000u
+#define OPENTITAN_SRAM_CTRL_MAIN_RAM_BASE_ADDR 0x10000000u
 
 /**
  * Peripheral size for ram device on sram_ctrl_main in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_RAM_BASE_ADDR and
- * `TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_RAM_BASE_ADDR + TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_RAM_SIZE_BYTES`.
+ * address between #OPENTITAN_SRAM_CTRL_MAIN_RAM_BASE_ADDR and
+ * `OPENTITAN_SRAM_CTRL_MAIN_RAM_BASE_ADDR + OPENTITAN_SRAM_CTRL_MAIN_RAM_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_RAM_SIZE_BYTES 0x20000u
+#define OPENTITAN_SRAM_CTRL_MAIN_RAM_SIZE_BYTES 0x20000u
 
 /**
  * Peripheral base address for regs device on rom_ctrl in top custom_gf12.
@@ -535,17 +535,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_ROM_CTRL_REGS_BASE_ADDR 0x411E0000u
+#define OPENTITAN_ROM_CTRL_REGS_BASE_ADDR 0x411E0000u
 
 /**
  * Peripheral size for regs device on rom_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_ROM_CTRL_REGS_BASE_ADDR and
- * `TOP_CUSTOM_GF12_ROM_CTRL_REGS_BASE_ADDR + TOP_CUSTOM_GF12_ROM_CTRL_REGS_SIZE_BYTES`.
+ * address between #OPENTITAN_ROM_CTRL_REGS_BASE_ADDR and
+ * `OPENTITAN_ROM_CTRL_REGS_BASE_ADDR + OPENTITAN_ROM_CTRL_REGS_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_ROM_CTRL_REGS_SIZE_BYTES 0x80u
+#define OPENTITAN_ROM_CTRL_REGS_SIZE_BYTES 0x80u
 
 /**
  * Peripheral base address for rom device on rom_ctrl in top custom_gf12.
@@ -553,17 +553,17 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_ROM_CTRL_ROM_BASE_ADDR 0x8000u
+#define OPENTITAN_ROM_CTRL_ROM_BASE_ADDR 0x8000u
 
 /**
  * Peripheral size for rom device on rom_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_ROM_CTRL_ROM_BASE_ADDR and
- * `TOP_CUSTOM_GF12_ROM_CTRL_ROM_BASE_ADDR + TOP_CUSTOM_GF12_ROM_CTRL_ROM_SIZE_BYTES`.
+ * address between #OPENTITAN_ROM_CTRL_ROM_BASE_ADDR and
+ * `OPENTITAN_ROM_CTRL_ROM_BASE_ADDR + OPENTITAN_ROM_CTRL_ROM_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_ROM_CTRL_ROM_SIZE_BYTES 0x8000u
+#define OPENTITAN_ROM_CTRL_ROM_SIZE_BYTES 0x8000u
 
 /**
  * Peripheral base address for cfg device on rv_core_ibex in top custom_gf12.
@@ -571,58 +571,58 @@ extern "C" {
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_RV_CORE_IBEX_CFG_BASE_ADDR 0x411F0000u
+#define OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR 0x411F0000u
 
 /**
  * Peripheral size for cfg device on rv_core_ibex in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_RV_CORE_IBEX_CFG_BASE_ADDR and
- * `TOP_CUSTOM_GF12_RV_CORE_IBEX_CFG_BASE_ADDR + TOP_CUSTOM_GF12_RV_CORE_IBEX_CFG_SIZE_BYTES`.
+ * address between #OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR and
+ * `OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR + OPENTITAN_RV_CORE_IBEX_CFG_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_RV_CORE_IBEX_CFG_SIZE_BYTES 0x100u
+#define OPENTITAN_RV_CORE_IBEX_CFG_SIZE_BYTES 0x100u
 
 
 /**
  * Memory base address for ram_ret_aon in top custom_gf12.
  */
-#define TOP_CUSTOM_GF12_RAM_RET_AON_BASE_ADDR 0x40600000u
+#define OPENTITAN_RAM_RET_AON_BASE_ADDR 0x40600000u
 
 /**
  * Memory size for ram_ret_aon in top custom_gf12.
  */
-#define TOP_CUSTOM_GF12_RAM_RET_AON_SIZE_BYTES 0x1000u
+#define OPENTITAN_RAM_RET_AON_SIZE_BYTES 0x1000u
 
 /**
  * Memory base address for eflash in top custom_gf12.
  */
-#define TOP_CUSTOM_GF12_EFLASH_BASE_ADDR 0x20000000u
+#define OPENTITAN_EFLASH_BASE_ADDR 0x20000000u
 
 /**
  * Memory size for eflash in top custom_gf12.
  */
-#define TOP_CUSTOM_GF12_EFLASH_SIZE_BYTES 0x40000u
+#define OPENTITAN_EFLASH_SIZE_BYTES 0x40000u
 
 /**
  * Memory base address for ram_main in top custom_gf12.
  */
-#define TOP_CUSTOM_GF12_RAM_MAIN_BASE_ADDR 0x10000000u
+#define OPENTITAN_RAM_MAIN_BASE_ADDR 0x10000000u
 
 /**
  * Memory size for ram_main in top custom_gf12.
  */
-#define TOP_CUSTOM_GF12_RAM_MAIN_SIZE_BYTES 0x20000u
+#define OPENTITAN_RAM_MAIN_SIZE_BYTES 0x20000u
 
 /**
  * Memory base address for rom in top custom_gf12.
  */
-#define TOP_CUSTOM_GF12_ROM_BASE_ADDR 0x8000u
+#define OPENTITAN_ROM_BASE_ADDR 0x8000u
 
 /**
  * Memory size for rom in top custom_gf12.
  */
-#define TOP_CUSTOM_GF12_ROM_SIZE_BYTES 0x8000u
+#define OPENTITAN_ROM_SIZE_BYTES 0x8000u
 
 
 /**
@@ -631,22 +631,22 @@ extern "C" {
  * Enumeration used to determine which peripheral asserted the corresponding
  * interrupt.
  */
-typedef enum top_custom_gf12_plic_peripheral {
-  kTopCustomGf12PlicPeripheralUnknown = 0, /**< Unknown Peripheral */
-  kTopCustomGf12PlicPeripheralUart0 = 1, /**< uart0 */
-  kTopCustomGf12PlicPeripheralGpio = 2, /**< gpio */
-  kTopCustomGf12PlicPeripheralI2c0 = 3, /**< i2c0 */
-  kTopCustomGf12PlicPeripheralRvTimer = 4, /**< rv_timer */
-  kTopCustomGf12PlicPeripheralOtpCtrl = 5, /**< otp_ctrl */
-  kTopCustomGf12PlicPeripheralAlertHandler = 6, /**< alert_handler */
-  kTopCustomGf12PlicPeripheralSpiHost0 = 7, /**< spi_host0 */
-  kTopCustomGf12PlicPeripheralPwrmgrAon = 8, /**< pwrmgr_aon */
-  kTopCustomGf12PlicPeripheralSysrstCtrlAon = 9, /**< sysrst_ctrl_aon */
-  kTopCustomGf12PlicPeripheralAonTimerAon = 10, /**< aon_timer_aon */
-  kTopCustomGf12PlicPeripheralSensorCtrl = 11, /**< sensor_ctrl */
-  kTopCustomGf12PlicPeripheralFlashCtrl = 12, /**< flash_ctrl */
-  kTopCustomGf12PlicPeripheralLast = 12, /**< \internal Final PLIC peripheral */
-} top_custom_gf12_plic_peripheral_t;
+typedef enum opentitan_plic_peripheral {
+  kOpentitanPlicPeripheralUnknown = 0, /**< Unknown Peripheral */
+  kOpentitanPlicPeripheralUart0 = 1, /**< uart0 */
+  kOpentitanPlicPeripheralGpio = 2, /**< gpio */
+  kOpentitanPlicPeripheralI2c0 = 3, /**< i2c0 */
+  kOpentitanPlicPeripheralRvTimer = 4, /**< rv_timer */
+  kOpentitanPlicPeripheralOtpCtrl = 5, /**< otp_ctrl */
+  kOpentitanPlicPeripheralAlertHandler = 6, /**< alert_handler */
+  kOpentitanPlicPeripheralSpiHost0 = 7, /**< spi_host0 */
+  kOpentitanPlicPeripheralPwrmgrAon = 8, /**< pwrmgr_aon */
+  kOpentitanPlicPeripheralSysrstCtrlAon = 9, /**< sysrst_ctrl_aon */
+  kOpentitanPlicPeripheralAonTimerAon = 10, /**< aon_timer_aon */
+  kOpentitanPlicPeripheralSensorCtrl = 11, /**< sensor_ctrl */
+  kOpentitanPlicPeripheralFlashCtrl = 12, /**< flash_ctrl */
+  kOpentitanPlicPeripheralLast = 12, /**< \internal Final PLIC peripheral */
+} opentitan_plic_peripheral_t;
 
 /**
  * PLIC Interrupt Source.
@@ -654,95 +654,95 @@ typedef enum top_custom_gf12_plic_peripheral {
  * Enumeration of all PLIC interrupt sources. The interrupt sources belonging to
  * the same peripheral are guaranteed to be consecutive.
  */
-typedef enum top_custom_gf12_plic_irq_id {
-  kTopCustomGf12PlicIrqIdNone = 0, /**< No Interrupt */
-  kTopCustomGf12PlicIrqIdUart0TxWatermark = 1, /**< uart0_tx_watermark */
-  kTopCustomGf12PlicIrqIdUart0RxWatermark = 2, /**< uart0_rx_watermark */
-  kTopCustomGf12PlicIrqIdUart0TxEmpty = 3, /**< uart0_tx_empty */
-  kTopCustomGf12PlicIrqIdUart0RxOverflow = 4, /**< uart0_rx_overflow */
-  kTopCustomGf12PlicIrqIdUart0RxFrameErr = 5, /**< uart0_rx_frame_err */
-  kTopCustomGf12PlicIrqIdUart0RxBreakErr = 6, /**< uart0_rx_break_err */
-  kTopCustomGf12PlicIrqIdUart0RxTimeout = 7, /**< uart0_rx_timeout */
-  kTopCustomGf12PlicIrqIdUart0RxParityErr = 8, /**< uart0_rx_parity_err */
-  kTopCustomGf12PlicIrqIdGpioGpio0 = 9, /**< gpio_gpio 0 */
-  kTopCustomGf12PlicIrqIdGpioGpio1 = 10, /**< gpio_gpio 1 */
-  kTopCustomGf12PlicIrqIdGpioGpio2 = 11, /**< gpio_gpio 2 */
-  kTopCustomGf12PlicIrqIdGpioGpio3 = 12, /**< gpio_gpio 3 */
-  kTopCustomGf12PlicIrqIdGpioGpio4 = 13, /**< gpio_gpio 4 */
-  kTopCustomGf12PlicIrqIdGpioGpio5 = 14, /**< gpio_gpio 5 */
-  kTopCustomGf12PlicIrqIdGpioGpio6 = 15, /**< gpio_gpio 6 */
-  kTopCustomGf12PlicIrqIdGpioGpio7 = 16, /**< gpio_gpio 7 */
-  kTopCustomGf12PlicIrqIdGpioGpio8 = 17, /**< gpio_gpio 8 */
-  kTopCustomGf12PlicIrqIdGpioGpio9 = 18, /**< gpio_gpio 9 */
-  kTopCustomGf12PlicIrqIdGpioGpio10 = 19, /**< gpio_gpio 10 */
-  kTopCustomGf12PlicIrqIdGpioGpio11 = 20, /**< gpio_gpio 11 */
-  kTopCustomGf12PlicIrqIdGpioGpio12 = 21, /**< gpio_gpio 12 */
-  kTopCustomGf12PlicIrqIdGpioGpio13 = 22, /**< gpio_gpio 13 */
-  kTopCustomGf12PlicIrqIdGpioGpio14 = 23, /**< gpio_gpio 14 */
-  kTopCustomGf12PlicIrqIdGpioGpio15 = 24, /**< gpio_gpio 15 */
-  kTopCustomGf12PlicIrqIdGpioGpio16 = 25, /**< gpio_gpio 16 */
-  kTopCustomGf12PlicIrqIdGpioGpio17 = 26, /**< gpio_gpio 17 */
-  kTopCustomGf12PlicIrqIdGpioGpio18 = 27, /**< gpio_gpio 18 */
-  kTopCustomGf12PlicIrqIdGpioGpio19 = 28, /**< gpio_gpio 19 */
-  kTopCustomGf12PlicIrqIdGpioGpio20 = 29, /**< gpio_gpio 20 */
-  kTopCustomGf12PlicIrqIdGpioGpio21 = 30, /**< gpio_gpio 21 */
-  kTopCustomGf12PlicIrqIdGpioGpio22 = 31, /**< gpio_gpio 22 */
-  kTopCustomGf12PlicIrqIdGpioGpio23 = 32, /**< gpio_gpio 23 */
-  kTopCustomGf12PlicIrqIdGpioGpio24 = 33, /**< gpio_gpio 24 */
-  kTopCustomGf12PlicIrqIdGpioGpio25 = 34, /**< gpio_gpio 25 */
-  kTopCustomGf12PlicIrqIdGpioGpio26 = 35, /**< gpio_gpio 26 */
-  kTopCustomGf12PlicIrqIdGpioGpio27 = 36, /**< gpio_gpio 27 */
-  kTopCustomGf12PlicIrqIdGpioGpio28 = 37, /**< gpio_gpio 28 */
-  kTopCustomGf12PlicIrqIdGpioGpio29 = 38, /**< gpio_gpio 29 */
-  kTopCustomGf12PlicIrqIdGpioGpio30 = 39, /**< gpio_gpio 30 */
-  kTopCustomGf12PlicIrqIdGpioGpio31 = 40, /**< gpio_gpio 31 */
-  kTopCustomGf12PlicIrqIdI2c0FmtWatermark = 41, /**< i2c0_fmt_watermark */
-  kTopCustomGf12PlicIrqIdI2c0RxWatermark = 42, /**< i2c0_rx_watermark */
-  kTopCustomGf12PlicIrqIdI2c0FmtOverflow = 43, /**< i2c0_fmt_overflow */
-  kTopCustomGf12PlicIrqIdI2c0RxOverflow = 44, /**< i2c0_rx_overflow */
-  kTopCustomGf12PlicIrqIdI2c0Nak = 45, /**< i2c0_nak */
-  kTopCustomGf12PlicIrqIdI2c0SclInterference = 46, /**< i2c0_scl_interference */
-  kTopCustomGf12PlicIrqIdI2c0SdaInterference = 47, /**< i2c0_sda_interference */
-  kTopCustomGf12PlicIrqIdI2c0StretchTimeout = 48, /**< i2c0_stretch_timeout */
-  kTopCustomGf12PlicIrqIdI2c0SdaUnstable = 49, /**< i2c0_sda_unstable */
-  kTopCustomGf12PlicIrqIdI2c0CmdComplete = 50, /**< i2c0_cmd_complete */
-  kTopCustomGf12PlicIrqIdI2c0TxStretch = 51, /**< i2c0_tx_stretch */
-  kTopCustomGf12PlicIrqIdI2c0TxOverflow = 52, /**< i2c0_tx_overflow */
-  kTopCustomGf12PlicIrqIdI2c0AcqFull = 53, /**< i2c0_acq_full */
-  kTopCustomGf12PlicIrqIdI2c0UnexpStop = 54, /**< i2c0_unexp_stop */
-  kTopCustomGf12PlicIrqIdI2c0HostTimeout = 55, /**< i2c0_host_timeout */
-  kTopCustomGf12PlicIrqIdRvTimerTimerExpiredHart0Timer0 = 56, /**< rv_timer_timer_expired_hart0_timer0 */
-  kTopCustomGf12PlicIrqIdOtpCtrlOtpOperationDone = 57, /**< otp_ctrl_otp_operation_done */
-  kTopCustomGf12PlicIrqIdOtpCtrlOtpError = 58, /**< otp_ctrl_otp_error */
-  kTopCustomGf12PlicIrqIdAlertHandlerClassa = 59, /**< alert_handler_classa */
-  kTopCustomGf12PlicIrqIdAlertHandlerClassb = 60, /**< alert_handler_classb */
-  kTopCustomGf12PlicIrqIdAlertHandlerClassc = 61, /**< alert_handler_classc */
-  kTopCustomGf12PlicIrqIdAlertHandlerClassd = 62, /**< alert_handler_classd */
-  kTopCustomGf12PlicIrqIdSpiHost0Error = 63, /**< spi_host0_error */
-  kTopCustomGf12PlicIrqIdSpiHost0SpiEvent = 64, /**< spi_host0_spi_event */
-  kTopCustomGf12PlicIrqIdPwrmgrAonWakeup = 65, /**< pwrmgr_aon_wakeup */
-  kTopCustomGf12PlicIrqIdSysrstCtrlAonEventDetected = 66, /**< sysrst_ctrl_aon_event_detected */
-  kTopCustomGf12PlicIrqIdAonTimerAonWkupTimerExpired = 67, /**< aon_timer_aon_wkup_timer_expired */
-  kTopCustomGf12PlicIrqIdAonTimerAonWdogTimerBark = 68, /**< aon_timer_aon_wdog_timer_bark */
-  kTopCustomGf12PlicIrqIdSensorCtrlIoStatusChange = 69, /**< sensor_ctrl_io_status_change */
-  kTopCustomGf12PlicIrqIdSensorCtrlInitStatusChange = 70, /**< sensor_ctrl_init_status_change */
-  kTopCustomGf12PlicIrqIdFlashCtrlProgEmpty = 71, /**< flash_ctrl_prog_empty */
-  kTopCustomGf12PlicIrqIdFlashCtrlProgLvl = 72, /**< flash_ctrl_prog_lvl */
-  kTopCustomGf12PlicIrqIdFlashCtrlRdFull = 73, /**< flash_ctrl_rd_full */
-  kTopCustomGf12PlicIrqIdFlashCtrlRdLvl = 74, /**< flash_ctrl_rd_lvl */
-  kTopCustomGf12PlicIrqIdFlashCtrlOpDone = 75, /**< flash_ctrl_op_done */
-  kTopCustomGf12PlicIrqIdFlashCtrlCorrErr = 76, /**< flash_ctrl_corr_err */
-  kTopCustomGf12PlicIrqIdLast = 76, /**< \internal The Last Valid Interrupt ID. */
-} top_custom_gf12_plic_irq_id_t;
+typedef enum opentitan_plic_irq_id {
+  kOpentitanPlicIrqIdNone = 0, /**< No Interrupt */
+  kOpentitanPlicIrqIdUart0TxWatermark = 1, /**< uart0_tx_watermark */
+  kOpentitanPlicIrqIdUart0RxWatermark = 2, /**< uart0_rx_watermark */
+  kOpentitanPlicIrqIdUart0TxEmpty = 3, /**< uart0_tx_empty */
+  kOpentitanPlicIrqIdUart0RxOverflow = 4, /**< uart0_rx_overflow */
+  kOpentitanPlicIrqIdUart0RxFrameErr = 5, /**< uart0_rx_frame_err */
+  kOpentitanPlicIrqIdUart0RxBreakErr = 6, /**< uart0_rx_break_err */
+  kOpentitanPlicIrqIdUart0RxTimeout = 7, /**< uart0_rx_timeout */
+  kOpentitanPlicIrqIdUart0RxParityErr = 8, /**< uart0_rx_parity_err */
+  kOpentitanPlicIrqIdGpioGpio0 = 9, /**< gpio_gpio 0 */
+  kOpentitanPlicIrqIdGpioGpio1 = 10, /**< gpio_gpio 1 */
+  kOpentitanPlicIrqIdGpioGpio2 = 11, /**< gpio_gpio 2 */
+  kOpentitanPlicIrqIdGpioGpio3 = 12, /**< gpio_gpio 3 */
+  kOpentitanPlicIrqIdGpioGpio4 = 13, /**< gpio_gpio 4 */
+  kOpentitanPlicIrqIdGpioGpio5 = 14, /**< gpio_gpio 5 */
+  kOpentitanPlicIrqIdGpioGpio6 = 15, /**< gpio_gpio 6 */
+  kOpentitanPlicIrqIdGpioGpio7 = 16, /**< gpio_gpio 7 */
+  kOpentitanPlicIrqIdGpioGpio8 = 17, /**< gpio_gpio 8 */
+  kOpentitanPlicIrqIdGpioGpio9 = 18, /**< gpio_gpio 9 */
+  kOpentitanPlicIrqIdGpioGpio10 = 19, /**< gpio_gpio 10 */
+  kOpentitanPlicIrqIdGpioGpio11 = 20, /**< gpio_gpio 11 */
+  kOpentitanPlicIrqIdGpioGpio12 = 21, /**< gpio_gpio 12 */
+  kOpentitanPlicIrqIdGpioGpio13 = 22, /**< gpio_gpio 13 */
+  kOpentitanPlicIrqIdGpioGpio14 = 23, /**< gpio_gpio 14 */
+  kOpentitanPlicIrqIdGpioGpio15 = 24, /**< gpio_gpio 15 */
+  kOpentitanPlicIrqIdGpioGpio16 = 25, /**< gpio_gpio 16 */
+  kOpentitanPlicIrqIdGpioGpio17 = 26, /**< gpio_gpio 17 */
+  kOpentitanPlicIrqIdGpioGpio18 = 27, /**< gpio_gpio 18 */
+  kOpentitanPlicIrqIdGpioGpio19 = 28, /**< gpio_gpio 19 */
+  kOpentitanPlicIrqIdGpioGpio20 = 29, /**< gpio_gpio 20 */
+  kOpentitanPlicIrqIdGpioGpio21 = 30, /**< gpio_gpio 21 */
+  kOpentitanPlicIrqIdGpioGpio22 = 31, /**< gpio_gpio 22 */
+  kOpentitanPlicIrqIdGpioGpio23 = 32, /**< gpio_gpio 23 */
+  kOpentitanPlicIrqIdGpioGpio24 = 33, /**< gpio_gpio 24 */
+  kOpentitanPlicIrqIdGpioGpio25 = 34, /**< gpio_gpio 25 */
+  kOpentitanPlicIrqIdGpioGpio26 = 35, /**< gpio_gpio 26 */
+  kOpentitanPlicIrqIdGpioGpio27 = 36, /**< gpio_gpio 27 */
+  kOpentitanPlicIrqIdGpioGpio28 = 37, /**< gpio_gpio 28 */
+  kOpentitanPlicIrqIdGpioGpio29 = 38, /**< gpio_gpio 29 */
+  kOpentitanPlicIrqIdGpioGpio30 = 39, /**< gpio_gpio 30 */
+  kOpentitanPlicIrqIdGpioGpio31 = 40, /**< gpio_gpio 31 */
+  kOpentitanPlicIrqIdI2c0FmtWatermark = 41, /**< i2c0_fmt_watermark */
+  kOpentitanPlicIrqIdI2c0RxWatermark = 42, /**< i2c0_rx_watermark */
+  kOpentitanPlicIrqIdI2c0FmtOverflow = 43, /**< i2c0_fmt_overflow */
+  kOpentitanPlicIrqIdI2c0RxOverflow = 44, /**< i2c0_rx_overflow */
+  kOpentitanPlicIrqIdI2c0Nak = 45, /**< i2c0_nak */
+  kOpentitanPlicIrqIdI2c0SclInterference = 46, /**< i2c0_scl_interference */
+  kOpentitanPlicIrqIdI2c0SdaInterference = 47, /**< i2c0_sda_interference */
+  kOpentitanPlicIrqIdI2c0StretchTimeout = 48, /**< i2c0_stretch_timeout */
+  kOpentitanPlicIrqIdI2c0SdaUnstable = 49, /**< i2c0_sda_unstable */
+  kOpentitanPlicIrqIdI2c0CmdComplete = 50, /**< i2c0_cmd_complete */
+  kOpentitanPlicIrqIdI2c0TxStretch = 51, /**< i2c0_tx_stretch */
+  kOpentitanPlicIrqIdI2c0TxOverflow = 52, /**< i2c0_tx_overflow */
+  kOpentitanPlicIrqIdI2c0AcqFull = 53, /**< i2c0_acq_full */
+  kOpentitanPlicIrqIdI2c0UnexpStop = 54, /**< i2c0_unexp_stop */
+  kOpentitanPlicIrqIdI2c0HostTimeout = 55, /**< i2c0_host_timeout */
+  kOpentitanPlicIrqIdRvTimerTimerExpiredHart0Timer0 = 56, /**< rv_timer_timer_expired_hart0_timer0 */
+  kOpentitanPlicIrqIdOtpCtrlOtpOperationDone = 57, /**< otp_ctrl_otp_operation_done */
+  kOpentitanPlicIrqIdOtpCtrlOtpError = 58, /**< otp_ctrl_otp_error */
+  kOpentitanPlicIrqIdAlertHandlerClassa = 59, /**< alert_handler_classa */
+  kOpentitanPlicIrqIdAlertHandlerClassb = 60, /**< alert_handler_classb */
+  kOpentitanPlicIrqIdAlertHandlerClassc = 61, /**< alert_handler_classc */
+  kOpentitanPlicIrqIdAlertHandlerClassd = 62, /**< alert_handler_classd */
+  kOpentitanPlicIrqIdSpiHost0Error = 63, /**< spi_host0_error */
+  kOpentitanPlicIrqIdSpiHost0SpiEvent = 64, /**< spi_host0_spi_event */
+  kOpentitanPlicIrqIdPwrmgrAonWakeup = 65, /**< pwrmgr_aon_wakeup */
+  kOpentitanPlicIrqIdSysrstCtrlAonEventDetected = 66, /**< sysrst_ctrl_aon_event_detected */
+  kOpentitanPlicIrqIdAonTimerAonWkupTimerExpired = 67, /**< aon_timer_aon_wkup_timer_expired */
+  kOpentitanPlicIrqIdAonTimerAonWdogTimerBark = 68, /**< aon_timer_aon_wdog_timer_bark */
+  kOpentitanPlicIrqIdSensorCtrlIoStatusChange = 69, /**< sensor_ctrl_io_status_change */
+  kOpentitanPlicIrqIdSensorCtrlInitStatusChange = 70, /**< sensor_ctrl_init_status_change */
+  kOpentitanPlicIrqIdFlashCtrlProgEmpty = 71, /**< flash_ctrl_prog_empty */
+  kOpentitanPlicIrqIdFlashCtrlProgLvl = 72, /**< flash_ctrl_prog_lvl */
+  kOpentitanPlicIrqIdFlashCtrlRdFull = 73, /**< flash_ctrl_rd_full */
+  kOpentitanPlicIrqIdFlashCtrlRdLvl = 74, /**< flash_ctrl_rd_lvl */
+  kOpentitanPlicIrqIdFlashCtrlOpDone = 75, /**< flash_ctrl_op_done */
+  kOpentitanPlicIrqIdFlashCtrlCorrErr = 76, /**< flash_ctrl_corr_err */
+  kOpentitanPlicIrqIdLast = 76, /**< \internal The Last Valid Interrupt ID. */
+} opentitan_plic_irq_id_t;
 
 /**
  * PLIC Interrupt Source to Peripheral Map
  *
- * This array is a mapping from `top_custom_gf12_plic_irq_id_t` to
- * `top_custom_gf12_plic_peripheral_t`.
+ * This array is a mapping from `opentitan_plic_irq_id_t` to
+ * `opentitan_plic_peripheral_t`.
  */
-extern const top_custom_gf12_plic_peripheral_t
-    top_custom_gf12_plic_interrupt_for_peripheral[77];
+extern const opentitan_plic_peripheral_t
+    opentitan_plic_interrupt_for_peripheral[77];
 
 /**
  * PLIC Interrupt Target.
@@ -750,10 +750,10 @@ extern const top_custom_gf12_plic_peripheral_t
  * Enumeration used to determine which set of IE, CC, threshold registers to
  * access for a given interrupt target.
  */
-typedef enum top_custom_gf12_plic_target {
-  kTopCustomGf12PlicTargetIbex0 = 0, /**< Ibex Core 0 */
-  kTopCustomGf12PlicTargetLast = 0, /**< \internal Final PLIC target */
-} top_custom_gf12_plic_target_t;
+typedef enum opentitan_plic_target {
+  kOpentitanPlicTargetIbex0 = 0, /**< Ibex Core 0 */
+  kOpentitanPlicTargetLast = 0, /**< \internal Final PLIC target */
+} opentitan_plic_target_t;
 
 /**
  * Alert Handler Source Peripheral.
@@ -761,30 +761,30 @@ typedef enum top_custom_gf12_plic_target {
  * Enumeration used to determine which peripheral asserted the corresponding
  * alert.
  */
-typedef enum top_custom_gf12_alert_peripheral {
-  kTopCustomGf12AlertPeripheralUart0 = 0, /**< uart0 */
-  kTopCustomGf12AlertPeripheralGpio = 1, /**< gpio */
-  kTopCustomGf12AlertPeripheralI2c0 = 2, /**< i2c0 */
-  kTopCustomGf12AlertPeripheralRvTimer = 3, /**< rv_timer */
-  kTopCustomGf12AlertPeripheralOtpCtrl = 4, /**< otp_ctrl */
-  kTopCustomGf12AlertPeripheralLcCtrl = 5, /**< lc_ctrl */
-  kTopCustomGf12AlertPeripheralSpiHost0 = 6, /**< spi_host0 */
-  kTopCustomGf12AlertPeripheralPwrmgrAon = 7, /**< pwrmgr_aon */
-  kTopCustomGf12AlertPeripheralRstmgrAon = 8, /**< rstmgr_aon */
-  kTopCustomGf12AlertPeripheralClkmgrAon = 9, /**< clkmgr_aon */
-  kTopCustomGf12AlertPeripheralSysrstCtrlAon = 10, /**< sysrst_ctrl_aon */
-  kTopCustomGf12AlertPeripheralPinmuxAon = 11, /**< pinmux_aon */
-  kTopCustomGf12AlertPeripheralAonTimerAon = 12, /**< aon_timer_aon */
-  kTopCustomGf12AlertPeripheralSensorCtrl = 13, /**< sensor_ctrl */
-  kTopCustomGf12AlertPeripheralSramCtrlRetAon = 14, /**< sram_ctrl_ret_aon */
-  kTopCustomGf12AlertPeripheralFlashCtrl = 15, /**< flash_ctrl */
-  kTopCustomGf12AlertPeripheralRvDm = 16, /**< rv_dm */
-  kTopCustomGf12AlertPeripheralRvPlic = 17, /**< rv_plic */
-  kTopCustomGf12AlertPeripheralSramCtrlMain = 18, /**< sram_ctrl_main */
-  kTopCustomGf12AlertPeripheralRomCtrl = 19, /**< rom_ctrl */
-  kTopCustomGf12AlertPeripheralRvCoreIbex = 20, /**< rv_core_ibex */
-  kTopCustomGf12AlertPeripheralLast = 20, /**< \internal Final Alert peripheral */
-} top_custom_gf12_alert_peripheral_t;
+typedef enum opentitan_alert_peripheral {
+  kOpentitanAlertPeripheralUart0 = 0, /**< uart0 */
+  kOpentitanAlertPeripheralGpio = 1, /**< gpio */
+  kOpentitanAlertPeripheralI2c0 = 2, /**< i2c0 */
+  kOpentitanAlertPeripheralRvTimer = 3, /**< rv_timer */
+  kOpentitanAlertPeripheralOtpCtrl = 4, /**< otp_ctrl */
+  kOpentitanAlertPeripheralLcCtrl = 5, /**< lc_ctrl */
+  kOpentitanAlertPeripheralSpiHost0 = 6, /**< spi_host0 */
+  kOpentitanAlertPeripheralPwrmgrAon = 7, /**< pwrmgr_aon */
+  kOpentitanAlertPeripheralRstmgrAon = 8, /**< rstmgr_aon */
+  kOpentitanAlertPeripheralClkmgrAon = 9, /**< clkmgr_aon */
+  kOpentitanAlertPeripheralSysrstCtrlAon = 10, /**< sysrst_ctrl_aon */
+  kOpentitanAlertPeripheralPinmuxAon = 11, /**< pinmux_aon */
+  kOpentitanAlertPeripheralAonTimerAon = 12, /**< aon_timer_aon */
+  kOpentitanAlertPeripheralSensorCtrl = 13, /**< sensor_ctrl */
+  kOpentitanAlertPeripheralSramCtrlRetAon = 14, /**< sram_ctrl_ret_aon */
+  kOpentitanAlertPeripheralFlashCtrl = 15, /**< flash_ctrl */
+  kOpentitanAlertPeripheralRvDm = 16, /**< rv_dm */
+  kOpentitanAlertPeripheralRvPlic = 17, /**< rv_plic */
+  kOpentitanAlertPeripheralSramCtrlMain = 18, /**< sram_ctrl_main */
+  kOpentitanAlertPeripheralRomCtrl = 19, /**< rom_ctrl */
+  kOpentitanAlertPeripheralRvCoreIbex = 20, /**< rv_core_ibex */
+  kOpentitanAlertPeripheralLast = 20, /**< \internal Final Alert peripheral */
+} opentitan_alert_peripheral_t;
 
 /**
  * Alert Handler Alert Source.
@@ -792,55 +792,55 @@ typedef enum top_custom_gf12_alert_peripheral {
  * Enumeration of all Alert Handler Alert Sources. The alert sources belonging to
  * the same peripheral are guaranteed to be consecutive.
  */
-typedef enum top_custom_gf12_alert_id {
-  kTopCustomGf12AlertIdUart0FatalFault = 0, /**< uart0_fatal_fault */
-  kTopCustomGf12AlertIdGpioFatalFault = 1, /**< gpio_fatal_fault */
-  kTopCustomGf12AlertIdI2c0FatalFault = 2, /**< i2c0_fatal_fault */
-  kTopCustomGf12AlertIdRvTimerFatalFault = 3, /**< rv_timer_fatal_fault */
-  kTopCustomGf12AlertIdOtpCtrlFatalMacroError = 4, /**< otp_ctrl_fatal_macro_error */
-  kTopCustomGf12AlertIdOtpCtrlFatalCheckError = 5, /**< otp_ctrl_fatal_check_error */
-  kTopCustomGf12AlertIdOtpCtrlFatalBusIntegError = 6, /**< otp_ctrl_fatal_bus_integ_error */
-  kTopCustomGf12AlertIdOtpCtrlFatalPrimOtpAlert = 7, /**< otp_ctrl_fatal_prim_otp_alert */
-  kTopCustomGf12AlertIdOtpCtrlRecovPrimOtpAlert = 8, /**< otp_ctrl_recov_prim_otp_alert */
-  kTopCustomGf12AlertIdLcCtrlFatalProgError = 9, /**< lc_ctrl_fatal_prog_error */
-  kTopCustomGf12AlertIdLcCtrlFatalStateError = 10, /**< lc_ctrl_fatal_state_error */
-  kTopCustomGf12AlertIdLcCtrlFatalBusIntegError = 11, /**< lc_ctrl_fatal_bus_integ_error */
-  kTopCustomGf12AlertIdSpiHost0FatalFault = 12, /**< spi_host0_fatal_fault */
-  kTopCustomGf12AlertIdPwrmgrAonFatalFault = 13, /**< pwrmgr_aon_fatal_fault */
-  kTopCustomGf12AlertIdRstmgrAonFatalFault = 14, /**< rstmgr_aon_fatal_fault */
-  kTopCustomGf12AlertIdRstmgrAonFatalCnstyFault = 15, /**< rstmgr_aon_fatal_cnsty_fault */
-  kTopCustomGf12AlertIdClkmgrAonRecovFault = 16, /**< clkmgr_aon_recov_fault */
-  kTopCustomGf12AlertIdClkmgrAonFatalFault = 17, /**< clkmgr_aon_fatal_fault */
-  kTopCustomGf12AlertIdSysrstCtrlAonFatalFault = 18, /**< sysrst_ctrl_aon_fatal_fault */
-  kTopCustomGf12AlertIdPinmuxAonFatalFault = 19, /**< pinmux_aon_fatal_fault */
-  kTopCustomGf12AlertIdAonTimerAonFatalFault = 20, /**< aon_timer_aon_fatal_fault */
-  kTopCustomGf12AlertIdSensorCtrlRecovAlert = 21, /**< sensor_ctrl_recov_alert */
-  kTopCustomGf12AlertIdSensorCtrlFatalAlert = 22, /**< sensor_ctrl_fatal_alert */
-  kTopCustomGf12AlertIdSramCtrlRetAonFatalError = 23, /**< sram_ctrl_ret_aon_fatal_error */
-  kTopCustomGf12AlertIdFlashCtrlRecovErr = 24, /**< flash_ctrl_recov_err */
-  kTopCustomGf12AlertIdFlashCtrlFatalStdErr = 25, /**< flash_ctrl_fatal_std_err */
-  kTopCustomGf12AlertIdFlashCtrlFatalErr = 26, /**< flash_ctrl_fatal_err */
-  kTopCustomGf12AlertIdFlashCtrlFatalPrimFlashAlert = 27, /**< flash_ctrl_fatal_prim_flash_alert */
-  kTopCustomGf12AlertIdFlashCtrlRecovPrimFlashAlert = 28, /**< flash_ctrl_recov_prim_flash_alert */
-  kTopCustomGf12AlertIdRvDmFatalFault = 29, /**< rv_dm_fatal_fault */
-  kTopCustomGf12AlertIdRvPlicFatalFault = 30, /**< rv_plic_fatal_fault */
-  kTopCustomGf12AlertIdSramCtrlMainFatalError = 31, /**< sram_ctrl_main_fatal_error */
-  kTopCustomGf12AlertIdRomCtrlFatal = 32, /**< rom_ctrl_fatal */
-  kTopCustomGf12AlertIdRvCoreIbexFatalSwErr = 33, /**< rv_core_ibex_fatal_sw_err */
-  kTopCustomGf12AlertIdRvCoreIbexRecovSwErr = 34, /**< rv_core_ibex_recov_sw_err */
-  kTopCustomGf12AlertIdRvCoreIbexFatalHwErr = 35, /**< rv_core_ibex_fatal_hw_err */
-  kTopCustomGf12AlertIdRvCoreIbexRecovHwErr = 36, /**< rv_core_ibex_recov_hw_err */
-  kTopCustomGf12AlertIdLast = 36, /**< \internal The Last Valid Alert ID. */
-} top_custom_gf12_alert_id_t;
+typedef enum opentitan_alert_id {
+  kOpentitanAlertIdUart0FatalFault = 0, /**< uart0_fatal_fault */
+  kOpentitanAlertIdGpioFatalFault = 1, /**< gpio_fatal_fault */
+  kOpentitanAlertIdI2c0FatalFault = 2, /**< i2c0_fatal_fault */
+  kOpentitanAlertIdRvTimerFatalFault = 3, /**< rv_timer_fatal_fault */
+  kOpentitanAlertIdOtpCtrlFatalMacroError = 4, /**< otp_ctrl_fatal_macro_error */
+  kOpentitanAlertIdOtpCtrlFatalCheckError = 5, /**< otp_ctrl_fatal_check_error */
+  kOpentitanAlertIdOtpCtrlFatalBusIntegError = 6, /**< otp_ctrl_fatal_bus_integ_error */
+  kOpentitanAlertIdOtpCtrlFatalPrimOtpAlert = 7, /**< otp_ctrl_fatal_prim_otp_alert */
+  kOpentitanAlertIdOtpCtrlRecovPrimOtpAlert = 8, /**< otp_ctrl_recov_prim_otp_alert */
+  kOpentitanAlertIdLcCtrlFatalProgError = 9, /**< lc_ctrl_fatal_prog_error */
+  kOpentitanAlertIdLcCtrlFatalStateError = 10, /**< lc_ctrl_fatal_state_error */
+  kOpentitanAlertIdLcCtrlFatalBusIntegError = 11, /**< lc_ctrl_fatal_bus_integ_error */
+  kOpentitanAlertIdSpiHost0FatalFault = 12, /**< spi_host0_fatal_fault */
+  kOpentitanAlertIdPwrmgrAonFatalFault = 13, /**< pwrmgr_aon_fatal_fault */
+  kOpentitanAlertIdRstmgrAonFatalFault = 14, /**< rstmgr_aon_fatal_fault */
+  kOpentitanAlertIdRstmgrAonFatalCnstyFault = 15, /**< rstmgr_aon_fatal_cnsty_fault */
+  kOpentitanAlertIdClkmgrAonRecovFault = 16, /**< clkmgr_aon_recov_fault */
+  kOpentitanAlertIdClkmgrAonFatalFault = 17, /**< clkmgr_aon_fatal_fault */
+  kOpentitanAlertIdSysrstCtrlAonFatalFault = 18, /**< sysrst_ctrl_aon_fatal_fault */
+  kOpentitanAlertIdPinmuxAonFatalFault = 19, /**< pinmux_aon_fatal_fault */
+  kOpentitanAlertIdAonTimerAonFatalFault = 20, /**< aon_timer_aon_fatal_fault */
+  kOpentitanAlertIdSensorCtrlRecovAlert = 21, /**< sensor_ctrl_recov_alert */
+  kOpentitanAlertIdSensorCtrlFatalAlert = 22, /**< sensor_ctrl_fatal_alert */
+  kOpentitanAlertIdSramCtrlRetAonFatalError = 23, /**< sram_ctrl_ret_aon_fatal_error */
+  kOpentitanAlertIdFlashCtrlRecovErr = 24, /**< flash_ctrl_recov_err */
+  kOpentitanAlertIdFlashCtrlFatalStdErr = 25, /**< flash_ctrl_fatal_std_err */
+  kOpentitanAlertIdFlashCtrlFatalErr = 26, /**< flash_ctrl_fatal_err */
+  kOpentitanAlertIdFlashCtrlFatalPrimFlashAlert = 27, /**< flash_ctrl_fatal_prim_flash_alert */
+  kOpentitanAlertIdFlashCtrlRecovPrimFlashAlert = 28, /**< flash_ctrl_recov_prim_flash_alert */
+  kOpentitanAlertIdRvDmFatalFault = 29, /**< rv_dm_fatal_fault */
+  kOpentitanAlertIdRvPlicFatalFault = 30, /**< rv_plic_fatal_fault */
+  kOpentitanAlertIdSramCtrlMainFatalError = 31, /**< sram_ctrl_main_fatal_error */
+  kOpentitanAlertIdRomCtrlFatal = 32, /**< rom_ctrl_fatal */
+  kOpentitanAlertIdRvCoreIbexFatalSwErr = 33, /**< rv_core_ibex_fatal_sw_err */
+  kOpentitanAlertIdRvCoreIbexRecovSwErr = 34, /**< rv_core_ibex_recov_sw_err */
+  kOpentitanAlertIdRvCoreIbexFatalHwErr = 35, /**< rv_core_ibex_fatal_hw_err */
+  kOpentitanAlertIdRvCoreIbexRecovHwErr = 36, /**< rv_core_ibex_recov_hw_err */
+  kOpentitanAlertIdLast = 36, /**< \internal The Last Valid Alert ID. */
+} opentitan_alert_id_t;
 
 /**
  * Alert Handler Alert Source to Peripheral Map
  *
- * This array is a mapping from `top_custom_gf12_alert_id_t` to
- * `top_custom_gf12_alert_peripheral_t`.
+ * This array is a mapping from `opentitan_alert_id_t` to
+ * `opentitan_alert_peripheral_t`.
  */
-extern const top_custom_gf12_alert_peripheral_t
-    top_custom_gf12_alert_for_peripheral[37];
+extern const opentitan_alert_peripheral_t
+    opentitan_alert_for_peripheral[37];
 
 #define PINMUX_MIO_PERIPH_INSEL_IDX_OFFSET 2
 
@@ -854,323 +854,323 @@ extern const top_custom_gf12_alert_peripheral_t
 /**
  * Pinmux Peripheral Input.
  */
-typedef enum top_custom_gf12_pinmux_peripheral_in {
-  kTopCustomGf12PinmuxPeripheralInGpioGpio0 = 0, /**< Peripheral Input 0 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio1 = 1, /**< Peripheral Input 1 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio2 = 2, /**< Peripheral Input 2 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio3 = 3, /**< Peripheral Input 3 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio4 = 4, /**< Peripheral Input 4 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio5 = 5, /**< Peripheral Input 5 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio6 = 6, /**< Peripheral Input 6 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio7 = 7, /**< Peripheral Input 7 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio8 = 8, /**< Peripheral Input 8 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio9 = 9, /**< Peripheral Input 9 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio10 = 10, /**< Peripheral Input 10 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio11 = 11, /**< Peripheral Input 11 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio12 = 12, /**< Peripheral Input 12 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio13 = 13, /**< Peripheral Input 13 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio14 = 14, /**< Peripheral Input 14 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio15 = 15, /**< Peripheral Input 15 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio16 = 16, /**< Peripheral Input 16 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio17 = 17, /**< Peripheral Input 17 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio18 = 18, /**< Peripheral Input 18 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio19 = 19, /**< Peripheral Input 19 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio20 = 20, /**< Peripheral Input 20 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio21 = 21, /**< Peripheral Input 21 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio22 = 22, /**< Peripheral Input 22 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio23 = 23, /**< Peripheral Input 23 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio24 = 24, /**< Peripheral Input 24 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio25 = 25, /**< Peripheral Input 25 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio26 = 26, /**< Peripheral Input 26 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio27 = 27, /**< Peripheral Input 27 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio28 = 28, /**< Peripheral Input 28 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio29 = 29, /**< Peripheral Input 29 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio30 = 30, /**< Peripheral Input 30 */
-  kTopCustomGf12PinmuxPeripheralInGpioGpio31 = 31, /**< Peripheral Input 31 */
-  kTopCustomGf12PinmuxPeripheralInI2c0Sda = 32, /**< Peripheral Input 32 */
-  kTopCustomGf12PinmuxPeripheralInI2c0Scl = 33, /**< Peripheral Input 33 */
-  kTopCustomGf12PinmuxPeripheralInUart0Rx = 34, /**< Peripheral Input 34 */
-  kTopCustomGf12PinmuxPeripheralInFlashCtrlTck = 35, /**< Peripheral Input 35 */
-  kTopCustomGf12PinmuxPeripheralInFlashCtrlTms = 36, /**< Peripheral Input 36 */
-  kTopCustomGf12PinmuxPeripheralInFlashCtrlTdi = 37, /**< Peripheral Input 37 */
-  kTopCustomGf12PinmuxPeripheralInSysrstCtrlAonAcPresent = 38, /**< Peripheral Input 38 */
-  kTopCustomGf12PinmuxPeripheralInSysrstCtrlAonKey0In = 39, /**< Peripheral Input 39 */
-  kTopCustomGf12PinmuxPeripheralInSysrstCtrlAonKey1In = 40, /**< Peripheral Input 40 */
-  kTopCustomGf12PinmuxPeripheralInSysrstCtrlAonKey2In = 41, /**< Peripheral Input 41 */
-  kTopCustomGf12PinmuxPeripheralInSysrstCtrlAonPwrbIn = 42, /**< Peripheral Input 42 */
-  kTopCustomGf12PinmuxPeripheralInSysrstCtrlAonLidOpen = 43, /**< Peripheral Input 43 */
-  kTopCustomGf12PinmuxPeripheralInLast = 43, /**< \internal Last valid peripheral input */
-} top_custom_gf12_pinmux_peripheral_in_t;
+typedef enum opentitan_pinmux_peripheral_in {
+  kOpentitanPinmuxPeripheralInGpioGpio0 = 0, /**< Peripheral Input 0 */
+  kOpentitanPinmuxPeripheralInGpioGpio1 = 1, /**< Peripheral Input 1 */
+  kOpentitanPinmuxPeripheralInGpioGpio2 = 2, /**< Peripheral Input 2 */
+  kOpentitanPinmuxPeripheralInGpioGpio3 = 3, /**< Peripheral Input 3 */
+  kOpentitanPinmuxPeripheralInGpioGpio4 = 4, /**< Peripheral Input 4 */
+  kOpentitanPinmuxPeripheralInGpioGpio5 = 5, /**< Peripheral Input 5 */
+  kOpentitanPinmuxPeripheralInGpioGpio6 = 6, /**< Peripheral Input 6 */
+  kOpentitanPinmuxPeripheralInGpioGpio7 = 7, /**< Peripheral Input 7 */
+  kOpentitanPinmuxPeripheralInGpioGpio8 = 8, /**< Peripheral Input 8 */
+  kOpentitanPinmuxPeripheralInGpioGpio9 = 9, /**< Peripheral Input 9 */
+  kOpentitanPinmuxPeripheralInGpioGpio10 = 10, /**< Peripheral Input 10 */
+  kOpentitanPinmuxPeripheralInGpioGpio11 = 11, /**< Peripheral Input 11 */
+  kOpentitanPinmuxPeripheralInGpioGpio12 = 12, /**< Peripheral Input 12 */
+  kOpentitanPinmuxPeripheralInGpioGpio13 = 13, /**< Peripheral Input 13 */
+  kOpentitanPinmuxPeripheralInGpioGpio14 = 14, /**< Peripheral Input 14 */
+  kOpentitanPinmuxPeripheralInGpioGpio15 = 15, /**< Peripheral Input 15 */
+  kOpentitanPinmuxPeripheralInGpioGpio16 = 16, /**< Peripheral Input 16 */
+  kOpentitanPinmuxPeripheralInGpioGpio17 = 17, /**< Peripheral Input 17 */
+  kOpentitanPinmuxPeripheralInGpioGpio18 = 18, /**< Peripheral Input 18 */
+  kOpentitanPinmuxPeripheralInGpioGpio19 = 19, /**< Peripheral Input 19 */
+  kOpentitanPinmuxPeripheralInGpioGpio20 = 20, /**< Peripheral Input 20 */
+  kOpentitanPinmuxPeripheralInGpioGpio21 = 21, /**< Peripheral Input 21 */
+  kOpentitanPinmuxPeripheralInGpioGpio22 = 22, /**< Peripheral Input 22 */
+  kOpentitanPinmuxPeripheralInGpioGpio23 = 23, /**< Peripheral Input 23 */
+  kOpentitanPinmuxPeripheralInGpioGpio24 = 24, /**< Peripheral Input 24 */
+  kOpentitanPinmuxPeripheralInGpioGpio25 = 25, /**< Peripheral Input 25 */
+  kOpentitanPinmuxPeripheralInGpioGpio26 = 26, /**< Peripheral Input 26 */
+  kOpentitanPinmuxPeripheralInGpioGpio27 = 27, /**< Peripheral Input 27 */
+  kOpentitanPinmuxPeripheralInGpioGpio28 = 28, /**< Peripheral Input 28 */
+  kOpentitanPinmuxPeripheralInGpioGpio29 = 29, /**< Peripheral Input 29 */
+  kOpentitanPinmuxPeripheralInGpioGpio30 = 30, /**< Peripheral Input 30 */
+  kOpentitanPinmuxPeripheralInGpioGpio31 = 31, /**< Peripheral Input 31 */
+  kOpentitanPinmuxPeripheralInI2c0Sda = 32, /**< Peripheral Input 32 */
+  kOpentitanPinmuxPeripheralInI2c0Scl = 33, /**< Peripheral Input 33 */
+  kOpentitanPinmuxPeripheralInUart0Rx = 34, /**< Peripheral Input 34 */
+  kOpentitanPinmuxPeripheralInFlashCtrlTck = 35, /**< Peripheral Input 35 */
+  kOpentitanPinmuxPeripheralInFlashCtrlTms = 36, /**< Peripheral Input 36 */
+  kOpentitanPinmuxPeripheralInFlashCtrlTdi = 37, /**< Peripheral Input 37 */
+  kOpentitanPinmuxPeripheralInSysrstCtrlAonAcPresent = 38, /**< Peripheral Input 38 */
+  kOpentitanPinmuxPeripheralInSysrstCtrlAonKey0In = 39, /**< Peripheral Input 39 */
+  kOpentitanPinmuxPeripheralInSysrstCtrlAonKey1In = 40, /**< Peripheral Input 40 */
+  kOpentitanPinmuxPeripheralInSysrstCtrlAonKey2In = 41, /**< Peripheral Input 41 */
+  kOpentitanPinmuxPeripheralInSysrstCtrlAonPwrbIn = 42, /**< Peripheral Input 42 */
+  kOpentitanPinmuxPeripheralInSysrstCtrlAonLidOpen = 43, /**< Peripheral Input 43 */
+  kOpentitanPinmuxPeripheralInLast = 43, /**< \internal Last valid peripheral input */
+} opentitan_pinmux_peripheral_in_t;
 
 /**
  * Pinmux MIO Input Selector.
  */
-typedef enum top_custom_gf12_pinmux_insel {
-  kTopCustomGf12PinmuxInselConstantZero = 0, /**< Tie constantly to zero */
-  kTopCustomGf12PinmuxInselConstantOne = 1, /**< Tie constantly to one */
-  kTopCustomGf12PinmuxInselIoa0 = 2, /**< MIO Pad 0 */
-  kTopCustomGf12PinmuxInselIoa1 = 3, /**< MIO Pad 1 */
-  kTopCustomGf12PinmuxInselIoa2 = 4, /**< MIO Pad 2 */
-  kTopCustomGf12PinmuxInselIoa3 = 5, /**< MIO Pad 3 */
-  kTopCustomGf12PinmuxInselIoa4 = 6, /**< MIO Pad 4 */
-  kTopCustomGf12PinmuxInselIoa5 = 7, /**< MIO Pad 5 */
-  kTopCustomGf12PinmuxInselIoa6 = 8, /**< MIO Pad 6 */
-  kTopCustomGf12PinmuxInselIoa7 = 9, /**< MIO Pad 7 */
-  kTopCustomGf12PinmuxInselIoa8 = 10, /**< MIO Pad 8 */
-  kTopCustomGf12PinmuxInselIob0 = 11, /**< MIO Pad 9 */
-  kTopCustomGf12PinmuxInselIob1 = 12, /**< MIO Pad 10 */
-  kTopCustomGf12PinmuxInselIob2 = 13, /**< MIO Pad 11 */
-  kTopCustomGf12PinmuxInselIob3 = 14, /**< MIO Pad 12 */
-  kTopCustomGf12PinmuxInselIob4 = 15, /**< MIO Pad 13 */
-  kTopCustomGf12PinmuxInselIob5 = 16, /**< MIO Pad 14 */
-  kTopCustomGf12PinmuxInselIob6 = 17, /**< MIO Pad 15 */
-  kTopCustomGf12PinmuxInselIob7 = 18, /**< MIO Pad 16 */
-  kTopCustomGf12PinmuxInselIob8 = 19, /**< MIO Pad 17 */
-  kTopCustomGf12PinmuxInselIob9 = 20, /**< MIO Pad 18 */
-  kTopCustomGf12PinmuxInselIob10 = 21, /**< MIO Pad 19 */
-  kTopCustomGf12PinmuxInselIob11 = 22, /**< MIO Pad 20 */
-  kTopCustomGf12PinmuxInselIob12 = 23, /**< MIO Pad 21 */
-  kTopCustomGf12PinmuxInselIoc0 = 24, /**< MIO Pad 22 */
-  kTopCustomGf12PinmuxInselIoc1 = 25, /**< MIO Pad 23 */
-  kTopCustomGf12PinmuxInselIoc2 = 26, /**< MIO Pad 24 */
-  kTopCustomGf12PinmuxInselIoc3 = 27, /**< MIO Pad 25 */
-  kTopCustomGf12PinmuxInselIoc4 = 28, /**< MIO Pad 26 */
-  kTopCustomGf12PinmuxInselIoc5 = 29, /**< MIO Pad 27 */
-  kTopCustomGf12PinmuxInselIoc6 = 30, /**< MIO Pad 28 */
-  kTopCustomGf12PinmuxInselIoc7 = 31, /**< MIO Pad 29 */
-  kTopCustomGf12PinmuxInselIoc8 = 32, /**< MIO Pad 30 */
-  kTopCustomGf12PinmuxInselIoc9 = 33, /**< MIO Pad 31 */
-  kTopCustomGf12PinmuxInselIoc10 = 34, /**< MIO Pad 32 */
-  kTopCustomGf12PinmuxInselIoc11 = 35, /**< MIO Pad 33 */
-  kTopCustomGf12PinmuxInselIor0 = 36, /**< MIO Pad 34 */
-  kTopCustomGf12PinmuxInselIor1 = 37, /**< MIO Pad 35 */
-  kTopCustomGf12PinmuxInselIor2 = 38, /**< MIO Pad 36 */
-  kTopCustomGf12PinmuxInselIor3 = 39, /**< MIO Pad 37 */
-  kTopCustomGf12PinmuxInselIor4 = 40, /**< MIO Pad 38 */
-  kTopCustomGf12PinmuxInselIor5 = 41, /**< MIO Pad 39 */
-  kTopCustomGf12PinmuxInselIor6 = 42, /**< MIO Pad 40 */
-  kTopCustomGf12PinmuxInselIor7 = 43, /**< MIO Pad 41 */
-  kTopCustomGf12PinmuxInselLast = 43, /**< \internal Last valid insel value */
-} top_custom_gf12_pinmux_insel_t;
+typedef enum opentitan_pinmux_insel {
+  kOpentitanPinmuxInselConstantZero = 0, /**< Tie constantly to zero */
+  kOpentitanPinmuxInselConstantOne = 1, /**< Tie constantly to one */
+  kOpentitanPinmuxInselIoa0 = 2, /**< MIO Pad 0 */
+  kOpentitanPinmuxInselIoa1 = 3, /**< MIO Pad 1 */
+  kOpentitanPinmuxInselIoa2 = 4, /**< MIO Pad 2 */
+  kOpentitanPinmuxInselIoa3 = 5, /**< MIO Pad 3 */
+  kOpentitanPinmuxInselIoa4 = 6, /**< MIO Pad 4 */
+  kOpentitanPinmuxInselIoa5 = 7, /**< MIO Pad 5 */
+  kOpentitanPinmuxInselIoa6 = 8, /**< MIO Pad 6 */
+  kOpentitanPinmuxInselIoa7 = 9, /**< MIO Pad 7 */
+  kOpentitanPinmuxInselIoa8 = 10, /**< MIO Pad 8 */
+  kOpentitanPinmuxInselIob0 = 11, /**< MIO Pad 9 */
+  kOpentitanPinmuxInselIob1 = 12, /**< MIO Pad 10 */
+  kOpentitanPinmuxInselIob2 = 13, /**< MIO Pad 11 */
+  kOpentitanPinmuxInselIob3 = 14, /**< MIO Pad 12 */
+  kOpentitanPinmuxInselIob4 = 15, /**< MIO Pad 13 */
+  kOpentitanPinmuxInselIob5 = 16, /**< MIO Pad 14 */
+  kOpentitanPinmuxInselIob6 = 17, /**< MIO Pad 15 */
+  kOpentitanPinmuxInselIob7 = 18, /**< MIO Pad 16 */
+  kOpentitanPinmuxInselIob8 = 19, /**< MIO Pad 17 */
+  kOpentitanPinmuxInselIob9 = 20, /**< MIO Pad 18 */
+  kOpentitanPinmuxInselIob10 = 21, /**< MIO Pad 19 */
+  kOpentitanPinmuxInselIob11 = 22, /**< MIO Pad 20 */
+  kOpentitanPinmuxInselIob12 = 23, /**< MIO Pad 21 */
+  kOpentitanPinmuxInselIoc0 = 24, /**< MIO Pad 22 */
+  kOpentitanPinmuxInselIoc1 = 25, /**< MIO Pad 23 */
+  kOpentitanPinmuxInselIoc2 = 26, /**< MIO Pad 24 */
+  kOpentitanPinmuxInselIoc3 = 27, /**< MIO Pad 25 */
+  kOpentitanPinmuxInselIoc4 = 28, /**< MIO Pad 26 */
+  kOpentitanPinmuxInselIoc5 = 29, /**< MIO Pad 27 */
+  kOpentitanPinmuxInselIoc6 = 30, /**< MIO Pad 28 */
+  kOpentitanPinmuxInselIoc7 = 31, /**< MIO Pad 29 */
+  kOpentitanPinmuxInselIoc8 = 32, /**< MIO Pad 30 */
+  kOpentitanPinmuxInselIoc9 = 33, /**< MIO Pad 31 */
+  kOpentitanPinmuxInselIoc10 = 34, /**< MIO Pad 32 */
+  kOpentitanPinmuxInselIoc11 = 35, /**< MIO Pad 33 */
+  kOpentitanPinmuxInselIor0 = 36, /**< MIO Pad 34 */
+  kOpentitanPinmuxInselIor1 = 37, /**< MIO Pad 35 */
+  kOpentitanPinmuxInselIor2 = 38, /**< MIO Pad 36 */
+  kOpentitanPinmuxInselIor3 = 39, /**< MIO Pad 37 */
+  kOpentitanPinmuxInselIor4 = 40, /**< MIO Pad 38 */
+  kOpentitanPinmuxInselIor5 = 41, /**< MIO Pad 39 */
+  kOpentitanPinmuxInselIor6 = 42, /**< MIO Pad 40 */
+  kOpentitanPinmuxInselIor7 = 43, /**< MIO Pad 41 */
+  kOpentitanPinmuxInselLast = 43, /**< \internal Last valid insel value */
+} opentitan_pinmux_insel_t;
 
 /**
  * Pinmux MIO Output.
  */
-typedef enum top_custom_gf12_pinmux_mio_out {
-  kTopCustomGf12PinmuxMioOutIoa0 = 0, /**< MIO Pad 0 */
-  kTopCustomGf12PinmuxMioOutIoa1 = 1, /**< MIO Pad 1 */
-  kTopCustomGf12PinmuxMioOutIoa2 = 2, /**< MIO Pad 2 */
-  kTopCustomGf12PinmuxMioOutIoa3 = 3, /**< MIO Pad 3 */
-  kTopCustomGf12PinmuxMioOutIoa4 = 4, /**< MIO Pad 4 */
-  kTopCustomGf12PinmuxMioOutIoa5 = 5, /**< MIO Pad 5 */
-  kTopCustomGf12PinmuxMioOutIoa6 = 6, /**< MIO Pad 6 */
-  kTopCustomGf12PinmuxMioOutIoa7 = 7, /**< MIO Pad 7 */
-  kTopCustomGf12PinmuxMioOutIoa8 = 8, /**< MIO Pad 8 */
-  kTopCustomGf12PinmuxMioOutIob0 = 9, /**< MIO Pad 9 */
-  kTopCustomGf12PinmuxMioOutIob1 = 10, /**< MIO Pad 10 */
-  kTopCustomGf12PinmuxMioOutIob2 = 11, /**< MIO Pad 11 */
-  kTopCustomGf12PinmuxMioOutIob3 = 12, /**< MIO Pad 12 */
-  kTopCustomGf12PinmuxMioOutIob4 = 13, /**< MIO Pad 13 */
-  kTopCustomGf12PinmuxMioOutIob5 = 14, /**< MIO Pad 14 */
-  kTopCustomGf12PinmuxMioOutIob6 = 15, /**< MIO Pad 15 */
-  kTopCustomGf12PinmuxMioOutIob7 = 16, /**< MIO Pad 16 */
-  kTopCustomGf12PinmuxMioOutIob8 = 17, /**< MIO Pad 17 */
-  kTopCustomGf12PinmuxMioOutIob9 = 18, /**< MIO Pad 18 */
-  kTopCustomGf12PinmuxMioOutIob10 = 19, /**< MIO Pad 19 */
-  kTopCustomGf12PinmuxMioOutIob11 = 20, /**< MIO Pad 20 */
-  kTopCustomGf12PinmuxMioOutIob12 = 21, /**< MIO Pad 21 */
-  kTopCustomGf12PinmuxMioOutIoc0 = 22, /**< MIO Pad 22 */
-  kTopCustomGf12PinmuxMioOutIoc1 = 23, /**< MIO Pad 23 */
-  kTopCustomGf12PinmuxMioOutIoc2 = 24, /**< MIO Pad 24 */
-  kTopCustomGf12PinmuxMioOutIoc3 = 25, /**< MIO Pad 25 */
-  kTopCustomGf12PinmuxMioOutIoc4 = 26, /**< MIO Pad 26 */
-  kTopCustomGf12PinmuxMioOutIoc5 = 27, /**< MIO Pad 27 */
-  kTopCustomGf12PinmuxMioOutIoc6 = 28, /**< MIO Pad 28 */
-  kTopCustomGf12PinmuxMioOutIoc7 = 29, /**< MIO Pad 29 */
-  kTopCustomGf12PinmuxMioOutIoc8 = 30, /**< MIO Pad 30 */
-  kTopCustomGf12PinmuxMioOutIoc9 = 31, /**< MIO Pad 31 */
-  kTopCustomGf12PinmuxMioOutIoc10 = 32, /**< MIO Pad 32 */
-  kTopCustomGf12PinmuxMioOutIoc11 = 33, /**< MIO Pad 33 */
-  kTopCustomGf12PinmuxMioOutIor0 = 34, /**< MIO Pad 34 */
-  kTopCustomGf12PinmuxMioOutIor1 = 35, /**< MIO Pad 35 */
-  kTopCustomGf12PinmuxMioOutIor2 = 36, /**< MIO Pad 36 */
-  kTopCustomGf12PinmuxMioOutIor3 = 37, /**< MIO Pad 37 */
-  kTopCustomGf12PinmuxMioOutIor4 = 38, /**< MIO Pad 38 */
-  kTopCustomGf12PinmuxMioOutIor5 = 39, /**< MIO Pad 39 */
-  kTopCustomGf12PinmuxMioOutIor6 = 40, /**< MIO Pad 40 */
-  kTopCustomGf12PinmuxMioOutIor7 = 41, /**< MIO Pad 41 */
-  kTopCustomGf12PinmuxMioOutLast = 41, /**< \internal Last valid mio output */
-} top_custom_gf12_pinmux_mio_out_t;
+typedef enum opentitan_pinmux_mio_out {
+  kOpentitanPinmuxMioOutIoa0 = 0, /**< MIO Pad 0 */
+  kOpentitanPinmuxMioOutIoa1 = 1, /**< MIO Pad 1 */
+  kOpentitanPinmuxMioOutIoa2 = 2, /**< MIO Pad 2 */
+  kOpentitanPinmuxMioOutIoa3 = 3, /**< MIO Pad 3 */
+  kOpentitanPinmuxMioOutIoa4 = 4, /**< MIO Pad 4 */
+  kOpentitanPinmuxMioOutIoa5 = 5, /**< MIO Pad 5 */
+  kOpentitanPinmuxMioOutIoa6 = 6, /**< MIO Pad 6 */
+  kOpentitanPinmuxMioOutIoa7 = 7, /**< MIO Pad 7 */
+  kOpentitanPinmuxMioOutIoa8 = 8, /**< MIO Pad 8 */
+  kOpentitanPinmuxMioOutIob0 = 9, /**< MIO Pad 9 */
+  kOpentitanPinmuxMioOutIob1 = 10, /**< MIO Pad 10 */
+  kOpentitanPinmuxMioOutIob2 = 11, /**< MIO Pad 11 */
+  kOpentitanPinmuxMioOutIob3 = 12, /**< MIO Pad 12 */
+  kOpentitanPinmuxMioOutIob4 = 13, /**< MIO Pad 13 */
+  kOpentitanPinmuxMioOutIob5 = 14, /**< MIO Pad 14 */
+  kOpentitanPinmuxMioOutIob6 = 15, /**< MIO Pad 15 */
+  kOpentitanPinmuxMioOutIob7 = 16, /**< MIO Pad 16 */
+  kOpentitanPinmuxMioOutIob8 = 17, /**< MIO Pad 17 */
+  kOpentitanPinmuxMioOutIob9 = 18, /**< MIO Pad 18 */
+  kOpentitanPinmuxMioOutIob10 = 19, /**< MIO Pad 19 */
+  kOpentitanPinmuxMioOutIob11 = 20, /**< MIO Pad 20 */
+  kOpentitanPinmuxMioOutIob12 = 21, /**< MIO Pad 21 */
+  kOpentitanPinmuxMioOutIoc0 = 22, /**< MIO Pad 22 */
+  kOpentitanPinmuxMioOutIoc1 = 23, /**< MIO Pad 23 */
+  kOpentitanPinmuxMioOutIoc2 = 24, /**< MIO Pad 24 */
+  kOpentitanPinmuxMioOutIoc3 = 25, /**< MIO Pad 25 */
+  kOpentitanPinmuxMioOutIoc4 = 26, /**< MIO Pad 26 */
+  kOpentitanPinmuxMioOutIoc5 = 27, /**< MIO Pad 27 */
+  kOpentitanPinmuxMioOutIoc6 = 28, /**< MIO Pad 28 */
+  kOpentitanPinmuxMioOutIoc7 = 29, /**< MIO Pad 29 */
+  kOpentitanPinmuxMioOutIoc8 = 30, /**< MIO Pad 30 */
+  kOpentitanPinmuxMioOutIoc9 = 31, /**< MIO Pad 31 */
+  kOpentitanPinmuxMioOutIoc10 = 32, /**< MIO Pad 32 */
+  kOpentitanPinmuxMioOutIoc11 = 33, /**< MIO Pad 33 */
+  kOpentitanPinmuxMioOutIor0 = 34, /**< MIO Pad 34 */
+  kOpentitanPinmuxMioOutIor1 = 35, /**< MIO Pad 35 */
+  kOpentitanPinmuxMioOutIor2 = 36, /**< MIO Pad 36 */
+  kOpentitanPinmuxMioOutIor3 = 37, /**< MIO Pad 37 */
+  kOpentitanPinmuxMioOutIor4 = 38, /**< MIO Pad 38 */
+  kOpentitanPinmuxMioOutIor5 = 39, /**< MIO Pad 39 */
+  kOpentitanPinmuxMioOutIor6 = 40, /**< MIO Pad 40 */
+  kOpentitanPinmuxMioOutIor7 = 41, /**< MIO Pad 41 */
+  kOpentitanPinmuxMioOutLast = 41, /**< \internal Last valid mio output */
+} opentitan_pinmux_mio_out_t;
 
 /**
  * Pinmux Peripheral Output Selector.
  */
-typedef enum top_custom_gf12_pinmux_outsel {
-  kTopCustomGf12PinmuxOutselConstantZero = 0, /**< Tie constantly to zero */
-  kTopCustomGf12PinmuxOutselConstantOne = 1, /**< Tie constantly to one */
-  kTopCustomGf12PinmuxOutselConstantHighZ = 2, /**< Tie constantly to high-Z */
-  kTopCustomGf12PinmuxOutselGpioGpio0 = 3, /**< Peripheral Output 0 */
-  kTopCustomGf12PinmuxOutselGpioGpio1 = 4, /**< Peripheral Output 1 */
-  kTopCustomGf12PinmuxOutselGpioGpio2 = 5, /**< Peripheral Output 2 */
-  kTopCustomGf12PinmuxOutselGpioGpio3 = 6, /**< Peripheral Output 3 */
-  kTopCustomGf12PinmuxOutselGpioGpio4 = 7, /**< Peripheral Output 4 */
-  kTopCustomGf12PinmuxOutselGpioGpio5 = 8, /**< Peripheral Output 5 */
-  kTopCustomGf12PinmuxOutselGpioGpio6 = 9, /**< Peripheral Output 6 */
-  kTopCustomGf12PinmuxOutselGpioGpio7 = 10, /**< Peripheral Output 7 */
-  kTopCustomGf12PinmuxOutselGpioGpio8 = 11, /**< Peripheral Output 8 */
-  kTopCustomGf12PinmuxOutselGpioGpio9 = 12, /**< Peripheral Output 9 */
-  kTopCustomGf12PinmuxOutselGpioGpio10 = 13, /**< Peripheral Output 10 */
-  kTopCustomGf12PinmuxOutselGpioGpio11 = 14, /**< Peripheral Output 11 */
-  kTopCustomGf12PinmuxOutselGpioGpio12 = 15, /**< Peripheral Output 12 */
-  kTopCustomGf12PinmuxOutselGpioGpio13 = 16, /**< Peripheral Output 13 */
-  kTopCustomGf12PinmuxOutselGpioGpio14 = 17, /**< Peripheral Output 14 */
-  kTopCustomGf12PinmuxOutselGpioGpio15 = 18, /**< Peripheral Output 15 */
-  kTopCustomGf12PinmuxOutselGpioGpio16 = 19, /**< Peripheral Output 16 */
-  kTopCustomGf12PinmuxOutselGpioGpio17 = 20, /**< Peripheral Output 17 */
-  kTopCustomGf12PinmuxOutselGpioGpio18 = 21, /**< Peripheral Output 18 */
-  kTopCustomGf12PinmuxOutselGpioGpio19 = 22, /**< Peripheral Output 19 */
-  kTopCustomGf12PinmuxOutselGpioGpio20 = 23, /**< Peripheral Output 20 */
-  kTopCustomGf12PinmuxOutselGpioGpio21 = 24, /**< Peripheral Output 21 */
-  kTopCustomGf12PinmuxOutselGpioGpio22 = 25, /**< Peripheral Output 22 */
-  kTopCustomGf12PinmuxOutselGpioGpio23 = 26, /**< Peripheral Output 23 */
-  kTopCustomGf12PinmuxOutselGpioGpio24 = 27, /**< Peripheral Output 24 */
-  kTopCustomGf12PinmuxOutselGpioGpio25 = 28, /**< Peripheral Output 25 */
-  kTopCustomGf12PinmuxOutselGpioGpio26 = 29, /**< Peripheral Output 26 */
-  kTopCustomGf12PinmuxOutselGpioGpio27 = 30, /**< Peripheral Output 27 */
-  kTopCustomGf12PinmuxOutselGpioGpio28 = 31, /**< Peripheral Output 28 */
-  kTopCustomGf12PinmuxOutselGpioGpio29 = 32, /**< Peripheral Output 29 */
-  kTopCustomGf12PinmuxOutselGpioGpio30 = 33, /**< Peripheral Output 30 */
-  kTopCustomGf12PinmuxOutselGpioGpio31 = 34, /**< Peripheral Output 31 */
-  kTopCustomGf12PinmuxOutselI2c0Sda = 35, /**< Peripheral Output 32 */
-  kTopCustomGf12PinmuxOutselI2c0Scl = 36, /**< Peripheral Output 33 */
-  kTopCustomGf12PinmuxOutselUart0Tx = 37, /**< Peripheral Output 34 */
-  kTopCustomGf12PinmuxOutselFlashCtrlTdo = 38, /**< Peripheral Output 35 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut0 = 39, /**< Peripheral Output 36 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut1 = 40, /**< Peripheral Output 37 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut2 = 41, /**< Peripheral Output 38 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut3 = 42, /**< Peripheral Output 39 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut4 = 43, /**< Peripheral Output 40 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut5 = 44, /**< Peripheral Output 41 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut6 = 45, /**< Peripheral Output 42 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut7 = 46, /**< Peripheral Output 43 */
-  kTopCustomGf12PinmuxOutselSensorCtrlAstDebugOut8 = 47, /**< Peripheral Output 44 */
-  kTopCustomGf12PinmuxOutselOtpCtrlTest0 = 48, /**< Peripheral Output 45 */
-  kTopCustomGf12PinmuxOutselSysrstCtrlAonBatDisable = 49, /**< Peripheral Output 46 */
-  kTopCustomGf12PinmuxOutselSysrstCtrlAonKey0Out = 50, /**< Peripheral Output 47 */
-  kTopCustomGf12PinmuxOutselSysrstCtrlAonKey1Out = 51, /**< Peripheral Output 48 */
-  kTopCustomGf12PinmuxOutselSysrstCtrlAonKey2Out = 52, /**< Peripheral Output 49 */
-  kTopCustomGf12PinmuxOutselSysrstCtrlAonPwrbOut = 53, /**< Peripheral Output 50 */
-  kTopCustomGf12PinmuxOutselSysrstCtrlAonZ3Wakeup = 54, /**< Peripheral Output 51 */
-  kTopCustomGf12PinmuxOutselLast = 54, /**< \internal Last valid outsel value */
-} top_custom_gf12_pinmux_outsel_t;
+typedef enum opentitan_pinmux_outsel {
+  kOpentitanPinmuxOutselConstantZero = 0, /**< Tie constantly to zero */
+  kOpentitanPinmuxOutselConstantOne = 1, /**< Tie constantly to one */
+  kOpentitanPinmuxOutselConstantHighZ = 2, /**< Tie constantly to high-Z */
+  kOpentitanPinmuxOutselGpioGpio0 = 3, /**< Peripheral Output 0 */
+  kOpentitanPinmuxOutselGpioGpio1 = 4, /**< Peripheral Output 1 */
+  kOpentitanPinmuxOutselGpioGpio2 = 5, /**< Peripheral Output 2 */
+  kOpentitanPinmuxOutselGpioGpio3 = 6, /**< Peripheral Output 3 */
+  kOpentitanPinmuxOutselGpioGpio4 = 7, /**< Peripheral Output 4 */
+  kOpentitanPinmuxOutselGpioGpio5 = 8, /**< Peripheral Output 5 */
+  kOpentitanPinmuxOutselGpioGpio6 = 9, /**< Peripheral Output 6 */
+  kOpentitanPinmuxOutselGpioGpio7 = 10, /**< Peripheral Output 7 */
+  kOpentitanPinmuxOutselGpioGpio8 = 11, /**< Peripheral Output 8 */
+  kOpentitanPinmuxOutselGpioGpio9 = 12, /**< Peripheral Output 9 */
+  kOpentitanPinmuxOutselGpioGpio10 = 13, /**< Peripheral Output 10 */
+  kOpentitanPinmuxOutselGpioGpio11 = 14, /**< Peripheral Output 11 */
+  kOpentitanPinmuxOutselGpioGpio12 = 15, /**< Peripheral Output 12 */
+  kOpentitanPinmuxOutselGpioGpio13 = 16, /**< Peripheral Output 13 */
+  kOpentitanPinmuxOutselGpioGpio14 = 17, /**< Peripheral Output 14 */
+  kOpentitanPinmuxOutselGpioGpio15 = 18, /**< Peripheral Output 15 */
+  kOpentitanPinmuxOutselGpioGpio16 = 19, /**< Peripheral Output 16 */
+  kOpentitanPinmuxOutselGpioGpio17 = 20, /**< Peripheral Output 17 */
+  kOpentitanPinmuxOutselGpioGpio18 = 21, /**< Peripheral Output 18 */
+  kOpentitanPinmuxOutselGpioGpio19 = 22, /**< Peripheral Output 19 */
+  kOpentitanPinmuxOutselGpioGpio20 = 23, /**< Peripheral Output 20 */
+  kOpentitanPinmuxOutselGpioGpio21 = 24, /**< Peripheral Output 21 */
+  kOpentitanPinmuxOutselGpioGpio22 = 25, /**< Peripheral Output 22 */
+  kOpentitanPinmuxOutselGpioGpio23 = 26, /**< Peripheral Output 23 */
+  kOpentitanPinmuxOutselGpioGpio24 = 27, /**< Peripheral Output 24 */
+  kOpentitanPinmuxOutselGpioGpio25 = 28, /**< Peripheral Output 25 */
+  kOpentitanPinmuxOutselGpioGpio26 = 29, /**< Peripheral Output 26 */
+  kOpentitanPinmuxOutselGpioGpio27 = 30, /**< Peripheral Output 27 */
+  kOpentitanPinmuxOutselGpioGpio28 = 31, /**< Peripheral Output 28 */
+  kOpentitanPinmuxOutselGpioGpio29 = 32, /**< Peripheral Output 29 */
+  kOpentitanPinmuxOutselGpioGpio30 = 33, /**< Peripheral Output 30 */
+  kOpentitanPinmuxOutselGpioGpio31 = 34, /**< Peripheral Output 31 */
+  kOpentitanPinmuxOutselI2c0Sda = 35, /**< Peripheral Output 32 */
+  kOpentitanPinmuxOutselI2c0Scl = 36, /**< Peripheral Output 33 */
+  kOpentitanPinmuxOutselUart0Tx = 37, /**< Peripheral Output 34 */
+  kOpentitanPinmuxOutselFlashCtrlTdo = 38, /**< Peripheral Output 35 */
+  kOpentitanPinmuxOutselSensorCtrlAstDebugOut0 = 39, /**< Peripheral Output 36 */
+  kOpentitanPinmuxOutselSensorCtrlAstDebugOut1 = 40, /**< Peripheral Output 37 */
+  kOpentitanPinmuxOutselSensorCtrlAstDebugOut2 = 41, /**< Peripheral Output 38 */
+  kOpentitanPinmuxOutselSensorCtrlAstDebugOut3 = 42, /**< Peripheral Output 39 */
+  kOpentitanPinmuxOutselSensorCtrlAstDebugOut4 = 43, /**< Peripheral Output 40 */
+  kOpentitanPinmuxOutselSensorCtrlAstDebugOut5 = 44, /**< Peripheral Output 41 */
+  kOpentitanPinmuxOutselSensorCtrlAstDebugOut6 = 45, /**< Peripheral Output 42 */
+  kOpentitanPinmuxOutselSensorCtrlAstDebugOut7 = 46, /**< Peripheral Output 43 */
+  kOpentitanPinmuxOutselSensorCtrlAstDebugOut8 = 47, /**< Peripheral Output 44 */
+  kOpentitanPinmuxOutselOtpCtrlTest0 = 48, /**< Peripheral Output 45 */
+  kOpentitanPinmuxOutselSysrstCtrlAonBatDisable = 49, /**< Peripheral Output 46 */
+  kOpentitanPinmuxOutselSysrstCtrlAonKey0Out = 50, /**< Peripheral Output 47 */
+  kOpentitanPinmuxOutselSysrstCtrlAonKey1Out = 51, /**< Peripheral Output 48 */
+  kOpentitanPinmuxOutselSysrstCtrlAonKey2Out = 52, /**< Peripheral Output 49 */
+  kOpentitanPinmuxOutselSysrstCtrlAonPwrbOut = 53, /**< Peripheral Output 50 */
+  kOpentitanPinmuxOutselSysrstCtrlAonZ3Wakeup = 54, /**< Peripheral Output 51 */
+  kOpentitanPinmuxOutselLast = 54, /**< \internal Last valid outsel value */
+} opentitan_pinmux_outsel_t;
 
 /**
  * Dedicated Pad Selects
  */
-typedef enum top_custom_gf12_direct_pads {
-  kTopCustomGf12DirectPadsSpiHost0Sd0 = 0, /**<  */
-  kTopCustomGf12DirectPadsSpiHost0Sd1 = 1, /**<  */
-  kTopCustomGf12DirectPadsSpiHost0Sd2 = 2, /**<  */
-  kTopCustomGf12DirectPadsSpiHost0Sd3 = 3, /**<  */
-  kTopCustomGf12DirectPadsSysrstCtrlAonEcRstL = 4, /**<  */
-  kTopCustomGf12DirectPadsSysrstCtrlAonFlashWpL = 5, /**<  */
-  kTopCustomGf12DirectPadsSpiHost0Sck = 6, /**<  */
-  kTopCustomGf12DirectPadsSpiHost0Csb = 7, /**<  */
-  kTopCustomGf12DirectPadsLast = 7, /**< \internal Last valid direct pad */
-} top_custom_gf12_direct_pads_t;
+typedef enum opentitan_direct_pads {
+  kOpentitanDirectPadsSpiHost0Sd0 = 0, /**<  */
+  kOpentitanDirectPadsSpiHost0Sd1 = 1, /**<  */
+  kOpentitanDirectPadsSpiHost0Sd2 = 2, /**<  */
+  kOpentitanDirectPadsSpiHost0Sd3 = 3, /**<  */
+  kOpentitanDirectPadsSysrstCtrlAonEcRstL = 4, /**<  */
+  kOpentitanDirectPadsSysrstCtrlAonFlashWpL = 5, /**<  */
+  kOpentitanDirectPadsSpiHost0Sck = 6, /**<  */
+  kOpentitanDirectPadsSpiHost0Csb = 7, /**<  */
+  kOpentitanDirectPadsLast = 7, /**< \internal Last valid direct pad */
+} opentitan_direct_pads_t;
 
 /**
  * Muxed Pad Selects
  */
-typedef enum top_custom_gf12_muxed_pads {
-  kTopCustomGf12MuxedPadsIoa0 = 0, /**<  */
-  kTopCustomGf12MuxedPadsIoa1 = 1, /**<  */
-  kTopCustomGf12MuxedPadsIoa2 = 2, /**<  */
-  kTopCustomGf12MuxedPadsIoa3 = 3, /**<  */
-  kTopCustomGf12MuxedPadsIoa4 = 4, /**<  */
-  kTopCustomGf12MuxedPadsIoa5 = 5, /**<  */
-  kTopCustomGf12MuxedPadsIoa6 = 6, /**<  */
-  kTopCustomGf12MuxedPadsIoa7 = 7, /**<  */
-  kTopCustomGf12MuxedPadsIoa8 = 8, /**<  */
-  kTopCustomGf12MuxedPadsIob0 = 9, /**<  */
-  kTopCustomGf12MuxedPadsIob1 = 10, /**<  */
-  kTopCustomGf12MuxedPadsIob2 = 11, /**<  */
-  kTopCustomGf12MuxedPadsIob3 = 12, /**<  */
-  kTopCustomGf12MuxedPadsIob4 = 13, /**<  */
-  kTopCustomGf12MuxedPadsIob5 = 14, /**<  */
-  kTopCustomGf12MuxedPadsIob6 = 15, /**<  */
-  kTopCustomGf12MuxedPadsIob7 = 16, /**<  */
-  kTopCustomGf12MuxedPadsIob8 = 17, /**<  */
-  kTopCustomGf12MuxedPadsIob9 = 18, /**<  */
-  kTopCustomGf12MuxedPadsIob10 = 19, /**<  */
-  kTopCustomGf12MuxedPadsIob11 = 20, /**<  */
-  kTopCustomGf12MuxedPadsIob12 = 21, /**<  */
-  kTopCustomGf12MuxedPadsIoc0 = 22, /**<  */
-  kTopCustomGf12MuxedPadsIoc1 = 23, /**<  */
-  kTopCustomGf12MuxedPadsIoc2 = 24, /**<  */
-  kTopCustomGf12MuxedPadsIoc3 = 25, /**<  */
-  kTopCustomGf12MuxedPadsIoc4 = 26, /**<  */
-  kTopCustomGf12MuxedPadsIoc5 = 27, /**<  */
-  kTopCustomGf12MuxedPadsIoc6 = 28, /**<  */
-  kTopCustomGf12MuxedPadsIoc7 = 29, /**<  */
-  kTopCustomGf12MuxedPadsIoc8 = 30, /**<  */
-  kTopCustomGf12MuxedPadsIoc9 = 31, /**<  */
-  kTopCustomGf12MuxedPadsIoc10 = 32, /**<  */
-  kTopCustomGf12MuxedPadsIoc11 = 33, /**<  */
-  kTopCustomGf12MuxedPadsIor0 = 34, /**<  */
-  kTopCustomGf12MuxedPadsIor1 = 35, /**<  */
-  kTopCustomGf12MuxedPadsIor2 = 36, /**<  */
-  kTopCustomGf12MuxedPadsIor3 = 37, /**<  */
-  kTopCustomGf12MuxedPadsIor4 = 38, /**<  */
-  kTopCustomGf12MuxedPadsIor5 = 39, /**<  */
-  kTopCustomGf12MuxedPadsIor6 = 40, /**<  */
-  kTopCustomGf12MuxedPadsIor7 = 41, /**<  */
-  kTopCustomGf12MuxedPadsLast = 41, /**< \internal Last valid muxed pad */
-} top_custom_gf12_muxed_pads_t;
+typedef enum opentitan_muxed_pads {
+  kOpentitanMuxedPadsIoa0 = 0, /**<  */
+  kOpentitanMuxedPadsIoa1 = 1, /**<  */
+  kOpentitanMuxedPadsIoa2 = 2, /**<  */
+  kOpentitanMuxedPadsIoa3 = 3, /**<  */
+  kOpentitanMuxedPadsIoa4 = 4, /**<  */
+  kOpentitanMuxedPadsIoa5 = 5, /**<  */
+  kOpentitanMuxedPadsIoa6 = 6, /**<  */
+  kOpentitanMuxedPadsIoa7 = 7, /**<  */
+  kOpentitanMuxedPadsIoa8 = 8, /**<  */
+  kOpentitanMuxedPadsIob0 = 9, /**<  */
+  kOpentitanMuxedPadsIob1 = 10, /**<  */
+  kOpentitanMuxedPadsIob2 = 11, /**<  */
+  kOpentitanMuxedPadsIob3 = 12, /**<  */
+  kOpentitanMuxedPadsIob4 = 13, /**<  */
+  kOpentitanMuxedPadsIob5 = 14, /**<  */
+  kOpentitanMuxedPadsIob6 = 15, /**<  */
+  kOpentitanMuxedPadsIob7 = 16, /**<  */
+  kOpentitanMuxedPadsIob8 = 17, /**<  */
+  kOpentitanMuxedPadsIob9 = 18, /**<  */
+  kOpentitanMuxedPadsIob10 = 19, /**<  */
+  kOpentitanMuxedPadsIob11 = 20, /**<  */
+  kOpentitanMuxedPadsIob12 = 21, /**<  */
+  kOpentitanMuxedPadsIoc0 = 22, /**<  */
+  kOpentitanMuxedPadsIoc1 = 23, /**<  */
+  kOpentitanMuxedPadsIoc2 = 24, /**<  */
+  kOpentitanMuxedPadsIoc3 = 25, /**<  */
+  kOpentitanMuxedPadsIoc4 = 26, /**<  */
+  kOpentitanMuxedPadsIoc5 = 27, /**<  */
+  kOpentitanMuxedPadsIoc6 = 28, /**<  */
+  kOpentitanMuxedPadsIoc7 = 29, /**<  */
+  kOpentitanMuxedPadsIoc8 = 30, /**<  */
+  kOpentitanMuxedPadsIoc9 = 31, /**<  */
+  kOpentitanMuxedPadsIoc10 = 32, /**<  */
+  kOpentitanMuxedPadsIoc11 = 33, /**<  */
+  kOpentitanMuxedPadsIor0 = 34, /**<  */
+  kOpentitanMuxedPadsIor1 = 35, /**<  */
+  kOpentitanMuxedPadsIor2 = 36, /**<  */
+  kOpentitanMuxedPadsIor3 = 37, /**<  */
+  kOpentitanMuxedPadsIor4 = 38, /**<  */
+  kOpentitanMuxedPadsIor5 = 39, /**<  */
+  kOpentitanMuxedPadsIor6 = 40, /**<  */
+  kOpentitanMuxedPadsIor7 = 41, /**<  */
+  kOpentitanMuxedPadsLast = 41, /**< \internal Last valid muxed pad */
+} opentitan_muxed_pads_t;
 
 /**
  * Power Manager Wakeup Signals
  */
-typedef enum top_custom_gf12_power_manager_wake_ups {
-  kTopCustomGf12PowerManagerWakeUpsSysrstCtrlAonWkupReq = 0, /**<  */
-  kTopCustomGf12PowerManagerWakeUpsPinmuxAonPinWkupReq = 1, /**<  */
-  kTopCustomGf12PowerManagerWakeUpsPinmuxAonUsbWkupReq = 2, /**<  */
-  kTopCustomGf12PowerManagerWakeUpsAonTimerAonWkupReq = 3, /**<  */
-  kTopCustomGf12PowerManagerWakeUpsSensorCtrlWkupReq = 4, /**<  */
-  kTopCustomGf12PowerManagerWakeUpsLast = 4, /**< \internal Last valid pwrmgr wakeup signal */
-} top_custom_gf12_power_manager_wake_ups_t;
+typedef enum opentitan_power_manager_wake_ups {
+  kOpentitanPowerManagerWakeUpsSysrstCtrlAonWkupReq = 0, /**<  */
+  kOpentitanPowerManagerWakeUpsPinmuxAonPinWkupReq = 1, /**<  */
+  kOpentitanPowerManagerWakeUpsPinmuxAonUsbWkupReq = 2, /**<  */
+  kOpentitanPowerManagerWakeUpsAonTimerAonWkupReq = 3, /**<  */
+  kOpentitanPowerManagerWakeUpsSensorCtrlWkupReq = 4, /**<  */
+  kOpentitanPowerManagerWakeUpsLast = 4, /**< \internal Last valid pwrmgr wakeup signal */
+} opentitan_power_manager_wake_ups_t;
 
 /**
  * Reset Manager Software Controlled Resets
  */
-typedef enum top_custom_gf12_reset_manager_sw_resets {
-  kTopCustomGf12ResetManagerSwResetsSpiHost0 = 0, /**<  */
-  kTopCustomGf12ResetManagerSwResetsUsb = 1, /**<  */
-  kTopCustomGf12ResetManagerSwResetsUsbAon = 2, /**<  */
-  kTopCustomGf12ResetManagerSwResetsI2c0 = 3, /**<  */
-  kTopCustomGf12ResetManagerSwResetsLast = 3, /**< \internal Last valid rstmgr software reset request */
-} top_custom_gf12_reset_manager_sw_resets_t;
+typedef enum opentitan_reset_manager_sw_resets {
+  kOpentitanResetManagerSwResetsSpiHost0 = 0, /**<  */
+  kOpentitanResetManagerSwResetsUsb = 1, /**<  */
+  kOpentitanResetManagerSwResetsUsbAon = 2, /**<  */
+  kOpentitanResetManagerSwResetsI2c0 = 3, /**<  */
+  kOpentitanResetManagerSwResetsLast = 3, /**< \internal Last valid rstmgr software reset request */
+} opentitan_reset_manager_sw_resets_t;
 
 /**
  * Power Manager Reset Request Signals
  */
-typedef enum top_custom_gf12_power_manager_reset_requests {
-  kTopCustomGf12PowerManagerResetRequestsSysrstCtrlAonRstReq = 0, /**<  */
-  kTopCustomGf12PowerManagerResetRequestsAonTimerAonAonTimerRstReq = 1, /**<  */
-  kTopCustomGf12PowerManagerResetRequestsLast = 1, /**< \internal Last valid pwrmgr reset_request signal */
-} top_custom_gf12_power_manager_reset_requests_t;
+typedef enum opentitan_power_manager_reset_requests {
+  kOpentitanPowerManagerResetRequestsSysrstCtrlAonRstReq = 0, /**<  */
+  kOpentitanPowerManagerResetRequestsAonTimerAonAonTimerRstReq = 1, /**<  */
+  kOpentitanPowerManagerResetRequestsLast = 1, /**< \internal Last valid pwrmgr reset_request signal */
+} opentitan_power_manager_reset_requests_t;
 
 /**
  * Clock Manager Software-Controlled ("Gated") Clocks.
  *
  * The Software has full control over these clocks.
  */
-typedef enum top_custom_gf12_gateable_clocks {
-  kTopCustomGf12GateableClocksIoDiv4Peri = 0, /**< Clock clk_io_div4_peri in group peri */
-  kTopCustomGf12GateableClocksIoPeri = 1, /**< Clock clk_io_peri in group peri */
-  kTopCustomGf12GateableClocksUsbPeri = 2, /**< Clock clk_usb_peri in group peri */
-  kTopCustomGf12GateableClocksLast = 2, /**< \internal Last Valid Gateable Clock */
-} top_custom_gf12_gateable_clocks_t;
+typedef enum opentitan_gateable_clocks {
+  kOpentitanGateableClocksIoDiv4Peri = 0, /**< Clock clk_io_div4_peri in group peri */
+  kOpentitanGateableClocksIoPeri = 1, /**< Clock clk_io_peri in group peri */
+  kOpentitanGateableClocksUsbPeri = 2, /**< Clock clk_usb_peri in group peri */
+  kOpentitanGateableClocksLast = 2, /**< \internal Last Valid Gateable Clock */
+} opentitan_gateable_clocks_t;
 
 /**
  * Clock Manager Software-Hinted Clocks.
@@ -1178,10 +1178,10 @@ typedef enum top_custom_gf12_gateable_clocks {
  * The Software has partial control over these clocks. It can ask them to stop,
  * but the clock manager is in control of whether the clock actually is stopped.
  */
-typedef enum top_custom_gf12_hintable_clocks {
-  kTopCustomGf12HintableClocksMainKmac = 0, /**< Clock clk_main_kmac in group trans */
-  kTopCustomGf12HintableClocksLast = 0, /**< \internal Last Valid Hintable Clock */
-} top_custom_gf12_hintable_clocks_t;
+typedef enum opentitan_hintable_clocks {
+  kOpentitanHintableClocksMainKmac = 0, /**< Clock clk_main_kmac in group trans */
+  kOpentitanHintableClocksLast = 0, /**< \internal Last Valid Hintable Clock */
+} opentitan_hintable_clocks_t;
 
 /**
  * MMIO Region
@@ -1190,8 +1190,8 @@ typedef enum top_custom_gf12_hintable_clocks {
  * configuration space, i.e. ROM, main SRAM, and flash are excluded but
  * retention SRAM, spi_device memory, or usbdev memory are included.
  */
-#define TOP_CUSTOM_GF12_MMIO_BASE_ADDR 0x40000000u
-#define TOP_CUSTOM_GF12_MMIO_SIZE_BYTES 0x10000000u
+#define OPENTITAN_MMIO_BASE_ADDR 0x40000000u
+#define OPENTITAN_MMIO_SIZE_BYTES 0x10000000u
 
 // Header Extern Guard
 #ifdef __cplusplus

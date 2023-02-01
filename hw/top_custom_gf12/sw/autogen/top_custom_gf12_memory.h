@@ -69,527 +69,527 @@
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_UART0_BASE_ADDR 0x40000000
+#define OPENTITAN_UART0_BASE_ADDR 0x40000000
 
 /**
  * Peripheral size for uart0 in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_UART0_BASE_ADDR and
- * `TOP_CUSTOM_GF12_UART0_BASE_ADDR + TOP_CUSTOM_GF12_UART0_SIZE_BYTES`.
+ * address between #OPENTITAN_UART0_BASE_ADDR and
+ * `OPENTITAN_UART0_BASE_ADDR + OPENTITAN_UART0_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_UART0_SIZE_BYTES 0x40
+#define OPENTITAN_UART0_SIZE_BYTES 0x40
 /**
  * Peripheral base address for gpio in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_GPIO_BASE_ADDR 0x40040000
+#define OPENTITAN_GPIO_BASE_ADDR 0x40040000
 
 /**
  * Peripheral size for gpio in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_GPIO_BASE_ADDR and
- * `TOP_CUSTOM_GF12_GPIO_BASE_ADDR + TOP_CUSTOM_GF12_GPIO_SIZE_BYTES`.
+ * address between #OPENTITAN_GPIO_BASE_ADDR and
+ * `OPENTITAN_GPIO_BASE_ADDR + OPENTITAN_GPIO_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_GPIO_SIZE_BYTES 0x40
+#define OPENTITAN_GPIO_SIZE_BYTES 0x40
 /**
  * Peripheral base address for i2c0 in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_I2C0_BASE_ADDR 0x40080000
+#define OPENTITAN_I2C0_BASE_ADDR 0x40080000
 
 /**
  * Peripheral size for i2c0 in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_I2C0_BASE_ADDR and
- * `TOP_CUSTOM_GF12_I2C0_BASE_ADDR + TOP_CUSTOM_GF12_I2C0_SIZE_BYTES`.
+ * address between #OPENTITAN_I2C0_BASE_ADDR and
+ * `OPENTITAN_I2C0_BASE_ADDR + OPENTITAN_I2C0_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_I2C0_SIZE_BYTES 0x80
+#define OPENTITAN_I2C0_SIZE_BYTES 0x80
 /**
  * Peripheral base address for rv_timer in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_RV_TIMER_BASE_ADDR 0x40100000
+#define OPENTITAN_RV_TIMER_BASE_ADDR 0x40100000
 
 /**
  * Peripheral size for rv_timer in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_RV_TIMER_BASE_ADDR and
- * `TOP_CUSTOM_GF12_RV_TIMER_BASE_ADDR + TOP_CUSTOM_GF12_RV_TIMER_SIZE_BYTES`.
+ * address between #OPENTITAN_RV_TIMER_BASE_ADDR and
+ * `OPENTITAN_RV_TIMER_BASE_ADDR + OPENTITAN_RV_TIMER_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_RV_TIMER_SIZE_BYTES 0x200
+#define OPENTITAN_RV_TIMER_SIZE_BYTES 0x200
 /**
  * Peripheral base address for core device on otp_ctrl in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_OTP_CTRL_CORE_BASE_ADDR 0x40130000
+#define OPENTITAN_OTP_CTRL_CORE_BASE_ADDR 0x40130000
 
 /**
  * Peripheral size for core device on otp_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_OTP_CTRL_CORE_BASE_ADDR and
- * `TOP_CUSTOM_GF12_OTP_CTRL_CORE_BASE_ADDR + TOP_CUSTOM_GF12_OTP_CTRL_CORE_SIZE_BYTES`.
+ * address between #OPENTITAN_OTP_CTRL_CORE_BASE_ADDR and
+ * `OPENTITAN_OTP_CTRL_CORE_BASE_ADDR + OPENTITAN_OTP_CTRL_CORE_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_OTP_CTRL_CORE_SIZE_BYTES 0x2000
+#define OPENTITAN_OTP_CTRL_CORE_SIZE_BYTES 0x2000
 /**
  * Peripheral base address for prim device on otp_ctrl in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_OTP_CTRL_PRIM_BASE_ADDR 0x40132000
+#define OPENTITAN_OTP_CTRL_PRIM_BASE_ADDR 0x40132000
 
 /**
  * Peripheral size for prim device on otp_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_OTP_CTRL_PRIM_BASE_ADDR and
- * `TOP_CUSTOM_GF12_OTP_CTRL_PRIM_BASE_ADDR + TOP_CUSTOM_GF12_OTP_CTRL_PRIM_SIZE_BYTES`.
+ * address between #OPENTITAN_OTP_CTRL_PRIM_BASE_ADDR and
+ * `OPENTITAN_OTP_CTRL_PRIM_BASE_ADDR + OPENTITAN_OTP_CTRL_PRIM_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_OTP_CTRL_PRIM_SIZE_BYTES 0x20
+#define OPENTITAN_OTP_CTRL_PRIM_SIZE_BYTES 0x20
 /**
  * Peripheral base address for lc_ctrl in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_LC_CTRL_BASE_ADDR 0x40140000
+#define OPENTITAN_LC_CTRL_BASE_ADDR 0x40140000
 
 /**
  * Peripheral size for lc_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_LC_CTRL_BASE_ADDR and
- * `TOP_CUSTOM_GF12_LC_CTRL_BASE_ADDR + TOP_CUSTOM_GF12_LC_CTRL_SIZE_BYTES`.
+ * address between #OPENTITAN_LC_CTRL_BASE_ADDR and
+ * `OPENTITAN_LC_CTRL_BASE_ADDR + OPENTITAN_LC_CTRL_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_LC_CTRL_SIZE_BYTES 0x100
+#define OPENTITAN_LC_CTRL_SIZE_BYTES 0x100
 /**
  * Peripheral base address for alert_handler in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_ALERT_HANDLER_BASE_ADDR 0x40150000
+#define OPENTITAN_ALERT_HANDLER_BASE_ADDR 0x40150000
 
 /**
  * Peripheral size for alert_handler in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_ALERT_HANDLER_BASE_ADDR and
- * `TOP_CUSTOM_GF12_ALERT_HANDLER_BASE_ADDR + TOP_CUSTOM_GF12_ALERT_HANDLER_SIZE_BYTES`.
+ * address between #OPENTITAN_ALERT_HANDLER_BASE_ADDR and
+ * `OPENTITAN_ALERT_HANDLER_BASE_ADDR + OPENTITAN_ALERT_HANDLER_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_ALERT_HANDLER_SIZE_BYTES 0x400
+#define OPENTITAN_ALERT_HANDLER_SIZE_BYTES 0x400
 /**
  * Peripheral base address for spi_host0 in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_SPI_HOST0_BASE_ADDR 0x40300000
+#define OPENTITAN_SPI_HOST0_BASE_ADDR 0x40300000
 
 /**
  * Peripheral size for spi_host0 in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_SPI_HOST0_BASE_ADDR and
- * `TOP_CUSTOM_GF12_SPI_HOST0_BASE_ADDR + TOP_CUSTOM_GF12_SPI_HOST0_SIZE_BYTES`.
+ * address between #OPENTITAN_SPI_HOST0_BASE_ADDR and
+ * `OPENTITAN_SPI_HOST0_BASE_ADDR + OPENTITAN_SPI_HOST0_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_SPI_HOST0_SIZE_BYTES 0x40
+#define OPENTITAN_SPI_HOST0_SIZE_BYTES 0x40
 /**
  * Peripheral base address for pwrmgr_aon in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_PWRMGR_AON_BASE_ADDR 0x40400000
+#define OPENTITAN_PWRMGR_AON_BASE_ADDR 0x40400000
 
 /**
  * Peripheral size for pwrmgr_aon in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_PWRMGR_AON_BASE_ADDR and
- * `TOP_CUSTOM_GF12_PWRMGR_AON_BASE_ADDR + TOP_CUSTOM_GF12_PWRMGR_AON_SIZE_BYTES`.
+ * address between #OPENTITAN_PWRMGR_AON_BASE_ADDR and
+ * `OPENTITAN_PWRMGR_AON_BASE_ADDR + OPENTITAN_PWRMGR_AON_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_PWRMGR_AON_SIZE_BYTES 0x80
+#define OPENTITAN_PWRMGR_AON_SIZE_BYTES 0x80
 /**
  * Peripheral base address for rstmgr_aon in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_RSTMGR_AON_BASE_ADDR 0x40410000
+#define OPENTITAN_RSTMGR_AON_BASE_ADDR 0x40410000
 
 /**
  * Peripheral size for rstmgr_aon in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_RSTMGR_AON_BASE_ADDR and
- * `TOP_CUSTOM_GF12_RSTMGR_AON_BASE_ADDR + TOP_CUSTOM_GF12_RSTMGR_AON_SIZE_BYTES`.
+ * address between #OPENTITAN_RSTMGR_AON_BASE_ADDR and
+ * `OPENTITAN_RSTMGR_AON_BASE_ADDR + OPENTITAN_RSTMGR_AON_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_RSTMGR_AON_SIZE_BYTES 0x80
+#define OPENTITAN_RSTMGR_AON_SIZE_BYTES 0x80
 /**
  * Peripheral base address for clkmgr_aon in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_CLKMGR_AON_BASE_ADDR 0x40420000
+#define OPENTITAN_CLKMGR_AON_BASE_ADDR 0x40420000
 
 /**
  * Peripheral size for clkmgr_aon in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_CLKMGR_AON_BASE_ADDR and
- * `TOP_CUSTOM_GF12_CLKMGR_AON_BASE_ADDR + TOP_CUSTOM_GF12_CLKMGR_AON_SIZE_BYTES`.
+ * address between #OPENTITAN_CLKMGR_AON_BASE_ADDR and
+ * `OPENTITAN_CLKMGR_AON_BASE_ADDR + OPENTITAN_CLKMGR_AON_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_CLKMGR_AON_SIZE_BYTES 0x80
+#define OPENTITAN_CLKMGR_AON_SIZE_BYTES 0x80
 /**
  * Peripheral base address for sysrst_ctrl_aon in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_SYSRST_CTRL_AON_BASE_ADDR 0x40430000
+#define OPENTITAN_SYSRST_CTRL_AON_BASE_ADDR 0x40430000
 
 /**
  * Peripheral size for sysrst_ctrl_aon in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_SYSRST_CTRL_AON_BASE_ADDR and
- * `TOP_CUSTOM_GF12_SYSRST_CTRL_AON_BASE_ADDR + TOP_CUSTOM_GF12_SYSRST_CTRL_AON_SIZE_BYTES`.
+ * address between #OPENTITAN_SYSRST_CTRL_AON_BASE_ADDR and
+ * `OPENTITAN_SYSRST_CTRL_AON_BASE_ADDR + OPENTITAN_SYSRST_CTRL_AON_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_SYSRST_CTRL_AON_SIZE_BYTES 0x100
+#define OPENTITAN_SYSRST_CTRL_AON_SIZE_BYTES 0x100
 /**
  * Peripheral base address for pinmux_aon in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_PINMUX_AON_BASE_ADDR 0x40460000
+#define OPENTITAN_PINMUX_AON_BASE_ADDR 0x40460000
 
 /**
  * Peripheral size for pinmux_aon in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_PINMUX_AON_BASE_ADDR and
- * `TOP_CUSTOM_GF12_PINMUX_AON_BASE_ADDR + TOP_CUSTOM_GF12_PINMUX_AON_SIZE_BYTES`.
+ * address between #OPENTITAN_PINMUX_AON_BASE_ADDR and
+ * `OPENTITAN_PINMUX_AON_BASE_ADDR + OPENTITAN_PINMUX_AON_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_PINMUX_AON_SIZE_BYTES 0x800
+#define OPENTITAN_PINMUX_AON_SIZE_BYTES 0x800
 /**
  * Peripheral base address for aon_timer_aon in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_AON_TIMER_AON_BASE_ADDR 0x40470000
+#define OPENTITAN_AON_TIMER_AON_BASE_ADDR 0x40470000
 
 /**
  * Peripheral size for aon_timer_aon in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_AON_TIMER_AON_BASE_ADDR and
- * `TOP_CUSTOM_GF12_AON_TIMER_AON_BASE_ADDR + TOP_CUSTOM_GF12_AON_TIMER_AON_SIZE_BYTES`.
+ * address between #OPENTITAN_AON_TIMER_AON_BASE_ADDR and
+ * `OPENTITAN_AON_TIMER_AON_BASE_ADDR + OPENTITAN_AON_TIMER_AON_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_AON_TIMER_AON_SIZE_BYTES 0x40
+#define OPENTITAN_AON_TIMER_AON_SIZE_BYTES 0x40
 /**
  * Peripheral base address for ast in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_AST_BASE_ADDR 0x40480000
+#define OPENTITAN_AST_BASE_ADDR 0x40480000
 
 /**
  * Peripheral size for ast in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_AST_BASE_ADDR and
- * `TOP_CUSTOM_GF12_AST_BASE_ADDR + TOP_CUSTOM_GF12_AST_SIZE_BYTES`.
+ * address between #OPENTITAN_AST_BASE_ADDR and
+ * `OPENTITAN_AST_BASE_ADDR + OPENTITAN_AST_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_AST_SIZE_BYTES 0x400
+#define OPENTITAN_AST_SIZE_BYTES 0x400
 /**
  * Peripheral base address for sensor_ctrl in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_SENSOR_CTRL_BASE_ADDR 0x40490000
+#define OPENTITAN_SENSOR_CTRL_BASE_ADDR 0x40490000
 
 /**
  * Peripheral size for sensor_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_SENSOR_CTRL_BASE_ADDR and
- * `TOP_CUSTOM_GF12_SENSOR_CTRL_BASE_ADDR + TOP_CUSTOM_GF12_SENSOR_CTRL_SIZE_BYTES`.
+ * address between #OPENTITAN_SENSOR_CTRL_BASE_ADDR and
+ * `OPENTITAN_SENSOR_CTRL_BASE_ADDR + OPENTITAN_SENSOR_CTRL_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_SENSOR_CTRL_SIZE_BYTES 0x40
+#define OPENTITAN_SENSOR_CTRL_SIZE_BYTES 0x40
 /**
  * Peripheral base address for regs device on sram_ctrl_ret_aon in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_REGS_BASE_ADDR 0x40500000
+#define OPENTITAN_SRAM_CTRL_RET_AON_REGS_BASE_ADDR 0x40500000
 
 /**
  * Peripheral size for regs device on sram_ctrl_ret_aon in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_REGS_BASE_ADDR and
- * `TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_REGS_BASE_ADDR + TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_REGS_SIZE_BYTES`.
+ * address between #OPENTITAN_SRAM_CTRL_RET_AON_REGS_BASE_ADDR and
+ * `OPENTITAN_SRAM_CTRL_RET_AON_REGS_BASE_ADDR + OPENTITAN_SRAM_CTRL_RET_AON_REGS_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_REGS_SIZE_BYTES 0x20
+#define OPENTITAN_SRAM_CTRL_RET_AON_REGS_SIZE_BYTES 0x20
 /**
  * Peripheral base address for ram device on sram_ctrl_ret_aon in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_RAM_BASE_ADDR 0x40600000
+#define OPENTITAN_SRAM_CTRL_RET_AON_RAM_BASE_ADDR 0x40600000
 
 /**
  * Peripheral size for ram device on sram_ctrl_ret_aon in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_RAM_BASE_ADDR and
- * `TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_RAM_BASE_ADDR + TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_RAM_SIZE_BYTES`.
+ * address between #OPENTITAN_SRAM_CTRL_RET_AON_RAM_BASE_ADDR and
+ * `OPENTITAN_SRAM_CTRL_RET_AON_RAM_BASE_ADDR + OPENTITAN_SRAM_CTRL_RET_AON_RAM_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_SRAM_CTRL_RET_AON_RAM_SIZE_BYTES 0x1000
+#define OPENTITAN_SRAM_CTRL_RET_AON_RAM_SIZE_BYTES 0x1000
 /**
  * Peripheral base address for core device on flash_ctrl in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_FLASH_CTRL_CORE_BASE_ADDR 0x41000000
+#define OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR 0x41000000
 
 /**
  * Peripheral size for core device on flash_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_FLASH_CTRL_CORE_BASE_ADDR and
- * `TOP_CUSTOM_GF12_FLASH_CTRL_CORE_BASE_ADDR + TOP_CUSTOM_GF12_FLASH_CTRL_CORE_SIZE_BYTES`.
+ * address between #OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR and
+ * `OPENTITAN_FLASH_CTRL_CORE_BASE_ADDR + OPENTITAN_FLASH_CTRL_CORE_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_FLASH_CTRL_CORE_SIZE_BYTES 0x200
+#define OPENTITAN_FLASH_CTRL_CORE_SIZE_BYTES 0x200
 /**
  * Peripheral base address for prim device on flash_ctrl in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_FLASH_CTRL_PRIM_BASE_ADDR 0x41008000
+#define OPENTITAN_FLASH_CTRL_PRIM_BASE_ADDR 0x41008000
 
 /**
  * Peripheral size for prim device on flash_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_FLASH_CTRL_PRIM_BASE_ADDR and
- * `TOP_CUSTOM_GF12_FLASH_CTRL_PRIM_BASE_ADDR + TOP_CUSTOM_GF12_FLASH_CTRL_PRIM_SIZE_BYTES`.
+ * address between #OPENTITAN_FLASH_CTRL_PRIM_BASE_ADDR and
+ * `OPENTITAN_FLASH_CTRL_PRIM_BASE_ADDR + OPENTITAN_FLASH_CTRL_PRIM_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_FLASH_CTRL_PRIM_SIZE_BYTES 0x80
+#define OPENTITAN_FLASH_CTRL_PRIM_SIZE_BYTES 0x80
 /**
  * Peripheral base address for mem device on flash_ctrl in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_FLASH_CTRL_MEM_BASE_ADDR 0x20000000
+#define OPENTITAN_FLASH_CTRL_MEM_BASE_ADDR 0x20000000
 
 /**
  * Peripheral size for mem device on flash_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_FLASH_CTRL_MEM_BASE_ADDR and
- * `TOP_CUSTOM_GF12_FLASH_CTRL_MEM_BASE_ADDR + TOP_CUSTOM_GF12_FLASH_CTRL_MEM_SIZE_BYTES`.
+ * address between #OPENTITAN_FLASH_CTRL_MEM_BASE_ADDR and
+ * `OPENTITAN_FLASH_CTRL_MEM_BASE_ADDR + OPENTITAN_FLASH_CTRL_MEM_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_FLASH_CTRL_MEM_SIZE_BYTES 0x40000
+#define OPENTITAN_FLASH_CTRL_MEM_SIZE_BYTES 0x40000
 /**
  * Peripheral base address for regs device on rv_dm in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_RV_DM_REGS_BASE_ADDR 0x41200000
+#define OPENTITAN_RV_DM_REGS_BASE_ADDR 0x41200000
 
 /**
  * Peripheral size for regs device on rv_dm in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_RV_DM_REGS_BASE_ADDR and
- * `TOP_CUSTOM_GF12_RV_DM_REGS_BASE_ADDR + TOP_CUSTOM_GF12_RV_DM_REGS_SIZE_BYTES`.
+ * address between #OPENTITAN_RV_DM_REGS_BASE_ADDR and
+ * `OPENTITAN_RV_DM_REGS_BASE_ADDR + OPENTITAN_RV_DM_REGS_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_RV_DM_REGS_SIZE_BYTES 0x4
+#define OPENTITAN_RV_DM_REGS_SIZE_BYTES 0x4
 /**
  * Peripheral base address for mem device on rv_dm in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_RV_DM_MEM_BASE_ADDR 0x10000
+#define OPENTITAN_RV_DM_MEM_BASE_ADDR 0x10000
 
 /**
  * Peripheral size for mem device on rv_dm in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_RV_DM_MEM_BASE_ADDR and
- * `TOP_CUSTOM_GF12_RV_DM_MEM_BASE_ADDR + TOP_CUSTOM_GF12_RV_DM_MEM_SIZE_BYTES`.
+ * address between #OPENTITAN_RV_DM_MEM_BASE_ADDR and
+ * `OPENTITAN_RV_DM_MEM_BASE_ADDR + OPENTITAN_RV_DM_MEM_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_RV_DM_MEM_SIZE_BYTES 0x1000
+#define OPENTITAN_RV_DM_MEM_SIZE_BYTES 0x1000
 /**
  * Peripheral base address for rv_plic in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_RV_PLIC_BASE_ADDR 0x48000000
+#define OPENTITAN_RV_PLIC_BASE_ADDR 0x48000000
 
 /**
  * Peripheral size for rv_plic in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_RV_PLIC_BASE_ADDR and
- * `TOP_CUSTOM_GF12_RV_PLIC_BASE_ADDR + TOP_CUSTOM_GF12_RV_PLIC_SIZE_BYTES`.
+ * address between #OPENTITAN_RV_PLIC_BASE_ADDR and
+ * `OPENTITAN_RV_PLIC_BASE_ADDR + OPENTITAN_RV_PLIC_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_RV_PLIC_SIZE_BYTES 0x8000000
+#define OPENTITAN_RV_PLIC_SIZE_BYTES 0x8000000
 /**
  * Peripheral base address for kmac in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_KMAC_BASE_ADDR 0x41120000
+#define OPENTITAN_KMAC_BASE_ADDR 0x41120000
 
 /**
  * Peripheral size for kmac in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_KMAC_BASE_ADDR and
- * `TOP_CUSTOM_GF12_KMAC_BASE_ADDR + TOP_CUSTOM_GF12_KMAC_SIZE_BYTES`.
+ * address between #OPENTITAN_KMAC_BASE_ADDR and
+ * `OPENTITAN_KMAC_BASE_ADDR + OPENTITAN_KMAC_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_KMAC_SIZE_BYTES 0x2
+#define OPENTITAN_KMAC_SIZE_BYTES 0x2
 /**
  * Peripheral base address for regs device on sram_ctrl_main in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_REGS_BASE_ADDR 0x411C0000
+#define OPENTITAN_SRAM_CTRL_MAIN_REGS_BASE_ADDR 0x411C0000
 
 /**
  * Peripheral size for regs device on sram_ctrl_main in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_REGS_BASE_ADDR and
- * `TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_REGS_BASE_ADDR + TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_REGS_SIZE_BYTES`.
+ * address between #OPENTITAN_SRAM_CTRL_MAIN_REGS_BASE_ADDR and
+ * `OPENTITAN_SRAM_CTRL_MAIN_REGS_BASE_ADDR + OPENTITAN_SRAM_CTRL_MAIN_REGS_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_REGS_SIZE_BYTES 0x20
+#define OPENTITAN_SRAM_CTRL_MAIN_REGS_SIZE_BYTES 0x20
 /**
  * Peripheral base address for ram device on sram_ctrl_main in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_RAM_BASE_ADDR 0x10000000
+#define OPENTITAN_SRAM_CTRL_MAIN_RAM_BASE_ADDR 0x10000000
 
 /**
  * Peripheral size for ram device on sram_ctrl_main in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_RAM_BASE_ADDR and
- * `TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_RAM_BASE_ADDR + TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_RAM_SIZE_BYTES`.
+ * address between #OPENTITAN_SRAM_CTRL_MAIN_RAM_BASE_ADDR and
+ * `OPENTITAN_SRAM_CTRL_MAIN_RAM_BASE_ADDR + OPENTITAN_SRAM_CTRL_MAIN_RAM_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_SRAM_CTRL_MAIN_RAM_SIZE_BYTES 0x20000
+#define OPENTITAN_SRAM_CTRL_MAIN_RAM_SIZE_BYTES 0x20000
 /**
  * Peripheral base address for regs device on rom_ctrl in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_ROM_CTRL_REGS_BASE_ADDR 0x411E0000
+#define OPENTITAN_ROM_CTRL_REGS_BASE_ADDR 0x411E0000
 
 /**
  * Peripheral size for regs device on rom_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_ROM_CTRL_REGS_BASE_ADDR and
- * `TOP_CUSTOM_GF12_ROM_CTRL_REGS_BASE_ADDR + TOP_CUSTOM_GF12_ROM_CTRL_REGS_SIZE_BYTES`.
+ * address between #OPENTITAN_ROM_CTRL_REGS_BASE_ADDR and
+ * `OPENTITAN_ROM_CTRL_REGS_BASE_ADDR + OPENTITAN_ROM_CTRL_REGS_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_ROM_CTRL_REGS_SIZE_BYTES 0x80
+#define OPENTITAN_ROM_CTRL_REGS_SIZE_BYTES 0x80
 /**
  * Peripheral base address for rom device on rom_ctrl in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_ROM_CTRL_ROM_BASE_ADDR 0x8000
+#define OPENTITAN_ROM_CTRL_ROM_BASE_ADDR 0x8000
 
 /**
  * Peripheral size for rom device on rom_ctrl in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_ROM_CTRL_ROM_BASE_ADDR and
- * `TOP_CUSTOM_GF12_ROM_CTRL_ROM_BASE_ADDR + TOP_CUSTOM_GF12_ROM_CTRL_ROM_SIZE_BYTES`.
+ * address between #OPENTITAN_ROM_CTRL_ROM_BASE_ADDR and
+ * `OPENTITAN_ROM_CTRL_ROM_BASE_ADDR + OPENTITAN_ROM_CTRL_ROM_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_ROM_CTRL_ROM_SIZE_BYTES 0x8000
+#define OPENTITAN_ROM_CTRL_ROM_SIZE_BYTES 0x8000
 /**
  * Peripheral base address for cfg device on rv_core_ibex in top custom_gf12.
  *
  * This should be used with #mmio_region_from_addr to access the memory-mapped
  * registers associated with the peripheral (usually via a DIF).
  */
-#define TOP_CUSTOM_GF12_RV_CORE_IBEX_CFG_BASE_ADDR 0x411F0000
+#define OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR 0x411F0000
 
 /**
  * Peripheral size for cfg device on rv_core_ibex in top custom_gf12.
  *
  * This is the size (in bytes) of the peripheral's reserved memory area. All
  * memory-mapped registers associated with this peripheral should have an
- * address between #TOP_CUSTOM_GF12_RV_CORE_IBEX_CFG_BASE_ADDR and
- * `TOP_CUSTOM_GF12_RV_CORE_IBEX_CFG_BASE_ADDR + TOP_CUSTOM_GF12_RV_CORE_IBEX_CFG_SIZE_BYTES`.
+ * address between #OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR and
+ * `OPENTITAN_RV_CORE_IBEX_CFG_BASE_ADDR + OPENTITAN_RV_CORE_IBEX_CFG_SIZE_BYTES`.
  */
-#define TOP_CUSTOM_GF12_RV_CORE_IBEX_CFG_SIZE_BYTES 0x100
+#define OPENTITAN_RV_CORE_IBEX_CFG_SIZE_BYTES 0x100
 
 /**
  * MMIO Region
@@ -598,8 +598,8 @@
  * configuration space, i.e. ROM, main SRAM, and flash are excluded but
  * retention SRAM, spi_device memory, or usbdev memory are included.
  */
-#define TOP_CUSTOM_GF12_MMIO_BASE_ADDR 0x40000000
-#define TOP_CUSTOM_GF12_MMIO_SIZE_BYTES 0x10000000
+#define OPENTITAN_MMIO_BASE_ADDR 0x40000000
+#define OPENTITAN_MMIO_SIZE_BYTES 0x10000000
 
 #endif  // __ASSEMBLER__
 
