@@ -2,7 +2,11 @@
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
 
-load("//rules:opentitan.bzl", "OPENTITAN_CPU")
+load("//rules:opentitan.bzl",
+    "OPENTITAN_CPU",
+    "opentitan_cc_library",
+    "opentitan_dual_cc_library",
+)
 load("//rules:opentitan_test.bzl", "opentitan_functest", "verilator_params")
 load("//rules:cross_platform.bzl", "dual_cc_device_library_of", "dual_cc_library", "dual_inputs")
 
@@ -200,8 +204,9 @@ cc_test(
     ],
 )
 
-dual_cc_library(
+opentitan_dual_cc_library(
     name = "manifest",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = dual_inputs(
         device = ["manifest.c"],
         host = ["mock_manifest.cc"],
@@ -212,7 +217,8 @@ dual_cc_library(
     ),
     deps = dual_inputs(
         device = [
-            "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+            "//sw/device/include:opentitan",
+            "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         ],
         host = [
             "//sw/device/lib/base:global_mock",
@@ -224,20 +230,21 @@ dual_cc_library(
             ":error",
             ":keymgr_binding",
             "//sw/device/lib/base:macros",
-            "//sw/device/silicon_creator/lib/drivers:lifecycle_earlgrey",
+            "//sw/device/silicon_creator/lib/drivers:lifecycle_{soc_config}",
             "//sw/device/silicon_creator/lib/sigverify:rsa_key",
             "//sw/device/silicon_creator/lib/base:chip",
         ],
     ),
 )
 
-dual_cc_library(
+opentitan_dual_cc_library(
     name = "manifest_def",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = dual_inputs(device = ["manifest_def.c"]),
     hdrs = ["manifest_def.h"],
     target_compatible_with = dual_inputs(device = [OPENTITAN_CPU]),
     deps = [
-        ":manifest",
+        ":manifest_{soc_config}",
         "//sw/device/lib/base:macros",
     ],
     # The manifest section should be populated anytime this is added as a
@@ -258,7 +265,7 @@ cc_test(
     srcs = ["manifest_unittest.cc"],
     local_defines = ["MANIFEST_UNIT_TEST_"],
     deps = [
-        dual_cc_device_library_of(":manifest"),
+        dual_cc_device_library_of(":manifest_earlgrey"),
         "//sw/device/lib/base:csr",
         "//sw/device/silicon_creator/testing:rom_test",
         "@googletest//:gtest_main",

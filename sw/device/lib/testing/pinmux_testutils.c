@@ -13,7 +13,7 @@
 #include "sw/device/lib/runtime/hart.h"
 #include "sw/device/lib/testing/test_framework/check.h"
 
-#include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"
+#include "sw/device/include/opentitan.h"
 
 void pinmux_testutils_init(dif_pinmux_t *pinmux) {
   // Set up SW straps on IOC0-IOC2, for GPIOs 22-24
@@ -43,7 +43,7 @@ void pinmux_testutils_init(dif_pinmux_t *pinmux) {
   CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kOpentitanPinmuxMioOutIoc4,
                                         kOpentitanPinmuxOutselUart0Tx));
 
-#if !OT_IS_ENGLISH_BREAKFAST
+#if !OT_IS_ENGLISH_BREAKFAST && !OT_IS_CUSTOM_GF12
   // Enable pull-ups on UART0 RX
   // Pull-ups are available only on certain platforms.
   if (kDeviceType == kDeviceSimDV) {
@@ -85,6 +85,7 @@ void pinmux_testutils_init(dif_pinmux_t *pinmux) {
 //
 // The pinout spreadsheet allocates fewer pins to GPIOs than what the GPIO IP
 // supports. This oversubscription is intentional to maximize testing.
+#if (defined OT_IS_EARLGREY)
 const dif_pinmux_index_t kPinmuxTestutilsGpioInselPins[kDifGpioNumPins] = {
     kOpentitanPinmuxInselIoa0,  kOpentitanPinmuxInselIoa1,
     kOpentitanPinmuxInselIoa2,  kOpentitanPinmuxInselIoa3,
@@ -120,6 +121,36 @@ const dif_pinmux_index_t kPinmuxTestutilsGpioMioOutPins[kDifGpioNumPins] = {
     kOpentitanPinmuxMioOutIor6,  kOpentitanPinmuxMioOutIor7,
     kOpentitanPinmuxMioOutIor10, kOpentitanPinmuxMioOutIor11,
     kOpentitanPinmuxMioOutIor12, kOpentitanPinmuxMioOutIor13};
+
+#elif (defined OT_IS_CUSTOM_GF12)
+const dif_pinmux_index_t kPinmuxTestutilsGpioInselPins[kDifGpioNumPins] = {
+    kOpentitanPinmuxInselIoa0,  kOpentitanPinmuxInselIoa1,
+    kOpentitanPinmuxInselIoa2,  kOpentitanPinmuxInselIoa3,
+    kOpentitanPinmuxInselIoa4,  kOpentitanPinmuxInselIoa5,
+    kOpentitanPinmuxInselIoa6,  kOpentitanPinmuxInselIoa7,
+    kOpentitanPinmuxInselIoa8,  kOpentitanPinmuxInselIob6,
+    kOpentitanPinmuxInselIob7,  kOpentitanPinmuxInselIob8,
+    kOpentitanPinmuxInselIob9,  kOpentitanPinmuxInselIob10,
+    kOpentitanPinmuxInselIoc9,  kOpentitanPinmuxInselIoc10,
+    kOpentitanPinmuxInselIor0,  kOpentitanPinmuxInselIor1,
+    kOpentitanPinmuxInselIor2,  kOpentitanPinmuxInselIor3,
+    kOpentitanPinmuxInselIor4,  kOpentitanPinmuxInselIor5,
+    kOpentitanPinmuxInselIor6,  kOpentitanPinmuxInselIor7};
+
+const dif_pinmux_index_t kPinmuxTestutilsGpioMioOutPins[kDifGpioNumPins] = {
+    kOpentitanPinmuxMioOutIoa0,  kOpentitanPinmuxMioOutIoa1,
+    kOpentitanPinmuxMioOutIoa2,  kOpentitanPinmuxMioOutIoa3,
+    kOpentitanPinmuxMioOutIoa4,  kOpentitanPinmuxMioOutIoa5,
+    kOpentitanPinmuxMioOutIoa6,  kOpentitanPinmuxMioOutIoa7,
+    kOpentitanPinmuxMioOutIoa8,  kOpentitanPinmuxMioOutIob6,
+    kOpentitanPinmuxMioOutIob7,  kOpentitanPinmuxMioOutIob8,
+    kOpentitanPinmuxMioOutIob9,  kOpentitanPinmuxMioOutIob10,
+    kOpentitanPinmuxMioOutIoc9,  kOpentitanPinmuxMioOutIoc10,
+    kOpentitanPinmuxMioOutIor0,  kOpentitanPinmuxMioOutIor1,
+    kOpentitanPinmuxMioOutIor2,  kOpentitanPinmuxMioOutIor3,
+    kOpentitanPinmuxMioOutIor4,  kOpentitanPinmuxMioOutIor5,
+    kOpentitanPinmuxMioOutIor6,  kOpentitanPinmuxMioOutIor7};
+#endif
 
 uint32_t pinmux_testutils_get_testable_gpios_mask(void) {
   if (kDeviceType == kDeviceFpgaCw310) {

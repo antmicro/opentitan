@@ -2,7 +2,11 @@
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
 
-load("//rules:opentitan.bzl", "OPENTITAN_CPU")
+load("//rules:opentitan.bzl",
+    "OPENTITAN_CPU",
+    "opentitan_cc_library",
+    "opentitan_dual_cc_library",
+)
 
 package(default_visibility = ["//visibility:public"])
 
@@ -124,14 +128,16 @@ cc_library(
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "flash_ctrl_testutils",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = ["flash_ctrl_testutils.c"],
     hdrs = ["flash_ctrl_testutils.h"],
     target_compatible_with = [OPENTITAN_CPU],
     deps = [
-        "//hw/top_earlgrey/ip/flash_ctrl/data/autogen:flash_ctrl_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//hw/top_{soc_config}/ip/flash_ctrl/data/autogen:flash_ctrl_regs",
+        "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
+        "//sw/device/include:opentitan",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:mmio",
         "//sw/device/lib/dif:flash_ctrl",
@@ -183,7 +189,7 @@ cc_library(
         "//sw/device/lib/dif:otp_ctrl",
         "//sw/device/lib/dif:rstmgr",
         "//sw/device/lib/runtime:ibex",
-        "//sw/device/lib/testing:flash_ctrl_testutils",
+        "//sw/device/lib/testing:flash_ctrl_testutils_earlgrey",
         "//sw/device/lib/testing:kmac_testutils",
         "//sw/device/lib/testing:otp_ctrl_testutils",
         "//sw/device/lib/testing:rstmgr_testutils",
@@ -242,17 +248,19 @@ cc_library(
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "pinmux_testutils",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = ["pinmux_testutils.c"],
     hdrs = ["pinmux_testutils.h"],
     target_compatible_with = [OPENTITAN_CPU],
     deps = [
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
+        "//sw/device/include:opentitan",
         "//sw/device/lib/arch:device",
         "//sw/device/lib/dif:base",
         "//sw/device/lib/dif:gpio",
-        "//sw/device/lib/dif:pinmux",
+        "//sw/device/lib/dif:pinmux_{soc_config}",
         "//sw/device/lib/runtime:hart",
         "//sw/device/lib/testing/test_framework:check",
     ],

@@ -2,7 +2,16 @@
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
 
+load("//rules:opentitan.bzl",
+    "opentitan_cc_library",
+)
+
 package(default_visibility = ["//visibility:public"])
+
+SOC_CONFIGS = [
+    'earlgrey',
+    'custom_gf12',
+]
 
 cc_library(
     name = "base",
@@ -93,8 +102,9 @@ cc_test(
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "alert_handler",
+    soc_configs = SOC_CONFIGS,
     srcs = [
         "autogen/dif_alert_handler_autogen.c",
         "autogen/dif_alert_handler_autogen.h",
@@ -105,13 +115,18 @@ cc_library(
     ],
     deps = [
         ":base",
-        "//hw/top_earlgrey:alert_handler_regs",
+        "//hw/top_{soc_config}:alert_handler_regs",
         "//sw/device/lib/base:bitfield",
         "//sw/device/lib/base:macros",
         "//sw/device/lib/base:memory",
         "//sw/device/lib/base:mmio",
         "//sw/device/lib/base:multibits",
     ],
+)
+# FIXME: Assume that by default we use 'earlgrey' not to change every target
+alias(
+    name = "alert_handler",
+    actual = ":alert_handler_earlgrey"
 )
 
 cc_test(
@@ -161,8 +176,9 @@ cc_test(
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "clkmgr",
+    soc_configs = SOC_CONFIGS,
     srcs = [
         "autogen/dif_clkmgr_autogen.c",
         "autogen/dif_clkmgr_autogen.h",
@@ -171,13 +187,18 @@ cc_library(
     hdrs = ["dif_clkmgr.h"],
     deps = [
         ":base",
-        "//hw/top_earlgrey/ip/clkmgr/data/autogen:clkmgr_regs",
+        "//hw/top_{soc_config}/ip/clkmgr/data/autogen:clkmgr_regs",
         "//sw/device/lib/base:bitfield",
         "//sw/device/lib/base:macros",
         "//sw/device/lib/base:memory",
         "//sw/device/lib/base:mmio",
         "//sw/device/lib/base:multibits",
     ],
+)
+# FIXME: Assume that by default we use 'earlgrey' not to change every target
+alias(
+    name = "clkmgr",
+    actual = ":clkmgr_earlgrey"
 )
 
 cc_test(
@@ -655,8 +676,9 @@ cc_test(
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "pinmux",
+    soc_configs = SOC_CONFIGS,
     srcs = [
         "autogen/dif_pinmux_autogen.c",
         "autogen/dif_pinmux_autogen.h",
@@ -667,13 +689,18 @@ cc_library(
     ],
     deps = [
         ":base",
-        "//hw/top_earlgrey/ip/pinmux/data/autogen:pinmux_regs",
+        "//hw/top_{soc_config}/ip/pinmux/data/autogen:pinmux_regs",
         "//sw/device/lib/base:bitfield",
         "//sw/device/lib/base:macros",
         "//sw/device/lib/base:memory",
         "//sw/device/lib/base:mmio",
         "//sw/device/lib/base:multibits",
     ],
+)
+# FIXME: Assume that by default we use 'earlgrey' not to change every target
+alias(
+    name = "pnimux",
+    actual = ":pinmux_earlgrey"
 )
 
 cc_test(
@@ -722,8 +749,9 @@ cc_test(
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "pwrmgr",
+    soc_configs = SOC_CONFIGS,
     srcs = [
         "autogen/dif_pwrmgr_autogen.c",
         "autogen/dif_pwrmgr_autogen.h",
@@ -734,13 +762,18 @@ cc_library(
     ],
     deps = [
         ":base",
-        "//hw/top_earlgrey/ip/pwrmgr/data/autogen:pwrmgr_regs",
+        "//hw/top_{soc_config}/ip/pwrmgr/data/autogen:pwrmgr_regs",
         "//sw/device/lib/base:bitfield",
         "//sw/device/lib/base:macros",
         "//sw/device/lib/base:memory",
         "//sw/device/lib/base:mmio",
         "//sw/device/lib/base:multibits",
     ],
+)
+# FIXME: Assume that by default we use 'earlgrey' not to change every target
+alias(
+    name = "pwrmgr",
+    actual = ":pwrmgr_earlgrey"
 )
 
 cc_test(
@@ -796,8 +829,9 @@ cc_library(
     deps = [":base"],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "rstmgr",
+    soc_configs = SOC_CONFIGS,
     srcs = [
         "autogen/dif_rstmgr_autogen.c",
         "dif_rstmgr.c",
@@ -805,13 +839,18 @@ cc_library(
     deps = [
         ":base",
         ":rstmgr_intf",
-        "//hw/top_earlgrey/ip/rstmgr/data/autogen:rstmgr_regs",
+        "//hw/top_{soc_config}/ip/rstmgr/data/autogen:rstmgr_regs",
         "//sw/device/lib/base:bitfield",
         "//sw/device/lib/base:macros",
         "//sw/device/lib/base:memory",
         "//sw/device/lib/base:mmio",
         "//sw/device/lib/base:multibits",
     ],
+)
+# FIXME: Assume that by default we use 'earlgrey' not to change every target
+alias(
+    name = "rstmgr_handler",
+    actual = ":rstmgr_handler_earlgrey"
 )
 
 cc_test(
@@ -827,8 +866,9 @@ cc_test(
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "rv_core_ibex",
+    soc_configs = SOC_CONFIGS,
     srcs = [
         "autogen/dif_rv_core_ibex_autogen.c",
         "autogen/dif_rv_core_ibex_autogen.h",
@@ -840,10 +880,16 @@ cc_library(
     deps = [
         ":base",
         "//hw/ip/rv_core_ibex/data:rv_core_ibex_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//sw/device/include:opentitan",
+        "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         "//sw/device/lib/base:mmio",
         "//sw/device/lib/runtime:hart",
     ],
+)
+# FIXME: Assume that by default we use 'earlgrey' not to change every target
+alias(
+    name = "rv_core_ibex",
+    actual = ":rv_core_ibex_earlgrey"
 )
 
 cc_test(
@@ -859,8 +905,9 @@ cc_test(
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "rv_plic",
+    soc_configs = SOC_CONFIGS,
     srcs = [
         "autogen/dif_rv_plic_autogen.c",
         "autogen/dif_rv_plic_autogen.h",
@@ -871,13 +918,18 @@ cc_library(
     ],
     deps = [
         ":base",
-        "//hw/top_earlgrey:rv_plic_regs",
+        "//hw/top_{soc_config}:rv_plic_regs",
         "//sw/device/lib/base:bitfield",
         "//sw/device/lib/base:macros",
         "//sw/device/lib/base:memory",
         "//sw/device/lib/base:mmio",
         "//sw/device/lib/base:multibits",
     ],
+)
+# FIXME: Assume that by default we use 'earlgrey' not to change every target
+alias(
+    name = "rv_plic",
+    actual = ":rv_plic_earlgrey"
 )
 
 cc_test(
@@ -1031,8 +1083,9 @@ cc_test(
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "sensor_ctrl",
+    soc_configs = SOC_CONFIGS,
     srcs = [
         "autogen/dif_sensor_ctrl_autogen.c",
         "autogen/dif_sensor_ctrl_autogen.h",
@@ -1043,11 +1096,16 @@ cc_library(
     ],
     deps = [
         ":base",
-        "//hw/top_earlgrey/ip/sensor_ctrl/data:sensor_ctrl_regs",
+        "//hw/top_{soc_config}/ip/sensor_ctrl/data:sensor_ctrl_regs",
         "//sw/device/lib/base:bitfield",
         "//sw/device/lib/base:macros",
         "//sw/device/lib/base:mmio",
     ],
+)
+# FIXME: Assume that by default we use 'earlgrey' not to change every target
+alias(
+    name = "sensor_ctrl",
+    actual = ":sensor_ctrl_earlgrey"
 )
 
 cc_test(

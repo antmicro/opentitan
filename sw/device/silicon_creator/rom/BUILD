@@ -2,7 +2,11 @@
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
 
-load("//rules:opentitan.bzl", "OPENTITAN_CPU", "opentitan_rom_binary")
+load("//rules:opentitan.bzl",
+    "OPENTITAN_CPU",
+    "opentitan_rom_binary",
+    "opentitan_cc_library"
+)
 load("//rules:exclude_files.bzl", "exclude_files")
 load("//rules:linker.bzl", "ld_library")
 load(
@@ -32,7 +36,7 @@ dual_cc_library(
             "@googletest//:gtest",
         ],
         shared = [
-            "//sw/device/silicon_creator/lib:manifest",
+            "//sw/device/silicon_creator/lib:manifest_earlgrey",
             "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         ],
     ),
@@ -47,7 +51,7 @@ cc_library(
         "//sw/device/lib/base:hardened",
         "//sw/device/silicon_creator/lib:boot_data",
         "//sw/device/silicon_creator/lib:error",
-        "//sw/device/silicon_creator/lib:manifest",
+        "//sw/device/silicon_creator/lib:manifest_earlgrey",
         "//sw/device/silicon_creator/lib:shutdown",
         "//sw/device/silicon_creator/lib/base:chip",
     ],
@@ -80,7 +84,7 @@ cc_library(
     ],
     target_compatible_with = [OPENTITAN_CPU],
     deps = [
-        ":rom_common",
+        ":rom_common_earlgrey",
         ":rom_epmp",
         "//hw/ip/aon_timer/data:aon_timer_regs",
         "//hw/ip/csrng/data:csrng_regs",
@@ -104,15 +108,16 @@ cc_library(
     alwayslink = True,
 )
 
-cc_library(
+opentitan_cc_library(
     name = "rom_common",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = [
         "rom.c",
         "rom.h",
     ],
     deps = [
         ":boot_policy",
-        ":bootstrap",
+        ":bootstrap_{soc_config}",
         ":rom_epmp",
         ":sigverify_keys",
         "//hw/ip/aon_timer/data:aon_timer_regs",
@@ -128,26 +133,26 @@ cc_library(
         "//sw/device/silicon_creator/lib:epmp_state",
         "//sw/device/silicon_creator/lib:error",
         "//sw/device/silicon_creator/lib:irq_asm",
-        "//sw/device/silicon_creator/lib:manifest",
+        "//sw/device/silicon_creator/lib:manifest_{soc_config}",
         "//sw/device/silicon_creator/lib:shutdown",
         "//sw/device/silicon_creator/lib/base:chip",
         "//sw/device/silicon_creator/lib/base:sec_mmio",
         "//sw/device/silicon_creator/lib/base:static_critical_boot_measurements",
         "//sw/device/silicon_creator/lib/base:static_critical_epmp_state",
         "//sw/device/silicon_creator/lib/base:static_critical_sec_mmio",
-        "//sw/device/silicon_creator/lib/drivers:alert_earlgrey",
-        "//sw/device/silicon_creator/lib/drivers:ast_earlgrey",
-        "//sw/device/silicon_creator/lib/drivers:flash_ctrl_earlgrey",
-        "//sw/device/silicon_creator/lib/drivers:ibex_earlgrey",
-        "//sw/device/silicon_creator/lib/drivers:keymgr_earlgrey",
-        "//sw/device/silicon_creator/lib/drivers:lifecycle_earlgrey",
-        "//sw/device/silicon_creator/lib/drivers:otp_earlgrey",
-        "//sw/device/silicon_creator/lib/drivers:pinmux_earlgrey",
-        "//sw/device/silicon_creator/lib/drivers:retention_sram_earlgrey",
-        "//sw/device/silicon_creator/lib/drivers:rnd_earlgrey",
-        "//sw/device/silicon_creator/lib/drivers:rstmgr_earlgrey",
-        "//sw/device/silicon_creator/lib/drivers:uart_earlgrey",
-        "//sw/device/silicon_creator/lib/drivers:watchdog_earlgrey",
+        "//sw/device/silicon_creator/lib/drivers:alert_{soc_config}",
+        "//sw/device/silicon_creator/lib/drivers:ast_{soc_config}",
+        "//sw/device/silicon_creator/lib/drivers:flash_ctrl_{soc_config}",
+        "//sw/device/silicon_creator/lib/drivers:ibex_{soc_config}",
+        "//sw/device/silicon_creator/lib/drivers:keymgr_{soc_config}",
+        "//sw/device/silicon_creator/lib/drivers:lifecycle_{soc_config}",
+        "//sw/device/silicon_creator/lib/drivers:otp_{soc_config}",
+        "//sw/device/silicon_creator/lib/drivers:pinmux_{soc_config}",
+        "//sw/device/silicon_creator/lib/drivers:retention_sram_{soc_config}",
+        "//sw/device/silicon_creator/lib/drivers:rnd_{soc_config}",
+        "//sw/device/silicon_creator/lib/drivers:rstmgr_{soc_config}",
+        "//sw/device/silicon_creator/lib/drivers:uart_{soc_config}",
+        "//sw/device/silicon_creator/lib/drivers:watchdog_{soc_config}",
         "//sw/device/silicon_creator/lib/sigverify",
     ],
 )
@@ -157,7 +162,7 @@ opentitan_rom_binary(
     testonly = True,
     deps = [
         ":linker_script",
-        ":rom_common",
+        ":rom_common_earlgrey",
         ":rom_start",
         "//sw/device/silicon_creator/rom/keys/fake",
     ],
@@ -238,24 +243,26 @@ filegroup(
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "bootstrap",
+    soc_configs = ['earlgrey', 'custom_gf12'],
     srcs = ["bootstrap.c"],
     hdrs = ["bootstrap.h"],
     deps = [
         "//hw/ip/gpio/data:gpio_regs",
         "//hw/ip/otp_ctrl/data:otp_ctrl_regs",
-        "//hw/top_earlgrey/ip/flash_ctrl/data/autogen:flash_ctrl_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//hw/top_{soc_config}/ip/flash_ctrl/data/autogen:flash_ctrl_regs",
+        "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
+        "//sw/device/include:opentitan",
         "//sw/device/lib/base:abs_mmio",
         "//sw/device/lib/base:bitfield",
         "//sw/device/lib/base:hardened",
         "//sw/device/silicon_creator/lib:error",
         "//sw/device/silicon_creator/lib/base:chip",
-        "//sw/device/silicon_creator/lib/drivers:flash_ctrl_earlgrey",
-        "//sw/device/silicon_creator/lib/drivers:otp_earlgrey",
-        "//sw/device/silicon_creator/lib/drivers:rstmgr_earlgrey",
-        "//sw/device/silicon_creator/lib/drivers:spi_device_earlgrey",
+        "//sw/device/silicon_creator/lib/drivers:flash_ctrl_{soc_config}",
+        "//sw/device/silicon_creator/lib/drivers:otp_{soc_config}",
+        "//sw/device/silicon_creator/lib/drivers:rstmgr_{soc_config}",
+        "//sw/device/silicon_creator/lib/drivers:spi_device_{soc_config}",
     ],
 )
 
@@ -263,7 +270,7 @@ cc_test(
     name = "bootstrap_unittest",
     srcs = ["bootstrap_unittest.cc"],
     deps = [
-        ":bootstrap",
+        ":bootstrap_earlgrey",
         "//hw/ip/gpio/data:gpio_regs",
         "//hw/ip/otp_ctrl/data:otp_ctrl_regs",
         "//hw/top_earlgrey/ip/flash_ctrl/data/autogen:flash_ctrl_regs",
