@@ -164,6 +164,9 @@ module flash_ctrl
     .bank0_info0_cfg_i(reg2hw.bank0_info0_page_cfg),
     .bank0_info1_cfg_i(reg2hw.bank0_info1_page_cfg),
     .bank0_info2_cfg_i(reg2hw.bank0_info2_page_cfg),
+    .bank1_info0_cfg_i(reg2hw.bank1_info0_page_cfg),
+    .bank1_info1_cfg_i(reg2hw.bank1_info1_page_cfg),
+    .bank1_info2_cfg_i(reg2hw.bank1_info2_page_cfg),
     .bank_cfg_o(bank_cfgs),
     .region_cfgs_o(region_cfgs),
     .info_page_cfgs_o(info_page_cfgs)

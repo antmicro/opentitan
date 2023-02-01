@@ -3660,12 +3660,12 @@
           byte_write: False
           config:
           {
-            banks: 1
-            pages_per_bank: 128
+            banks: 2
+            pages_per_bank: 64
             program_resolution: 8
             pgm_resolution_bytes: 64
             bytes_per_page: 2048
-            bytes_per_bank: 262144
+            bytes_per_bank: 131072
             size: 0x40000
           }
           size: 0x40000
