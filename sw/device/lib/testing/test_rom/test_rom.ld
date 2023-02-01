@@ -8,15 +8,6 @@
  * Portions of this file are Ibex-specific.
  */
 
-OUTPUT_ARCH(riscv)
-
-/**
- * Indicate that there are no dynamic libraries, whatsoever.
- */
-__DYNAMIC = 0;
-
-INCLUDE hw/top_earlgrey/sw/autogen/top_earlgrey_memory.ld
-
 /**
  * The boot address, which indicates the location of the initial interrupt
  * vector.

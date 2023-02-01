@@ -20,9 +20,15 @@ autogen_chip_info(
 )
 
 ld_library(
+    name = "test_rom_ld",
+    includes = ["test_rom.ld"]
+)
+
+ld_library(
     name = "linker_script_earlgrey",
-    script = "test_rom.ld",
+    script = "test_rom_earlgrey.ld",
     deps = [
+        ":test_rom_ld",
         "//hw/top_earlgrey/sw/autogen:top_earlgrey_memory",
         "//sw/device:info_sections",
         "//sw/device/silicon_creator/lib/base:static_critical_sections",
@@ -30,8 +36,9 @@ ld_library(
 )
 ld_library(
     name = "linker_script_custom_gf12",
-    script = "test_rom.ld",
+    script = "test_rom_custom_gf12.ld",
     deps = [
+        ":test_rom_ld",
         "//hw/top_custom_gf12/sw/autogen:top_custom_gf12_memory",
         "//sw/device:info_sections",
         "//sw/device/silicon_creator/lib/base:static_critical_sections",
