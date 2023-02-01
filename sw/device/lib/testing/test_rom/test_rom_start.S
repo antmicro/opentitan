@@ -145,7 +145,7 @@ _reset_start:
   .global _start
   .type _start, @function
 _start:
-#if !OT_IS_ENGLISH_BREAKFAST
+#if !(defined OT_IS_ENGLISH_BREAKFAST) && !(defined OT_IS_CUSTOM_GF12)
   // Check if AST initialization should be skipped.
   li   a0, (OPENTITAN_OTP_CTRL_CORE_BASE_ADDR + \
             OTP_CTRL_SW_CFG_WINDOW_REG_OFFSET)
@@ -196,7 +196,8 @@ _start:
          (MULTIBIT_ASM_BOOL4_FALSE << EDN_CTRL_AUTO_REQ_MODE_OFFSET) | \
          (MULTIBIT_ASM_BOOL4_FALSE << EDN_CTRL_CMD_FIFO_RST_OFFSET)
   sw t0, EDN_CTRL_REG_OFFSET(a0)
-
+#endif
+#if !(defined OT_IS_ENGLISH_BREAKFAST)
   // Remove address space protections by configuring entry 15 as
   // read-write-execute for the entire address space and then clearing
   // all other entries.

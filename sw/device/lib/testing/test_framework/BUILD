@@ -158,7 +158,7 @@ alias(
     name = "test_framework_manifest_def",
     actual = select({
         "//sw/device:is_english_breakfast": ":english_breakfast_test_framework_manifest_def",
-        "//conditions:default": "//sw/device/silicon_creator/lib:manifest_def",
+        "//conditions:default": "//sw/device/silicon_creator/lib:manifest_def_earlgrey",
     }),
 )
 

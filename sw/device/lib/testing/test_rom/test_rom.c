@@ -27,10 +27,12 @@
 #include "sw/device/silicon_creator/lib/drivers/flash_ctrl.h"
 #include "sw/device/silicon_creator/lib/drivers/retention_sram.h"
 #include "sw/device/silicon_creator/lib/manifest.h"
+#if !(defined OT_IS_CUSTOM_GF12)
 #include "sw/device/silicon_creator/rom/bootstrap.h"
+#endif
 
 #include "flash_ctrl_regs.h"
-#include "hw/top_earlgrey/sw/autogen/top_earlgrey.h"  // Generated.
+#include "sw/device/include/opentitan.h"
 #include "otp_ctrl_regs.h"
 
 /* These symbols are defined in
@@ -192,6 +194,7 @@ bool rom_test_main(void) {
   }
 #endif
 
+#if !(defined OT_IS_CUSTOM_GF12)
   if (bootstrap_requested() == kHardenedBoolTrue) {
     // This log statement is used to synchronize the rom and DV testbench
     // for specific test cases.
@@ -207,6 +210,7 @@ bool rom_test_main(void) {
   }
   CHECK_DIF_OK(
       dif_flash_ctrl_set_exec_enablement(&flash_ctrl, kDifToggleEnabled));
+#endif
 
   // Always select slot a and enable address translation if manifest says to.
   const manifest_t *manifest =

@@ -245,7 +245,7 @@ filegroup(
 
 opentitan_cc_library(
     name = "bootstrap",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey'], # No SPI in custom_gf12
     srcs = ["bootstrap.c"],
     hdrs = ["bootstrap.h"],
     deps = [

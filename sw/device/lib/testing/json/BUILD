@@ -47,7 +47,7 @@ cc_library(
         ":pinmux",
         "//sw/device/lib/base:macros",
         "//sw/device/lib/base:status",
-        "//sw/device/lib/dif:pinmux",
+        "//sw/device/lib/dif:pinmux_earlgrey",
         "//sw/device/lib/runtime:print",
         "//sw/device/lib/testing/test_framework:ujson_ottf",
         "//sw/device/lib/ujson",
