@@ -58,7 +58,7 @@ opentitan_rom_binary(
     soc_config = "custom_gf12",
     devices = [
         "sim_verilator",
-#        "fpga_nexysvideo"
+        "fpga_nexysvideo"
     ],
     deps = [
         ":linker_script_custom_gf12",
