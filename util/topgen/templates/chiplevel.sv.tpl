@@ -138,21 +138,24 @@ module chip_${top["name"]}_${target["name"]} #(
     trst_idx:          TrstNPadIdx,
     tdi_idx:           TdiPadIdx,
     tdo_idx:           TdoPadIdx,
-    //tap_strap0_idx:    Tap0PadIdx,
-    //tap_strap1_idx:    Tap1PadIdx,
-    //dft_strap0_idx:    Dft0PadIdx,
-    //dft_strap1_idx:    Dft1PadIdx,
+% if top["name"] == "custom_gf12":
     tap_strap0_idx:    -1,
     tap_strap1_idx:    -2,
     dft_strap0_idx:    -3,
     dft_strap1_idx:    -4,
-    // TODO: check whether there is a better way to pass these USB-specific params
-    //usb_dp_idx:        DioUsbdevUsbDp,
-    //usb_dn_idx:        DioUsbdevUsbDn,
-    //usb_sense_idx:     MioInUsbdevSense,
     usb_dp_idx:        -5,
     usb_dn_idx:        -6,
     usb_sense_idx:     -7,
+% else:
+    tap_strap0_idx:    Tap0PadIdx,
+    tap_strap1_idx:    Tap1PadIdx,
+    dft_strap0_idx:    Dft0PadIdx,
+    dft_strap1_idx:    Dft1PadIdx,
+    // TODO: check whether there is a better way to pass these USB-specific params
+    usb_dp_idx:        DioUsbdevUsbDp,
+    usb_dn_idx:        DioUsbdevUsbDn,
+    usb_sense_idx:     MioInUsbdevSense,
+% endif
     // Pad types for attribute WARL behavior
     dio_pad_type: {
 <%
@@ -1098,7 +1101,7 @@ module chip_${top["name"]}_${target["name"]} #(
     .SecAesAllowForcingMasks(1'b1),
     .SecAesSkipPRNGReseeding(1'b1),
     .UsbdevStub(1'b1),
-% elif target["name"] == "nexysvideo":
+% elif top["name"] == "custom_gf12":
     // .
 % else:
     .SecAesMasking(1'b0),
@@ -1130,12 +1133,12 @@ module chip_${top["name"]}_${target["name"]} #(
     .clks_ast_o                   ( clkmgr_aon_clocks     ),
     .clk_main_jitter_en_o         ( jen                   ),
     .rsts_ast_o                   ( rstmgr_aon_resets     ),
-% if target["name"] != "nexysvideo":
+% if top["name"] != "custom_gf12":
     .sck_monitor_o                ( sck_monitor           ),
 % endif
     .pwrmgr_ast_req_o             ( base_ast_pwr          ),
     .pwrmgr_ast_rsp_i             ( ast_base_pwr          ),
-% if target["name"] != "nexysvideo":
+% if top["name"] != "custom_gf12":
     .usb_dp_pullup_en_o           ( usb_dp_pullup_en      ),
     .usb_dn_pullup_en_o           ( usb_dn_pullup_en      ),
     .usbdev_usb_rx_d_i            ( usb_rx_d              ),
@@ -1163,7 +1166,7 @@ module chip_${top["name"]}_${target["name"]} #(
 % if target["name"] != "cw305":
     .ast_tl_req_o                 ( base_ast_bus               ),
     .ast_tl_rsp_i                 ( ast_base_bus               ),
-  % if target["name"] != "nexysvideo":
+  % if top["name"] != "custom_gf12":
     .adc_req_o                    ( adc_req                    ),
     .adc_rsp_i                    ( adc_rsp                    ),
   % endif
@@ -1173,7 +1176,7 @@ module chip_${top["name"]}_${target["name"]} #(
     .sensor_ctrl_ast_alert_req_i  ( ast_alert_req              ),
     .sensor_ctrl_ast_alert_rsp_o  ( ast_alert_rsp              ),
     .sensor_ctrl_ast_status_i     ( ast_pwst.io_pok            ),
-  % if target["name"] != "nexysvideo":
+  % if top["name"] != "custom_gf12":
     .es_rng_req_o                 ( es_rng_req                 ),
     .es_rng_rsp_i                 ( es_rng_rsp                 ),
     .es_rng_fips_o                ( es_rng_fips                ),
