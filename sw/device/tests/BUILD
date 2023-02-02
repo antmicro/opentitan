@@ -1900,9 +1900,9 @@ opentitan_functest(
 opentitan_functest(
     name = "uart_smoketest",
     srcs = ["uart_smoketest.c"],
-    soc_config = "custom_gf12",
+    soc_config = "custom_tiny",
     deps = [
-        "//hw/top_custom_gf12/sw/autogen:top_custom_gf12",
+        "//hw/top_custom_tiny/sw/autogen:top_custom_tiny",
         "//sw/device/lib/arch:device",
         "//sw/device/lib/base:mmio",
         "//sw/device/lib/dif:uart",

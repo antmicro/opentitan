@@ -130,7 +130,7 @@ cc_library(
 
 opentitan_cc_library(
     name = "flash_ctrl_testutils",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = ["flash_ctrl_testutils.c"],
     hdrs = ["flash_ctrl_testutils.h"],
     target_compatible_with = [OPENTITAN_CPU],
@@ -250,7 +250,7 @@ cc_library(
 
 opentitan_cc_library(
     name = "pinmux_testutils",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = ["pinmux_testutils.c"],
     hdrs = ["pinmux_testutils.h"],
     target_compatible_with = [OPENTITAN_CPU],

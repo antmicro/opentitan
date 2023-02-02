@@ -5,8 +5,8 @@
 //
 // ------------------- W A R N I N G: A U T O - G E N E R A T E D   C O D E !! -------------------//
 // PLEASE DO NOT HAND-EDIT THIS FILE. IT HAS BEEN AUTO-GENERATED WITH THE FOLLOWING COMMAND:
-// util/topgen.py -t hw/top_custom_gf12/data/top_custom_gf12.hjson
-// -o hw/top_custom_gf12
+// util/topgen.py -t hw/top_custom_tiny/data/top_custom_tiny.hjson
+// -o hw/top_custom_tiny
 #include <limits.h>
 
 #include "sw/device/lib/base/csr.h"
@@ -31,7 +31,7 @@
 #include "sw/device/lib/testing/rv_plic_testutils.h"
 #include "sw/device/lib/testing/test_framework/ottf_main.h"
 #include "sw/device/lib/testing/test_framework/status.h"
-#include "hw/top_custom_gf12/sw/autogen/top_custom_gf12.h"
+#include "hw/top_custom_tiny/sw/autogen/top_custom_tiny.h"
 
 static dif_alert_handler_t alert_handler;
 static dif_aon_timer_t aon_timer_aon;
@@ -46,7 +46,7 @@ static dif_spi_host_t spi_host0;
 static dif_sysrst_ctrl_t sysrst_ctrl_aon;
 static dif_uart_t uart0;
 static dif_rv_plic_t plic;
-static const top_custom_gf12_plic_target_t kHart = kTopCustom_gf12PlicTargetIbex0;
+static const top_custom_tiny_plic_target_t kHart = kTopCustom_tinyPlicTargetIbex0;
 
 /**
  * Flag indicating which peripheral is under test.
@@ -54,7 +54,7 @@ static const top_custom_gf12_plic_target_t kHart = kTopCustom_gf12PlicTargetIbex
  * Declared volatile because it is referenced in the main program flow as well
  * as the ISR.
  */
-static volatile top_custom_gf12_plic_peripheral_t peripheral_expected;
+static volatile top_custom_tiny_plic_peripheral_t peripheral_expected;
 
 /**
  * Flags indicating the IRQ expected to have triggered and serviced within the
@@ -105,8 +105,8 @@ void ottf_external_isr(void) {
   dif_rv_plic_irq_id_t plic_irq_id;
   CHECK_DIF_OK(dif_rv_plic_irq_claim(&plic, kHart, &plic_irq_id));
 
-  top_custom_gf12_plic_peripheral_t peripheral = (top_custom_gf12_plic_peripheral_t)
-      top_custom_gf12_plic_interrupt_for_peripheral[plic_irq_id];
+  top_custom_tiny_plic_peripheral_t peripheral = (top_custom_tiny_plic_peripheral_t)
+      top_custom_tiny_plic_interrupt_for_peripheral[plic_irq_id];
   CHECK(peripheral == peripheral_expected,
         "Interrupt from incorrect peripheral: exp = %d, obs = %d",
         peripheral_expected, peripheral);
@@ -427,7 +427,7 @@ static void peripherals_init(void) {
   base_addr = mmio_region_from_addr(OPENTITAN_UART0_BASE_ADDR);
   CHECK_DIF_OK(dif_uart_init(base_addr, &uart0));
 
-  base_addr = mmio_region_from_addr(TOP_CUSTOM_GF12_RV_PLIC_BASE_ADDR);
+  base_addr = mmio_region_from_addr(TOP_CUSTOM_TINY_RV_PLIC_BASE_ADDR);
   CHECK_DIF_OK(dif_rv_plic_init(base_addr, &plic));
 }
 
@@ -694,7 +694,7 @@ bool test_main(void) {
   peripherals_init();
   check_hart_id((uint32_t)kHart);
   rv_plic_testutils_irq_range_enable(
-      &plic, kHart, kTopCustom_gf12PlicIrqIdNone + 1, kTopCustom_gf12PlicIrqIdLast);
+      &plic, kHart, kTopCustom_tinyPlicIrqIdNone + 1, kTopCustom_tinyPlicIrqIdLast);
   peripheral_irqs_clear();
   peripheral_irqs_enable();
   peripheral_irqs_trigger();

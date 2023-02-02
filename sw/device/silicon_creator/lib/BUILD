@@ -206,7 +206,7 @@ cc_test(
 
 opentitan_dual_cc_library(
     name = "manifest",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = dual_inputs(
         device = ["manifest.c"],
         host = ["mock_manifest.cc"],
@@ -239,7 +239,7 @@ opentitan_dual_cc_library(
 
 opentitan_dual_cc_library(
     name = "manifest_def",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = dual_inputs(device = ["manifest_def.c"]),
     hdrs = ["manifest_def.h"],
     target_compatible_with = dual_inputs(device = [OPENTITAN_CPU]),

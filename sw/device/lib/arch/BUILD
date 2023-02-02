@@ -15,7 +15,7 @@ cc_library(
     deps = [
         ":device",
         "//sw/device/silicon_creator/lib:rom_print",
-        "//sw/device/silicon_creator/lib/drivers:ibex_custom_gf12", # FIXME: Others?
+        "//sw/device/silicon_creator/lib/drivers:ibex_custom_tiny", # FIXME: Others?
     ],
 )
 

@@ -25,7 +25,7 @@ _FPGA_CW310_TESTROM_PATH = "{}/$(location {})".format(_PREFIX, _FPGA_CW310_TESTR
 
 _FPGA_CW310_OTP_RMA_PATH = "{}/$(location {})".format(_PREFIX, _FPGA_CW310_OTP_RMA)
 
-_FPGA_NEXYSVIDEO_TESTROM = "//sw/device/lib/testing/test_rom:test_rom_custom_gf12_fpga_nexysvideo_scr_vmem"
+_FPGA_NEXYSVIDEO_TESTROM = "//sw/device/lib/testing/test_rom:test_rom_custom_tiny_fpga_nexysvideo_scr_vmem"
 
 _FPGA_NEXYSVIDEO_OTP_RMA = "//hw/ip/otp_ctrl/data:img_rma"
 
@@ -76,11 +76,11 @@ fusesoc_build (
         "--OtpCtrlMemInitFile=" + _FPGA_NEXYSVIDEO_OTP_RMA_PATH,
     ],
     output_groups = {
-        "bitstream_nexysvideo": ["synth-vivado/lowrisc_systems_chip_custom_gf12_nexysvideo_0.1.bit"],
+        "bitstream_nexysvideo": ["synth-vivado/lowrisc_systems_chip_custom_tiny_nexysvideo_0.1.bit"],
         "rom_mmi_nexysvideo": ["synth-vivado/rom.mmi"],
         "otp_mmi_nexysvideo": ["synth-vivado/otp.mmi"],
     },
-    systems = ["lowrisc:systems:chip_custom_gf12_nexysvideo"],
+    systems = ["lowrisc:systems:chip_custom_tiny_nexysvideo"],
     tags = ["manual"],
     target = "synth",
 )

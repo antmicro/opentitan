@@ -27,7 +27,7 @@
 #include "sw/device/silicon_creator/lib/drivers/flash_ctrl.h"
 #include "sw/device/silicon_creator/lib/drivers/retention_sram.h"
 #include "sw/device/silicon_creator/lib/manifest.h"
-#if !(defined OT_IS_CUSTOM_GF12)
+#if !(defined OT_IS_CUSTOM_TINY)
 #include "sw/device/silicon_creator/rom/bootstrap.h"
 #endif
 
@@ -194,7 +194,7 @@ bool rom_test_main(void) {
   }
 #endif
 
-#if !(defined OT_IS_CUSTOM_GF12)
+#if !(defined OT_IS_CUSTOM_TINY)
   if (bootstrap_requested() == kHardenedBoolTrue) {
     // This log statement is used to synchronize the rom and DV testbench
     // for specific test cases.

@@ -10,7 +10,7 @@ package(default_visibility = ["//visibility:public"])
 
 SOC_CONFIGS = [
     'earlgrey',
-    'custom_gf12',
+    'custom_tiny',
 ]
 
 cc_library(

@@ -138,7 +138,7 @@ module chip_${top["name"]}_${target["name"]} #(
     trst_idx:          TrstNPadIdx,
     tdi_idx:           TdiPadIdx,
     tdo_idx:           TdoPadIdx,
-% if top["name"] == "custom_gf12":
+% if top["name"] == "custom_tiny":
     tap_strap0_idx:    -1,
     tap_strap1_idx:    -2,
     dft_strap0_idx:    -3,
@@ -1101,7 +1101,7 @@ module chip_${top["name"]}_${target["name"]} #(
     .SecAesAllowForcingMasks(1'b1),
     .SecAesSkipPRNGReseeding(1'b1),
     .UsbdevStub(1'b1),
-% elif top["name"] == "custom_gf12":
+% elif top["name"] == "custom_tiny":
     // .
 % else:
     .SecAesMasking(1'b0),
@@ -1133,12 +1133,12 @@ module chip_${top["name"]}_${target["name"]} #(
     .clks_ast_o                   ( clkmgr_aon_clocks     ),
     .clk_main_jitter_en_o         ( jen                   ),
     .rsts_ast_o                   ( rstmgr_aon_resets     ),
-% if top["name"] != "custom_gf12":
+% if top["name"] != "custom_tiny":
     .sck_monitor_o                ( sck_monitor           ),
 % endif
     .pwrmgr_ast_req_o             ( base_ast_pwr          ),
     .pwrmgr_ast_rsp_i             ( ast_base_pwr          ),
-% if top["name"] != "custom_gf12":
+% if top["name"] != "custom_tiny":
     .usb_dp_pullup_en_o           ( usb_dp_pullup_en      ),
     .usb_dn_pullup_en_o           ( usb_dn_pullup_en      ),
     .usbdev_usb_rx_d_i            ( usb_rx_d              ),
@@ -1166,7 +1166,7 @@ module chip_${top["name"]}_${target["name"]} #(
 % if target["name"] != "cw305":
     .ast_tl_req_o                 ( base_ast_bus               ),
     .ast_tl_rsp_i                 ( ast_base_bus               ),
-  % if top["name"] != "custom_gf12":
+  % if top["name"] != "custom_tiny":
     .adc_req_o                    ( adc_req                    ),
     .adc_rsp_i                    ( adc_rsp                    ),
   % endif
@@ -1176,7 +1176,7 @@ module chip_${top["name"]}_${target["name"]} #(
     .sensor_ctrl_ast_alert_req_i  ( ast_alert_req              ),
     .sensor_ctrl_ast_alert_rsp_o  ( ast_alert_rsp              ),
     .sensor_ctrl_ast_status_i     ( ast_pwst.io_pok            ),
-  % if top["name"] != "custom_gf12":
+  % if top["name"] != "custom_tiny":
     .es_rng_req_o                 ( es_rng_req                 ),
     .es_rng_rsp_i                 ( es_rng_rsp                 ),
     .es_rng_fips_o                ( es_rng_fips                ),

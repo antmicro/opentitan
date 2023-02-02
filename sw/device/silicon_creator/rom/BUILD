@@ -110,7 +110,7 @@ cc_library(
 
 opentitan_cc_library(
     name = "rom_common",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = [
         "rom.c",
         "rom.h",
@@ -245,7 +245,7 @@ filegroup(
 
 opentitan_cc_library(
     name = "bootstrap",
-    soc_configs = ['earlgrey'], # No SPI in custom_gf12
+    soc_configs = ['earlgrey'], # No SPI in custom_tiny
     srcs = ["bootstrap.c"],
     hdrs = ["bootstrap.h"],
     deps = [

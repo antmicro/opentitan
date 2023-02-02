@@ -43,7 +43,7 @@ void pinmux_testutils_init(dif_pinmux_t *pinmux) {
   CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kOpentitanPinmuxMioOutIoc4,
                                         kOpentitanPinmuxOutselUart0Tx));
 
-#if !OT_IS_ENGLISH_BREAKFAST && !OT_IS_CUSTOM_GF12
+#if !OT_IS_ENGLISH_BREAKFAST && !OT_IS_CUSTOM_TINY
   // Enable pull-ups on UART0 RX
   // Pull-ups are available only on certain platforms.
   if (kDeviceType == kDeviceSimDV) {
@@ -122,7 +122,7 @@ const dif_pinmux_index_t kPinmuxTestutilsGpioMioOutPins[kDifGpioNumPins] = {
     kOpentitanPinmuxMioOutIor10, kOpentitanPinmuxMioOutIor11,
     kOpentitanPinmuxMioOutIor12, kOpentitanPinmuxMioOutIor13};
 
-#elif (defined OT_IS_CUSTOM_GF12)
+#elif (defined OT_IS_CUSTOM_TINY)
 const dif_pinmux_index_t kPinmuxTestutilsGpioInselPins[kDifGpioNumPins] = {
     kOpentitanPinmuxInselIoa0,  kOpentitanPinmuxInselIoa1,
     kOpentitanPinmuxInselIoa2,  kOpentitanPinmuxInselIoa3,

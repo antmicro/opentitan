@@ -79,7 +79,7 @@ verilator_build(
 )
 
 verilator_build(
-    config = "custom_gf12"
+    config = "custom_tiny"
 )
 
 # TODO(lowRISC/opentitan#7972): Globbing all of the //hw/... hierarchy together
@@ -94,7 +94,7 @@ filegroup(
     ) + [
         "//hw/ip:all_files",
         "//hw/top_earlgrey:all_files",
-        "//hw/top_custom_gf12:all_files",
+        "//hw/top_custom_tiny:all_files",
     ],
     visibility = ["//visibility:public"],
 )

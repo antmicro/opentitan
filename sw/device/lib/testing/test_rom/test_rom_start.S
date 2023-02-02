@@ -145,7 +145,7 @@ _reset_start:
   .global _start
   .type _start, @function
 _start:
-#if !(defined OT_IS_ENGLISH_BREAKFAST) && !(defined OT_IS_CUSTOM_GF12)
+#if !(defined OT_IS_ENGLISH_BREAKFAST) && !(defined OT_IS_CUSTOM_TINY)
   // Check if AST initialization should be skipped.
   li   a0, (OPENTITAN_OTP_CTRL_CORE_BASE_ADDR + \
             OTP_CTRL_SW_CFG_WINDOW_REG_OFFSET)

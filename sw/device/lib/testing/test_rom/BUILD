@@ -35,11 +35,11 @@ ld_library(
     ],
 )
 ld_library(
-    name = "linker_script_custom_gf12",
-    script = "test_rom_custom_gf12.ld",
+    name = "linker_script_custom_tiny",
+    script = "test_rom_custom_tiny.ld",
     deps = [
         ":test_rom_ld",
-        "//hw/top_custom_gf12/sw/autogen:top_custom_gf12_memory",
+        "//hw/top_custom_tiny/sw/autogen:top_custom_tiny_memory",
         "//sw/device:info_sections",
         "//sw/device/silicon_creator/lib/base:static_critical_sections",
     ],
@@ -55,14 +55,14 @@ opentitan_rom_binary(
 )
 opentitan_rom_binary(
     name = "test_rom",
-    soc_config = "custom_gf12",
+    soc_config = "custom_tiny",
     devices = [
         "sim_verilator",
         "fpga_nexysvideo"
     ],
     deps = [
-        ":linker_script_custom_gf12",
-        ":test_rom_lib_custom_gf12",
+        ":linker_script_custom_tiny",
+        ":test_rom_lib_custom_tiny",
     ],
 )
 
@@ -174,7 +174,7 @@ opentitan_cc_library(
 )
 opentitan_cc_library(
     name = "test_rom_lib",
-    soc_configs = ['custom_gf12'],
+    soc_configs = ['custom_tiny'],
     srcs = [
         "test_rom.c",
         "test_rom_start.S",

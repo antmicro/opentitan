@@ -23,7 +23,7 @@ filegroup(
 
 opentitan_dual_cc_library(
     name = "alert",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = dual_inputs(
         device = ["alert.c"],
         host = ["mock_alert.cc"],
@@ -90,7 +90,7 @@ opentitan_functest(
 
 opentitan_cc_library(
     name = "ast",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = ["ast.c"],
     hdrs = ["ast.h"],
     deps = [
@@ -123,7 +123,7 @@ cc_test(
 
 opentitan_dual_cc_library(
     name = "flash_ctrl",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = dual_inputs(
         device = ["flash_ctrl.c"],
         host = ["mock_flash_ctrl.cc"],
@@ -226,7 +226,7 @@ opentitan_functest(
 
 opentitan_cc_library(
     name = "ibex",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = ["ibex.c"],
     hdrs = ["ibex.h"],
     deps = [
@@ -348,7 +348,7 @@ opentitan_functest(
 
 opentitan_dual_cc_library(
     name = "lifecycle",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = dual_inputs(
         device = ["lifecycle.c"],
         host = ["mock_lifecycle.cc"],
@@ -418,7 +418,7 @@ cc_test(
 
 opentitan_dual_cc_library(
     name = "otp",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = dual_inputs(
         device = ["otp.c"],
         host = ["mock_otp.cc"],
@@ -458,7 +458,7 @@ cc_test(
 
 opentitan_cc_library(
     name = "pinmux",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = ["pinmux.c"],
     hdrs = ["pinmux.h"],
     deps = [
@@ -489,7 +489,7 @@ cc_test(
 
 opentitan_cc_library(
     name = "retention_sram",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = ["retention_sram.c"],
     hdrs = ["retention_sram.h"],
     deps = [
@@ -534,7 +534,7 @@ opentitan_functest(
 
 opentitan_dual_cc_library(
     name = "rnd",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = dual_inputs(
         device = ["rnd.c"],
         host = ["mock_rnd.cc"],
@@ -605,7 +605,7 @@ opentitan_functest(
 
 opentitan_dual_cc_library(
     name = "rstmgr",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = dual_inputs(
         device = ["rstmgr.c"],
         host = ["mock_rstmgr.cc"],
@@ -660,7 +660,7 @@ opentitan_functest(
 )
 
 opentitan_cc_library(
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     name = "uart",
     srcs = ["uart.c"],
     hdrs = ["uart.h"],
@@ -701,7 +701,7 @@ opentitan_functest(
 
 opentitan_cc_library(
     name = "watchdog",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = ["watchdog.c"],
     hdrs = ["watchdog.h"],
     deps = [
@@ -755,7 +755,7 @@ opentitan_functest(
 
 opentitan_dual_cc_library(
     name = "spi_device",
-    soc_configs = ['earlgrey', 'custom_gf12'],
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = dual_inputs(
         device = ["spi_device.c"],
         host = ["mock_spi_device.cc"],
