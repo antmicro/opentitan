@@ -74,9 +74,10 @@ static inline uintptr_t rom_ext_vma_get(const manifest_t *manifest,
 // rom tests. By default, it simply jumps into the OTTF's flash.
 OT_WEAK
 bool rom_test_main(void) {
-#if !OT_IS_ENGLISH_BREAKFAST
+  uint32_t otp_val = 0;
+#if !(defined OT_IS_ENGLISH_BREAKFAST) && !(defined OT_IS_CUSTOM_TINY)
   // Check the otp to see if execute should start
-  uint32_t otp_val = abs_mmio_read32(
+  otp_val = abs_mmio_read32(
       OPENTITAN_OTP_CTRL_CORE_BASE_ADDR + OTP_CTRL_SW_CFG_WINDOW_REG_OFFSET +
       OTP_CTRL_PARAM_CREATOR_SW_CFG_ROM_EXEC_EN_OFFSET);
 
