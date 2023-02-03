@@ -43,7 +43,7 @@ void pinmux_testutils_init(dif_pinmux_t *pinmux) {
   CHECK_DIF_OK(dif_pinmux_output_select(pinmux, kOpentitanPinmuxMioOutIoc4,
                                         kOpentitanPinmuxOutselUart0Tx));
 
-#if !OT_IS_ENGLISH_BREAKFAST && !OT_IS_CUSTOM_TINY
+#if !(defined OT_IS_ENGLISH_BREAKFAST) && !(defined OT_IS_CUSTOM_TINY)
   // Enable pull-ups on UART0 RX
   // Pull-ups are available only on certain platforms.
   if (kDeviceType == kDeviceSimDV) {
