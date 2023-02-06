@@ -6,7 +6,13 @@ package(default_visibility = ["//visibility:public"])
 
 filegroup(
     name = "all_files",
-    srcs = glob(["**"]) + [
+    srcs = glob(
+        ["**"],
+        exclude=[
+            "rtl/pinmux_reg_pkg.sv",
+            "rtl/pinmux_reg_top.sv",
+        ]
+    ) + [
         "//hw/ip/pinmux/data:all_files",
     ],
 )
