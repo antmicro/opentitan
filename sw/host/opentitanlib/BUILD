@@ -15,13 +15,13 @@ ujson_rust(
 
 ujson_rust(
     name = "gpio",
-    srcs = ["//sw/device/lib/testing/json:gpio"],
+    srcs = ["//sw/device/lib/testing/json:gpio_custom_tiny"],
     defines = ["opentitanlib=crate"],
 )
 
 ujson_rust(
     name = "pinmux_config",
-    srcs = ["//sw/device/lib/testing/json:pinmux_config"],
+    srcs = ["//sw/device/lib/testing/json:pinmux_config_custom_tiny"],
     defines = ["opentitanlib=crate"],
 )
 

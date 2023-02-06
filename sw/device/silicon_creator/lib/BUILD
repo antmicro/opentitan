@@ -24,9 +24,9 @@ dual_cc_library(
     ),
     deps = dual_inputs(
         device = [
-            "//hw/top_earlgrey/ip/flash_ctrl/data/autogen:flash_ctrl_regs",
+            "//hw/top_{soc_config}/ip/flash_ctrl/data/autogen:flash_ctrl_regs",
             "//hw/ip/otp_ctrl/data:otp_ctrl_regs",
-            "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+            "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
             "//sw/device/lib/base:hardened",
             "//sw/device/lib/base:memory",
         ],
@@ -38,10 +38,10 @@ dual_cc_library(
         shared = [
             ":error",
             "//sw/device/lib/base:macros",
-            "//sw/device/silicon_creator/lib/drivers:flash_ctrl_earlgrey",
-            "//sw/device/silicon_creator/lib/drivers:hmac_earlgrey",
-            "//sw/device/silicon_creator/lib/drivers:lifecycle_earlgrey",
-            "//sw/device/silicon_creator/lib/drivers:otp_earlgrey",
+            "//sw/device/silicon_creator/lib/drivers:flash_ctrl_{soc_config}",
+            "//sw/device/silicon_creator/lib/drivers:hmac_{soc_config}",
+            "//sw/device/silicon_creator/lib/drivers:lifecycle_{soc_config}",
+            "//sw/device/silicon_creator/lib/drivers:otp_{soc_config}",
         ],
     ),
 )
@@ -144,16 +144,16 @@ cc_test(
     ],
 )
 
-cc_library(
+dual_cc_library(
     name = "irq_asm",
     srcs = ["irq_asm.S"],
     target_compatible_with = [OPENTITAN_CPU],
     deps = [
         "//hw/ip/aon_timer/data:aon_timer_regs",
-        "//hw/top_earlgrey/ip/flash_ctrl/data/autogen:flash_ctrl_regs",
-        "//hw/top_earlgrey/ip/pwrmgr/data/autogen:pwrmgr_regs",
-        "//hw/top_earlgrey/ip/rstmgr/data/autogen:rstmgr_regs",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//hw/top_{soc_config}/ip/flash_ctrl/data/autogen:flash_ctrl_regs",
+        "//hw/top_{soc_config}/ip/pwrmgr/data/autogen:pwrmgr_regs",
+        "//hw/top_{soc_config}/ip/rstmgr/data/autogen:rstmgr_regs",
+        "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         "//sw/device/lib/base:multibits",
     ],
 )
@@ -183,13 +183,14 @@ cc_library(
     hdrs = ["keymgr_binding_value.h"],
 )
 
-cc_library(
+opentitan_dual_cc_library(
     name = "rom_print",
+    soc_configs = ['earlgrey', 'custom_tiny'],
     srcs = ["rom_print.c"],
     hdrs = ["rom_print.h"],
     deps = [
         ":error",
-        "//sw/device/silicon_creator/lib/drivers:uart_earlgrey",
+        "//sw/device/silicon_creator/lib/drivers:uart_{soc_config}",
     ],
 )
 

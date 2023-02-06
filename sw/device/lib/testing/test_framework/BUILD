@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 load("//rules:cross_platform.bzl", "dual_cc_library", "dual_inputs")
-load("//rules:opentitan.bzl", "OPENTITAN_CPU")
+load("//rules:opentitan.bzl", "OPENTITAN_CPU", "opentitan_cc_library", "opentitan_dual_cc_library")
 load(
     "//rules:opentitan_test.bzl",
     "cw310_params",
@@ -13,6 +13,11 @@ load(
 load("//rules:linker.bzl", "ld_library")
 
 package(default_visibility = ["//visibility:public"])
+
+SOC_CONFIGS = [
+    'earlgrey',
+    'custom_tiny',
+]
 
 cc_library(
     name = "coverage_none",
@@ -139,26 +144,26 @@ ld_library(
 # TODO(#12905): Use a slightly hollowed out version of the silicon_creator
 # manifest_def implementation when building the test_framework for the english
 # breakfast top level.
-cc_library(
-    name = "english_breakfast_test_framework_manifest_def",
-    srcs = [
-        "//sw/device/silicon_creator/lib:english_breakfast_test_framework_manifest_def_srcs",
-    ],
-    # This should be built only for english breakfast and skipped if using wildcards.
-    tags = ["manual"],
-    deps = [
-        "//sw/device/lib/testing/test_rom:english_breakfast_test_rom_manifest",
-    ],
-    # The manifest section should be populated anytime this is added as a
-    # dependency, even if the manifest is not referenced by software.
-    alwayslink = True,
-)
+#cc_library(
+#    name = "english_breakfast_test_framework_manifest_def",
+#    srcs = [
+#        "//sw/device/silicon_creator/lib:english_breakfast_test_framework_manifest_def_srcs",
+#    ],
+#    # This should be built only for english breakfast and skipped if using wildcards.
+#    tags = ["manual"],
+#    deps = [
+#        "//sw/device/lib/testing/test_rom:english_breakfast_test_rom_manifest",
+#    ],
+#    # The manifest section should be populated anytime this is added as a
+#    # dependency, even if the manifest is not referenced by software.
+#    alwayslink = True,
+#)
 
 alias(
     name = "test_framework_manifest_def",
     actual = select({
         "//sw/device:is_english_breakfast": ":english_breakfast_test_framework_manifest_def",
-        "//conditions:default": "//sw/device/silicon_creator/lib:manifest_def_earlgrey",
+        "//conditions:default": "//sw/device/silicon_creator/lib:manifest_def_custom_tiny",
     }),
 )
 
@@ -171,8 +176,9 @@ alias(
 #
 # The binary target must provide a `noreturn void _ottf_main(void)` function
 # that this library will call.
-cc_library(
+opentitan_cc_library(
     name = "ottf_start",
+    soc_configs = SOC_CONFIGS,
     srcs = [
         "ottf_isrs.S",
         "ottf_isrs.c",
@@ -186,11 +192,11 @@ cc_library(
     deps = [
         ":check",
         ":test_framework_manifest_def",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         "//sw/device/lib/base:csr",
         "//sw/device/lib/base:macros",
         "//sw/device/lib/crt",
-        "//sw/device/lib/dif:rv_plic",
+        "//sw/device/lib/dif:rv_plic_{soc_config}",
         "//sw/device/lib/runtime:hart",
         "//sw/device/lib/runtime:ibex",
         "//sw/device/lib/runtime:log",
@@ -207,17 +213,18 @@ cc_library(
     ],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "ottf_main",
+    soc_configs = SOC_CONFIGS,
     srcs = ["ottf_main.c"],
     hdrs = ["ottf_main.h"],
     target_compatible_with = [OPENTITAN_CPU],
     deps = [
         ":check",
         ":coverage",
-        ":freertos_port",
-        ":ottf_flow_control",
-        ":ottf_start",
+        ":freertos_port_{soc_config}",
+        ":ottf_flow_control_{soc_config}",
+        ":ottf_start_{soc_config}",
         ":ottf_test_config",
         ":status",
         "//sw/device/lib/arch:device",
@@ -237,12 +244,13 @@ cc_library(
     alwayslink = True,
 )
 
-cc_library(
+opentitan_cc_library(
     name = "ujson_ottf",
+    soc_configs = SOC_CONFIGS,
     srcs = ["ujson_ottf.c"],
     hdrs = ["ujson_ottf.h"],
     deps = [
-        ":ottf_flow_control",
+        ":ottf_flow_control_{soc_config}",
         "//sw/device/lib/base:status",
         "//sw/device/lib/dif:uart",
         "//sw/device/lib/runtime:print",
@@ -250,8 +258,9 @@ cc_library(
     ],
 )
 
-dual_cc_library(
+opentitan_dual_cc_library(
     name = "ottf_flow_control",
+    soc_configs = SOC_CONFIGS,
     srcs = dual_inputs(
         device = ["ottf_flow_control.c"],
     ),
@@ -259,12 +268,12 @@ dual_cc_library(
     deps = dual_inputs(
         device = [
             ":check",
-            ":ottf_start",
+            ":ottf_start_{soc_config}",
             "//sw/device/lib/base:mmio",
-            "//sw/device/lib/dif:rv_plic",
+            "//sw/device/lib/dif:rv_plic_{soc_config}",
             "//sw/device/lib/runtime:ibex",
             "//sw/device/lib/runtime:irq",
-            "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+            "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         ],
         shared = [
             "//sw/device/lib/base:status",
@@ -310,8 +319,8 @@ opentitan_functest(
     ),
     deps = [
         ":check",
-        ":ottf_flow_control",
-        ":ottf_main",
+        ":ottf_flow_control_custom_tiny",
+        ":ottf_main_custom_tiny",
         ":ujson_ottf",
         "//sw/device/lib/base:status",
         "//sw/device/lib/runtime:print",
@@ -327,8 +336,9 @@ cc_library(
     includes = ["."],
 )
 
-cc_library(
+opentitan_cc_library(
     name = "freertos_port",
+    soc_configs = SOC_CONFIGS,
     srcs = [
         "freertos_hooks.c",
         "freertos_port.S",
@@ -337,8 +347,8 @@ cc_library(
     deps = [
         ":check",
         ":freertos_config",
-        ":ottf_start",
-        "//hw/top_earlgrey/sw/autogen:top_earlgrey",
+        ":ottf_start_{soc_config}",
+        "//hw/top_{soc_config}/sw/autogen:top_{soc_config}",
         "//sw/device/lib/dif:rv_timer",
         "//sw/device/lib/dif:uart",
         "//sw/device/lib/runtime:hart",

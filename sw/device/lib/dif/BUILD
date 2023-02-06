@@ -698,10 +698,10 @@ opentitan_cc_library(
     ],
 )
 # FIXME: Assume that by default we use 'earlgrey' not to change every target
-alias(
-    name = "pnimux",
-    actual = ":pinmux_earlgrey"
-)
+#alias(
+#    name = "pinmux",
+#    actual = ":pinmux_earlgrey"
+#)
 
 cc_test(
     name = "pinmux_unittest",
@@ -927,10 +927,10 @@ opentitan_cc_library(
     ],
 )
 # FIXME: Assume that by default we use 'earlgrey' not to change every target
-alias(
-    name = "rv_plic",
-    actual = ":rv_plic_earlgrey"
-)
+#alias(
+#    name = "rv_plic",
+#    actual = ":rv_plic_earlgrey"
+#)
 
 cc_test(
     name = "rv_plic_unittest",

@@ -14,7 +14,7 @@ cc_library(
     srcs = ["device_fpga_cw305.c"],
     deps = [
         ":device",
-        "//sw/device/silicon_creator/lib:rom_print",
+        "//sw/device/silicon_creator/lib:rom_print_custom_tiny",
         "//sw/device/silicon_creator/lib/drivers:ibex_custom_tiny", # FIXME: Others?
     ],
 )
@@ -24,7 +24,7 @@ cc_library(
     srcs = ["device_fpga_cw310.c"],
     deps = [
         ":device",
-        "//sw/device/silicon_creator/lib:rom_print",
+        "//sw/device/silicon_creator/lib:rom_print_earlgrey",
         "//sw/device/silicon_creator/lib/drivers:ibex_earlgrey",
     ],
 )

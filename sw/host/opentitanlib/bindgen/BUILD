@@ -23,7 +23,7 @@ rust_bindgen_library(
         "--allowlist-type=AlertEnable",
         "--allowlist-type=AlertEscalate",
     ],
-    cc_lib = "//sw/device/silicon_creator/lib/drivers:alert_earlgrey",
+    cc_lib = "//sw/device/silicon_creator/lib/drivers:alert_custom_tiny",
     header = "//sw/device/silicon_creator/lib/drivers:alert.h",
     rustc_flags = [
         "--allow=non_snake_case",
@@ -63,8 +63,8 @@ rust_bindgen_library(
         "--allowlist-type=opentitan_gateable_clocks",
         "--allowlist-type=opentitan_hintable_clocks",
     ],
-    cc_lib = "//hw/top_earlgrey/sw/autogen:top_earlgrey",
-    header = "//hw/top_earlgrey/sw/autogen:top_earlgrey.h",
+    cc_lib = "//hw/top_custom_tiny/sw/autogen:top_custom_tiny",
+    header = "//hw/top_custom_tiny/sw/autogen:top_custom_tiny.h",
     rustc_flags = [
         "--allow=non_snake_case",
         "--allow=non_upper_case_globals",

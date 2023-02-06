@@ -1887,13 +1887,14 @@ opentitan_functest(
 opentitan_functest(
     name = "uart_smoketest",
     srcs = ["uart_smoketest.c"],
+    soc_config = "earlgrey",
     deps = [
         "//hw/top_earlgrey/sw/autogen:top_earlgrey",
         "//sw/device/lib/arch:device",
         "//sw/device/lib/base:mmio",
         "//sw/device/lib/dif:uart",
         "//sw/device/lib/runtime:hart",
-        "//sw/device/lib/testing/test_framework:ottf_main",
+        "//sw/device/lib/testing/test_framework:ottf_main_earlgrey",
     ],
 )
 
@@ -1907,7 +1908,7 @@ opentitan_functest(
         "//sw/device/lib/base:mmio",
         "//sw/device/lib/dif:uart",
         "//sw/device/lib/runtime:hart",
-        "//sw/device/lib/testing/test_framework:ottf_main",
+        "//sw/device/lib/testing/test_framework:ottf_main_custom_tiny",
     ],
 )
 
