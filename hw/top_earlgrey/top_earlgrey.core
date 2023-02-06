@@ -2,7 +2,7 @@ CAPI=2:
 # Copyright lowRISC contributors.
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
-name: "lowrisc:systems:top_earlgrey:0.1"
+name: "lowrisc:systems:earlgrey:top_earlgrey:0.1"
 description: "Technology-independent Earl Grey toplevel"
 filesets:
   files_rtl_generic:
@@ -46,15 +46,15 @@ filesets:
       - lowrisc:ip:adc_ctrl
       - lowrisc:ip:sysrst_ctrl
       - lowrisc:ip:rom_ctrl
-      - lowrisc:systems:clkmgr
-      - lowrisc:systems:sensor_ctrl
+      - lowrisc:systems:earlgrey:clkmgr
+      - lowrisc:systems:earlgrey:sensor_ctrl
       - lowrisc:tlul:headers
       - lowrisc:prim:all
       - lowrisc:prim:usb_diff_rx
       - lowrisc:prim:mubi
-      - lowrisc:systems:top_earlgrey_pkg
+      - lowrisc:systems:earlgrey:top_earlgrey_pkg
       - "fileset_partner  ? (partner:systems:ast_pkg)"
-      - "!fileset_partner ? (lowrisc:systems:ast_pkg)"
+      - "!fileset_partner ? (lowrisc:systems:earlgrey:ast_pkg)"
     files:
       - rtl/autogen/top_earlgrey_rnd_cnst_pkg.sv
       - rtl/autogen/top_earlgrey.sv

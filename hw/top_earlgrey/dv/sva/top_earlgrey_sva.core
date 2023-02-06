@@ -9,7 +9,7 @@ filesets:
     depend:
       - lowrisc:ip:pwrmgr_pkg
       - lowrisc:prim:assert
-      - lowrisc:systems:top_earlgrey
+      - lowrisc:systems:earlgrey:top_earlgrey
     files:
       - clk_ctrl_and_main_pd_sva_if.sv
       - top_earlgrey_bind.sv

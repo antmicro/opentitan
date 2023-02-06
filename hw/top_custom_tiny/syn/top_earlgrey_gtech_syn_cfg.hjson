@@ -6,7 +6,7 @@
   name: top_earlgrey
 
   // Fusesoc core file used for building the file list.
-  fusesoc_core: lowrisc:systems:top_earlgrey:0.1
+  fusesoc_core: lowrisc:systems:custom_tiny:top_earlgrey:0.1
 
   import_cfgs: [// Project wide common GTECH synthesis config file
                 "{proj_root}/hw/syn/tools/dvsim/common_gtech_syn_cfg.hjson"]

@@ -20,7 +20,7 @@
   report_severities: ["warning", "error"]
 
   use_cfgs: [{    name: chip_earlgrey_cw310
-                  fusesoc_core: lowrisc:systems:chip_earlgrey_cw310
+                  fusesoc_core: lowrisc:systems:earlgrey:chip_earlgrey_cw310
                   import_cfgs: ["{proj_root}/hw/lint/tools/dvsim/common_lint_cfg.hjson"]
                   rel_path: "hw/chip_earlgrey_asic/lint/{tool}"
                   overrides: [

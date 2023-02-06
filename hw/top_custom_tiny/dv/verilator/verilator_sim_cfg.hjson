@@ -15,7 +15,7 @@
   tool: verilator
 
   // Fusesoc core file used for building the file list.
-  fusesoc_core: "lowrisc:systems:{name}:0.1"
+  fusesoc_core: "lowrisc:systems:custom_tiny:{name}:0.1"
 
   // Testplan hjson file.
   # testplan: "{proj_root}/hw/top_custom_tiny/data/chip_testplan.hjson"

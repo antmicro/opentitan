@@ -7,9 +7,9 @@ description: "Earlgrey chip DV sim target"
 filesets:
   files_rtl:
     depend:
-      - lowrisc:systems:top_earlgrey
-      - lowrisc:systems:top_earlgrey_pkg
-      - lowrisc:systems:chip_earlgrey_asic
+      - lowrisc:systems:earlgrey:top_earlgrey
+      - lowrisc:systems:earlgrey:top_earlgrey_pkg
+      - lowrisc:systems:earlgrey:chip_earlgrey_asic
       - lowrisc:ibex:ibex_tracer
 
   files_dv:

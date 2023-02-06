@@ -2,15 +2,15 @@ CAPI=2:
 # Copyright lowRISC contributors.
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
-name: "lowrisc:systems:chip_custom_tiny_nexysvideo:0.1"
+name: "lowrisc:systems:custom_tiny:chip_custom_tiny_nexysvideo:0.1"
 description: "Earl Grey toplevel for the Nexys Video board"
 filesets:
   files_rtl_nexysvideo:
     depend:
-      - lowrisc:systems:top_custom_tiny:0.1
-      - lowrisc:systems:top_custom_tiny_pkg
-      - lowrisc:systems:ast
-      - lowrisc:systems:padring
+      - lowrisc:systems:custom_tiny:top_custom_tiny:0.1
+      - lowrisc:systems:custom_tiny:top_custom_tiny_pkg
+      - lowrisc:systems:custom_tiny:ast
+      - lowrisc:systems:custom_tiny:padring
     files:
       - rtl/clkgen_xil7series.sv
       - rtl/usr_access_xil7series.sv
