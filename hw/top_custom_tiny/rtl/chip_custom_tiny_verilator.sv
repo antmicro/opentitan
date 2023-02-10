@@ -44,7 +44,7 @@ module chip_custom_tiny_verilator (
   output logic cio_usbdev_tx_use_d_se0_d2p_o
 );
 
-  import top_earlgrey_pkg::*;
+  import top_custom_tiny_pkg::*;
 
 
   logic IO_JTCK, IO_JTMS, IO_JTRST_N, IO_JTDI, IO_JTDO;
@@ -56,11 +56,6 @@ module chip_custom_tiny_verilator (
 
   always_comb begin : assign_dio_in
     dio_in = '0;
-    dio_in[DioSpiDeviceSck] = cio_spi_device_sck_p2d_i;
-    dio_in[DioSpiDeviceCsb] = cio_spi_device_csb_p2d_i;
-    dio_in[DioSpiDeviceSd0] = cio_spi_device_sdi_p2d_i;
-    dio_in[DioUsbdevUsbDp] = cio_usbdev_dp_p2d_i;
-    dio_in[DioUsbdevUsbDn] = cio_usbdev_dn_p2d_i;
   end
 
   // USB (not used)
@@ -72,13 +67,14 @@ module chip_custom_tiny_verilator (
   assign cio_usbdev_rx_enable_d2p_o = 1'b0;
   assign cio_usbdev_tx_use_d_se0_d2p_o = 1'b0;
 
-  assign cio_usbdev_dp_d2p_o = dio_out[DioUsbdevUsbDp];
-  assign cio_usbdev_dp_en_d2p_o = dio_oe[DioUsbdevUsbDp];
-  assign cio_usbdev_dn_d2p_o = dio_out[DioUsbdevUsbDn];
-  assign cio_usbdev_dn_en_d2p_o = dio_oe[DioUsbdevUsbDn];
+  assign cio_usbdev_dp_d2p_o = 1'b0;
+  assign cio_usbdev_dp_en_d2p_o = 1'b0;
+  assign cio_usbdev_dn_d2p_o = 1'b0;
+  assign cio_usbdev_dn_en_d2p_o = 1'b0;
 
-  assign cio_spi_device_sdo_d2p_o = dio_out[DioSpiDeviceSd1];
-  assign cio_spi_device_sdo_en_d2p_o = dio_oe[DioSpiDeviceSd1];
+  // SPI (not used)
+  assign cio_spi_device_sdo_d2p_o = 1'b0;
+  assign cio_spi_device_sdo_en_d2p_o = 1'b0;
 
   logic [pinmux_reg_pkg::NMioPads-1:0] mio_in;
   logic [pinmux_reg_pkg::NMioPads-1:0] mio_out;
@@ -89,7 +85,7 @@ module chip_custom_tiny_verilator (
     mio_in = '0;
     // 14 generic GPIOs
     mio_in[MioPadIob12:MioPadIob6] = cio_gpio_p2d_i[6:0];
-    mio_in[MioPadIor13:MioPadIor5] = cio_gpio_p2d_i[13:7];
+    mio_in[MioPadIor7:MioPadIor5] = cio_gpio_p2d_i[9:7];
     // SW straps
     mio_in[MioPadIoc2:MioPadIoc0] = cio_gpio_p2d_i[24:22];
     // TAP straps
@@ -105,8 +101,8 @@ module chip_custom_tiny_verilator (
   // 14 generic GPIOs
   assign cio_gpio_d2p_o[6:0]        = mio_out[MioPadIob12:MioPadIob6];
   assign cio_gpio_en_d2p_o[6:0]     = mio_oe[MioPadIob12:MioPadIob6];
-  assign cio_gpio_d2p_o[13:7]       = mio_out[MioPadIor13:MioPadIor5];
-  assign cio_gpio_en_d2p_o[13:7]    = mio_oe[MioPadIor13:MioPadIor5];
+  assign cio_gpio_d2p_o[9:7]        = mio_out[MioPadIor7:MioPadIor5];
+  assign cio_gpio_en_d2p_o[9:7]     = mio_oe[MioPadIor7:MioPadIor5];
   assign cio_gpio_d2p_o[21:14]      = '0;
   assign cio_gpio_en_d2p_o[21:14]   = '0;
   // SW straps
@@ -144,10 +140,10 @@ module chip_custom_tiny_verilator (
   assign cio_gpio_pull_en_o[7] = mio_attr[MioPadIor5].pull_en;
   assign cio_gpio_pull_en_o[8] = mio_attr[MioPadIor6].pull_en;
   assign cio_gpio_pull_en_o[9] = mio_attr[MioPadIor7].pull_en;
-  assign cio_gpio_pull_en_o[10] = mio_attr[MioPadIor10].pull_en;
-  assign cio_gpio_pull_en_o[11] = mio_attr[MioPadIor11].pull_en;
-  assign cio_gpio_pull_en_o[12] = mio_attr[MioPadIor12].pull_en;
-  assign cio_gpio_pull_en_o[13] = mio_attr[MioPadIor13].pull_en;
+  assign cio_gpio_pull_en_o[10] = 1'b0;
+  assign cio_gpio_pull_en_o[11] = 1'b0;
+  assign cio_gpio_pull_en_o[12] = 1'b0;
+  assign cio_gpio_pull_en_o[13] = 1'b0;
   assign cio_gpio_pull_en_o[21:14] = '0;
 
   // Pull enable for SW STRAPs
@@ -173,10 +169,10 @@ module chip_custom_tiny_verilator (
   assign cio_gpio_pull_select_o[7] = mio_attr[MioPadIor5].pull_select;
   assign cio_gpio_pull_select_o[8] = mio_attr[MioPadIor6].pull_select;
   assign cio_gpio_pull_select_o[9] = mio_attr[MioPadIor7].pull_select;
-  assign cio_gpio_pull_select_o[10] = mio_attr[MioPadIor10].pull_select;
-  assign cio_gpio_pull_select_o[11] = mio_attr[MioPadIor11].pull_select;
-  assign cio_gpio_pull_select_o[12] = mio_attr[MioPadIor12].pull_select;
-  assign cio_gpio_pull_select_o[13] = mio_attr[MioPadIor13].pull_select;
+  assign cio_gpio_pull_select_o[10] = 1'b0;
+  assign cio_gpio_pull_select_o[11] = 1'b0;
+  assign cio_gpio_pull_select_o[12] = 1'b0;
+  assign cio_gpio_pull_select_o[13] = 1'b0;
   assign cio_gpio_pull_select_o[21:14] = '0;
 
   // Pull select for SW STRAPs
@@ -474,9 +470,9 @@ module chip_custom_tiny_verilator (
     dft_strap0_idx: MioPadIoc3,
     dft_strap1_idx: MioPadIoc4,
     // TODO: check whether there is a better way to pass these USB-specific params
-    usb_dp_idx:        DioUsbdevUsbDp,
-    usb_dn_idx:        DioUsbdevUsbDn,
-    usb_sense_idx:     MioInUsbdevSense,
+    usb_dp_idx:     0,
+    usb_dn_idx:     0,
+    usb_sense_idx:  0,
     // TODO: connect these once the verilator chip-level has been merged with the chiplevel.sv.tpl
     dio_pad_type: {pinmux_reg_pkg::NDioPads{prim_pad_wrapper_pkg::BidirStd}},
     mio_pad_type: {pinmux_reg_pkg::NMioPads{prim_pad_wrapper_pkg::BidirStd}}
