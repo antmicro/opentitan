@@ -2,17 +2,17 @@ CAPI=2:
 # Copyright lowRISC contributors.
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
-name: "lowrisc:systems:custom_tiny:chip_custom_tiny_verilator:0.1"
+name: "lowrisc:systems_custom_tiny:chip_custom_tiny_verilator:0.1"
 description: "Custom toplevel for simulation with Verilator"
 filesets:
   files_sim_verilator:
     depend:
-      - lowrisc:systems:custom_tiny:top_custom_tiny:0.1
-      - lowrisc:systems:custom_tiny:top_custom_tiny_pkg
+      - lowrisc:systems_custom_tiny:top_custom_tiny:0.1
+      - lowrisc:systems_custom_tiny:top_custom_tiny_pkg
       - lowrisc:ibex:ibex_tracer
       - lowrisc:prim:clock_div
-      - lowrisc:systems:custom_tiny:ast
-      - lowrisc:systems:custom_tiny:scan_role_pkg
+      - lowrisc:systems_custom_tiny:ast
+      - lowrisc:systems_custom_tiny:scan_role_pkg
 
     files:
       - rtl/chip_custom_tiny_verilator.sv: { file_type: systemVerilogSource }

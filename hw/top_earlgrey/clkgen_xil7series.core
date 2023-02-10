@@ -5,7 +5,7 @@ CAPI=2:
 
 # TODO: long term this should be merged into AST.
 
-name: "lowrisc:systems:earlgrey:clkgen_xil7series"
+name: "lowrisc:systems_earlgrey:clkgen_xil7series"
 description: "Clock generation infrastructure for Xilinx 7-Series FPGAs."
 filesets:
   files_rtl:

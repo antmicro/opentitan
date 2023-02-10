@@ -18,7 +18,7 @@ filesets:
       - lowrisc:dv:sim_sram
       - lowrisc:dv:sw_test_status
       - lowrisc:dv:dv_test_status
-      - lowrisc:systems:earlgrey:chip_earlgrey_verilator
+      - lowrisc:systems_earlgrey:chip_earlgrey_verilator
     files:
       - chip_sim_tb.sv: { file_type: systemVerilogSource }
       - chip_sim_tb.cc: { file_type: cppSource }

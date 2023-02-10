@@ -43,7 +43,7 @@
                   rel_path: "hw/ip/aon_timer/lint/{tool}"
              },
              {    name: ast
-                  fusesoc_core: lowrisc:systems:custom_tiny:ast
+                  fusesoc_core: lowrisc:systems_custom_tiny:ast
                   import_cfgs: ["{proj_root}/hw/lint/tools/dvsim/common_lint_cfg.hjson"]
                   rel_path: "hw/top_earlgrey/ip/ast/lint/{tool}"
                   overrides: [
@@ -59,7 +59,7 @@
                   rel_path: "hw/ip/entropy_src/lint/{tool}"
              },
              {    name: clkmgr
-                  fusesoc_core: lowrisc:systems:custom_tiny:clkmgr
+                  fusesoc_core: lowrisc:systems_custom_tiny:clkmgr
                   import_cfgs: ["{proj_root}/hw/lint/tools/dvsim/common_lint_cfg.hjson"],
                   rel_path: "hw/top_earlgrey/ip/clkmgr/lint/{tool}",
                   overrides: [
@@ -278,7 +278,7 @@
                   rel_path: "hw/ip/tlul/adapter_sram/lint/{tool}"
              },
              {    name: sensor_ctrl
-                  fusesoc_core: lowrisc:systems:custom_tiny:sensor_ctrl
+                  fusesoc_core: lowrisc:systems_custom_tiny:sensor_ctrl
                   import_cfgs: ["{proj_root}/hw/lint/tools/dvsim/common_lint_cfg.hjson"]
                   rel_path: "hw/top_earlgrey/ip/sensor_ctrl/lint/{tool}"
              },
@@ -288,7 +288,7 @@
                   rel_path: "hw/ip/tlul/sram2tlul/lint/{tool}"
              },
              {    name: chip_earlgrey_asic
-                  fusesoc_core: lowrisc:systems:custom_tiny:chip_earlgrey_asic
+                  fusesoc_core: lowrisc:systems_custom_tiny:chip_earlgrey_asic
                   import_cfgs: ["{proj_root}/hw/lint/tools/dvsim/common_lint_cfg.hjson"]
                   rel_path: "hw/top_earlgrey/lint/{tool}"
                   overrides: [

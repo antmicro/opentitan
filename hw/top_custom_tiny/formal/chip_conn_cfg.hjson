@@ -7,7 +7,7 @@
   import_cfgs: [// common server configuration for results upload
                 "{proj_root}/hw/formal/tools/dvsim/common_conn_cfg.hjson"]
 
-  fusesoc_core: lowrisc:systems:custom_tiny:chip_earlgrey_asic:0.1
+  fusesoc_core: lowrisc:systems_custom_tiny:chip_earlgrey_asic:0.1
 
   bbox_cmd: "[list aon_osc io_osc sys_osc usb_osc]"
   conn_csvs_dir: "{proj_root}/hw/top_earlgrey/formal/conn_csvs"

@@ -2,7 +2,7 @@ CAPI=2:
 # Copyright lowRISC contributors.
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
-name: "lowrisc:systems:earlgrey:ast_pkg"
+name: "lowrisc:systems_earlgrey:ast_pkg"
 description: "Analog sensor top (AST) wrapper package"
 
 filesets:

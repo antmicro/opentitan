@@ -9,7 +9,7 @@ filesets:
     depend:
       - lowrisc:ip:pwrmgr_pkg
       - lowrisc:prim:assert
-      - lowrisc:systems:custom_tiny:top_custom_tiny
+      - lowrisc:systems_custom_tiny:top_custom_tiny
     files:
       - clk_ctrl_and_main_pd_sva_if.sv
       - top_custom_tiny_bind.sv

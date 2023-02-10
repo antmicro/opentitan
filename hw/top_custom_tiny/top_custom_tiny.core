@@ -2,7 +2,7 @@ CAPI=2:
 # Copyright lowRISC contributors.
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
-name: "lowrisc:systems:custom_tiny:top_custom_tiny:0.1"
+name: "lowrisc:systems_custom_tiny:top_custom_tiny:0.1"
 description: "Technology-independent Custom toplevel"
 filesets:
   files_rtl_generic:
@@ -38,14 +38,14 @@ filesets:
       - lowrisc:ip:aon_timer
       - lowrisc:ip:sysrst_ctrl
       - lowrisc:ip:rom_ctrl
-      - lowrisc:systems:custom_tiny:clkmgr
-      - lowrisc:systems:custom_tiny:sensor_ctrl
+      - lowrisc:systems_custom_tiny:clkmgr
+      - lowrisc:systems_custom_tiny:sensor_ctrl
       - lowrisc:tlul:headers
       - lowrisc:prim:all
       - lowrisc:prim:mubi
-      - lowrisc:systems:custom_tiny:top_earlgrey_pkg
+      - lowrisc:systems_custom_tiny:top_custom_tiny_pkg
       - "fileset_partner  ? (partner:systems:ast_pkg)"
-      - "!fileset_partner ? (lowrisc:systems:custom_tiny:ast_pkg)"
+      - "!fileset_partner ? (lowrisc:systems_custom_tiny:ast_pkg)"
     files:
       - rtl/autogen/top_custom_tiny_rnd_cnst_pkg.sv
       - rtl/autogen/top_custom_tiny.sv
@@ -95,7 +95,7 @@ targets:
       - tool_ascentlint  ? (files_ascentlint_waiver)
       - tool_veriblelint ? (files_veriblelint_waiver)
       - files_rtl_generic
-    toplevel: top_earlgrey
+    toplevel: top_custom_tiny
     parameters:
       - IBEX_CUSTOM_PMP_RESET_VALUES
 
@@ -103,7 +103,7 @@ targets:
     default_tool: icarus
     filesets:
       - files_rtl_generic
-    toplevel: top_earlgrey
+    toplevel: top_custom_tiny
 
   lint:
     <<: *default_target
@@ -124,8 +124,8 @@ targets:
     default_tool: icarus
     parameters:
       - SYNTHESIS=true
-    toplevel: top_earlgrey
+    toplevel: top_custom_tiny
 
   formal:
     <<: *default_target
-    toplevel: top_earlgrey
+    toplevel: top_custom_tiny

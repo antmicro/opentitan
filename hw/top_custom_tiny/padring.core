@@ -2,14 +2,14 @@ CAPI=2:
 # Copyright lowRISC contributors.
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
-name: "lowrisc:systems:custom_tiny:padring:0.1"
+name: "lowrisc:systems_custom_tiny:padring:0.1"
 description: "Chip-level padring instance"
 
 filesets:
   files_rtl:
     depend:
       - lowrisc:ip:pinmux_component
-      - "!fileset_partner ? (lowrisc:systems:custom_tiny:physical_pads)"
+      - "!fileset_partner ? (lowrisc:systems_custom_tiny:physical_pads)"
       - "fileset_partner ? (partner:systems:physical_pads)"
     files:
       - rtl/padring.sv

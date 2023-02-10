@@ -2,7 +2,7 @@ CAPI=2:
 # Copyright lowRISC contributors.
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
-name: "lowrisc:systems:earlgrey:ast:0.1"
+name: "lowrisc:systems_earlgrey:ast:0.1"
 description: "Analog Sensor Top generic views"
 filesets:
   files_rtl:
@@ -24,7 +24,7 @@ filesets:
       - lowrisc:ip:edn_pkg
       - lowrisc:ip_interfaces:alert_handler_reg
       - lowrisc:ip:rstmgr_pkg
-      - lowrisc:systems:earlgrey:clkmgr_pkg
+      - lowrisc:systems_earlgrey:clkmgr_pkg
     files:
       - rtl/ast_reg_pkg.sv
       - rtl/ast_pkg.sv
