@@ -11,7 +11,8 @@ filesets:
       - lowrisc:prim:all
       - lowrisc:ip:tlul
       - "fileset_partner  ? (partner:systems:ast_pkg)"
-      - "!fileset_partner ? (lowrisc:systems:ast_pkg)"
+      - "!fileset_partner ? (ot_is_earlgrey ? (lowrisc:systems_earlgrey:ast_pkg))"
+      - "!fileset_partner ? (ot_is_custom_tiny ? (lowrisc:systems_custom_tiny:ast_pkg))"
 
     files:
       - rtl/adc_ctrl_pkg.sv

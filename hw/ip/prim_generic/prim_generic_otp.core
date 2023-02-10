@@ -11,7 +11,8 @@ filesets:
       - lowrisc:prim:all
       - lowrisc:prim:util
       - lowrisc:prim:ram_1p_adv
-      - lowrisc:systems:ast_pkg
+      - "ot_is_earlgrey ? (lowrisc:systems_earlgrey:ast_pkg)"
+      - "ot_is_custom_tiny ? (lowrisc:systems_custom_tiny:ast_pkg)"
       - lowrisc:prim:otp_pkg
       - lowrisc:ip:otp_ctrl_prim_reg_top
     files:

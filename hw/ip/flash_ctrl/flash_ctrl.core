@@ -22,7 +22,8 @@ filesets:
       - lowrisc:ip:otp_ctrl_pkg
       - lowrisc:ip:flash_ctrl_pkg
       - lowrisc:ip:jtag_pkg
-      - "fileset_top    ? (lowrisc:systems:flash_ctrl)"
+      - "fileset_top ? (ot_is_earlgrey ? (lowrisc:systems_earlgrey:flash_ctrl))"
+      - "fileset_top ? (ot_is_custom_tiny ? (lowrisc:systems_custom_tiny:flash_ctrl))"
       - "fileset_topgen ? (lowrisc:systems:topgen)"
     files:
       - "fileset_ip ? (rtl/flash_ctrl_core_reg_top.sv)"

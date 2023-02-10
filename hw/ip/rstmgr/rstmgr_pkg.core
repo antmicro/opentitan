@@ -12,7 +12,8 @@ filesets:
       - lowrisc:ip:pwrmgr_pkg
       - lowrisc:ip:rstmgr_reg
       - lowrisc:ip_interfaces:alert_handler_reg
-      - "fileset_top    ? (lowrisc:systems:rstmgr_pkg)"
+      - "fileset_top ? (ot_is_earlgrey ? (lowrisc:systems_earlgrey:rstmgr_pkg))"
+      - "fileset_top ? (ot_is_custom_tiny ? (lowrisc:systems_custom_tiny:rstmgr_pkg))"
       - "fileset_topgen ? (lowrisc:systems:topgen)"
     files:
       - "fileset_ip ? (rtl/rstmgr_pkg.sv)"

@@ -10,7 +10,8 @@ filesets:
     depend:
       - lowrisc:ip:lc_ctrl_pkg
       - lowrisc:prim:mubi
-      - lowrisc:systems:clkmgr_pkg
+      - "ot_is_earlgrey ? (lowrisc:systems_earlgrey:clkmgr_pkg)"
+      - "ot_is_custom_tiny ? (lowrisc:systems_custom_tiny:clkmgr_pkg)"
       - lowrisc:prim:measure
     files:
       - rtl/clkmgr_byp.sv

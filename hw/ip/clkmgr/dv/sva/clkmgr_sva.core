@@ -17,7 +17,8 @@ filesets:
 
   files_formal:
     depend:
-      - lowrisc:systems:clkmgr
+      - "ot_is_earlgrey ? (lowrisc:systems_earlgrey:clkmgr)"
+      - "ot_is_custom_tiny ? (lowrisc:systems_custom_tiny:clkmgr)"
 
 generate:
   csr_assert_gen:

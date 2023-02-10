@@ -17,10 +17,12 @@ filesets:
       - lowrisc:prim:mubi
       - lowrisc:prim:clock_buf
       - lowrisc:prim:sparse_fsm
-      - "fileset_ip     ? (lowrisc:ip:rstmgr_pkg)"
-      - "fileset_top    ? (lowrisc:systems:rstmgr_pkg)"
       - lowrisc:ip:rstmgr_cnsty_chk
-      - "fileset_top    ? (lowrisc:systems:rstmgr)"
+      - "fileset_ip ? (lowrisc:ip:rstmgr_pkg)"
+      - "fileset_top ? (ot_is_earlgrey ? (lowrisc:systems_earlgrey:rstmgr_pkg))"
+      - "fileset_top ? (ot_is_custom_tiny ? (lowrisc:systems_custom_tiny:rstmgr_pkg))"
+      - "fileset_top ? (ot_is_earlgrey ? (lowrisc:systems_earlgrey:rstmgr))"
+      - "fileset_top ? (ot_is_custom_tiny ? (lowrisc:systems_custom_tiny:rstmgr))"
       - "fileset_topgen ? (lowrisc:systems:topgen)"
     files:
       - rtl/rstmgr_ctrl.sv

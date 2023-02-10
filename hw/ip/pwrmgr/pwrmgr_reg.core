@@ -10,7 +10,8 @@ filesets:
     depend:
       - lowrisc:tlul:headers
       - lowrisc:prim:subreg
-      - "!fileset_topgen ? (lowrisc:systems:pwrmgr_reg)"
+      - "!fileset_topgen ? (ot_is_earlgrey ? (lowrisc:systems_earlgrey:pwrmgr_reg))"
+      - "!fileset_topgen ? (ot_is_custom_tiny ? (lowrisc:systems_custom_tiny:pwrmgr_reg))"
       - "fileset_topgen ? (lowrisc:systems:topgen-reg-only)"
     files:
     file_type: systemVerilogSource

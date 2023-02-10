@@ -8,7 +8,8 @@ filesets:
   files_rtl:
     depend:
       - lowrisc:tlul:headers
-      - "fileset_top ? (lowrisc:systems:pinmux_reg)"
+      - "fileset_top ? (ot_is_earlgrey ? (lowrisc:systems_earlgrey:pinmux_reg))"
+      - "fileset_top ? (ot_is_custom_tiny ? (lowrisc:systems_custom_tiny:pinmux_reg))"
       - "fileset_topgen ? (lowrisc:systems:topgen-reg-only)"
     files:
       - "fileset_ip ? (rtl/pinmux_reg_pkg.sv)"

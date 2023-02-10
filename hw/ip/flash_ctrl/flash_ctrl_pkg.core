@@ -15,8 +15,10 @@ filesets:
       - lowrisc:ip:jtag_pkg
       - lowrisc:ip:edn_pkg
       - "fileset_partner  ? (partner:systems:ast_pkg)"
-      - "!fileset_partner ? (lowrisc:systems:ast_pkg)"
-      - "fileset_top    ? (lowrisc:systems:flash_ctrl_pkg)"
+      - "!fileset_partner ? (ot_is_earlgrey ? (lowrisc:systems_earlgrey:ast_pkg))"
+      - "!fileset_partner ? (ot_is_custom_tiny ? (lowrisc:systems_custom_tiny:ast_pkg))"
+      - "fileset_top ? (ot_is_earlgrey ? (lowrisc:systems_earlgrey:flash_ctrl_pkg))"
+      - "fileset_top ? (ot_is_custom_tiny ? (lowrisc:systems_custom_tiny:flash_ctrl_pkg))"
       - "fileset_topgen ? (lowrisc:systems:topgen)"
     files:
       - "fileset_ip ? (rtl/flash_ctrl_reg_pkg.sv)"

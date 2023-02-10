@@ -7,7 +7,8 @@ description: "CLKMGR DV sim target"
 filesets:
   files_rtl:
     depend:
-      - lowrisc:systems:clkmgr
+      - "ot_is_earlgrey ? (lowrisc:systems_earlgrey:clkmgr)"
+      - "ot_is_custom_tiny ? (lowrisc:systems_custom_tiny:clkmgr)"
 
   files_dv:
     depend:
