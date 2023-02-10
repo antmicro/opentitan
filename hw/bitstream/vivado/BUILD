@@ -48,6 +48,7 @@ fusesoc_build (
     cores = ["//:cores"],
     data = ["//hw/ip/otbn:all_files"],
     flags = [
+        "--flag ot_is_earlgrey", # FIXME: Make it config-specific
         "--BootRomInitFile=" + _FPGA_CW310_TESTROM_PATH,
         "--OtpCtrlMemInitFile=" + _FPGA_CW310_OTP_RMA_PATH,
     ],
@@ -72,6 +73,7 @@ fusesoc_build (
     cores = ["//:cores"],
     data = ["//hw/ip/otbn:all_files"],
     flags = [
+        "--flag ot_is_custom_tiny", # FIXME: Make it config-specific
         "--BootRomInitFile=" + _FPGA_NEXYSVIDEO_TESTROM_PATH,
         "--OtpCtrlMemInitFile=" + _FPGA_NEXYSVIDEO_OTP_RMA_PATH,
     ],
@@ -178,6 +180,7 @@ fusesoc_build(
     flags = [
         "--BootRomInitFile=" + _FPGA_CW310_TESTROM_PATH,
         "--OtpCtrlMemInitFile=" + _FPGA_CW310_OTP_RMA_PATH,
+        "--flag=ot_is_earlgrey", # FIXME: Make it config-specific
     ],
     output_groups = {
         "bitstream": ["synth-vivado/lowrisc_systems_chip_earlgrey_cw310_hyperdebug_0.1.bit"],

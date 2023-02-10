@@ -28,7 +28,7 @@ def _corefiles2rootarg(core):
 def _fusesoc_build_impl(ctx):
     dirname = "build.{}".format(ctx.label.name)
     out_dir = ctx.actions.declare_directory(dirname)
-    flags = [ctx.expand_location(f, ctx.attr.srcs) for f in ctx.attr.flags]
+    _flags = [ctx.expand_location(f, ctx.attr.srcs) for f in ctx.attr.flags]
     outputs = [out_dir]
     groups = {}
     args = ctx.actions.args()
@@ -40,11 +40,21 @@ def _fusesoc_build_impl(ctx):
 
     if ctx.attr.verilator_options:
         verilator_options = ctx.attr.verilator_options[BuildSettingInfo].value
-        flags.append("--verilator_options={}".format(" ".join(verilator_options)))
+        _flags.append("--verilator_options={}".format(" ".join(verilator_options)))
 
     if ctx.attr.make_options:
         make_options = ctx.attr.make_options[BuildSettingInfo].value
-        flags.append("--make_options={}".format(" ".join(make_options)))
+        _flags.append("--make_options={}".format(" ".join(make_options)))
+
+    # Separate "flags" into constraints (--flag) and others. This is needed
+    # as FuseSoC requires arguments to be provided in a specific order.
+    flags = []
+    constraints = []
+    for item in _flags:
+        if item.startswith("--flag"):
+            constraints.append(item)
+        else:
+            flags.append(item)
 
     args.add_all(
         ctx.files.cores,
@@ -57,6 +67,7 @@ def _fusesoc_build_impl(ctx):
         "run",
         "--flag=fileset_top",
     ])
+    args.add_all(constraints)
     args.add(ctx.attr.target, format = "--target=%s")
     args.add_all([
         "--setup",

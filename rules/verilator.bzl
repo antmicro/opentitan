@@ -35,6 +35,9 @@ def verilator_build (
         ],
         target = "sim",
         verilator_options = ":verilator_options",
+        flags = [
+            "--flag=ot_is_" + config,
+        ],
     )
 
     target = "verilator_" + config + "_bin"
