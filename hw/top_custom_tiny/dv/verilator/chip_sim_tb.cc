@@ -11,6 +11,9 @@
 #include "verilator_memutil.h"
 #include "verilator_sim_ctrl.h"
 
+// TODO: Use the memory origin/size constants from the autogen header here
+// Figure out how to pass dependencies.
+
 int main(int argc, char **argv) {
   chip_sim_tb top;
   VerilatorMemUtil memutil;
@@ -33,7 +36,7 @@ int main(int argc, char **argv) {
                     ".u_flash_ctrl.u_eflash.u_flash.gen_generic.u_impl_generic."
                     "gen_prim_flash_banks[0].u_prim_flash_bank.u_mem."
                     "gen_generic.u_impl_generic",
-                0x80000 / 8, 8);
+                0x20000 / 8, 8);
   // Start with the flash region erased. Future loads can overwrite.
   std::vector<uint8_t> all_ones(flash.GetSizeBytes());
   std::fill(all_ones.begin(), all_ones.end(), 0xffu);
@@ -57,8 +60,8 @@ int main(int argc, char **argv) {
   simctrl.SetInitialResetDelay(20000);
   simctrl.SetResetDuration(10);
 
-  std::cout << "Simulation of OpenTitan Earl Grey" << std::endl
-            << "=================================" << std::endl
+  std::cout << "Simulation of OpenTitan Custom Tiny" << std::endl
+            << "===================================" << std::endl
             << std::endl;
 
   return simctrl.Exec(argc, argv).first;
