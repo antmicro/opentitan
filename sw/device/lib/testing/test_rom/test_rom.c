@@ -209,9 +209,9 @@ bool rom_test_main(void) {
       test_status_set(kTestStatusFailed);
     }
   }
+#endif
   CHECK_DIF_OK(
       dif_flash_ctrl_set_exec_enablement(&flash_ctrl, kDifToggleEnabled));
-#endif
 
   // Always select slot a and enable address translation if manifest says to.
   const manifest_t *manifest =
