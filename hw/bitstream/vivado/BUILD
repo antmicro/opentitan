@@ -48,7 +48,7 @@ fusesoc_build (
     cores = ["//:cores"],
     data = ["//hw/ip/otbn:all_files"],
     flags = [
-        "--flag ot_is_earlgrey", # FIXME: Make it config-specific
+        "--flag=ot_is_earlgrey", # FIXME: Make it config-specific
         "--BootRomInitFile=" + _FPGA_CW310_TESTROM_PATH,
         "--OtpCtrlMemInitFile=" + _FPGA_CW310_OTP_RMA_PATH,
     ],
@@ -57,7 +57,7 @@ fusesoc_build (
         "rom_mmi": ["synth-vivado/rom.mmi"],
         "otp_mmi": ["synth-vivado/otp.mmi"],
     },
-    systems = ["lowrisc:systems:chip_earlgrey_cw310"],
+    systems = ["lowrisc:systems_earlgrey:chip_earlgrey_cw310"],
     tags = ["manual"],
     target = "synth",
 )
@@ -73,16 +73,16 @@ fusesoc_build (
     cores = ["//:cores"],
     data = ["//hw/ip/otbn:all_files"],
     flags = [
-        "--flag ot_is_custom_tiny", # FIXME: Make it config-specific
+        "--flag=ot_is_custom_tiny", # FIXME: Make it config-specific
         "--BootRomInitFile=" + _FPGA_NEXYSVIDEO_TESTROM_PATH,
         "--OtpCtrlMemInitFile=" + _FPGA_NEXYSVIDEO_OTP_RMA_PATH,
     ],
     output_groups = {
-        "bitstream_nexysvideo": ["synth-vivado/lowrisc_systems_chip_custom_tiny_nexysvideo_0.1.bit"],
+        "bitstream_nexysvideo": ["synth-vivado/lowrisc_systems_custom_tiny_chip_custom_tiny_nexysvideo_0.1.bit"],
         "rom_mmi_nexysvideo": ["synth-vivado/rom.mmi"],
         "otp_mmi_nexysvideo": ["synth-vivado/otp.mmi"],
     },
-    systems = ["lowrisc:systems:chip_custom_tiny_nexysvideo"],
+    systems = ["lowrisc:systems_custom_tiny:chip_custom_tiny_nexysvideo"],
     tags = ["manual"],
     target = "synth",
 )
@@ -187,7 +187,7 @@ fusesoc_build(
         "rom_mmi": ["synth-vivado/rom.mmi"],
         "otp_mmi": ["synth-vivado/otp.mmi"],
     },
-    systems = ["lowrisc:systems:chip_earlgrey_cw310_hyperdebug"],
+    systems = ["lowrisc:systems_earlgrey:chip_earlgrey_cw310_hyperdebug"],
     tags = ["manual"],
     target = "synth",
 )
