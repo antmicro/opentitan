@@ -26,8 +26,8 @@ set_property -dict { PACKAGE_PIN Y9 IOSTANDARD LVCMOS33 PULLTYPE PULLUP } [get_p
 set_property -dict { PACKAGE_PIN  G4  IOSTANDARD LVCMOS33 PULLTYPE PULLUP } [get_ports { POR_N }];
 
 # Main UART (over FTDI)
-set_property -dict { PACKAGE_PIN AA19  IOSTANDARD LVCMOS33 } [get_ports { IOC3 }]; #OpenTitan UART0 RX
-set_property -dict { PACKAGE_PIN V18 IOSTANDARD LVCMOS33 } [get_ports { IOC4 }]; #OpenTitan UART0 TX
+set_property -dict { PACKAGE_PIN V18 IOSTANDARD LVCMOS33 } [get_ports { IOC3 }]; #OpenTitan UART0 RX
+set_property -dict { PACKAGE_PIN AA19 IOSTANDARD LVCMOS33 } [get_ports { IOC4 }]; #OpenTitan UART0 TX
 
 ## Preserve prim_prince modules and setup multi-cycle paths
 ## These are no longer required, but kept here as a reference
