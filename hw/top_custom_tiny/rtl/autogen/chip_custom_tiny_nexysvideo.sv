@@ -751,6 +751,7 @@ module chip_custom_tiny_nexysvideo #(
   assign manual_out_por_button_n = 1'b0;
   assign manual_oe_por_button_n = 1'b0;
 
+  assign srst_n = ~manual_in_por_button_n & manual_in_jtag_srst_n;
 
 
   //////////////////////

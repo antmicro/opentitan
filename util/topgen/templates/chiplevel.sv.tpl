@@ -1057,6 +1057,8 @@ module chip_${top["name"]}_${target["name"]} #(
   assign manual_attr_jtag_srst_n = '0;
   assign manual_out_jtag_srst_n = 1'b0;
   assign manual_oe_jtag_srst_n = 1'b0;
+  % elif target["name"] == "nexysvideo":
+  assign srst_n = ~manual_in_por_button_n & manual_in_jtag_srst_n;
   % endif
 
   % if target["name"] == "cw305":
