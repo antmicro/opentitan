@@ -1104,7 +1104,7 @@ module chip_${top["name"]}_${target["name"]} #(
     .SecAesSkipPRNGReseeding(1'b1),
     .UsbdevStub(1'b1),
 % elif top["name"] == "custom_tiny":
-    // .
+    .OtpCtrlMemInitFile(OtpCtrlMemInitFile),
 % else:
     .SecAesMasking(1'b0),
     .SecAesSBoxImpl(aes_pkg::SBoxImplLut),

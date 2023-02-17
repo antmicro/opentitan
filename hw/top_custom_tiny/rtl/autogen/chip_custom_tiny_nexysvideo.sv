@@ -767,7 +767,7 @@ module chip_custom_tiny_nexysvideo #(
 // Also need to add AST simulation and FPGA emulation models for things like entropy source -
 // otherwise Verilator / FPGA will hang.
   top_custom_tiny #(
-    // .
+    .OtpCtrlMemInitFile(OtpCtrlMemInitFile),
     .RomCtrlBootRomInitFile(BootRomInitFile),
     .RvCoreIbexRegFile(ibex_pkg::RegFileFPGA),
     .RvCoreIbexPipeLine(1),
