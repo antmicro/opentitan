@@ -9,6 +9,7 @@
 //                -o hw/top_custom_tiny/ \
 //                --rnd_cnst_seed 4881560218908238235
 
+
 module chip_custom_tiny_nexysvideo #(
   // Path to a VMEM file containing the contents of the boot ROM, which will be
   // baked into the FPGA bitstream.

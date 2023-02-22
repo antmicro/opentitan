@@ -5,7 +5,17 @@
 # ALERT_HANDLER register template
 
 {
-  name: "ALERT_HANDLER",
+  name:               "alert_handler",
+  design_spec:        "../doc",
+  dv_doc:             "../doc/dv",
+  hw_checklist:       "../doc/checklist",
+  sw_checklist:       "/sw/device/lib/dif/dif_alert_handler"
+  version:            "1.0",
+  life_stage:         "L1",
+  design_stage:       "D3",
+  verification_stage: "V2S",
+  dif_stage:          "S2",
+  notes:              "Use both FPV and DV to perform block level verification.",
   clocking: [
     {clock: "clk_i", reset: "rst_ni", primary: true},
     {clock: "clk_edn_i", reset: "rst_edn_ni"}
@@ -449,8 +459,8 @@
                       name:   "EN",
                       desc:   '''
                               Alert configuration write enable bit.
-                              If this is cleared to 0, the corresponding !!ALERT_EN_SHADOWED0
-                              and !!ALERT_CLASS bits are not writable anymore.
+                              If this is cleared to 0, the corresponding !!ALERT_EN_SHADOWED
+                              and !!ALERT_CLASS_SHADOWED bits are not writable anymore.
 
                               Note that the alert pinging mechanism will only ping alerts that have been enabled and locked.
                               ''',
@@ -537,8 +547,8 @@
                       name:   "EN",
                       desc:   '''
                               Alert configuration write enable bit.
-                              If this is cleared to 0, the corresponding !!LOC_ALERT_EN_SHADOWED0
-                              and !!LOC_ALERT_CLASS_SHADOWED0 bits are not writable anymore.
+                              If this is cleared to 0, the corresponding !!LOC_ALERT_EN_SHADOWED
+                              and !!LOC_ALERT_CLASS_SHADOWED bits are not writable anymore.
 
                               Note that the alert pinging mechanism will only ping alerts that have been enabled and locked.
                               ''',

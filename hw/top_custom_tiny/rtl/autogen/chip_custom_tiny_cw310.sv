@@ -9,6 +9,7 @@
 //                -o hw/top_custom_tiny/ \
 //                --rnd_cnst_seed 4881560218908238235
 
+
 module chip_custom_tiny_cw310 #(
   // Path to a VMEM file containing the contents of the boot ROM, which will be
   // baked into the FPGA bitstream.
@@ -111,13 +112,13 @@ module chip_custom_tiny_cw310 #(
     trst_idx:          TrstNPadIdx,
     tdi_idx:           TdiPadIdx,
     tdo_idx:           TdoPadIdx,
-    tap_strap0_idx:    -1,
-    tap_strap1_idx:    -2,
-    dft_strap0_idx:    -3,
-    dft_strap1_idx:    -4,
-    usb_dp_idx:        -5,
-    usb_dn_idx:        -6,
-    usb_sense_idx:     -7,
+    tap_strap0_idx:    0,
+    tap_strap1_idx:    0,
+    dft_strap0_idx:    0,
+    dft_strap1_idx:    0,
+    usb_dp_idx:        0,
+    usb_dn_idx:        0,
+    usb_sense_idx:     0,
     // Pad types for attribute WARL behavior
     dio_pad_type: {
       BidirStd, // DIO spi_host0_csb
@@ -919,6 +920,8 @@ module chip_custom_tiny_cw310 #(
     .KeymgrKmacEnMasking(0),
     .CsrngSBoxImpl(aes_pkg::SBoxImplLut),
     .OtbnRegFile(otbn_pkg::RegFileFPGA),
+    .SecOtbnMuteUrnd(1'b1),
+    .SecOtbnSkipUrndReseedAtStart(1'b1),
     .OtpCtrlMemInitFile(OtpCtrlMemInitFile),
     .UsbdevRcvrWakeTimeUs(10000),
     .RomCtrlBootRomInitFile(BootRomInitFile),

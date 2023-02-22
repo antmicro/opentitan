@@ -246,8 +246,8 @@ module top_custom_tiny #(
   logic intr_uart0_rx_timeout;
   logic intr_uart0_rx_parity_err;
   logic [31:0] intr_gpio_gpio;
-  logic intr_i2c0_fmt_watermark;
-  logic intr_i2c0_rx_watermark;
+  logic intr_i2c0_fmt_threshold;
+  logic intr_i2c0_rx_threshold;
   logic intr_i2c0_fmt_overflow;
   logic intr_i2c0_rx_overflow;
   logic intr_i2c0_nak;
@@ -709,8 +709,8 @@ module top_custom_tiny #(
       .cio_scl_en_o (cio_i2c0_scl_en_d2p),
 
       // Interrupt
-      .intr_fmt_watermark_o    (intr_i2c0_fmt_watermark),
-      .intr_rx_watermark_o     (intr_i2c0_rx_watermark),
+      .intr_fmt_threshold_o    (intr_i2c0_fmt_threshold),
+      .intr_rx_threshold_o     (intr_i2c0_rx_threshold),
       .intr_fmt_overflow_o     (intr_i2c0_fmt_overflow),
       .intr_rx_overflow_o      (intr_i2c0_rx_overflow),
       .intr_nak_o              (intr_i2c0_nak),
@@ -754,12 +754,6 @@ module top_custom_tiny #(
       .clk_i (clkmgr_aon_clocks.clk_io_div4_timers),
       .rst_ni (rstmgr_aon_resets.rst_lc_io_div4_n[rstmgr_pkg::Domain0Sel])
   );
-
-  // FIXME: This is manual EDN bypass for OTP
-  edn_pkg::edn_req_t erq;
-  edn_pkg::edn_rsp_t ers;
-  assign ers.edn_ack = erq.edn_req;
-
   otp_ctrl #(
     .AlertAsyncOn(alert_handler_reg_pkg::AsyncOn[8:4]),
     .MemInitFile(OtpCtrlMemInitFile),
@@ -787,13 +781,8 @@ module top_custom_tiny #(
       .otp_ext_voltage_h_io(otp_ext_voltage_h_io),
       .otp_ast_pwr_seq_o(otp_ctrl_otp_ast_pwr_seq_o),
       .otp_ast_pwr_seq_h_i(otp_ctrl_otp_ast_pwr_seq_h_i),
-
-      // FIXME: This is manual EDN bypass
-//      .edn_o(),
-//      .edn_i(edn_pkg::EDN_RSP_DEFAULT),
-      .edn_o(erq),
-      .edn_i(ers),
-
+      .edn_o(),
+      .edn_i(edn_pkg::EDN_RSP_DEFAULT),
       .pwr_otp_i(pwrmgr_aon_pwr_otp_req),
       .pwr_otp_o(pwrmgr_aon_pwr_otp_rsp),
       .lc_otp_vendor_test_i(lc_ctrl_lc_otp_vendor_test_req),
@@ -1604,8 +1593,8 @@ module top_custom_tiny #(
       intr_i2c0_nak, // IDs [45 +: 1]
       intr_i2c0_rx_overflow, // IDs [44 +: 1]
       intr_i2c0_fmt_overflow, // IDs [43 +: 1]
-      intr_i2c0_rx_watermark, // IDs [42 +: 1]
-      intr_i2c0_fmt_watermark, // IDs [41 +: 1]
+      intr_i2c0_rx_threshold, // IDs [42 +: 1]
+      intr_i2c0_fmt_threshold, // IDs [41 +: 1]
       intr_gpio_gpio, // IDs [9 +: 32]
       intr_uart0_rx_parity_err, // IDs [8 +: 1]
       intr_uart0_rx_timeout, // IDs [7 +: 1]

@@ -696,8 +696,8 @@ typedef enum opentitan_plic_irq_id {
   kOpentitanPlicIrqIdGpioGpio29 = 38, /**< gpio_gpio 29 */
   kOpentitanPlicIrqIdGpioGpio30 = 39, /**< gpio_gpio 30 */
   kOpentitanPlicIrqIdGpioGpio31 = 40, /**< gpio_gpio 31 */
-  kOpentitanPlicIrqIdI2c0FmtWatermark = 41, /**< i2c0_fmt_watermark */
-  kOpentitanPlicIrqIdI2c0RxWatermark = 42, /**< i2c0_rx_watermark */
+  kOpentitanPlicIrqIdI2c0FmtThreshold = 41, /**< i2c0_fmt_threshold */
+  kOpentitanPlicIrqIdI2c0RxThreshold = 42, /**< i2c0_rx_threshold */
   kOpentitanPlicIrqIdI2c0FmtOverflow = 43, /**< i2c0_fmt_overflow */
   kOpentitanPlicIrqIdI2c0RxOverflow = 44, /**< i2c0_rx_overflow */
   kOpentitanPlicIrqIdI2c0Nak = 45, /**< i2c0_nak */

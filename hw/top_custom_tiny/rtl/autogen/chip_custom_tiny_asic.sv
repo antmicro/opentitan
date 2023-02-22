@@ -9,6 +9,7 @@
 //                -o hw/top_custom_tiny/ \
 //                --rnd_cnst_seed 4881560218908238235
 
+
 module chip_custom_tiny_asic #(
   parameter bit SecRomCtrlDisableScrambling = 1'b0
 ) (
@@ -101,13 +102,13 @@ module chip_custom_tiny_asic #(
     trst_idx:          TrstNPadIdx,
     tdi_idx:           TdiPadIdx,
     tdo_idx:           TdoPadIdx,
-    tap_strap0_idx:    -1,
-    tap_strap1_idx:    -2,
-    dft_strap0_idx:    -3,
-    dft_strap1_idx:    -4,
-    usb_dp_idx:        -5,
-    usb_dn_idx:        -6,
-    usb_sense_idx:     -7,
+    tap_strap0_idx:    0,
+    tap_strap1_idx:    0,
+    dft_strap0_idx:    0,
+    dft_strap1_idx:    0,
+    usb_dp_idx:        0,
+    usb_dn_idx:        0,
+    usb_sense_idx:     0,
     // Pad types for attribute WARL behavior
     dio_pad_type: {
       BidirStd, // DIO spi_host0_csb

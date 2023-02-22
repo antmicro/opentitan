@@ -11,7 +11,23 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 {
-  name: "PINMUX",
+  name:               "pinmux",
+  one_line_desc:      "Multiplexes between on-chip hardware blocks and pins, and can be configured at runtime",
+  one_paragraph_desc: '''
+  The OpenTitan pin multiplexer connects on-chip hardware blocks to IC pins and controls the attributes of the pin drivers (such as pull-up/down, open-drain, and drive strength).
+  Large parts of its functionality can be controlled by software through registers.
+  Further features include per-pin programmable sleep behavior and wakeup pattern detectors as well as support for life-cycle-based JTAG (TAP) isolation and muxing.
+  '''
+  design_spec:        "../doc",
+  dv_doc:             "../doc/dv",
+  hw_checklist:       "../doc/checklist",
+  sw_checklist:       "/sw/device/lib/dif/dif_pinmux",
+  version:            "1.0",
+  life_stage:         "L1",
+  design_stage:       "D3",
+  verification_stage: "V2",
+  dif_stage:          "S2",
+  notes:              "Use FPV to perform block level verification.",
   clocking: [
     {clock: "clk_i", reset: "rst_ni", primary: true},
     {clock: "clk_aon_i", reset: "rst_aon_ni"},
@@ -666,7 +682,7 @@
                       name:   "EN",
                       desc:   '''
                               Register write enable bit.
-                              If this is cleared to 0, the corresponding !!MIO_OUT_SLEEP_MODE
+                              If this is cleared to 0, the corresponding !!MIO_PAD_SLEEP_MODE
                               is not writable anymore.
                               ''',
                       resval: "1",
@@ -1032,7 +1048,7 @@
                       name: "SEL",
                       resval: 0,
                       desc: '''Selects a specific MIO or DIO pad (depending on !!WKUP_DETECTOR configuration).
-                      In case of MIO, the pad select index is the same as used for !!PERIPH_INSEL, meaning that index
+                      In case of MIO, the pad select index is the same as used for !!MIO_PERIPH_INSEL, meaning that index
                       0 and 1 just select constants 0 and 1, and the MIO pads live at indices >= 2. In case of DIO pads,
                       the pad select index corresponds 1:1 to the DIO pad to be selected.
                       '''

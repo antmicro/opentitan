@@ -16,8 +16,9 @@
   csr_update(ral.class``i``_phase2_cyc_shadowed);                         \
   csr_update(ral.class``i``_phase3_cyc_shadowed);
 
-`define RAND_WRITE_CLASS_CTRL(i, lock_bit) \
-  `DV_CHECK_RANDOMIZE_WITH_FATAL(ral.class``i``_ctrl_shadowed, lock.value == lock_bit;)  \
+`define RAND_WRITE_CLASS_CTRL(i, en_bit, lock_bit) \
+  `DV_CHECK_RANDOMIZE_WITH_FATAL(ral.class``i``_ctrl_shadowed, \
+                                 en.value == en_bit; lock.value == lock_bit;)  \
   csr_wr(.ptr(ral.class``i``_ctrl_shadowed), .value(ral.class``i``_ctrl_shadowed.get()));
 
 class alert_handler_base_vseq extends cip_base_vseq #(
@@ -66,11 +67,11 @@ class alert_handler_base_vseq extends cip_base_vseq #(
   endtask
 
   virtual task alert_handler_rand_wr_class_ctrl(bit [NUM_ALERT_CLASSES-1:0] lock_bit,
-                                                bit [NUM_ALERT_CLASSES-1:0] class_en = $urandom());
-    if (class_en[0]) `RAND_WRITE_CLASS_CTRL(a, lock_bit[0])
-    if (class_en[1]) `RAND_WRITE_CLASS_CTRL(b, lock_bit[1])
-    if (class_en[2]) `RAND_WRITE_CLASS_CTRL(c, lock_bit[2])
-    if (class_en[3]) `RAND_WRITE_CLASS_CTRL(d, lock_bit[3])
+                                                bit [NUM_ALERT_CLASSES-1:0] class_en);
+    `RAND_WRITE_CLASS_CTRL(a, class_en[0], lock_bit[0])
+    `RAND_WRITE_CLASS_CTRL(b, class_en[1], lock_bit[1])
+    `RAND_WRITE_CLASS_CTRL(c, class_en[2], lock_bit[2])
+    `RAND_WRITE_CLASS_CTRL(d, class_en[3], lock_bit[3])
   endtask
 
   virtual task alert_handler_wr_regwen_regs(bit [NUM_ALERT_CLASSES-1:0] regwen = 0,
@@ -155,7 +156,11 @@ class alert_handler_base_vseq extends cip_base_vseq #(
   // error: after clearing intr_state, intr_state might come back to 1 in the next cycle.
   virtual task check_alert_interrupts();
     bit [TL_DW-1:0] intr;
+    // Wait until there is no ping handshake.
+    // This will avoid the case where interrupt is set and cleared at the same cycle.
+    `DV_WAIT((cfg.alert_handler_vif.alert_ping_reqs || cfg.alert_handler_vif.esc_ping_reqs) == 0)
     csr_rd(.ptr(ral.intr_state), .value(intr));
+    `DV_WAIT((cfg.alert_handler_vif.alert_ping_reqs || cfg.alert_handler_vif.esc_ping_reqs) == 0)
     csr_wr(.ptr(ral.intr_state), .value('1));
   endtask
 
