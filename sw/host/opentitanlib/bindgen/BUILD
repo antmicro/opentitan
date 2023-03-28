@@ -12,7 +12,7 @@ cc_library(
     hdrs = ["difs.h"],
     deps = [
         "//sw/device/lib/dif:lc_ctrl",
-        "//sw/device/lib/dif:rstmgr",
+        "//sw/device/lib/dif:rstmgr_earlgrey",
     ],
 )
 
@@ -72,31 +72,32 @@ rust_bindgen_library(
     ],
 )
 
-rust_bindgen_library(
-    name = "custom_tiny",
-    bindgen_flags = [
-        "--allowlist-type=opentitan_alert_peripheral",
-        "--allowlist-type=opentitan_alert_id",
-        "--allowlist-type=opentitan_pinmux_peripheral_in",
-        "--allowlist-type=opentitan_pinmux_insel",
-        "--allowlist-type=opentitan_pinmux_mio_out",
-        "--allowlist-type=opentitan_pinmux_outsel",
-        "--allowlist-type=opentitan_direct_pads",
-        "--allowlist-type=opentitan_muxed_pads",
-        "--allowlist-type=opentitan_power_manager_wake_ups",
-        "--allowlist-type=opentitan_reset_manager_sw_resets",
-        "--allowlist-type=opentitan_power_manager_reset_requests",
-        "--allowlist-type=opentitan_gateable_clocks",
-        "--allowlist-type=opentitan_hintable_clocks",
-    ],
-    cc_lib = "//hw/top_custom_tiny/sw/autogen:top_custom_tiny",
-    header = "//hw/top_custom_tiny/sw/autogen:top_custom_tiny.h",
-    rustc_flags = [
-        "--allow=non_snake_case",
-        "--allow=non_upper_case_globals",
-        "--allow=non_camel_case_types",
-    ],
-)
+# TODO: Add rust bindings for custom_tiny
+#rust_bindgen_library(
+#    name = "custom_tiny",
+#    bindgen_flags = [
+#        "--allowlist-type=opentitan_alert_peripheral",
+#        "--allowlist-type=opentitan_alert_id",
+#        "--allowlist-type=opentitan_pinmux_peripheral_in",
+#        "--allowlist-type=opentitan_pinmux_insel",
+#        "--allowlist-type=opentitan_pinmux_mio_out",
+#        "--allowlist-type=opentitan_pinmux_outsel",
+#        "--allowlist-type=opentitan_direct_pads",
+#        "--allowlist-type=opentitan_muxed_pads",
+#        "--allowlist-type=opentitan_power_manager_wake_ups",
+#        "--allowlist-type=opentitan_reset_manager_sw_resets",
+#        "--allowlist-type=opentitan_power_manager_reset_requests",
+#        "--allowlist-type=opentitan_gateable_clocks",
+#        "--allowlist-type=opentitan_hintable_clocks",
+#    ],
+#    cc_lib = "//hw/top_custom_tiny/sw/autogen:top_custom_tiny",
+#    header = "//hw/top_custom_tiny/sw/autogen:top_custom_tiny.h",
+#    rustc_flags = [
+#        "--allow=non_snake_case",
+#        "--allow=non_upper_case_globals",
+#        "--allow=non_camel_case_types",
+#    ],
+#)
 
 rust_bindgen_library(
     name = "hardened",

@@ -170,6 +170,7 @@ opentitan_cc_library(
         "//sw/device/silicon_creator/lib/base:static_critical_epmp_state",
         "//sw/device/silicon_creator/lib/base:static_critical_sec_mmio",
         "//sw/device/silicon_creator/lib/drivers:retention_sram_{soc_config}",
+        "//sw/device/silicon_creator/lib/drivers:flash_ctrl_{soc_config}",
     ],
 )
 opentitan_cc_library(
@@ -219,6 +220,7 @@ opentitan_cc_library(
         "//sw/device/silicon_creator/lib/base:static_critical_epmp_state",
         "//sw/device/silicon_creator/lib/base:static_critical_sec_mmio",
         "//sw/device/silicon_creator/lib/drivers:retention_sram_{soc_config}",
+        "//sw/device/silicon_creator/lib/drivers:flash_ctrl_{soc_config}",
     ],
 )
 
