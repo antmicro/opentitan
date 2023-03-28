@@ -8,7 +8,7 @@ description: "Auto-generated reset manager for top_custom_tiny"
 filesets:
   files_rtl:
     depend:
-      - lowrisc:ip:rstmgr_pkg
+      - lowrisc:systems_custom_tiny:rstmgr_pkg
       - lowrisc:prim:mubi
     files:
       - rtl/autogen/rstmgr.sv
