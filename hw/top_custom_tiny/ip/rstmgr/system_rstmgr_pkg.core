@@ -9,7 +9,7 @@ filesets:
   files_rtl:
     depend:
       - lowrisc:ip:pwrmgr_pkg
-      - lowrisc:ip:rstmgr_reg
+      - lowrisc:systems_custom_tiny:rstmgr_reg
       - lowrisc:ip_interfaces:alert_handler_reg
       - lowrisc:ip:alert_handler_component
     files:

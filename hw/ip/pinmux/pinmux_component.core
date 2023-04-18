@@ -21,8 +21,8 @@ filesets:
       - lowrisc:ip:jtag_pkg
       - lowrisc:ip:usbdev
       # pinmux_wkup.sv depends on pinmux_reg_pkg.sv
-      - "fileset_top ? (ot_is_earlgrey ? (lowrisc:systems_earlgrey:pinmux_reg))"
-      - "fileset_top ? (ot_is_custom_tiny ? (lowrisc:systems_custom_tiny:pinmux_reg))"
+      - "ot_is_earlgrey ? (lowrisc:systems_earlgrey:pinmux_reg)"
+      - "ot_is_custom_tiny ? (lowrisc:systems_custom_tiny:pinmux_reg)"
       - "fileset_topgen ? (lowrisc:systems:topgen-reg-only)"
     files:
       - rtl/pinmux_pkg.sv
